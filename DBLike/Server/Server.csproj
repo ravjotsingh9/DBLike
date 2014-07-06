@@ -51,6 +51,8 @@
     </StartupObject>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.WindowsAzure.Storage, Version=3.0.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.WindowsAzure.StorageClient, Version=1.7.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -64,6 +66,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BlobAccess\Blob.cs" />
+    <Compile Include="ConnectionManager\BlobConn.cs" />
     <Compile Include="ConnectionManager\Connection.cs" />
     <Compile Include="ConnectionManager\DataBaseConn.cs" />
     <Compile Include="DatabaseAccess\Query.cs" />
