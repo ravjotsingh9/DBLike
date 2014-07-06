@@ -56,6 +56,7 @@
             // 
             // tabControl1
             // 
+            this.tabControl1.Appearance = System.Windows.Forms.TabAppearance.Buttons;
             this.tabControl1.Controls.Add(this.tbsignin);
             this.tabControl1.Controls.Add(this.tbsignup);
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
@@ -72,10 +73,10 @@
             this.tbsignin.Controls.Add(this.txtUserNametb1);
             this.tbsignin.Controls.Add(this.label4);
             this.tbsignin.Controls.Add(this.label5);
-            this.tbsignin.Location = new System.Drawing.Point(4, 22);
+            this.tbsignin.Location = new System.Drawing.Point(4, 25);
             this.tbsignin.Name = "tbsignin";
             this.tbsignin.Padding = new System.Windows.Forms.Padding(3);
-            this.tbsignin.Size = new System.Drawing.Size(341, 261);
+            this.tbsignin.Size = new System.Drawing.Size(341, 258);
             this.tbsignin.TabIndex = 0;
             this.tbsignin.Text = "Sign in";
             this.tbsignin.UseVisualStyleBackColor = true;
@@ -131,10 +132,10 @@
             this.tbsignup.Controls.Add(this.txtusernametb2);
             this.tbsignup.Controls.Add(this.label2);
             this.tbsignup.Controls.Add(this.label1);
-            this.tbsignup.Location = new System.Drawing.Point(4, 22);
+            this.tbsignup.Location = new System.Drawing.Point(4, 25);
             this.tbsignup.Name = "tbsignup";
             this.tbsignup.Padding = new System.Windows.Forms.Padding(3);
-            this.tbsignup.Size = new System.Drawing.Size(341, 261);
+            this.tbsignup.Size = new System.Drawing.Size(341, 258);
             this.tbsignup.TabIndex = 1;
             this.tbsignup.Text = "Sign up";
             this.tbsignup.UseVisualStyleBackColor = true;
