@@ -118,7 +118,7 @@
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label5);
             this.Name = "Form2";
-            this.Text = "Form2";
+            this.Text = "DBLike";
             this.ResumeLayout(false);
             this.PerformLayout();
 

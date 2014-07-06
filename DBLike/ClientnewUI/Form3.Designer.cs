@@ -67,7 +67,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnBrowsetb2);
             this.Name = "Form3";
-            this.Text = "Form3";
+            this.Text = "DBLike";
             this.ResumeLayout(false);
             this.PerformLayout();
 
