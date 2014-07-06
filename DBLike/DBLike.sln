@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "Server\Server.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "Client\Client.csproj", "{06FA70DC-3206-4F02-8974-5DB0CB9E7989}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client-newUI", "..\..\..\DBLike_201407051956\DBLike\Client-newUI\Client-newUI.csproj", "{7835F1FB-5A5D-4BCF-8953-0DD1B5CC3433}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client-newUI", "ClientnewUI\Client-newUI.csproj", "{7835F1FB-5A5D-4BCF-8953-0DD1B5CC3433}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
