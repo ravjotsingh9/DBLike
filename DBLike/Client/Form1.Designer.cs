@@ -30,7 +30,6 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tbsignin = new System.Windows.Forms.TabPage();
-            this.button1 = new System.Windows.Forms.Button();
             this.btnSignintb1 = new System.Windows.Forms.Button();
             this.txtPasstb1 = new System.Windows.Forms.TextBox();
             this.txtUserNametb1 = new System.Windows.Forms.TextBox();
@@ -46,10 +45,13 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.button2 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tbsignin.SuspendLayout();
             this.tbsignup.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -59,13 +61,12 @@
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(349, 343);
+            this.tabControl1.Size = new System.Drawing.Size(349, 287);
             this.tabControl1.TabIndex = 0;
             // 
             // tbsignin
             // 
-            this.tbsignin.Controls.Add(this.button2);
-            this.tbsignin.Controls.Add(this.button1);
+            this.tbsignin.Controls.Add(this.groupBox1);
             this.tbsignin.Controls.Add(this.btnSignintb1);
             this.tbsignin.Controls.Add(this.txtPasstb1);
             this.tbsignin.Controls.Add(this.txtUserNametb1);
@@ -74,20 +75,10 @@
             this.tbsignin.Location = new System.Drawing.Point(4, 22);
             this.tbsignin.Name = "tbsignin";
             this.tbsignin.Padding = new System.Windows.Forms.Padding(3);
-            this.tbsignin.Size = new System.Drawing.Size(341, 317);
+            this.tbsignin.Size = new System.Drawing.Size(341, 261);
             this.tbsignin.TabIndex = 0;
             this.tbsignin.Text = "Sign in";
             this.tbsignin.UseVisualStyleBackColor = true;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(25, 91);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(135, 23);
-            this.button1.TabIndex = 9;
-            this.button1.Text = "Start DBLike Service";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // btnSignintb1
             // 
@@ -143,7 +134,7 @@
             this.tbsignup.Location = new System.Drawing.Point(4, 22);
             this.tbsignup.Name = "tbsignup";
             this.tbsignup.Padding = new System.Windows.Forms.Padding(3);
-            this.tbsignup.Size = new System.Drawing.Size(341, 317);
+            this.tbsignup.Size = new System.Drawing.Size(341, 261);
             this.tbsignup.TabIndex = 1;
             this.tbsignup.Text = "Sign up";
             this.tbsignup.UseVisualStyleBackColor = true;
@@ -219,21 +210,40 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.button2);
+            this.groupBox1.Controls.Add(this.button1);
+            this.groupBox1.Location = new System.Drawing.Point(105, 86);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(219, 146);
+            this.groupBox1.TabIndex = 11;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Service Controller";
+            // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(189, 91);
+            this.button2.Location = new System.Drawing.Point(29, 80);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(135, 23);
-            this.button2.TabIndex = 10;
+            this.button2.Size = new System.Drawing.Size(164, 48);
+            this.button2.TabIndex = 12;
             this.button2.Text = "Stop DBLike Service";
             this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(29, 26);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(164, 48);
+            this.button1.TabIndex = 11;
+            this.button1.Text = "Start DBLike Service";
+            this.button1.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(373, 367);
+            this.ClientSize = new System.Drawing.Size(373, 319);
             this.Controls.Add(this.tabControl1);
             this.MaximizeBox = false;
             this.Name = "Form1";
@@ -243,6 +253,7 @@
             this.tbsignin.PerformLayout();
             this.tbsignup.ResumeLayout(false);
             this.tbsignup.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -266,8 +277,9 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button btnSignintb1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button1;
     }
 }
 
