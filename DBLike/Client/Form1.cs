@@ -14,8 +14,7 @@ namespace Client
 {
     public partial class Form1 : Form
     {
-
-        Thread btnclicked;
+        Threads.FileSysWatchDog watchdog;
         public Form1()
         {
             InitializeComponent();
@@ -30,28 +29,15 @@ namespace Client
         
         private void button1_Click(object sender, EventArgs e)
         {
-            btnclicked = new Thread(new ThreadStart(servicestart));
-            btnclicked.Start();
+            watchdog = new Threads.FileSysWatchDog();
+            watchdog.start();
             button1.Enabled = false;
             button2.Enabled = true;
         }
-        private void servicestart()
-        {
-            DateTime lastedited = File.GetLastWriteTime(@"textDoc.txt");
-            while (true)
-            {
-                if (lastedited < File.GetLastWriteTime(@"textDoc.txt"))
-                {
-                    lastedited = File.GetLastWriteTime(@"textDoc.txt");
-                    MessageBox.Show("filechanged!");
-                    break;
-                }
-            }
-            btnclicked.Abort();
-        }
+        
         private void button2_Click(object sender, EventArgs e)
         {
-            btnclicked.Abort();
+            watchdog.stop();
             button1.Enabled = true;
             button2.Enabled = false;
         }
