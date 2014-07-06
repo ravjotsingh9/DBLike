@@ -8,5 +8,17 @@ namespace Client.Threads
 {
     class Uploader
     {
+        public void start()
+        {
+
+        }
+        public void stop()
+        {
+
+        }
+        private void threadStartFun()
+        {
+
+        }
     }
 }

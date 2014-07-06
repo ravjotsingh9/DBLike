@@ -8,5 +8,17 @@ namespace Server.Threads
 {
     class ServiceUploadReq
     {
+        public void start()
+        {
+
+        }
+        public void stop()
+        {
+
+        }
+        private void threadStartFun()
+        {
+
+        }
     }
 }

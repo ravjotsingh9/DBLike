@@ -8,5 +8,17 @@ namespace Server.Threads
 {
     class Service_Notification
     {
+        public void start()
+        {
+
+        }
+        public void stop()
+        {
+
+        }
+        private void threadStartFun()
+        {
+
+        }
     }
 }

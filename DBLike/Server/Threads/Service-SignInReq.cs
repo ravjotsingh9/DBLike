@@ -8,5 +8,17 @@ namespace Server.Threads
 {
     class ServiceSignInReq
     {
+        public void start()
+        {
+
+        }
+        public void stop()
+        {
+
+        }
+        private void threadStartFun()
+        {
+
+        }
     }
 }

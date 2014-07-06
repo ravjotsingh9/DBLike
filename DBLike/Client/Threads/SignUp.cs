@@ -8,5 +8,17 @@ namespace Client.Threads
 {
     class SignUp
     {
+        public void start()
+        {
+
+        }
+        public void stop()
+        {
+
+        }
+        private void threadStartFun()
+        {
+
+        }
     }
 }
