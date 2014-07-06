@@ -15,8 +15,8 @@ namespace Server.DatabaseAccess
         //private string userName;
         //private string password ;
         //private string dataSource ;
-        public SqlConnection conn;
-        public SqlConnectionStringBuilder connString1Builder;
+        private SqlConnection conn;
+        private SqlConnectionStringBuilder connString1Builder;
 
         /// <summary>
         ///  Constructor --- setup information for DB
@@ -33,7 +33,7 @@ namespace Server.DatabaseAccess
         /// initialize database info according to the dbNumber
         /// </summary>
         /// <param name="number"></param>
-        public void DBNo(int number)
+        private void DBNo(int number)
         {
             if (number == 1)
             {
