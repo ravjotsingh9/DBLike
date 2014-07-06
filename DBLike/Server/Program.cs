@@ -16,26 +16,7 @@ namespace Server
         DBConnection test;
         static void Main()
         {
-            
-       
-            
-            try
-            {
-               test = new DBConnection(1);
-               test.DBConnect();
-               Console.WriteLine("yy");
-               Console.ReadLine();
-            }
-            catch
-            {
-
-            }
-            finally
-            {
-                test.DBClose();
-            }
-            
-        
+                 
             
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
