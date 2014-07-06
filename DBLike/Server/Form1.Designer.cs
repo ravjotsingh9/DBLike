@@ -35,7 +35,7 @@
             // 
             // btnStart
             // 
-            this.btnStart.Location = new System.Drawing.Point(9, 75);
+            this.btnStart.Location = new System.Drawing.Point(9, 50);
             this.btnStart.Name = "btnStart";
             this.btnStart.Size = new System.Drawing.Size(130, 178);
             this.btnStart.TabIndex = 0;
@@ -44,7 +44,7 @@
             // 
             // btnStop
             // 
-            this.btnStop.Location = new System.Drawing.Point(145, 75);
+            this.btnStop.Location = new System.Drawing.Point(145, 50);
             this.btnStop.Name = "btnStop";
             this.btnStop.Size = new System.Drawing.Size(130, 178);
             this.btnStop.TabIndex = 1;
@@ -54,7 +54,7 @@
             // lblServerStatus
             // 
             this.lblServerStatus.AutoSize = true;
-            this.lblServerStatus.Location = new System.Drawing.Point(100, 32);
+            this.lblServerStatus.Location = new System.Drawing.Point(100, 20);
             this.lblServerStatus.Name = "lblServerStatus";
             this.lblServerStatus.Size = new System.Drawing.Size(83, 13);
             this.lblServerStatus.TabIndex = 2;
@@ -64,12 +64,12 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 261);
+            this.ClientSize = new System.Drawing.Size(284, 238);
             this.Controls.Add(this.lblServerStatus);
             this.Controls.Add(this.btnStop);
             this.Controls.Add(this.btnStart);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "DBLike Server";
             this.ResumeLayout(false);
             this.PerformLayout();
 
