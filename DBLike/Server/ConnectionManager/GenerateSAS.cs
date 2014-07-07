@@ -24,9 +24,9 @@ namespace Server.ConnectionManager
         public string GetContainerSasUri(CloudBlobClient blobclient, CloudBlobContainer container, string policyName)
         {
             
-            if (policyName == "RWL")
+            if (policyName == "RWLD")
             {
-                CreateSASRWL(blobclient, container, policyName);
+                CreateSASRWLD(blobclient, container, policyName);
 
             }
             

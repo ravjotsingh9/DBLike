@@ -13,20 +13,20 @@ namespace Server.ConnectionManager
     {
         
         /// <summary>
-        /// Create share accesss policy for READ, WRITE AND LIST
+        /// Create share accesss policy for READ, WRITE, LIST and DELETE
         /// </summary>
         /// <param name="blobClient"></param>
         /// <param name="container"></param>
         /// <param name="policyName"></param>
-        private void CreateSASRWL(CloudBlobClient blobClient, CloudBlobContainer container, string policyName)
+        private void CreateSASRWLD(CloudBlobClient blobClient, CloudBlobContainer container, string policyName)
         {
-            policyName = "RWL";
+            policyName = "RWLD";
             
             //Create a new stored access policy and define its constraints.
             SharedAccessBlobPolicy sharedPolicy = new SharedAccessBlobPolicy()
             {
                 SharedAccessExpiryTime = DateTime.UtcNow.AddHours(1),
-                Permissions = SharedAccessBlobPermissions.Read | SharedAccessBlobPermissions.Write | SharedAccessBlobPermissions.List
+                Permissions = SharedAccessBlobPermissions.Read | SharedAccessBlobPermissions.Write | SharedAccessBlobPermissions.List|SharedAccessBlobPermissions.Delete
             };
 
             //Get the container's existing permissions.
