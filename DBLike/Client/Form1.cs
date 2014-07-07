@@ -42,6 +42,5 @@ namespace Client
             button2.Enabled = false;
         }
 
-        
     }
 }
