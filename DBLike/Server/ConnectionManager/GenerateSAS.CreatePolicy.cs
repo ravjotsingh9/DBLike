@@ -17,13 +17,13 @@ namespace Server.ConnectionManager
         /// </summary>
         /// <param name="blobClient"></param>
         /// <param name="container"></param>
-        /// <param name="policyName"></param>
+        /// <param name="permissionType"></param>
         private SharedAccessBlobPolicy CreateSASPermission(string permissionType)
         {
             
             SharedAccessBlobPolicy sasConstraints = new SharedAccessBlobPolicy();
             sasConstraints.SharedAccessExpiryTime = DateTime.UtcNow.AddHours(1);
-            if (permissionType == "WRLD")
+            if (permissionType == "RWLD")
             {
                 sasConstraints.Permissions = SharedAccessBlobPermissions.Write | SharedAccessBlobPermissions.List | SharedAccessBlobPermissions.Read | SharedAccessBlobPermissions.Delete;
             }

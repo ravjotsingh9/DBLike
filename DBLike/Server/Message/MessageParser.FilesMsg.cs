@@ -10,10 +10,10 @@ namespace Server.Message
     {
         public string userName { get; set; }
         public string password { get; set; }
-        public List<string> filePathInSynFolder { get; set; }
-        public List<DateTime> fileTimeStamps { get; set; }
-        public List<string> fileHashValue { get; set; }
-        
+        public string filePathInSynFolder { get; set; }
+        public DateTime fileTimeStamps { get; set; }
+        public string fileHashValue { get; set; }
+        /**
         /// <summary>
         /// parse protocol
         /// +----------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -38,6 +38,31 @@ namespace Server.Message
                 i++;
                 w = words[i];
             }
+
+        }
+      **/
+
+        /// <summary>
+        /// parse protocol
+        /// +-----------------------------------------------------------------------------------+
+        /// |upload|:|userName|:|password|:|File path|:|File Hash Value|:|File Timestamp|:|<EOF>|
+        /// +-----------------------------------------------------------------------------------+
+        /// </summary>
+        /// <param name="words"></param>
+        public void uploadParseMsg(string[] words)
+        {
+            userName = words[1];
+            password = words[2];
+            string w = words[3];
+            int i = 3;
+           
+            filePathInSynFolder = words[4];
+            fileHashValue = words[5];
+            // String to DateTime
+            DateTime MyDateTime = new DateTime();
+            MyDateTime = DateTime.ParseExact(words[6], "MM/dd/yyyy HH:mm:ss",
+                                                null);
+            fileTimeStamps = MyDateTime;
 
         }
     }

@@ -19,7 +19,7 @@ namespace Server.ConnectionManager
         /// </summary>
         /// <param name="blobclient"></param>
         /// <param name="container"></param>
-        /// <param name="policyName"></param>
+        /// <param name="permissionType">READ,WRITE,LIST OR DELETE e.g. RWLD</param>
         /// <returns>Uri for container</returns>
         public string GetContainerSasUri(CloudBlobContainer container, string permissionType)
         {

@@ -8,6 +8,7 @@ namespace Client.MessageClasses
 {
     class MsgUpload
     {
+       /**
         /// <summary>
         /// upload protocol
         /// +----------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -32,6 +33,36 @@ namespace Client.MessageClasses
                 msg += fileTimeStamps[i].ToString("MM/dd/yyyy HH:mm:ss") + ":";
 
             }
+
+            msg += "<EOF>";
+
+            return msg;
+        }
+      **/
+
+        /// <summary>
+        /// upload protocol
+        /// +-----------------------------------------------------------------------------------+
+        /// |upload|:|userName|:|password|:|File path|:|File Hash Value|:|File Timestamp|:|<EOF>|
+        /// +-----------------------------------------------------------------------------------+
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="passWord"></param>
+        /// <param name="filePathInSynFolder"></param>
+        /// <param name="timeStamps"></param>
+        /// <param name="fileHashValue"></param>
+        /// <returns></returns>
+
+        public string uploadMsg(string userName, string passWord, string filePathInSynFolder, DateTime fileTimeStamps, string fileHashValue)
+        {
+            string msg = "upload:" + userName + ":" + passWord + ":";
+            
+           
+                msg += filePathInSynFolder+ ":";
+                msg += fileHashValue + ":";
+                msg += fileTimeStamps.ToString("MM/dd/yyyy HH:mm:ss") + ":";
+
+          
 
             msg += "<EOF>";
 

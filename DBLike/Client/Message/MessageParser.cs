@@ -6,7 +6,15 @@ using System.Threading.Tasks;
 
 namespace Client.Message
 {
-    class MessageParser
+    public partial class MessageParser
     {
+        public MessageParser(string msg)
+        {
+            string[] words = msg.Split(':');
+            if (words[0] == "OK" && words[1] == "upload")
+            {
+                uploadParseMsg(words);
+            }
+        }
     }
 }
