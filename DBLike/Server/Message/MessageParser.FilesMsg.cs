@@ -13,6 +13,7 @@ namespace Server.Message
         public string filePathInSynFolder { get; set; }
         public DateTime fileTimeStamps { get; set; }
         public string fileHashValue { get; set; }
+        public string fileName { get; set; }
         /**
         /// <summary>
         /// parse protocol
@@ -63,6 +64,8 @@ namespace Server.Message
             MyDateTime = DateTime.ParseExact(words[5], "MM/dd/yyyy HH:mm:ss",
                                                 null);
             fileTimeStamps = MyDateTime;
+            string[] splitTogetFileName = filePathInSynFolder.Split('\\');
+            fileName = splitTogetFileName[splitTogetFileName.Count() - 1];
 
         }
     }

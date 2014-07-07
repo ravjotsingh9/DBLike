@@ -43,7 +43,7 @@ namespace Client.MessageClasses
         /// <summary>
         /// upload protocol
         /// +---------------------------------------------------------------------------------+
-        /// |upload:<userName>:<password>:<File path>:<File Hash Value>:<File Timestamp>:<EOF>|
+        /// |upload:<userName>:<password>:<File path in sync folder>:<File Hash Value>:<File Timestamp>:<EOF>|
         /// +---------------------------------------------------------------------------------+
         /// </summary>
         /// <param name="userName"></param>

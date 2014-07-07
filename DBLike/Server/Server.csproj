@@ -73,6 +73,7 @@
     <Compile Include="ConnectionManager\GenerateSAS.CreatePolicy.cs" />
     <Compile Include="ConnectionManager\GenerateSAS.cs" />
     <Compile Include="DatabaseAccess\Query.cs" />
+    <Compile Include="DatabaseAccess\Query.Files.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>

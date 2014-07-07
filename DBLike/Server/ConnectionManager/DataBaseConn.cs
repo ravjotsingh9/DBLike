@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Server.ConnectionManager
 {
-    class DataBaseConn
+    public class DataBaseConn
     {
         /// <summary>
         /// Database Info

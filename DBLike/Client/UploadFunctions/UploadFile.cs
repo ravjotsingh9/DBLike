@@ -19,12 +19,21 @@ namespace Client.UploadFunctions
         /// <param name="sasUri"></param>
         /// <param name="localFilePath"></param>
         /// <param name="filePathInSyncFolder"></param>
-        public void UploadFileWithContainerUri(string sasUri, string localFilePath, string filePathInSyncFolder )
+        public bool UploadFileWithContainerUri(string sasUri, string localFilePath, string filePathInSyncFolder )
         {
-            CloudBlobContainer container = new CloudBlobContainer(new Uri(sasUri));
-            CloudBlockBlob blob = container.GetBlockBlobReference(filePathInSyncFolder);
-            blob.UploadFromFile(localFilePath, FileMode.Open);
-            
+            try
+            {
+                CloudBlobContainer container = new CloudBlobContainer(new Uri(sasUri));
+                CloudBlockBlob blob = container.GetBlockBlobReference(filePathInSyncFolder);
+                blob.UploadFromFile(localFilePath, FileMode.Open);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
+            }
+
+            return true;
         }
 
         public void UploadFileWithBlobUri()

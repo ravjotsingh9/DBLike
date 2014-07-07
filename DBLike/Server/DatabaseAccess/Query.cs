@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Server.DatabaseAccess
 {
-    class Query
+    public partial class Query
     {
     }
 }
