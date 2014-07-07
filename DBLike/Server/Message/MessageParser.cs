@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Server.Message
 {
-    class MessageParser
+    public partial class MessageParser
     {
     }
 }
