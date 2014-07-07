@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Client.MessageProcessor
 {
-    class CreateMsg
+    public partial class CreateMsg
     {
     }
 }
