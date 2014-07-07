@@ -19,9 +19,9 @@ namespace Server.BlobAccess
         /// <returns></returns>
         public CloudBlobContainer getClientContainer(CloudBlobClient blobClient,string clientContainerName)
         {
-           //Get a reference to a container
+           //Get a reference to a container and create container for first time use user
             CloudBlobContainer container = blobClient.GetContainerReference(clientContainerName);
-
+            container.CreateIfNotExists();
             return container;
         }
     }
