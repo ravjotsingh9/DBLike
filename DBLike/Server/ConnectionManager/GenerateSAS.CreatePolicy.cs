@@ -18,7 +18,7 @@ namespace Server.ConnectionManager
         /// <param name="blobClient"></param>
         /// <param name="container"></param>
         /// <param name="policyName"></param>
-        public void CreateSASRWL(CloudBlobClient blobClient, CloudBlobContainer container, string policyName)
+        private void CreateSASRWL(CloudBlobClient blobClient, CloudBlobContainer container, string policyName)
         {
             policyName = "RWL";
             
