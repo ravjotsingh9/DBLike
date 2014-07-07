@@ -15,29 +15,41 @@ namespace Server.ConnectionManager
         //private CloudBlobClient blobclient;
 
         /// <summary>
-        /// Get Container's Sas Uri
+        /// Get Container's SaS Uri
         /// </summary>
         /// <param name="blobclient"></param>
         /// <param name="container"></param>
         /// <param name="policyName"></param>
         /// <returns>Uri for container</returns>
-        public string GetContainerSasUri(CloudBlobClient blobclient, CloudBlobContainer container, string policyName)
+        public string GetContainerSasUri(CloudBlobContainer container, string permissionType)
         {
-            
-            if (policyName == "RWLD")
-            {
-                CreateSASRWLD(blobclient, container, policyName);
+            SharedAccessBlobPolicy sasConstraints = CreateSASPermission(permissionType);
 
-            }
-            
+                    
             //Generate the shared access signature on the container. In this case, all of the constraints for the 
             //shared access signature are specified on the stored access policy.
-            string sasContainerToken = container.GetSharedAccessSignature(null, policyName);
+            string sasContainerToken = container.GetSharedAccessSignature(sasConstraints);
 
             //Return the URI string for the container, including the SAS token.
             return container.Uri + sasContainerToken;
         }
 
+        /// <summary>
+        /// Get blob's SaS Uri
+        /// </summary>
+        /// <param name="blob"></param>
+        /// <param name="permissionType"></param>
+        /// <returns></returns>
+        public string GetContainerBlobUri(CloudBlockBlob blob, string permissionType)
+        {
+            SharedAccessBlobPolicy sasConstraints = CreateSASPermission(permissionType);
+
+            //Generate the shared access signature on the blob, setting the constraints directly on the signature.
+            string sasBlobToken = blob.GetSharedAccessSignature(sasConstraints);
+
+            //Return the URI string for the container, including the SAS token.
+            return blob.Uri + sasBlobToken;
+        }
         
 
     }

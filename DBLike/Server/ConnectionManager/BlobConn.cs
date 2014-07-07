@@ -10,7 +10,7 @@ using Microsoft.WindowsAzure.Storage.Blob;
 
 namespace Server.ConnectionManager
 {
-    class BlobConn
+    public class BlobConn
     {
         private string accountName;
         private string accountKey;
