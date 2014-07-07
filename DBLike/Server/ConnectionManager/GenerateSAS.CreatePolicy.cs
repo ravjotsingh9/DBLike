@@ -13,29 +13,27 @@ namespace Server.ConnectionManager
     {
         
         /// <summary>
-        /// Create share accesss policy for READ, WRITE, LIST and DELETE
+        /// Create share accesss permission
         /// </summary>
         /// <param name="blobClient"></param>
         /// <param name="container"></param>
         /// <param name="policyName"></param>
-        private void CreateSASRWLD(CloudBlobClient blobClient, CloudBlobContainer container, string policyName)
+        private SharedAccessBlobPolicy CreateSASPermission(string permissionType)
         {
-            policyName = "RWLD";
             
-            //Create a new stored access policy and define its constraints.
-            SharedAccessBlobPolicy sharedPolicy = new SharedAccessBlobPolicy()
+            SharedAccessBlobPolicy sasConstraints = new SharedAccessBlobPolicy();
+            sasConstraints.SharedAccessExpiryTime = DateTime.UtcNow.AddHours(1);
+            if (permissionType == "WRLD")
             {
-                SharedAccessExpiryTime = DateTime.UtcNow.AddHours(1),
-                Permissions = SharedAccessBlobPermissions.Read | SharedAccessBlobPermissions.Write | SharedAccessBlobPermissions.List|SharedAccessBlobPermissions.Delete
-            };
-
-            //Get the container's existing permissions.
-            BlobContainerPermissions permissions = new BlobContainerPermissions();
-
-            //Add the new policy to the container's permissions.
-            permissions.SharedAccessPolicies.Clear();
-            permissions.SharedAccessPolicies.Add(policyName, sharedPolicy);
-            container.SetPermissions(permissions);
+                sasConstraints.Permissions = SharedAccessBlobPermissions.Write | SharedAccessBlobPermissions.List | SharedAccessBlobPermissions.Read | SharedAccessBlobPermissions.Delete;
+            }
+            else
+            {
+                sasConstraints.Permissions = SharedAccessBlobPermissions.None;
+            }
+            
+            
+            return sasConstraints;
         }
     }
 }
