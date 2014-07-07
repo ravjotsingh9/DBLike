@@ -61,6 +61,7 @@
     <Compile Include="MessageClasses\MsgSignUp.cs" />
     <Compile Include="MessageClasses\MsgUpload.cs" />
     <Compile Include="Message\CreateMsg.cs" />
+    <Compile Include="Message\CreateMsg.FilesMsg.cs" />
     <Compile Include="Message\MessageParser.cs" />
     <Compile Include="PollFunction\Poll.cs" />
     <Compile Include="Program.cs" />

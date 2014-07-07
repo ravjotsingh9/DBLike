@@ -13,9 +13,13 @@ namespace Client.Threads
     {
         Thread btnclicked;
 
-        public void start()
+        public FileSysWatchDog()
         {
             btnclicked = new Thread(new ThreadStart(servicestart));
+        }
+
+        public void start()
+        {
             btnclicked.Start();
         }
         public void stop()

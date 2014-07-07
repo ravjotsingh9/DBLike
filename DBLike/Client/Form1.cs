@@ -18,6 +18,7 @@ namespace Client
         public Form1()
         {
             InitializeComponent();
+            watchdog = new Threads.FileSysWatchDog();
             button2.Enabled = false;
         }
 
@@ -29,7 +30,6 @@ namespace Client
         
         private void button1_Click(object sender, EventArgs e)
         {
-            watchdog = new Threads.FileSysWatchDog();
             watchdog.start();
             button1.Enabled = false;
             button2.Enabled = true;
@@ -42,7 +42,6 @@ namespace Client
             button2.Enabled = false;
         }
 
-        
         
     }
 }

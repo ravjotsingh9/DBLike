@@ -40,7 +40,6 @@
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.tbsignup = new System.Windows.Forms.TabPage();
-            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.btnCreateAcctb2 = new System.Windows.Forms.Button();
             this.btnBrowsetb2 = new System.Windows.Forms.Button();
@@ -50,6 +49,7 @@
             this.txtusernametb2 = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.tabControl1.SuspendLayout();
             this.tbsignin.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -155,6 +155,7 @@
             this.button2.TabIndex = 12;
             this.button2.Text = "Stop DBLike Service";
             this.button2.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button2_Click);
             // 
             // button1
             // 
@@ -164,6 +165,7 @@
             this.button1.TabIndex = 11;
             this.button1.Text = "Start DBLike Service";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // tbsignup
             // 
@@ -175,10 +177,6 @@
             this.tbsignup.TabIndex = 1;
             this.tbsignup.Text = "Sign up";
             this.tbsignup.UseVisualStyleBackColor = true;
-            // 
-            // openFileDialog1
-            // 
-            this.openFileDialog1.FileName = "openFileDialog1";
             // 
             // groupBox3
             // 
@@ -261,6 +259,10 @@
             this.label1.Size = new System.Drawing.Size(60, 13);
             this.label1.TabIndex = 8;
             this.label1.Text = "User Name";
+            // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
             // 
             // Form1
             // 
