@@ -14,9 +14,9 @@ namespace Client.Message
         
         /// <summary>
         /// parse protocol
-        /// +--------------------------------------------------------------------+
-        /// |OK|:|upload|:|File path|:|File Container Uri|:|File Blob Uri|:|<EOF>|
-        /// +--------------------------------------------------------------------+
+        /// +------------------------------------------------------------------+
+        /// |OK:<upload>:<File path>:<File Container Uri>:<File Blob Uri>:<EOF>|
+        /// +------------------------------------------------------------------+
         /// </summary>
         /// <param name="words"></param>
         public void uploadParseMsg(string[] words)

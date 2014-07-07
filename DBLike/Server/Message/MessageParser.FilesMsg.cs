@@ -44,23 +44,23 @@ namespace Server.Message
 
         /// <summary>
         /// parse protocol
-        /// +-----------------------------------------------------------------------------------+
-        /// |upload|:|userName|:|password|:|File path|:|File Hash Value|:|File Timestamp|:|<EOF>|
-        /// +-----------------------------------------------------------------------------------+
+        /// +---------------------------------------------------------------------------------+
+        /// |upload:<userName>:<password>:<File path>:<File Hash Value>:<File Timestamp>:<EOF>|
+        /// +---------------------------------------------------------------------------------+
         /// </summary>
         /// <param name="words"></param>
         public void uploadParseMsg(string[] words)
         {
             userName = words[1];
             password = words[2];
-            string w = words[3];
-            int i = 3;
            
-            filePathInSynFolder = words[4];
-            fileHashValue = words[5];
+           
+            filePathInSynFolder = words[3];
+            fileHashValue = words[4];
             // String to DateTime
             DateTime MyDateTime = new DateTime();
-            MyDateTime = DateTime.ParseExact(words[6], "MM/dd/yyyy HH:mm:ss",
+            
+            MyDateTime = DateTime.ParseExact(words[5], "MM/dd/yyyy HH:mm:ss",
                                                 null);
             fileTimeStamps = MyDateTime;
 

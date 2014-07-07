@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Client.MessageClasses
 {
-    class MsgUpload
+    public class MsgUpload
     {
        /**
         /// <summary>
@@ -42,9 +42,9 @@ namespace Client.MessageClasses
 
         /// <summary>
         /// upload protocol
-        /// +-----------------------------------------------------------------------------------+
-        /// |upload|:|userName|:|password|:|File path|:|File Hash Value|:|File Timestamp|:|<EOF>|
-        /// +-----------------------------------------------------------------------------------+
+        /// +---------------------------------------------------------------------------------+
+        /// |upload:<userName>:<password>:<File path>:<File Hash Value>:<File Timestamp>:<EOF>|
+        /// +---------------------------------------------------------------------------------+
         /// </summary>
         /// <param name="userName"></param>
         /// <param name="passWord"></param>
@@ -55,12 +55,12 @@ namespace Client.MessageClasses
 
         public string uploadMsg(string userName, string passWord, string filePathInSynFolder, DateTime fileTimeStamps, string fileHashValue)
         {
-            string msg = "upload:" + userName + ":" + passWord + ":";
-            
-           
-                msg += filePathInSynFolder+ ":";
-                msg += fileHashValue + ":";
-                msg += fileTimeStamps.ToString("MM/dd/yyyy HH:mm:ss") + ":";
+            string msg = "upload:<" + userName + ">:<" + passWord + ">:";
+
+
+                msg += "<" + filePathInSynFolder + ">:";
+                msg += "<" + fileHashValue + ">:";
+                msg += "<" + fileTimeStamps.ToString("MM/dd/yyyy HH:mm:ss") + ">:";
 
           
 
