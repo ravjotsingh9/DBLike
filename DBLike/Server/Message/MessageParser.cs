@@ -8,5 +8,13 @@ namespace Server.Message
 {
     public partial class MessageParser
     {
+        public MessageParser(string msg)
+        {
+            string[] words = msg.Split(':');
+            if (words[0] == "upload")
+            {
+                uploadParseMsg(words);
+            }
+        }
     }
 }
