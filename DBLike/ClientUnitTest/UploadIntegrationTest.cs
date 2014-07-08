@@ -21,8 +21,8 @@ namespace ClientUnitTest
             //2 Client.cs send upload msg to server
             Client.Message.CreateMsg uploadM = new Client.Message.CreateMsg();
             Client.LocalFileSysAccess.getFileAttributes att = new Client.LocalFileSysAccess.getFileAttributes();
-            string syncFolderPath = "ddddd.txt";
-            string fileLocalPath = "C:\\Users\\yi-man\\Desktop\\testFolder\\ddddd.txt";
+            string syncFolderPath = "folder\\ddddd.txt";
+            string fileLocalPath = "C:\\Users\\yi-man\\Desktop\\testFolder\\folder\\ddddd.txt";
             DateTime time = att.getTimeStamp(fileLocalPath);
             string md5r = att.getFileMD5Value(fileLocalPath);
             string msg = uploadM.uploadMsg("blob","123456",syncFolderPath,time,md5r);
