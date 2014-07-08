@@ -19,7 +19,8 @@ namespace Client.UploadFunctions
         /// <param name="sasUri"></param>
         /// <param name="localFilePath"></param>
         /// <param name="filePathInSyncFolder"></param>
-        public bool UploadFileWithContainerUri(string sasUri, string localFilePath, string filePathInSyncFolder,string fileHashVaule, DateTime fileTimestamp )
+        public bool UploadFileWithContainerUri(string sasUri, string localFilePath, 
+            string filePathInSyncFolder,string fileHashVaule, DateTime fileTimestamp )
         {
             try
             {
