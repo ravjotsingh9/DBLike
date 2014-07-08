@@ -10,13 +10,22 @@ namespace Client.LocalFileSysAccess
 {
     public class getFileAttributes
     {
-        public DateTime getTimeStamp(string filePath){
+        public DateTime lastModified { get; set; }
+        public string md5Value { get; set; }
+
+        public getFileAttributes(string filePath)
+        {
+            getTimeStamp(filePath);
+            getFileMD5Value(filePath);
+        }
+        
+        private void getTimeStamp(string filePath){
             
-            DateTime lastModified = System.IO.File.GetLastWriteTime(filePath);
-            return lastModified;
+            lastModified = System.IO.File.GetLastWriteTime(filePath);
+            
         }
 
-        public string getFileMD5Value(string filePath)
+        private void getFileMD5Value(string filePath)
         {
            
             MD5 md5Hasher = MD5.Create();
@@ -36,10 +45,8 @@ namespace Client.LocalFileSysAccess
                 buffer[i / 2] = Convert.ToByte(Convert.ToInt32(hexString.Substring(i, 2), 16));
                 i += 1;
             }
-            string res = Convert.ToBase64String(buffer);
+            md5Value = Convert.ToBase64String(buffer);
                 
-            
-            return res;
         }
     }
 }

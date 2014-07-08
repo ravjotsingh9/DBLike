@@ -26,7 +26,7 @@ namespace Client.UploadFunctions
                 CloudBlobContainer container = new CloudBlobContainer(new Uri(sasUri));
                 CloudBlockBlob blob = container.GetBlockBlobReference(filePathInSyncFolder);
                 blob.UploadFromFile(localFilePath, FileMode.Open);
-                blob.Metadata["hashValu"] = fileHashVaule;
+                blob.Metadata["hashValue"] = fileHashVaule;
                 blob.Metadata["timestamp"] = fileTimestamp.ToString("MM/dd/yyyy HH:mm:ss");
                 blob.Metadata["filePath"] = filePathInSyncFolder;
                 blob.SetMetadata();
