@@ -11,17 +11,35 @@ namespace Client.LocalDbAccess
     {
         public bool writetofile(string pathofFoldertoSync)
         {
-            string path = Directory.GetCurrentDirectory(); 
-            System.IO.StreamWriter file = new System.IO.StreamWriter(path + "//dblike.txt", false);
-            file.Write(pathofFoldertoSync);
-            return true;
+            string path = Directory.GetCurrentDirectory();
+            path += @"\dblike.txt";
+            if (!File.Exists(path))
+            {
+                System.IO.StreamWriter file = new System.IO.StreamWriter(path);
+                file.WriteLine(pathofFoldertoSync);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
-        public bool readfromfile()
-        {/*
-            string path = System.Reflection.Assembly.GetExecutingAssembly().Location;
-            System.IO.StreamReader file = new System.IO.StreamReader("c:\\test.txt");
-          */
-            return true;
+        public string readfromfile()
+        {
+            String line = null;
+            String path = Directory.GetCurrentDirectory();
+            path += @"\dblike.txt";
+            if (File.Exists(path))
+            {
+                StreamReader file = new StreamReader(path);
+                line = file.ReadLine();
+            }
+            else
+            {
+                line = "File doesnot exists";
+            }
+
+            return line;
         }
     }
 }
