@@ -99,6 +99,7 @@
     <Compile Include="Threads\Service-SignInReq.cs" />
     <Compile Include="Threads\Service-SignUpReq.cs" />
     <Compile Include="Threads\Service-UploadReq.cs" />
+    <Compile Include="Threads\Service-PollReq.cs" />
     <Compile Include="UserAuth\SignUpFunction.cs" />
     <Compile Include="UserAuth\SignInFunctions.cs" />
     <EmbeddedResource Include="Form1.resx">
