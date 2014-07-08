@@ -17,9 +17,22 @@ namespace Client
     public partial class Form1 : Form
     {
         Threads.FileSysWatchDog watchdog;
+        delegate void changeStatetoSignedUp();
+        public void enableServiceController()
+        {
+            changeStatetoSignedUp change = new changeStatetoSignedUp(enableController);
+            this.Invoke(change);
+        }
+        void enableController()
+        {
+            groupBox1.Enabled = true;
+        }
+
+
         public Form1()
         {
             InitializeComponent();
+            groupBox1.Enabled = false;
             watchdog = new Threads.FileSysWatchDog();
             button2.Enabled = false;
         }
@@ -46,22 +59,10 @@ namespace Client
 
         private void btnCreateAcctb2_Click(object sender, EventArgs e)
         {
-            /*
-            ProcessStartInfo startInfo = new ProcessStartInfo();
-
-            startInfo.FileName = "Myapplication.exe";
-
-            startInfo.WindowStyle = ProcessWindowStyle.Hidden;
-
-            Process process = new Process();
-
-            process.StartInfo = startInfo;
-
-            process.Start();
-             */ 
-            
             Threads.SignUp signupthread = new Threads.SignUp();
-            signupthread.start(); 
+            LocalDbAccess.LocalDB file = new LocalDbAccess.LocalDB();
+            file.writetofile(txtfoldertb2.Text);
+            signupthread.start(txtusernametb2.Text, txtpasstb2.Text); 
         }
 
         private void btnSignintb1_Click(object sender, EventArgs e)

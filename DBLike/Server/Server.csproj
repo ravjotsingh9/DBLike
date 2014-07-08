@@ -81,7 +81,6 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="MessageClasses\MsgRespSignIn.cs" />
-    <Compile Include="MessageClasses\MsgRespSignUp.cs" />
     <Compile Include="MessageClasses\MsgRespUpload.cs" />
     <Compile Include="Message\CreateMsg.cs" />
     <Compile Include="Message\CreateMsg.Files.cs" />

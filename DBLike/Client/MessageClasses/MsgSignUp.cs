@@ -8,11 +8,16 @@ namespace Client.MessageClasses
 {
     public class MsgSignUp
     {
+        public class req
+        {
+            public string userName { get; set; }
+            public string psw { get; set; }
+        }
 
-        public string userName { get; set; }
-        public string psw { get; set; }
-
-        // ack from server
-        public string ack { get; set; }
+        public class resp
+        {
+            // ack from server
+            public string ack { get; set; }
+        }
     }
 }

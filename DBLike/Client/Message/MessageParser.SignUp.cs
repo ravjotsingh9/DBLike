@@ -9,7 +9,7 @@ namespace Client.Message
     public partial class MessageParser
     {
 
-        public Client.MessageClasses.MsgSignUp signUpParseMessage(string msg)
+        public Client.MessageClasses.MsgSignUp.resp signUpRespParser(string msg)
         {
             // take a string(received from server), return an object
             /// sign up response protocol
@@ -21,7 +21,7 @@ namespace Client.Message
             string[] separators = { "<", ">:<", ">" };
             string[] words = msg.Split(separators, StringSplitOptions.RemoveEmptyEntries);
 
-            Client.MessageClasses.MsgSignUp msgSignUp = new Client.MessageClasses.MsgSignUp();
+            Client.MessageClasses.MsgSignUp.resp msgSignUp = new Client.MessageClasses.MsgSignUp.resp();
 
 
             msgSignUp.ack = words[0];

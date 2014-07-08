@@ -8,7 +8,7 @@ namespace Client.Configuration
 {
     public class config
     {
-        public string serverAddr = "127.000.000.001";
+        public string serverAddr = "192.168.0.16";
         public int port = 11000;
     }
 }
