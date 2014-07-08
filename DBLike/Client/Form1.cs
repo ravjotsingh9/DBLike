@@ -64,8 +64,9 @@ namespace Client
         private void btnCreateAcctb2_Click(object sender, EventArgs e)
         {
             Threads.SignUp signupthread = new Threads.SignUp();
-            
-            signupthread.start();
+            String username = txtUserNametb1.Text;
+            String password = txtPasstb1.Text;
+            signupthread.start(username, password);
         }
 
 
@@ -77,7 +78,10 @@ namespace Client
 
         private void btnSignintb1_Click(object sender, EventArgs e)
         {
-
+            Threads.SignIn signinthread = new Threads.SignIn();
+            String username = txtUserNametb1.Text;
+            String password = txtPasstb1.Text;
+            signinthread.start(username,password);
         }
     }
 }
