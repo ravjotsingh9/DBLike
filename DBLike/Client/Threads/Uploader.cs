@@ -27,13 +27,15 @@ namespace Client.Threads
         {
             //TBD
             //send msg to server
-
+            //get the information from the localDatabase
+            string syncFolderPath = "folder\\456.txt";
+            string userName = "";
+            string password = "";
             Client.Message.CreateMsg uploadM = new Client.Message.CreateMsg();
             Client.LocalFileSysAccess.getFileAttributes att = new Client.LocalFileSysAccess.getFileAttributes(fullpathOfChnagedFile);
-            string syncFolderPath = "folder\\456.txt";
             DateTime time = att.lastModified;
             string md5r = att.md5Value;
-            string msg = uploadM.uploadMsg("blob", "123456", syncFolderPath, time, md5r);
+            string msg = uploadM.uploadMsg(userName, password, syncFolderPath, time, md5r);
 
             //send the msg using socket
             ConnectionManager.Connection conn = new ConnectionManager.Connection();
@@ -51,7 +53,7 @@ namespace Client.Threads
               //                 reup.filePathInSynFolder, reup.fileContainerUri);
             //9 Client upload
             new Client.UploadFunctions.UploadFile().UploadFileWithContainerUri(reup.fileContainerUri,fullpathOfChnagedFile , reup.filePathInSynFolder, md5r, time);
-   
+            
         }
     }
 }
