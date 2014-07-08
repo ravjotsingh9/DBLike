@@ -9,7 +9,7 @@ namespace Client.Message
     public partial class CreateMsg
     {
         // take an ojbect, return a string
-        public string createSignUpMsg(MessageClasses.MsgSignUp.req obj)
+        public string createSignUpMsg(MessageClasses.MsgSignUp obj)
         {
             string str = "";
 
@@ -18,10 +18,8 @@ namespace Client.Message
             /// |<signUp>:<userName>:<password>:<EOF>|
             /// +------------------------------------+
             str = "<signUp>:<" + obj.userName + ">:<" + obj.psw + ">:<EOF>";
-    /*
-            byte[] tmp = new byte[1024];
-            tmp = System.Text.Encoding.ASCII.GetBytes(str);
-     */ 
+
+
             return str;
         }
 
