@@ -55,12 +55,12 @@ namespace Client.Message
 
         public string uploadMsg(string userName, string passWord, string filePathInSynFolder, DateTime fileTimeStamps, string fileHashValue)
         {
-            string msg = "upload:" + userName + ":" + passWord + ":";
+            string msg = "<upload>:<" + userName + ">:<" + passWord + ">:<";
 
 
-            msg +=  filePathInSynFolder + ":";
-            msg +=  fileHashValue + ":";
-            msg +=  fileTimeStamps.ToString("MM/dd/yyyy HH:mm:ss") + ":";
+            msg +=  filePathInSynFolder + ">:<";
+            msg +=  fileHashValue + ">:<";
+            msg +=  fileTimeStamps.ToString("MM/dd/yyyy HH:mm:ss") + ">:";
 
 
 

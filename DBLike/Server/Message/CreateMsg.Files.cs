@@ -20,10 +20,10 @@ namespace Server.Message
         /// <returns></returns>
         public string uploadRespMsg(string filePathInSynFolder, string filecontainerUri, string fileBlobUri)
         {
-            string msg = "OK:upload:" +
-                          filePathInSynFolder + ":" +
-                          filecontainerUri + ":" +
-                          fileBlobUri + ":";
+            string msg = "<OK>:<upload>:<" +
+                          filePathInSynFolder + ">:<" +
+                          filecontainerUri + ">:<" +
+                          fileBlobUri + ">:<EOF>";
             return msg;
         }
     }

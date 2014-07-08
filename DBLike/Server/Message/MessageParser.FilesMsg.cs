@@ -48,7 +48,8 @@ namespace Server.Message
         /// <param name="words"></param>
         public MsgRespUpload uploadParseMsg(string msg)
         {
-            string[] words = msg.Split(':');
+            string[] separators = { "<", ">:<", ">" };
+            string[] words = msg.Split(separators, StringSplitOptions.RemoveEmptyEntries);
             MsgRespUpload upload = new MsgRespUpload();
             upload.type = words[0];
             upload.userName = words[1];
@@ -59,7 +60,7 @@ namespace Server.Message
             upload.fileHashValue = words[4];
             // String to DateTime
             DateTime MyDateTime = new DateTime();
-            
+
             MyDateTime = DateTime.ParseExact(words[5], "MM/dd/yyyy HH:mm:ss",
                                                 null);
             upload.fileTimeStamps = MyDateTime;

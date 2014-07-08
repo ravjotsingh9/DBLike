@@ -19,7 +19,8 @@ namespace Client.Message
         /// <param name="words"></param>
         public MsgUpload uploadParseMsg(string msg)
         {
-            string[] words = msg.Split(':');
+            string[] separators = { "<", ">:<", ">" };
+            string[] words = msg.Split(separators, StringSplitOptions.RemoveEmptyEntries);
             MsgUpload upload = new MsgUpload();
             upload.indicator = words[0];
             
