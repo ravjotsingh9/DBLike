@@ -9,22 +9,23 @@ namespace Client.Message
     public partial class MessageParser
     {
 
-        public Client.MessageClasses.MsgSignUp.resp signUpRespParser(string msg)
+        public Client.MessageClasses.MsgSignUp signUpParseMessage(string msg)
         {
             // take a string(received from server), return an object
             /// sign up response protocol
-            /// +-----------------+
-            /// |<OK/ERRORS>:<EOF>|
-            /// +-----------------+
+            /// +----------------------------------+
+            /// |<OK/ERRORS>:<additional Msg>:<EOF>|
+            /// +----------------------------------+
             /// 
 
             string[] separators = { "<", ">:<", ">" };
             string[] words = msg.Split(separators, StringSplitOptions.RemoveEmptyEntries);
 
-            Client.MessageClasses.MsgSignUp.resp msgSignUp = new Client.MessageClasses.MsgSignUp.resp();
+            Client.MessageClasses.MsgSignUp msgSignUp = new Client.MessageClasses.MsgSignUp();
 
 
             msgSignUp.ack = words[0];
+            msgSignUp.addiMsg = words[1];
             return msgSignUp;
 
 

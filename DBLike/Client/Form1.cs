@@ -64,21 +64,9 @@ namespace Client
         private void btnCreateAcctb2_Click(object sender, EventArgs e)
         {
             Threads.SignUp signupthread = new Threads.SignUp();
-            LocalDbAccess.LocalDB file = new LocalDbAccess.LocalDB();
-            file.writetofile(txtfoldertb2.Text);
-            signupthread.start(txtusernametb2.Text, txtpasstb2.Text); 
-        }
-
-        private void btnSignintb1_Click(object sender, EventArgs e)
-        {
-            ConnectionManager.Connection conn = new ConnectionManager.Connection();
-            Configuration.config conf = new Configuration.config();
-            conn.connect(conf.serverAddr, conf.port);
-            Socket soc = conn.sender;
-            string str = "abc";
-            byte[] b = new byte[1024];
-            b = System.Text.Encoding.ASCII.GetBytes(str);
-            soc.Send(b);
+            String username = txtUserNametb1.Text;
+            String password = txtPasstb1.Text;
+            signupthread.start(username, password);
         }
 
 
@@ -86,6 +74,14 @@ namespace Client
         {
             this.CreateHandle();
             //throw new NotImplementedException();
+        }
+
+        private void btnSignintb1_Click(object sender, EventArgs e)
+        {
+            Threads.SignIn signinthread = new Threads.SignIn();
+            String username = txtUserNametb1.Text;
+            String password = txtPasstb1.Text;
+            signinthread.start(username,password);
         }
     }
 }

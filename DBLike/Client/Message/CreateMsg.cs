@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Client.MessageProcessor
+namespace Client.Message
 {
     public partial class CreateMsg
     {

@@ -19,6 +19,9 @@ namespace Server.MessageClasses
         {
             // ack from server
             public string ack { get; set; }
+
+            // additional msg to send to client
+            public string addiMsg { get; set; }
         }
     }
 }

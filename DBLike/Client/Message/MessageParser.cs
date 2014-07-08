@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Client.MessageClasses;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,9 +9,5 @@ namespace Client.Message
 {
     public partial class MessageParser
     {
-        public MessageParser()
-        {
-            
-        }
     }
 }
