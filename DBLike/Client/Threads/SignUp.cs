@@ -30,7 +30,7 @@ namespace Client.Threads
             MessageClasses.MsgSignUp msgobj = new MessageClasses.MsgSignUp();
 
             // Fill out the content in msgobj
-
+            
 
             //call CreateMsg.createSignUpMsg(msgobj) get it in bytes form
 
