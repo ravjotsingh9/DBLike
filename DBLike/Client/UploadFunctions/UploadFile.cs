@@ -19,13 +19,18 @@ namespace Client.UploadFunctions
         /// <param name="sasUri"></param>
         /// <param name="localFilePath"></param>
         /// <param name="filePathInSyncFolder"></param>
-        public bool UploadFileWithContainerUri(string sasUri, string localFilePath, string filePathInSyncFolder )
+        public bool UploadFileWithContainerUri(string sasUri, string localFilePath, string filePathInSyncFolder,string fileHashVaule, DateTime fileTimestamp )
         {
             try
             {
                 CloudBlobContainer container = new CloudBlobContainer(new Uri(sasUri));
                 CloudBlockBlob blob = container.GetBlockBlobReference(filePathInSyncFolder);
                 blob.UploadFromFile(localFilePath, FileMode.Open);
+                blob.Metadata["hashValue"] = fileHashVaule;
+                blob.Metadata["timestamp"] = fileTimestamp.ToString("MM/dd/yyyy HH:mm:ss");
+                blob.Metadata["filePath"] = filePathInSyncFolder;
+                blob.SetMetadata();
+                
             }
             catch (Exception e)
             {
@@ -36,10 +41,7 @@ namespace Client.UploadFunctions
             return true;
         }
 
-        public void UploadFileWithBlobUri()
-        {
 
-        }
 
     }
 }

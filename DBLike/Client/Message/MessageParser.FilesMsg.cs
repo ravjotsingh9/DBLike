@@ -3,14 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Client.MessageClasses;
 
 namespace Client.Message
 {
     public partial class MessageParser
     {
-        public string filePathInSynFolder { get; set; }
-        public string fileContainerUri { get; set; }
-        public string fileBlobUri { get; set; }
         
         /// <summary>
         /// parse protocol
@@ -19,13 +17,23 @@ namespace Client.Message
         /// +------------------------------------------------------------------+
         /// </summary>
         /// <param name="words"></param>
-        public void uploadParseMsg(string[] words)
+        public MsgUpload uploadParseMsg(string msg)
         {
+            string[] separators = { "<", ">:<", ">" };
+            string[] words = msg.Split(separators, StringSplitOptions.RemoveEmptyEntries);
+            MsgUpload upload = new MsgUpload();
+            upload.indicator = words[0];
             
-            filePathInSynFolder = words[2];
-            fileContainerUri = words[3];
-            fileBlobUri = words[4];
+            if (upload.indicator == "OK")
+            {
+                upload.type = words[1];
+                upload.filePathInSynFolder = words[2];
+                upload.fileContainerUri = words[3];
+                upload.fileBlobUri = words[4];
+            }
+            
 
+            return upload;
         }
     }
 }

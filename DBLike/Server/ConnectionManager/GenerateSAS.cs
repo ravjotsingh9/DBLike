@@ -46,7 +46,7 @@ namespace Server.ConnectionManager
 
             //Generate the shared access signature on the blob, setting the constraints directly on the signature.
             string sasBlobToken = blob.GetSharedAccessSignature(sasConstraints);
-
+            
             //Return the URI string for the container, including the SAS token.
             return blob.Uri + sasBlobToken;
         }

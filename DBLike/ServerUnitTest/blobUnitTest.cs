@@ -35,7 +35,7 @@ namespace ServerUnitTest
             string pathinSynFolder = "testFolder\\123.txt";
             try
             {
-                uu.UploadFileWithContainerUri(uri,localpath,pathinSynFolder);
+               // uu.UploadFileWithContainerUri(uri,localpath,pathinSynFolder);
             }
             catch (Exception e)
             {
