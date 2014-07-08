@@ -8,7 +8,6 @@ namespace Client.MessageClasses
 {
     public class MsgSignUp
     {
-<<<<<<< HEAD
         String username;
         String password;
         String path;
@@ -37,19 +36,16 @@ namespace Client.MessageClasses
         public void setPassword(string Pass)
         {
             this.password = Pass;
-=======
-        public class req
-        {
-            public string type { get; set; }
-            public string userName { get; set; }
-            public string psw { get; set; }
         }
 
-        public class resp
+        public string getPath()
         {
-            // ack from server
-            public string ack { get; set; }
->>>>>>> origin/master
+            return this.path;
+        }
+
+        public void setPath(string Path)
+        {
+            this.path = Path;
         }
     }
 }

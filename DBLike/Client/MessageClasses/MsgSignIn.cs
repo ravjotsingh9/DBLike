@@ -10,7 +10,6 @@ namespace Client.MessageClasses
     {
         String username;
         String password;
-        String path;
 
         public MsgSignIn(String user, string pass)
         {
