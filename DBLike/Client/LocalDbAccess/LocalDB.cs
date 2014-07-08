@@ -9,13 +9,48 @@ namespace Client.LocalDbAccess
 {
     class LocalDB
     {
-        public bool writetofile(string pathofFoldertoSync)
+        String Username;
+        String password;
+        String path;
+        public string getUsername()
+        {
+            return this.Username;
+        }
+
+        public void setUsername(String user)
+        {
+            this.Username = user;
+        }
+
+        public string getPassword()
+        {
+            return this.password;
+        }
+
+        public void setPassword(String Pass)
+        {
+            this.password = Pass;
+        }
+
+        public string getPath()
+        {
+            return this.path;
+        }
+
+        public void setPath(String Path)
+        {
+            this.path = Path;
+        }
+
+        public bool writetofile(String username,String Password, string pathofFoldertoSync)
         {
             string path = Directory.GetCurrentDirectory();
             path += @"\dblike.txt";
             if (!File.Exists(path))
             {
                 System.IO.StreamWriter file = new System.IO.StreamWriter(path);
+                file.WriteLine(username);
+                file.WriteLine(Password);
                 file.WriteLine(pathofFoldertoSync);
                 return true;
             }
@@ -24,22 +59,29 @@ namespace Client.LocalDbAccess
                 return false;
             }
         }
-        public string readfromfile()
+        public bool readfromfile()
         {
-            String line = null;
             String path = Directory.GetCurrentDirectory();
             path += @"\dblike.txt";
             if (File.Exists(path))
             {
                 StreamReader file = new StreamReader(path);
-                line = file.ReadLine();
+                if (File.ReadLines(path).Count() == 3)
+                {
+                    String[] filedetails = new String[3];
+                    filedetails[0] = file.ReadLine();
+                    filedetails[1] = file.ReadLine();
+                    filedetails[2] = file.ReadLine();
+                    setUsername(filedetails[0]);
+                    setPassword(filedetails[1]);
+                    setPath(filedetails[2]);
+                }
+                return true;
             }
             else
             {
-                line = "File doesnot exists";
-            }
-
-            return line;
+                return false;
+            }   
         }
     }
 }
