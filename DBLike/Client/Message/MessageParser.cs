@@ -13,6 +13,13 @@ namespace Client.Message
         {
             string[] separators = { "<", ">:<", ">" };
             string[] words = msg.Split(separators, StringSplitOptions.RemoveEmptyEntries);
+
+            // take a string(received from server), return an object
+            /// sign up response protocol
+            /// +-----------------+
+            /// |<OK/ERRORS>:<EOF>|
+            /// +-----------------+
+            /// 
             if (words[0] == "OK")
             {
                 MsgSignUp signup = new MsgSignUp(words[1], words[2]);
@@ -25,6 +32,13 @@ namespace Client.Message
         {
             string[] separators = { "<", ">:<", ">" };
             string[] words = msg.Split(separators, StringSplitOptions.RemoveEmptyEntries);
+
+            // take a string(received from server), return an object
+            /// sign up response protocol
+            /// +-----------------+
+            /// |<OK/ERRORS>:<EOF>|
+            /// +-----------------+
+            /// 
             if (words[0] == "Ok")
             {
                 MsgSignIn signin = new MsgSignIn(words[1], words[2]);
