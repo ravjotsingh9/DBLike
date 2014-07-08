@@ -14,6 +14,7 @@ namespace Server.DatabaseAccess
     public partial class Query
     {
 
+        // return true if user exists
         public bool checkIfUserExists(string userName, SqlConnection sqlConnection)
         {
 
