@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Client.MessageClasses
+namespace Server.MessageClasses
 {
     public class MsgSignUp
     {
         public class req
         {
+            public string type { get; set; }
             public string userName { get; set; }
             public string psw { get; set; }
         }

@@ -17,7 +17,7 @@ namespace Server.Message
         /// +-----------------+
         /// 
 
-        public string signUpResp(Server.MessageClasses.MsgRespSignUp obj)
+        public string signUpResp(Server.MessageClasses.MsgSignUp.resp obj)
         {
             string str = obj.ack;
             return str;

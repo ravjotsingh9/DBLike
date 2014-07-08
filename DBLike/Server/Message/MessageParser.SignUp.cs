@@ -16,12 +16,12 @@ namespace Server.Message
         /// +------------------------------------+
         /// 
 
-        public Server.MessageClasses.MsgRespSignUp signUpParseMsg(string msg)
+        public Server.MessageClasses.MsgSignUp.req signUpParseMsg(string msg)
         {
             string[] separators = { "<", ">:<", ">" };
             string[] words = msg.Split(separators, StringSplitOptions.RemoveEmptyEntries);
 
-            Server.MessageClasses.MsgRespSignUp obj = new Server.MessageClasses.MsgRespSignUp();
+            Server.MessageClasses.MsgSignUp.req obj = new Server.MessageClasses.MsgSignUp.req();
             obj.type = words[0];
             obj.userName = words[1];
             obj.psw = words[2];

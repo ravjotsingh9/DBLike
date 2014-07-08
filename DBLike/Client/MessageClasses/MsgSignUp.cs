@@ -10,6 +10,7 @@ namespace Client.MessageClasses
     {
         public class req
         {
+            public string type { get; set; }
             public string userName { get; set; }
             public string psw { get; set; }
         }
