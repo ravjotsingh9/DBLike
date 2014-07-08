@@ -85,8 +85,10 @@
     <Compile Include="MessageClasses\MsgRespUpload.cs" />
     <Compile Include="Message\CreateMsg.cs" />
     <Compile Include="Message\CreateMsg.Files.cs" />
+    <Compile Include="Message\CreateMsg.SignUp.cs" />
     <Compile Include="Message\MessageParser.cs" />
     <Compile Include="Message\MessageParser.FilesMsg.cs" />
+    <Compile Include="Message\MessageParser.SignUp.cs" />
     <Compile Include="NotificationManager\Notification.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
