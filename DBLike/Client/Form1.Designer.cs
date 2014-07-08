@@ -103,6 +103,7 @@
             this.btnSignintb1.TabIndex = 13;
             this.btnSignintb1.Text = "Sign in";
             this.btnSignintb1.UseVisualStyleBackColor = true;
+            this.btnSignintb1.Click += new System.EventHandler(this.btnSignintb1_Click);
             // 
             // txtPasstb1
             // 

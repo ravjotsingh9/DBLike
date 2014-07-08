@@ -41,12 +41,11 @@ namespace Client.Threads
             watcher.Path = args;   
             watcher.NotifyFilter =  NotifyFilters.LastWrite| NotifyFilters.FileName | NotifyFilters.DirectoryName;
             watcher.IncludeSubdirectories = true;
-
             // Add event handlers.
-            watcher.Changed += new FileSystemEventHandler(OnChanged);
-            watcher.Created += new FileSystemEventHandler(OnChanged);
-            watcher.Deleted += new FileSystemEventHandler(OnChanged);
-            watcher.Renamed += new RenamedEventHandler(OnRenamed);
+            watcher.Changed += new FileSystemEventHandler(OnChanged); //change
+            watcher.Created += new FileSystemEventHandler(OnChanged); //creation
+            watcher.Deleted += new FileSystemEventHandler(OnChanged); //deletion
+            watcher.Renamed += new RenamedEventHandler(OnRenamed);    //renaming
             // Start watching.
             watcher.EnableRaisingEvents = true;
         }

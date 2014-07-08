@@ -23,6 +23,7 @@ namespace Client.Threads
         static private void threadStartFun()
         {
             //TBD
+
         }
     }
 }
