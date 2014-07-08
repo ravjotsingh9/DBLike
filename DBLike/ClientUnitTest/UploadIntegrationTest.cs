@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Client;
 using Server;
+using Server.BlobAccess;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Auth;
 using Microsoft.WindowsAzure.Storage.Blob;
@@ -17,7 +18,7 @@ namespace ClientUnitTest
          
             //1 Client.cs should detect there is a file in the sync folder and get the local path
             //2 Client.cs send upload msg to server
-            Client.MessageClasses.MsgUpload uploadM = new Client.MessageClasses.MsgUpload();
+            Client.Message.CreateMsg uploadM = new Client.Message.CreateMsg();
             Client.LocalFileSysAccess.getFileAttributes att = new Client.LocalFileSysAccess.getFileAttributes();
             string syncFolderPath = "456.txt";
             string fileLocalPath = "C:\\Users\\yi-man\\Desktop\\testFolder\\456.txt";
@@ -33,7 +34,9 @@ namespace ClientUnitTest
             //5 Server check the file info in the database, if file has not existed, let the client to create the file
             //  If file existed, check timestamp, hashvalue to see if client can upload
             //  If allow upload, change hashvalue and timestamp in the database
-            Server.DatabaseAccess.Query query = new Server.DatabaseAccess.Query();
+            Blob blob = new 
+/**
+             Server.DatabaseAccess.Query query = new Server.DatabaseAccess.Query();
             if (!query.fileAlreadyExist(parse.userName, parse.filePathInSynFolder))
             {
                 query.insertNewFileData(parse.userName, parse.fileName, parse.filePathInSynFolder, parse.fileHashValue, parse.fileTimeStamps);
@@ -42,6 +45,7 @@ namespace ClientUnitTest
             {
                 query.updateFilesData(parse.userName, parse.filePathInSynFolder, parse.fileHashValue, parse.fileTimeStamps);
             }
+**/
             //6 Server Generate sas container/blob for the client. For basic upload, this case just generate container sas
             Server.ConnectionManager.BlobConn conn = new Server.ConnectionManager.BlobConn(1);
             CloudBlobClient blobclient = conn.BlobConnect();

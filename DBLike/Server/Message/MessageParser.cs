@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Server.MessageClasses;
 
 namespace Server.Message
 {
@@ -10,12 +11,7 @@ namespace Server.Message
     {
         public MessageParser(string msg)
         {
-           
-            string[] words = msg.Split(':');
-            if (words[0] == "upload")
-            {
-                uploadParseMsg(words);
-            }
+
         }
     }
 }

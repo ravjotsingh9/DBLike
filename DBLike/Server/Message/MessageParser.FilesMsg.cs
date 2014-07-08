@@ -9,12 +9,7 @@ namespace Server.Message
 {
     public partial class MessageParser
     {
-        public string userName { get; set; }
-        public string password { get; set; }
-        public string filePathInSynFolder { get; set; }
-        public DateTime fileTimeStamps { get; set; }
-        public string fileHashValue { get; set; }
-        public string fileName { get; set; }
+
         /**
         /// <summary>
         /// parse protocol
@@ -51,8 +46,9 @@ namespace Server.Message
         /// +---------------------------------------------------------------------------------+
         /// </summary>
         /// <param name="words"></param>
-        public void uploadParseMsg(string[] words)
+        public MsgRespUpload uploadParseMsg(string msg)
         {
+            string[] words = msg.Split(':');
             MsgRespUpload upload = new MsgRespUpload();
             upload.type = words[0];
             upload.userName = words[1];
@@ -67,9 +63,9 @@ namespace Server.Message
             MyDateTime = DateTime.ParseExact(words[5], "MM/dd/yyyy HH:mm:ss",
                                                 null);
             upload.fileTimeStamps = MyDateTime;
-            string[] splitTogetFileName = filePathInSynFolder.Split('\\');
+            string[] splitTogetFileName = upload.filePathInSynFolder.Split('\\');
             upload.fileName = splitTogetFileName[splitTogetFileName.Count() - 1];
-
+            return upload;
         }
     }
 }
