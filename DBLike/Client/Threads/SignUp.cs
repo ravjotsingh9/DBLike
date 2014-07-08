@@ -10,12 +10,10 @@ namespace Client.Threads
 {
     class SignUp
     {
-        
         public Thread thread;
         Configuration.config serverdetails = new Configuration.config();
         static ConnectionManager.Connection conn = new ConnectionManager.Connection();
         
-
         public void start(string username, string pass)
         {
             thread = new Thread(()=>threadStartFun(serverdetails.serverAddr ,serverdetails.port, username, pass));

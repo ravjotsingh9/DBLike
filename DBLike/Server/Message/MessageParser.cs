@@ -9,9 +9,6 @@ namespace Server.Message
 {
     public partial class MessageParser
     {
-        public MessageParser(string msg)
-        {
-
-        }
+       
     }
 }

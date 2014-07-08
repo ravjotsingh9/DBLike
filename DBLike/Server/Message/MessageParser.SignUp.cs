@@ -16,7 +16,7 @@ namespace Server.Message
         /// +------------------------------------+
         /// 
 
-        public Server.MessageClasses.MsgSignUp.req signUpParseMsg(string msg)
+        public Server.MessageClasses.MsgSignUp.req signUpParseReq(string msg)
         {
             string[] separators = { "<", ">:<", ">" };
             string[] words = msg.Split(separators, StringSplitOptions.RemoveEmptyEntries);

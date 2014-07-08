@@ -56,42 +56,42 @@ namespace Server.Threads
                     case "SIGNUP":
                         {
                             Threads.ServiceSignUpReq obj = new ServiceSignUpReq();
-                            obj.start(handler);
+                            obj.start(handler, req);
                             break;
                         }
 
                     case "SIGNIN":
                         {
                             ServiceSignInReq obj = new ServiceSignInReq();
-                            obj.start(handler);
+                            obj.start(handler, req);
                             break;
                         }
 
                     case "POLL":
                         {
                             ServicePollReq obj = new ServicePollReq();
-                            obj.start(handler);
+                            obj.start(handler, req);
                             break;
                         }
 
                     case "UPLOAD":
                         {
                             ServiceUploadReq obj = new ServiceUploadReq();
-                            obj.start(handler);
+                            obj.start(handler, req);
                             break;
                         }
 
                     case "DOWNLOAD":
                         {
                             ServiceDownloadReq obj = new ServiceDownloadReq();
-                            obj.start(handler);
+                            obj.start(handler, req);
                             break;
                         }
 
                     case "NOTIFICATION":
                         {
                             Service_Notification obj = new Service_Notification();
-                            obj.start(handler);
+                            obj.start(handler, req);
                             break;
                         }
                 }
