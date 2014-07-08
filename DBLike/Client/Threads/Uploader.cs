@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Sockets;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -28,14 +29,18 @@ namespace Client.Threads
             //TBD
             //send msg to server
             //get the information from the localDatabase
-            string syncFolderPath = "folder\\456.txt";
+
+            string clientSyncFolderPath="";
+            string replacement = "";
+            Regex rgx = new Regex(clientSyncFolderPath);
+            string pathInSyncFolderPath = rgx.Replace(fullpathOfChnagedFile, replacement);
             string userName = "";
             string password = "";
             Client.Message.CreateMsg uploadM = new Client.Message.CreateMsg();
             Client.LocalFileSysAccess.getFileAttributes att = new Client.LocalFileSysAccess.getFileAttributes(fullpathOfChnagedFile);
             DateTime time = att.lastModified;
             string md5r = att.md5Value;
-            string msg = uploadM.uploadMsg(userName, password, syncFolderPath, time, md5r);
+            string msg = uploadM.uploadMsg(userName, password, pathInSyncFolderPath, time, md5r);
 
             //send the msg using socket
             ConnectionManager.Connection conn = new ConnectionManager.Connection();
