@@ -42,5 +42,11 @@ namespace Client
             button2.Enabled = false;
         }
 
+        private void btnCreateAcctb2_Click(object sender, EventArgs e)
+        {
+            Threads.SignUp signupthread = new Threads.SignUp();
+            signupthread.start();
+        }
+
     }
 }

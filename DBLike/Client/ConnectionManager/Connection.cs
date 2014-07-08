@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -8,5 +10,57 @@ namespace Client.ConnectionManager
 {
     class Connection
     {
+        //TBD 
+        /*
+         *   -N-O-T- -T-E-S-T-E-D- -Y-E-T-
+         */ 
+        public  Socket connect(string serverIP, int port)
+        {
+            // Connect to a remote device.
+            try 
+            {
+                IPHostEntry ipHostInfo = Dns.Resolve(serverIP);
+                IPAddress ipAddress = ipHostInfo.AddressList[0];
+                IPEndPoint remoteEP = new IPEndPoint(ipAddress,port);
+
+                // Create a TCP/IP  socket.
+                Socket sender = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp );
+                try 
+                {
+                    sender.Connect(remoteEP);
+                    return sender;
+                } 
+                catch (ArgumentNullException ane) 
+                {
+                    Console.WriteLine("ArgumentNullException : {0}",ane.ToString());
+                    return null;
+                } 
+                catch (SocketException se) 
+                {
+                    Console.WriteLine("SocketException : {0}",se.ToString());
+                    return null;
+                } 
+                catch (Exception e) 
+                {
+                    Console.WriteLine("Unexpected exception : {0}", e.ToString());
+                    return null;
+                }
+
+            } 
+            catch (Exception e) 
+            {
+                Console.WriteLine( e.ToString());
+                return null;
+            }
+        }
+
+
+        public bool disconnect(Socket soc)
+        {
+            // Release the socket.
+            soc.Shutdown(SocketShutdown.Both);
+            soc.Close();
+            return true;
+        }
     }
 }

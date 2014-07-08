@@ -202,6 +202,7 @@
             this.btnCreateAcctb2.TabIndex = 15;
             this.btnCreateAcctb2.Text = "Create Account";
             this.btnCreateAcctb2.UseVisualStyleBackColor = true;
+            this.btnCreateAcctb2.Click += new System.EventHandler(this.btnCreateAcctb2_Click);
             // 
             // btnBrowsetb2
             // 

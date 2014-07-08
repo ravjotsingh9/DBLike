@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration\config.cs" />
     <Compile Include="ConnectionManager\Connection.cs" />
     <Compile Include="LocalFileSysAccess\getFileAttributes.cs" />
     <Compile Include="DownloadFunctions\Download.cs" />
@@ -68,6 +69,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SecurityManager\ManageSecurity.cs" />
+    <Compile Include="SocketCommunication\ReaderWriter.cs" />
     <Compile Include="Threads\FileSysWatchDog.cs" />
     <Compile Include="Threads\SignIn.cs" />
     <Compile Include="Threads\SignUp.cs" />

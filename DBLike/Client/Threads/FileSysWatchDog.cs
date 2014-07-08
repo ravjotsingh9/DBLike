@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Permissions;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -11,8 +12,8 @@ namespace Client.Threads
 {
     class FileSysWatchDog
     {
-        Thread btnclicked;
 
+        Thread btnclicked;
         public FileSysWatchDog()
         {
             
@@ -20,7 +21,11 @@ namespace Client.Threads
 
         public void start()
         {
-            btnclicked = new Thread(new ThreadStart(servicestart));
+            //btnclicked = new Thread(new ThreadStart(servicestart));
+            FolderBrowserDialog arg = new FolderBrowserDialog();
+            arg.ShowDialog();
+            string args = arg.SelectedPath;
+            btnclicked = new Thread(()=>Run(args));
             btnclicked.Start();
         }
         public void stop()
@@ -28,6 +33,43 @@ namespace Client.Threads
             btnclicked.Abort();
         }
 
+        [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
+        public static void Run(string args)
+        {
+            //"C:\\Users\\Owner\\Desktop\\Term2_Desktop";
+            FileSystemWatcher watcher = new FileSystemWatcher();
+            watcher.Path = args;   
+            watcher.NotifyFilter =  NotifyFilters.LastWrite| NotifyFilters.FileName | NotifyFilters.DirectoryName;
+            watcher.IncludeSubdirectories = true;
+
+            // Add event handlers.
+            watcher.Changed += new FileSystemEventHandler(OnChanged);
+            watcher.Created += new FileSystemEventHandler(OnChanged);
+            watcher.Deleted += new FileSystemEventHandler(OnChanged);
+            watcher.Renamed += new RenamedEventHandler(OnRenamed);
+            // Start watching.
+            watcher.EnableRaisingEvents = true;
+        }
+
+        // Define the event handlers. 
+        private static void OnChanged(object source, FileSystemEventArgs e)
+        {
+            MessageBox.Show("File: " + e.FullPath + " " + e.ChangeType);
+        }
+
+        private static void OnRenamed(object source, RenamedEventArgs e)
+        {
+            MessageBox.Show("File: " + e.OldFullPath + " renamed to " + e.FullPath);
+        }
+
+
+
+
+
+
+
+        
+        /*
         private void servicestart()
         {
             DateTime lastedited = File.GetLastWriteTime(@"textDoc.txt");
@@ -42,5 +84,6 @@ namespace Client.Threads
             }
             btnclicked.Abort();
         }
+         */ 
     }
 }
