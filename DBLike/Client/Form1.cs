@@ -45,7 +45,9 @@ namespace Client
         private void btnCreateAcctb2_Click(object sender, EventArgs e)
         {
             Threads.SignUp signupthread = new Threads.SignUp();
-            signupthread.start();
+            string username = txtusernametb2.Text;
+            string password = txtpasstb2.Text;
+            signupthread.start(username,password);
         }
 
     }

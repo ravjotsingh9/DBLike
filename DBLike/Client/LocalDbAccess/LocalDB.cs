@@ -8,5 +8,6 @@ namespace Client.LocalDbAccess
 {
     class LocalDB
     {
+
     }
 }
