@@ -8,44 +8,14 @@ namespace Client.MessageClasses
 {
     public class MsgSignUp
     {
-        String username;
-        String password;
-        String path;
 
-        public MsgSignUp(String user, string pass)
-        {
-            this.username = user;
-            this.password = pass;
-        }
+        public string userName { get; set; }
+        public string psw { get; set; }
 
-        public string getUsername()
-        {
-            return this.username;
-        }
+        // ack from server
+        public string ack { get; set; }
 
-        public void setUsername(string user)
-        {
-            this.username = user;
-        }
-
-        public string getPassword()
-        {
-            return this.username;
-        }
-
-        public void setPassword(string Pass)
-        {
-            this.password = Pass;
-        }
-
-        public string getPath()
-        {
-            return this.path;
-        }
-
-        public void setPath(string Path)
-        {
-            this.path = Path;
-        }
+        // additional msg from server
+        public string addiMsg { get; set; }
     }
 }

@@ -12,14 +12,16 @@ namespace Server.Message
         // take an obj ( already filled with data)
         // then return a string to send to the client
         /// sign up response protocol
-        /// +-----------------+
-        /// |<OK/ERRORS>:<EOF>|
-        /// +-----------------+
+        /// +----------------------------------+
+        /// |<OK/ERRORS>:<additional Msg>:<EOF>|
+        /// +----------------------------------+
         /// 
 
         public string signUpResp(Server.MessageClasses.MsgSignUp.resp obj)
         {
-            string str = obj.ack;
+
+            // MINOR CHANGE, TO BE TESTED
+            string str = "<" + obj.ack + ">:<" + obj.addiMsg + ">:<EOF>";
             return str;
         }
 
