@@ -64,6 +64,8 @@ namespace Client
         private void btnCreateAcctb2_Click(object sender, EventArgs e)
         {
             Threads.SignUp signupthread = new Threads.SignUp();
+			LocalDbAccess.LocalDB file = new LocalDbAccess.LocalDB();
+            file.writetofile(txtfoldertb2.Text);
             String username = txtUserNametb1.Text;
             String password = txtPasstb1.Text;
             signupthread.start(username, password);

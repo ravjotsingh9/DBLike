@@ -51,6 +51,28 @@ namespace Client.Threads
             //call parser and process it.....
             Message.MessageParser mp = new Message.MessageParser();
             msgobj = mp.signupParseMsg(response);
+
+			// This functionality should be added here
+			/*
+			//call parser and process it.....
+            Message.MessageParser msgparser = new Message.MessageParser();
+            if ((msgparser.signUpRespParser(resp)).Equals("ERROR"))
+            {
+                System.Windows.Forms.MessageBox.Show("Some error occured!Please try again.","Error Occured");
+                Thread.CurrentThread.Abort();
+            }
+            else
+            {
+                if (!Program.ClientForm.IsHandleCreated)
+                {
+                    Program.ClientForm.CreateHandle();
+                }
+                Program.ClientForm.enableServiceController();
+                Threads.FileSysWatchDog watchdog = new FileSysWatchDog();
+                watchdog.start();
+                Thread.CurrentThread.Abort();
+            }
+			*/
         }
     }
 }

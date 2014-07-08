@@ -55,7 +55,7 @@ namespace Client.Threads
             //MessageBox.Show("File: " + e.FullPath + " " + e.ChangeType);
             Uploader upload = new Uploader();
             upload.start(e.FullPath);
-            upload.stop();
+            //upload.stop();
         }
 
         private static void OnRenamed(object source, RenamedEventArgs e)
