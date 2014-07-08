@@ -80,8 +80,8 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="MessageClasses\MsgRespSignIn.cs" />
     <Compile Include="MessageClasses\MsgRespUpload.cs" />
+    <Compile Include="MessageClasses\MsgSignUp.cs" />
     <Compile Include="Message\CreateMsg.cs" />
     <Compile Include="Message\CreateMsg.Files.cs" />
     <Compile Include="Message\CreateMsg.SignUp.cs" />
