@@ -78,6 +78,7 @@ namespace Server.Threads
                         {
                             ServiceUploadReq obj = new ServiceUploadReq();
                             obj.start(handler, req);
+                            obj.stop();
                             break;
                         }
 

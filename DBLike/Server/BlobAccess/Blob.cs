@@ -12,11 +12,13 @@ namespace Server.BlobAccess
     public partial class Blob
     {
         public string hashValue { get; set; }
-        public string timestamp { get; set; }
+        public DateTime timestamp { get; set; }
         public string filePath { get; set; }
         public CloudBlobContainer container { get; set; }
         public CloudBlockBlob blob { get; set; }
         public bool ifBlobExist { get; set; }
+        public bool isHashSame { get; set; }
+        public bool isTimestampLater { get; set; }
 
         /// <summary>
         /// Constructor
@@ -31,7 +33,7 @@ namespace Server.BlobAccess
             container.CreateIfNotExists();
         }
 
-        public Blob(CloudBlobClient blobClient, string clientContainerName, string filePathInSynFolder)
+        public Blob(CloudBlobClient blobClient, string clientContainerName, string filePathInSynFolder, string fileHashValue, DateTime fileTimestamp)
         {
             
             container = blobClient.GetContainerReference(clientContainerName);
@@ -42,8 +44,18 @@ namespace Server.BlobAccess
                 ifBlobExist = true;
                 blob.FetchAttributes();
                 hashValue = blob.Metadata["hashValue"];
-                timestamp = blob.Metadata["timestamp"];
+                timestamp = DateTime.ParseExact(blob.Metadata["timestamp"], "MM/dd/yyyy HH:mm:ss",
+                                                null);;
                 filePath = blob.Metadata["filePath"];
+                if (hashValue == fileHashValue)
+                {
+                    isHashSame = true;
+                }
+
+                if ((DateTime.Compare(timestamp,fileTimestamp)<0))                
+                {
+                    isTimestampLater = true;
+                }
             }
             else
             {
@@ -52,7 +64,19 @@ namespace Server.BlobAccess
 
         }
 
+        public bool allUpload()
+        {
+            if(isTimestampLater){
+              if (isHashSame)
+                {
+                    return false;
+                }
+                return true;
+            }
 
+            return false;
+            
+        }
 
     }
 }
