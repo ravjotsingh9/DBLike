@@ -8,7 +8,7 @@ using System.Threading;
 
 namespace Server.Threads
 {
-    class Service_Notification
+    class ServicePollReq
     {
 
         public Thread thread;

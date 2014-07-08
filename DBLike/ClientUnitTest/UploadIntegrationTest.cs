@@ -51,7 +51,7 @@ namespace ClientUnitTest
             }
 **/
             //6 Server Generate sas container/blob for the client. For basic upload, this case just generate container sas
-            Server.ConnectionManager.BlobConn conn = new Server.ConnectionManager.BlobConn(1);
+            //Server.ConnectionManager.BlobConn conn = new Server.ConnectionManager.BlobConn(1);
 
             CloudBlobContainer container = blob.container;
             string containerSAS = new Server.ConnectionManager.GenerateSAS().GetContainerSasUri(container, "RWLD");

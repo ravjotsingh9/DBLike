@@ -80,23 +80,26 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="MessageClasses\MsgRespSignIn.cs" />
-    <Compile Include="MessageClasses\MsgRespSignUp.cs" />
     <Compile Include="MessageClasses\MsgRespUpload.cs" />
+    <Compile Include="MessageClasses\MsgSignUp.cs" />
     <Compile Include="Message\CreateMsg.cs" />
     <Compile Include="Message\CreateMsg.Files.cs" />
+    <Compile Include="Message\CreateMsg.SignUp.cs" />
     <Compile Include="Message\MessageParser.cs" />
     <Compile Include="Message\MessageParser.FilesMsg.cs" />
+    <Compile Include="Message\MessageParser.SignUp.cs" />
     <Compile Include="NotificationManager\Notification.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SecurityManager\ManageSecurity.cs" />
     <Compile Include="SocketCommunication\ReaderWriter.cs" />
+    <Compile Include="Threads\ServerConnListener.cs" />
     <Compile Include="Threads\Service-DownloadReq.cs" />
     <Compile Include="Threads\Service-Notification.cs" />
     <Compile Include="Threads\Service-SignInReq.cs" />
     <Compile Include="Threads\Service-SignUpReq.cs" />
     <Compile Include="Threads\Service-UploadReq.cs" />
+    <Compile Include="Threads\Service-PollReq.cs" />
     <Compile Include="UserAuth\SignUpFunction.cs" />
     <Compile Include="UserAuth\SignInFunctions.cs" />
     <EmbeddedResource Include="Form1.resx">

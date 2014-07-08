@@ -12,7 +12,6 @@ namespace Client.Threads
 {
     class FileSysWatchDog
     {
-
         Thread btnclicked;
         public FileSysWatchDog()
         {
@@ -41,12 +40,11 @@ namespace Client.Threads
             watcher.Path = args;   
             watcher.NotifyFilter =  NotifyFilters.LastWrite| NotifyFilters.FileName | NotifyFilters.DirectoryName;
             watcher.IncludeSubdirectories = true;
-
             // Add event handlers.
-            watcher.Changed += new FileSystemEventHandler(OnChanged);
-            watcher.Created += new FileSystemEventHandler(OnChanged);
-            watcher.Deleted += new FileSystemEventHandler(OnChanged);
-            watcher.Renamed += new RenamedEventHandler(OnRenamed);
+            watcher.Changed += new FileSystemEventHandler(OnChanged); //change
+            watcher.Created += new FileSystemEventHandler(OnChanged); //creation
+            watcher.Deleted += new FileSystemEventHandler(OnChanged); //deletion
+            //watcher.Renamed += new RenamedEventHandler(OnRenamed);    //renaming
             // Start watching.
             watcher.EnableRaisingEvents = true;
         }
@@ -54,7 +52,9 @@ namespace Client.Threads
         // Define the event handlers. 
         private static void OnChanged(object source, FileSystemEventArgs e)
         {
-            MessageBox.Show("File: " + e.FullPath + " " + e.ChangeType);
+            //MessageBox.Show("File: " + e.FullPath + " " + e.ChangeType);
+            Uploader upload = new Uploader();
+            upload.start(e.FullPath);
         }
 
         private static void OnRenamed(object source, RenamedEventArgs e)

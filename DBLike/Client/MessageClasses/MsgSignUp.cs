@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace Client.MessageClasses
 {
-    class MsgSignUp
+    public class MsgSignUp
     {
+<<<<<<< HEAD
         String username;
         String password;
         String path;
@@ -36,6 +37,19 @@ namespace Client.MessageClasses
         public void setPassword(string Pass)
         {
             this.password = Pass;
+=======
+        public class req
+        {
+            public string type { get; set; }
+            public string userName { get; set; }
+            public string psw { get; set; }
+        }
+
+        public class resp
+        {
+            // ack from server
+            public string ack { get; set; }
+>>>>>>> origin/master
         }
     }
 }

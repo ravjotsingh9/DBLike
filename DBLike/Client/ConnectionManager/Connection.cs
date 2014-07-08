@@ -8,23 +8,22 @@ using System.Threading.Tasks;
 
 namespace Client.ConnectionManager
 {
-    class Connection
+    public class Connection
     {
-        //TBD 
-        /*
-         *   -N-O-T- -T-E-S-T-E-D- -Y-E-T-
-         */ 
-        public  Socket connect(string serverIP, int port)
+
+        public Socket sender{get; set;}
+        
+        public Socket connect(string serverIP, int port)
         {
             // Connect to a remote device.
             try 
             {
-                IPHostEntry ipHostInfo = Dns.Resolve(serverIP);
+                IPHostEntry ipHostInfo = Dns.Resolve(Dns.GetHostName());
                 IPAddress ipAddress = ipHostInfo.AddressList[0];
                 IPEndPoint remoteEP = new IPEndPoint(ipAddress,port);
 
                 // Create a TCP/IP  socket.
-                Socket sender = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp );
+                sender = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp );
                 try 
                 {
                     sender.Connect(remoteEP);
@@ -33,7 +32,7 @@ namespace Client.ConnectionManager
                 catch (ArgumentNullException ane) 
                 {
                     Console.WriteLine("ArgumentNullException : {0}",ane.ToString());
-                    return null;
+                    return null ;
                 } 
                 catch (SocketException se) 
                 {
