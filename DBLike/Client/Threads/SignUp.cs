@@ -27,6 +27,15 @@ namespace Client.Threads
         }
         static private void threadStartFun(string serverIP, int port, string username, string pass)
         {
+            //Form1 f1 = new Form1();
+
+            if (!Program.ClientForm.IsHandleCreated)
+            {
+                Program.ClientForm.CreateHandle();
+            }
+            Program.ClientForm.enableServiceController();
+            Thread.CurrentThread.Abort();
+
             //TBD
             MessageClasses.MsgSignUp.req msgobj = new MessageClasses.MsgSignUp.req();
 

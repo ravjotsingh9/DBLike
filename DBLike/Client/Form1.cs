@@ -20,6 +20,10 @@ namespace Client
         delegate void changeStatetoSignedUp();
         public void enableServiceController()
         {
+            if (!this.IsHandleCreated)
+            {
+                this.CreateHandle();
+            }
             changeStatetoSignedUp change = new changeStatetoSignedUp(enableController);
             this.Invoke(change);
         }
@@ -77,5 +81,11 @@ namespace Client
             soc.Send(b);
         }
 
+
+        internal void CreateHandle()
+        {
+            this.CreateHandle();
+            //throw new NotImplementedException();
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,7 +11,7 @@ namespace Client.LocalDbAccess
     {
         public bool writetofile(string pathofFoldertoSync)
         {
-            string path = System.Reflection.Assembly.GetExecutingAssembly().Location;
+            string path = Directory.GetCurrentDirectory(); 
             System.IO.StreamWriter file = new System.IO.StreamWriter(path + "//dblike.txt", false);
             file.Write(pathofFoldertoSync);
             return true;
