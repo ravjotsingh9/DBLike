@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ClientUI.Message
 {
-    class CreateMsg
+    public partial class CreateMsg
     {
     }
 }
