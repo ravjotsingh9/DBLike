@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Server.MessageClasses;
 
 namespace Server.Message
 {
@@ -52,20 +53,22 @@ namespace Server.Message
         /// <param name="words"></param>
         public void uploadParseMsg(string[] words)
         {
-            userName = words[1];
-            password = words[2];
-           
-           
-            filePathInSynFolder = words[3];
-            fileHashValue = words[4];
+            MsgRespUpload upload = new MsgRespUpload();
+            upload.type = words[0];
+            upload.userName = words[1];
+            upload.password = words[2];
+
+
+            upload.filePathInSynFolder = words[3];
+            upload.fileHashValue = words[4];
             // String to DateTime
             DateTime MyDateTime = new DateTime();
             
             MyDateTime = DateTime.ParseExact(words[5], "MM/dd/yyyy HH:mm:ss",
                                                 null);
-            fileTimeStamps = MyDateTime;
+            upload.fileTimeStamps = MyDateTime;
             string[] splitTogetFileName = filePathInSynFolder.Split('\\');
-            fileName = splitTogetFileName[splitTogetFileName.Count() - 1];
+            upload.fileName = splitTogetFileName[splitTogetFileName.Count() - 1];
 
         }
     }

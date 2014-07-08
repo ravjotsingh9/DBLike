@@ -10,8 +10,8 @@ namespace Server.Message
     {
         public MessageParser(string msg)
         {
-            string[] separators = { ":<", ">:<", ">" };
-            string[] words = msg.Split(separators, StringSplitOptions.RemoveEmptyEntries);
+           
+            string[] words = msg.Split(':');
             if (words[0] == "upload")
             {
                 uploadParseMsg(words);

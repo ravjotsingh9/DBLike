@@ -8,14 +8,9 @@ namespace Client.Message
 {
     public partial class MessageParser
     {
-        public MessageParser(string msg)
+        public MessageParser()
         {
-            string[] separators = { ":<", ">:<", ">" };
-            string[] words = msg.Split(separators, StringSplitOptions.RemoveEmptyEntries);
-            if (words[0] == "OK" && words[1] == "upload")
-            {
-                uploadParseMsg(words);
-            }
+            
         }
     }
 }
