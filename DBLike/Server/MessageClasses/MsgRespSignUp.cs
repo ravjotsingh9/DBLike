@@ -6,7 +6,13 @@ using System.Threading.Tasks;
 
 namespace Server.MessageClasses
 {
-    class MsgRespSignUp
+    public class MsgRespSignUp
     {
+
+        public string ack { get; set; }
+        public string type { get; set; }
+        public string userName { get; set; }
+        public string psw { get; set; }
+
     }
 }
