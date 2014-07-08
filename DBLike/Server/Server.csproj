@@ -90,6 +90,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SecurityManager\ManageSecurity.cs" />
+    <Compile Include="SocketCommunication\ReaderWriter.cs" />
     <Compile Include="Threads\Service-DownloadReq.cs" />
     <Compile Include="Threads\Service-Notification.cs" />
     <Compile Include="Threads\Service-SignInReq.cs" />
