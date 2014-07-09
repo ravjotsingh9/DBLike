@@ -43,7 +43,7 @@ namespace Client
 
         private void btnBrowsetb2_Click(object sender, EventArgs e)
         {
-            openFileDialog1.ShowDialog();
+            
         }
 
         
@@ -65,9 +65,9 @@ namespace Client
         {
             Threads.SignUp signupthread = new Threads.SignUp();
 			LocalDbAccess.LocalDB file = new LocalDbAccess.LocalDB();
-            file.writetofile(txtfoldertb2.Text);
             String username = txtUserNametb1.Text;
             String password = txtPasstb1.Text;
+            file.writetofile(username,password,txtfoldertb2.Text);
             signupthread.start(username, password);
         }
 
@@ -84,6 +84,15 @@ namespace Client
             String username = txtUserNametb1.Text;
             String password = txtPasstb1.Text;
             signinthread.start(username,password);
+        }
+
+        private void btnBrowsetb2_Click_1(object sender, EventArgs e)
+        {
+            FolderBrowserDialog fbd = new FolderBrowserDialog();
+            if (fbd.ShowDialog(this) == DialogResult.OK)
+            {
+                txtfoldertb2.Text = fbd.SelectedPath;
+            }
         }
     }
 }

@@ -213,6 +213,7 @@
             this.btnBrowsetb2.TabIndex = 14;
             this.btnBrowsetb2.Text = "Browse";
             this.btnBrowsetb2.UseVisualStyleBackColor = true;
+            this.btnBrowsetb2.Click += new System.EventHandler(this.btnBrowsetb2_Click_1);
             // 
             // txtfoldertb2
             // 
