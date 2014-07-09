@@ -10,6 +10,7 @@ using Microsoft.WindowsAzure.Storage.Blob;
 
 namespace ClientUnitTest
 {
+    /**
     [TestClass]
     public class UploadIntegrationTest
     {
@@ -40,7 +41,7 @@ namespace ClientUnitTest
             //  If allow upload, change hashvalue and timestamp in the blob storage
             CloudBlobClient blobClient = new Server.ConnectionManager.BlobConn(1).BlobConnect();
             Blob blob = new Blob(blobClient, upload.userName, upload.filePathInSynFolder,upload.fileHashValue,upload.fileTimeStamps);
-/**
+
              Server.DatabaseAccess.Query query = new Server.DatabaseAccess.Query();
             if (!query.fileAlreadyExist(parse.userName, parse.filePathInSynFolder))
             {
@@ -50,7 +51,7 @@ namespace ClientUnitTest
             {
                 query.updateFilesData(parse.userName, parse.filePathInSynFolder, parse.fileHashValue, parse.fileTimeStamps);
             }
-**/
+
             //6 Server Generate sas container/blob for the client. For basic upload, this case just generate container sas
             //Server.ConnectionManager.BlobConn conn = new Server.ConnectionManager.BlobConn(1);
 
@@ -68,7 +69,7 @@ namespace ClientUnitTest
                                reup.filePathInSynFolder, reup.fileContainerUri);
             //9 Client upload
             new Client.UploadFunctions.UploadFile().UploadFileWithContainerUri(reup.fileContainerUri, fileLocalPath, reup.filePathInSynFolder, md5r,time);
-   
+   **/
         }
 
     }
