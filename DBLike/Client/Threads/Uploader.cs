@@ -84,7 +84,7 @@ namespace Client.Threads
             
             }
             catch(Exception e){
-                System.IO.File.WriteAllText("errors.txt", e.ToString());
+                //System.IO.File.WriteAllText("errors.txt", e.ToString());
             }
             finally
             {

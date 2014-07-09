@@ -74,7 +74,7 @@ namespace Server.Threads
             }
             catch(Exception e)
             {
-                System.IO.File.WriteAllText("bug.txt", e.ToString());
+                //System.IO.File.WriteAllText("bug.txt", e.ToString());
             }
             finally
             {
