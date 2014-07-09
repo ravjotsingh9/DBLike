@@ -66,7 +66,7 @@
             this.tabControl1.Appearance = System.Windows.Forms.TabAppearance.Buttons;
             this.tabControl1.Controls.Add(this.tbsignup);
             this.tabControl1.Controls.Add(this.tbsignin);
-            this.tabControl1.Location = new System.Drawing.Point(6, 290);
+            this.tabControl1.Location = new System.Drawing.Point(6, 291);
             this.tabControl1.Multiline = true;
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;

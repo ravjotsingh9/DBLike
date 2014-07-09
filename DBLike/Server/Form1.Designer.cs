@@ -60,15 +60,15 @@
             // 
             // lblServerStatus
             // 
-            this.lblServerStatus.AutoSize = true;
             this.lblServerStatus.BackColor = System.Drawing.SystemColors.Control;
             this.lblServerStatus.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.lblServerStatus.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.lblServerStatus.Location = new System.Drawing.Point(350, 9);
             this.lblServerStatus.Name = "lblServerStatus";
-            this.lblServerStatus.Size = new System.Drawing.Size(85, 15);
+            this.lblServerStatus.Size = new System.Drawing.Size(83, 15);
             this.lblServerStatus.TabIndex = 2;
             this.lblServerStatus.Text = "<Server Status>";
+            this.lblServerStatus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // pictureBox1
             // 
@@ -92,6 +92,7 @@
             this.Controls.Add(this.lblServerStatus);
             this.Controls.Add(this.btnStop);
             this.Controls.Add(this.btnStart);
+            this.MaximizeBox = false;
             this.Name = "Form1";
             this.Text = "DBLike Server";
             this.Load += new System.EventHandler(this.Form1_Load);
