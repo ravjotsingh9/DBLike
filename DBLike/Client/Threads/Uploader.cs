@@ -6,6 +6,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using Client.LocalDbAccess;
 
 namespace Client.Threads
 {
@@ -29,13 +30,26 @@ namespace Client.Threads
             //TBD
             //send msg to server
             //get the information from the localDatabase
-
-            string clientSyncFolderPath="";
-            string replacement = "";
-            Regex rgx = new Regex(clientSyncFolderPath);
-            string pathInSyncFolderPath = rgx.Replace(fullpathOfChnagedFile, replacement);
-            string userName = "";
-            string password = "";
+            LocalDB readLocalDB = new LocalDB();
+            
+            string clientSyncFolderPath= readLocalDB.getPath();
+            string[] pathName = clientSyncFolderPath.Split('\\');
+            string[] pathName2 = fullpathOfChnagedFile.Split('\\');
+            int i = pathName2.Count();
+            string pathInSyncFolderPath = "";
+            for (int j = pathName.Count(); j < i; j++)
+            {
+                pathInSyncFolderPath += pathName2[j];
+                if ((j + 1) < i)
+                {
+                    pathInSyncFolderPath += "\\";
+                }
+                
+                
+            }
+            
+            string userName = readLocalDB.getUsername();
+            string password = readLocalDB.getPassword();
             Client.Message.CreateMsg uploadM = new Client.Message.CreateMsg();
             Client.LocalFileSysAccess.getFileAttributes att = new Client.LocalFileSysAccess.getFileAttributes(fullpathOfChnagedFile);
             DateTime time = att.lastModified;
