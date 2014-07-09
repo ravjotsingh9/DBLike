@@ -62,6 +62,8 @@ namespace Server.Threads
             Server.Message.CreateMsg resp = new Server.Message.CreateMsg();
             string respMsg = resp.uploadRespMsg(upload.filePathInSynFolder, containerSAS, null);
             Console.WriteLine("server repsonse: {0}", respMsg);
+
+            Thread.CurrentThread.Abort();
         }
     }
 }
