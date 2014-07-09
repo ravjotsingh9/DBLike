@@ -65,8 +65,8 @@ namespace Client
         {
             Threads.SignUp signupthread = new Threads.SignUp();
 			LocalDbAccess.LocalDB file = new LocalDbAccess.LocalDB();
-            String username = txtUserNametb1.Text;
-            String password = txtPasstb1.Text;
+            String username = txtusernametb2.Text;
+            String password = txtpasstb2.Text;
             file.writetofile(username,password,txtfoldertb2.Text);
             signupthread.start(username, password);
         }
