@@ -15,6 +15,7 @@ namespace Server.DatabaseAccess
     {
 
         // return true if user exists
+        // thread should use this first so we can know the reason is whether user exists or sth. else
         public bool checkIfUserExists(string userName, SqlConnection sqlConnection)
         {
 
@@ -49,12 +50,58 @@ namespace Server.DatabaseAccess
 
             }
 
-
-
-
         }
 
 
+
+
+        // insert user info into db
+        // return true if insert is succeessful
+        // make sure if user doesn't exist by using the above function
+        public bool insertNewUser(string userName, string psw, SqlConnection sqlConnection)
+        {
+
+            try
+            {
+
+                string sqlString = "INSERT INTO Users (UserName, Password) VALUES (@UserName, @psw)";
+
+
+                SqlCommand myCommand = new SqlCommand(sqlString, sqlConnection);
+
+                myCommand.Parameters.AddWithValue("@UserName", userName);
+                myCommand.Parameters.AddWithValue("@psw", psw);
+                // insert into the db
+                myCommand.ExecuteNonQuery();
+
+
+
+                // check if insert successfully
+                if (checkIfUserExists(userName, sqlConnection))
+                {
+                    return true;
+                }
+                else
+                {
+
+                    return false;
+
+                }
+
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+                return false;
+            }
+            finally
+            {
+                sqlConnection.Close();
+
+            }
+
+        }
 
     }
 }
