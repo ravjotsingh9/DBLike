@@ -46,11 +46,11 @@ namespace Server.Message
         /// +---------------------------------------------------------------------------------+
         /// </summary>
         /// <param name="words"></param>
-        public MsgRespUpload uploadParseMsg(string msg)
+        public MsgUpload uploadParseMsg(string msg)
         {
             string[] separators = { "<", ">:<", ">" };
             string[] words = msg.Split(separators, StringSplitOptions.RemoveEmptyEntries);
-            MsgRespUpload upload = new MsgRespUpload();
+            MsgUpload upload = new MsgUpload();
             upload.type = words[0];
             upload.userName = words[1];
             upload.password = words[2];

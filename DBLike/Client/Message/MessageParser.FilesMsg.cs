@@ -17,11 +17,11 @@ namespace Client.Message
         /// +------------------------------------------------------------------+
         /// </summary>
         /// <param name="words"></param>
-        public MsgUpload uploadParseMsg(string msg)
+        public MsgRespUpload uploadParseMsg(string msg)
         {
             string[] separators = { "<", ">:<", ">" };
             string[] words = msg.Split(separators, StringSplitOptions.RemoveEmptyEntries);
-            MsgUpload upload = new MsgUpload();
+            MsgRespUpload upload = new MsgRespUpload();
             upload.indicator = words[0];
             
             if (upload.indicator == "OK")

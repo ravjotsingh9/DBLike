@@ -29,7 +29,7 @@ namespace Server.Threads
             Server.Message.MessageParser parse = new Server.Message.MessageParser();
             MessageClasses.MsgUpload msgobj = new MessageClasses.MsgUpload();
             parse.uploadParseMsg(req);
-            MessageClasses.MsgRespUpload upload = parse.uploadParseMsg(req);
+            MessageClasses.MsgUpload upload = parse.uploadParseMsg(req);
             /*
             Console.WriteLine("userName: {0} password: {1}, sync folder patt: {2}, md5: {3}, timestamp: {4} fileName {5}",
                                upload.userName, upload.password, upload.filePathInSynFolder, upload.fileHashValue, upload.fileTimeStamps, upload.fileName);

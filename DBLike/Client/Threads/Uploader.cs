@@ -65,7 +65,7 @@ namespace Client.Threads
             
             //8 Client parse msg
             Client.Message.MessageParser par2 = new Client.Message.MessageParser();
-            Client.MessageClasses.MsgUpload reup = par2.uploadParseMsg(resp);
+            Client.MessageClasses.MsgRespUpload reup = par2.uploadParseMsg(resp);
             //Console.WriteLine("file path: {0}, container uri: {1}",
               //                 reup.filePathInSynFolder, reup.fileContainerUri);
             //9 Client upload
