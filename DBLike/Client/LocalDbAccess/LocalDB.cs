@@ -44,22 +44,23 @@ namespace Client.LocalDbAccess
 
         public bool writetofile(String username,String Password, string pathofFoldertoSync)
         {
+            StreamWriter file = null;
             string path = Directory.GetCurrentDirectory();
             path += @"\dblike.txt";
-            //if (!File.Exists(path))
-            //{
-                Console.WriteLine(username);
-                StreamWriter file = new StreamWriter(path);
-                file.WriteLine(username);
-                file.WriteLine(Password);
-                file.WriteLine(pathofFoldertoSync);
-                file.Close();
-                return true;
-           // }
-            //else
-           // {
-          //      return false;
-        //    }
+            if (!File.Exists(path))
+            {
+                file = new StreamWriter(path);
+           }
+           else
+            {
+                File.Delete(path);
+                file = new StreamWriter(path);
+            }
+            file.WriteLine(username);
+            file.WriteLine(Password);
+            file.WriteLine(pathofFoldertoSync);
+            file.Close();
+            return true;
         }
         public string[] readfromfile()
         {
