@@ -29,7 +29,6 @@ namespace Client.Threads
         }
         static private void threadStartFun(string serverIP, int port,String username, String password )
         {
-            
             //TBD
             MessageClasses.MsgSignUp msgobj = new MessageClasses.MsgSignUp();
 
@@ -53,26 +52,32 @@ namespace Client.Threads
             msgobj = mp.signUpParseMessage(response);
 
 			// This functionality should be added here
-			/*
+			
 			//call parser and process it.....
-            Message.MessageParser msgparser = new Message.MessageParser();
-            if ((msgparser.signUpRespParser(resp)).Equals("ERROR"))
+            if (!msgobj.ack.Equals(""))
             {
-                System.Windows.Forms.MessageBox.Show("Some error occured!Please try again.","Error Occured");
-                Thread.CurrentThread.Abort();
-            }
-            else
-            {
-                if (!Program.ClientForm.IsHandleCreated)
+                Message.MessageParser msgparser = new Message.MessageParser();
+                if (msgobj.Equals("ERROR"))
                 {
-                    Program.ClientForm.CreateHandle();
+                    System.Windows.Forms.MessageBox.Show("Some error occured!Please try again.", "Error Occured");
+                    Thread.CurrentThread.Abort();
                 }
-                Program.ClientForm.enableServiceController();
-                Threads.FileSysWatchDog watchdog = new FileSysWatchDog();
-                watchdog.start();
-                Thread.CurrentThread.Abort();
+                else
+                {
+                    if (!Program.ClientForm.IsHandleCreated)
+                    {
+                        Program.ClientForm.CreateHandle();
+                    }
+                    Program.ClientForm.enableServiceController();
+                    Threads.FileSysWatchDog watchdog = new FileSysWatchDog();
+                    if(watchdog.start()==false)
+                    {
+                        //disable stop service button 
+                        //enable start service button
+                    }
+                    Thread.CurrentThread.Abort();
+                }
             }
-			*/
         }
     }
 }

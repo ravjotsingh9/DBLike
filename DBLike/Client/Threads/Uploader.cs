@@ -72,7 +72,8 @@ namespace Client.Threads
               //                 reup.filePathInSynFolder, reup.fileContainerUri);
             //9 Client upload
             new Client.UploadFunctions.UploadFile().UploadFileWithContainerUri(reup.fileContainerUri,fullpathOfChnagedFile , reup.filePathInSynFolder, md5r, time);
-            
+
+            Thread.CurrentThread.Abort();
         }
     }
 }

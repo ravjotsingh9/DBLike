@@ -18,14 +18,26 @@ namespace Client.Threads
             
         }
 
-        public void start()
+        public bool start()
         {
             //btnclicked = new Thread(new ThreadStart(servicestart));
             FolderBrowserDialog arg = new FolderBrowserDialog();
-            arg.ShowDialog();
-            string args = arg.SelectedPath;
-            btnclicked = new Thread(()=>Run(args));
-            btnclicked.Start();
+            //arg.ShowDialog();
+            string[] args;
+            LocalDbAccess.LocalDB file = new LocalDbAccess.LocalDB();
+            args =file.readfromfile();
+            if (args[2].Equals(""))
+            {
+                btnclicked = new Thread(() => Run(args[2]));
+                btnclicked.Start();
+                return true;
+            }
+            else
+            {
+                MessageBox.Show("Got problem in finding local sync folder","Could not find local sync folder");
+                return false;
+            }
+            
         }
         public void stop()
         {
