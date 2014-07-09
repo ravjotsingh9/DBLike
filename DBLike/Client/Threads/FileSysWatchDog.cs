@@ -47,6 +47,7 @@ namespace Client.Threads
         [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
         public static void Run(string args)
         {
+            System.Windows.Forms.MessageBox.Show("started", "FileWatchdog Thread started");
             //"C:\\Users\\Owner\\Desktop\\Term2_Desktop";
             FileSystemWatcher watcher = new FileSystemWatcher();
             watcher.Path = args;   

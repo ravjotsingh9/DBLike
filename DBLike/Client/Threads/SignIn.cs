@@ -20,7 +20,7 @@ namespace Client.Threads
             //TBD
             thread = new Thread(() => threadStartFun(serverdetails.serverAddr, serverdetails.port, username, password));
             thread.Start();
-            thread.Start();
+         
         }
         public void stop()
         {

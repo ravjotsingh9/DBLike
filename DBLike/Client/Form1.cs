@@ -68,8 +68,14 @@ namespace Client
             String username = txtusernametb2.Text;
             String password = txtpasstb2.Text;
             bool result=file.writetofile(username,password,txtfoldertb2.Text);
-            MessageBox.Show(result.ToString());
-            file.writetofile(username,password,txtfoldertb2.Text);
+            /*
+            if (result == false)
+            {
+                MessageBox.Show("Unable to write on the file", "Unable to write on file");
+                return;
+            }
+             */ 
+            //file.writetofile(username,password,txtfoldertb2.Text);
             signupthread.start(username, password);
         }
 

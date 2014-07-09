@@ -30,6 +30,7 @@ namespace Client.Threads
         static private void threadStartFun(string serverIP, int port,String username, String password )
         {
             //TBD
+            System.Windows.Forms.MessageBox.Show("start", "SignUp Thread started");
             MessageClasses.MsgSignUp msgobj = new MessageClasses.MsgSignUp();
 
             // Fill out the content in msgobj
@@ -43,10 +44,12 @@ namespace Client.Threads
             
             //call  SocketCommunication.ReaderWriter.write(byte[] msg) to write msg on socket
             SocketCommunication.ReaderWriter rw = new SocketCommunication.ReaderWriter();
+            System.Windows.Forms.MessageBox.Show("going to write socket", "SignUp Thread started");
             rw.writetoSocket(sender, message);
             //call  SocketCommunication.ReaderWriter.read() to read response from server
+            System.Windows.Forms.MessageBox.Show("going to read socket", "SignUp Thread started");
             String response=rw.readfromSocket(sender);
-
+            System.Windows.Forms.MessageBox.Show("read", "SignUp Thread started");
             //call parser and process it.....
             Message.MessageParser mp = new Message.MessageParser();
             msgobj = mp.signUpParseMessage(response);
