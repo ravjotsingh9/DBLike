@@ -27,6 +27,7 @@ namespace Server.Threads
         {
             //get the msg parse it
             Server.Message.MessageParser parse = new Server.Message.MessageParser();
+            MessageClasses.MsgUpload msgobj = new MessageClasses.MsgUpload();
             parse.uploadParseMsg(req);
             MessageClasses.MsgRespUpload upload = parse.uploadParseMsg(req);
             /*
