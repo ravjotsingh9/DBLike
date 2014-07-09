@@ -65,7 +65,7 @@ namespace Client.Threads
         // Define the event handlers. 
         private static void OnChanged(object source, FileSystemEventArgs e)
         {
-            //MessageBox.Show("File: " + e.FullPath + " " + e.ChangeType);
+            MessageBox.Show("File: " + e.FullPath + " " + e.ChangeType);
             Uploader upload = new Uploader();
             upload.start(e.FullPath);
             //upload.stop();

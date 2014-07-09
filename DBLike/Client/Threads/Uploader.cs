@@ -27,11 +27,12 @@ namespace Client.Threads
         }
         static private void threadStartFun(string fullpathOfChnagedFile)
         {
+            System.Windows.Forms.MessageBox.Show("Started Uploader", "Client");
             //TBD
             //send msg to server
             //get the information from the localDatabase
             LocalDB readLocalDB = new LocalDB();
-            
+            readLocalDB.readfromfile();
             string clientSyncFolderPath= readLocalDB.getPath();
             string[] pathName = clientSyncFolderPath.Split('\\');
             string[] pathName2 = fullpathOfChnagedFile.Split('\\');
@@ -43,11 +44,8 @@ namespace Client.Threads
                 if ((j + 1) < i)
                 {
                     pathInSyncFolderPath += "\\";
-                }
-                
-                
+                }   
             }
-            
             string userName = readLocalDB.getUsername();
             string password = readLocalDB.getPassword();
             Client.Message.CreateMsg uploadM = new Client.Message.CreateMsg();
@@ -72,7 +70,7 @@ namespace Client.Threads
               //                 reup.filePathInSynFolder, reup.fileContainerUri);
             //9 Client upload
             new Client.UploadFunctions.UploadFile().UploadFileWithContainerUri(reup.fileContainerUri,fullpathOfChnagedFile , reup.filePathInSynFolder, md5r, time);
-
+            System.Windows.Forms.MessageBox.Show("Uploaded!!!", "Client");
             Thread.CurrentThread.Abort();
         }
     }
