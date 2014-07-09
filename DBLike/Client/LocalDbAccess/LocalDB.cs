@@ -48,10 +48,12 @@ namespace Client.LocalDbAccess
             path += @"\dblike.txt";
             if (!File.Exists(path))
             {
-                System.IO.StreamWriter file = new System.IO.StreamWriter(path);
+                Console.WriteLine(username);
+                StreamWriter file = new StreamWriter(path);
                 file.WriteLine(username);
                 file.WriteLine(Password);
                 file.WriteLine(pathofFoldertoSync);
+                file.Close();
                 return true;
             }
             else
@@ -75,7 +77,6 @@ namespace Client.LocalDbAccess
                     setUsername(filedetails[0]);
                     setPassword(filedetails[1]);
                     setPath(filedetails[2]);
-
                     return true;
                 }
                 else
