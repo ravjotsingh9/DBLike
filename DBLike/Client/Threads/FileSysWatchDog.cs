@@ -78,6 +78,7 @@ namespace Client.Threads
         // Define the event handlers. 
         private static void OnChanged(object source, FileSystemEventArgs e)
         {
+            //Thread.Sleep(1000);
             try
             {
                 watcher.EnableRaisingEvents = false;
@@ -96,6 +97,7 @@ namespace Client.Threads
         // Define the event handlers. 
         private static void OnCreated(object source, FileSystemEventArgs e)
         {
+            //Thread.Sleep(1000);
             //MessageBox.Show("OnCreatedFun: File: " + e.FullPath + " " + e.ChangeType);
             //MessageBox.Show("File: " + e.FullPath + " " + e.ChangeType);
                 Uploader upload = new Uploader();

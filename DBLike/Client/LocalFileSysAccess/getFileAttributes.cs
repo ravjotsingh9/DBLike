@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
+using System.Security.Permissions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -24,7 +25,7 @@ namespace Client.LocalFileSysAccess
             lastModified = System.IO.File.GetLastWriteTime(filePath);
             
         }
-
+        
         private void getFileMD5Value(string filePath)
         {
            
@@ -35,6 +36,7 @@ namespace Client.LocalFileSysAccess
             {
                 foreach (Byte b in md5Hasher.ComputeHash(fs))
                     sb.Append(b.ToString("x2").ToLower());
+                fs.Close();
             }
 
             string hexString = sb.ToString();
