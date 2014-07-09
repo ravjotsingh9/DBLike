@@ -61,7 +61,7 @@ namespace Client.LocalDbAccess
                 return false;
             }
         }
-        public bool readfromfile()
+        public string[] readfromfile()
         {
             String path = Directory.GetCurrentDirectory();
             path += @"\dblike.txt";
@@ -70,22 +70,22 @@ namespace Client.LocalDbAccess
                 StreamReader file = new StreamReader(path);
                 if (File.ReadLines(path).Count() == 3)
                 {
-                    String[] filedetails = new String[3];
+                    string[] filedetails = new string[3];
                     filedetails[0] = file.ReadLine();
                     filedetails[1] = file.ReadLine();
                     filedetails[2] = file.ReadLine();
                     setUsername(filedetails[0]);
                     setPassword(filedetails[1]);
                     setPath(filedetails[2]);
-                    return true;
+                    return filedetails;
                 }
                 else
-                    return false;
+                    return null;
                 
             }
             else
             {
-                return false;
+                return null;
             }   
         }
     }
