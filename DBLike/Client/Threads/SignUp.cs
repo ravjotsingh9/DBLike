@@ -79,7 +79,12 @@ namespace Client.Threads
                     else
                     {
                         //Upload all the content
-
+                        bool result = file.writetofile(username, password, sysncpath);
+                        if (result == false)
+                        {
+                            System.Windows.Forms.MessageBox.Show("Unable to write on the file", "Unable to write on file");
+                            return;
+                        }
                         uploadeverything(sysncpath);
                         System.Windows.Forms.MessageBox.Show("Uploaded!!!", "Client");
                         
