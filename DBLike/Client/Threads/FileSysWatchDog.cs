@@ -55,8 +55,8 @@ namespace Client.Threads
             watcher.IncludeSubdirectories = true;
             // Add event handlers.
             watcher.Changed += new FileSystemEventHandler(OnChanged); //change
-            watcher.Created += new FileSystemEventHandler(OnChanged); //creation
-            watcher.Deleted += new FileSystemEventHandler(OnChanged); //deletion
+            //watcher.Created += new FileSystemEventHandler(OnCreated); //creation
+            //watcher.Deleted += new FileSystemEventHandler(OnDeleted); //deletion
             //watcher.Renamed += new RenamedEventHandler(OnRenamed);    //renaming
             // Start watching.
             watcher.EnableRaisingEvents = true;
@@ -68,9 +68,24 @@ namespace Client.Threads
             MessageBox.Show("File: " + e.FullPath + " " + e.ChangeType);
             Uploader upload = new Uploader();
             upload.start(e.FullPath);
+            
+        }
+        // Define the event handlers. 
+        private static void OnCreated(object source, FileSystemEventArgs e)
+        {
+            MessageBox.Show("File: " + e.FullPath + " " + e.ChangeType);
+            Uploader upload = new Uploader();
+            //upload.start(e.FullPath);
             //upload.stop();
         }
-
+        // Define the event handlers. 
+        private static void OnDeleted(object source, FileSystemEventArgs e)
+        {
+            MessageBox.Show("File: " + e.FullPath + " " + e.ChangeType);
+            Uploader upload = new Uploader();
+            //upload.start(e.FullPath);
+            //upload.stop();
+        }
         private static void OnRenamed(object source, RenamedEventArgs e)
         {
             MessageBox.Show("File: " + e.OldFullPath + " renamed to " + e.FullPath);

@@ -25,10 +25,11 @@ namespace Server.Threads
         }
         private void threadStartFun(Socket soc, string req)
         {
+            System.Windows.Forms.MessageBox.Show("uploader started:" + req, "Server");
             //get the msg parse it
             Server.Message.MessageParser parse = new Server.Message.MessageParser();
-            MessageClasses.MsgUpload msgobj = new MessageClasses.MsgUpload();
-            parse.uploadParseMsg(req);
+            //MessageClasses.MsgUpload msgobj = new MessageClasses.MsgUpload();
+            //msgobj = parse.uploadParseMsg(req);
             MessageClasses.MsgUpload upload = parse.uploadParseMsg(req);
             /*
             Console.WriteLine("userName: {0} password: {1}, sync folder patt: {2}, md5: {3}, timestamp: {4} fileName {5}",
@@ -62,8 +63,9 @@ namespace Server.Threads
             //7 send upload msg back to client
             Server.Message.CreateMsg resp = new Server.Message.CreateMsg();
             string respMsg = resp.uploadRespMsg(upload.filePathInSynFolder, containerSAS, null);
-            Console.WriteLine("server repsonse: {0}", respMsg);
-
+            SocketCommunication.ReaderWriter rw = new SocketCommunication.ReaderWriter();
+            rw.writetoSocket(soc, respMsg);
+            System.Windows.Forms.MessageBox.Show("uploader write:" + respMsg, "Server");
             Thread.CurrentThread.Abort();
         }
     }

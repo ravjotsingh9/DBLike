@@ -40,65 +40,68 @@ namespace Server.Threads
             {
                 listener.Bind(localEndPoint);
                 listener.Listen(10);
-                handler = listener.Accept();
-
-                //TBD
-                /*
-                byte[] str = new byte[1024];
-                handler.Receive(str);
-                Console.WriteLine(str.ToString());
-                System.Windows.Forms.MessageBox.Show(System.Text.Encoding.ASCII.GetString(str));
-                 */ 
-                SocketCommunication.ReaderWriter rw = new SocketCommunication.ReaderWriter();
-                string req = rw.readfromSocket(handler);
-                string reqtype = findReqType(req);
-                switch(reqtype)
+                while(true)
                 {
-                    case "SIGNUP":
-                        {
-                            System.Windows.Forms.MessageBox.Show("Switch signUp", "Server");
-                            Threads.ServiceSignUpReq obj = new ServiceSignUpReq();
-                            obj.start(handler, req);
-                            break;
-                        }
+                    handler = listener.Accept();
 
-                    case "SIGNIN":
-                        {
-                            ServiceSignInReq obj = new ServiceSignInReq();
-                            obj.start(handler, req);
-                            break;
-                        }
+                    //TBD
+                    /*
+                    byte[] str = new byte[1024];
+                    handler.Receive(str);
+                    Console.WriteLine(str.ToString());
+                    System.Windows.Forms.MessageBox.Show(System.Text.Encoding.ASCII.GetString(str));
+                     */ 
+                    SocketCommunication.ReaderWriter rw = new SocketCommunication.ReaderWriter();
+                    string req = rw.readfromSocket(handler);
+                    string reqtype = findReqType(req);
+                    switch(reqtype)
+                    {
+                        case "SIGNUP":
+                            {
+                                System.Windows.Forms.MessageBox.Show("Switch signUp", "Server");
+                                Threads.ServiceSignUpReq obj = new ServiceSignUpReq();
+                                obj.start(handler, req);
+                                break;
+                            }
 
-                    case "POLL":
-                        {
-                            ServicePollReq obj = new ServicePollReq();
-                            obj.start(handler, req);
-                            break;
-                        }
+                        case "SIGNIN":
+                            {
+                                ServiceSignInReq obj = new ServiceSignInReq();
+                                obj.start(handler, req);
+                                break;
+                            }
 
-                    case "UPLOAD":
-                        {
-                            ServiceUploadReq obj = new ServiceUploadReq();
-                            obj.start(handler, req);
-                            //obj.stop();
-                            break;
-                        }
+                        case "POLL":
+                            {
+                                ServicePollReq obj = new ServicePollReq();
+                                obj.start(handler, req);
+                                break;
+                            }
 
-                    case "DOWNLOAD":
-                        {
-                            ServiceDownloadReq obj = new ServiceDownloadReq();
-                            obj.start(handler, req);
-                            break;
-                        }
+                        case "UPLOAD":
+                            {
+                                System.Windows.Forms.MessageBox.Show("Switch Upload", "Server");
+                                ServiceUploadReq obj = new ServiceUploadReq();
+                                obj.start(handler, req);
+                                //obj.stop();
+                                break;
+                            }
 
-                    case "NOTIFICATION":
-                        {
-                            Service_Notification obj = new Service_Notification();
-                            obj.start(handler, req);
-                            break;
-                        }
+                        case "DOWNLOAD":
+                            {
+                                ServiceDownloadReq obj = new ServiceDownloadReq();
+                                obj.start(handler, req);
+                                break;
+                            }
+
+                        case "NOTIFICATION":
+                            {
+                                Service_Notification obj = new Service_Notification();
+                                obj.start(handler, req);
+                                break;
+                            }
+                    }
                 }
-
             }
             catch (Exception ex)
             {
