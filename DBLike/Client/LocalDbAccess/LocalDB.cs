@@ -75,8 +75,12 @@ namespace Client.LocalDbAccess
                     setUsername(filedetails[0]);
                     setPassword(filedetails[1]);
                     setPath(filedetails[2]);
+
+                    return true;
                 }
-                return true;
+                else
+                    return false;
+                
             }
             else
             {
