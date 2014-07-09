@@ -60,6 +60,7 @@
     <Compile Include="LocalDbAccess\LocalDB.cs" />
     <Compile Include="LocalFileSysAccess\LocalFileSys.cs" />
     <Compile Include="MessageClasses\MsgPoll.cs" />
+    <Compile Include="MessageClasses\MsgRespUpload.cs" />
     <Compile Include="MessageClasses\MsgSignIn.cs" />
     <Compile Include="MessageClasses\MsgSignUp.cs" />
     <Compile Include="MessageClasses\MsgUpload.cs" />
