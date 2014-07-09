@@ -30,6 +30,20 @@ namespace Client
         void enableController()
         {
             groupBox1.Enabled = true;
+
+            //disable start button inside it
+            button1.Enabled = false;
+            button2.Enabled = true;
+
+            ////disable login 
+            groupBox2.Enabled = false;
+
+            //disable create Account
+            btnCreateAcctb2.Enabled = false;
+            //shift tosign in tab
+            
+            tabControl1.SelectedIndex = 1;
+
         }
 
 
@@ -39,6 +53,7 @@ namespace Client
             groupBox1.Enabled = false;
             watchdog = new Threads.FileSysWatchDog();
             button2.Enabled = false;
+            
         }
 
         private void btnBrowsetb2_Click(object sender, EventArgs e)
@@ -49,6 +64,7 @@ namespace Client
         
         private void button1_Click(object sender, EventArgs e)
         {
+            
             watchdog.start();
             button1.Enabled = false;
             button2.Enabled = true;

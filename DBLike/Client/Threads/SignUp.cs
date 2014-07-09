@@ -62,7 +62,7 @@ namespace Client.Threads
             if (!msgobj.ack.Equals(""))
             {
                 Message.MessageParser msgparser = new Message.MessageParser();
-                if (msgobj.Equals("ERRORS"))
+                if (msgobj.ack.Equals("ERRORS"))
                 {
                     System.Windows.Forms.MessageBox.Show("Some error occured!Please try again.", "Error Occured");
                     Thread.CurrentThread.Abort();
@@ -81,7 +81,16 @@ namespace Client.Threads
                         {
                             Program.ClientForm.CreateHandle();
                         }
+                        //enable service controller
                         Program.ClientForm.enableServiceController();
+                        //disable start button inside it
+
+                        ////disable login 
+
+                        //disable create Account
+
+                        //shift tosign in tab
+
                         Threads.FileSysWatchDog watchdog = new FileSysWatchDog();
                         if (watchdog.start() == false)
                         {

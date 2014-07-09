@@ -6,11 +6,13 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Server.Threads
 {
     class ServerConnListener
     {
+        static volatile bool varstop;
         static Socket handler;
         static Thread ServerMainthread = new Thread(new ThreadStart(listen));
         public void start()
@@ -21,7 +23,41 @@ namespace Server.Threads
         public void stop()
         {
         //    stopListening();
-            ServerMainthread.Abort();
+            //ServerMainthread.Abort();
+            if (ServerMainthread.IsAlive == true)
+            {
+                // Establish the remote endpoint for the socket.
+                IPHostEntry ipHostInfo = Dns.Resolve(Dns.GetHostName());
+                IPAddress ipAddress = ipHostInfo.AddressList[0];
+                IPEndPoint remoteEP = new IPEndPoint(ipAddress, 11000);
+
+                // Create a TCP/IP  socket.
+                Socket snder = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+
+                // Connect the socket to the remote endpoint. Catch any errors.
+                try
+                {
+                    varstop = true;
+                    snder.Connect(remoteEP);
+                }
+                catch (Exception ex)
+                {
+                    System.Windows.Forms.MessageBox.Show(ex.Message);
+                }
+                snder.Shutdown(SocketShutdown.Both);
+                snder.Close();
+                // Abort watchdog thread also
+                /*
+                if (watchdog.IsAlive == true)
+                {
+                    watchdog.Abort();
+                }
+                 */ 
+            }
+            else
+            {
+                 Application.Exit();
+            }
         }
 
         static public void listen()
@@ -43,7 +79,18 @@ namespace Server.Threads
                 while(true)
                 {
                     handler = listener.Accept();
-
+                    if (varstop)
+                    {
+                        
+                        //if (DialogResult.Yes == MessageBox.Show("Do you really want to shut down server? ", "Allow", MessageBoxButtons.YesNo))
+                        //{
+                            handler.Shutdown(SocketShutdown.Both);
+                            handler.Close();
+                            Application.Exit();
+                            break;
+                        //}
+                        //varstop = false;
+                    }
                     //TBD
                     /*
                     byte[] str = new byte[1024];

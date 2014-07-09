@@ -15,6 +15,7 @@ namespace Server
     public partial class Form1 : Form
     {
         static Threads.ServerConnListener Server = new Threads.ServerConnListener();
+        
         public Form1()
         {
             InitializeComponent();

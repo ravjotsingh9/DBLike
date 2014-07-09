@@ -12,7 +12,7 @@ namespace Client.Threads
 {
     class FileSysWatchDog
     {
-        Thread btnclicked;
+        static Thread btnclicked = new Thread(() => Run());
         public FileSysWatchDog()
         {
             
@@ -20,9 +20,10 @@ namespace Client.Threads
 
         public bool start()
         {
-            //btnclicked = new Thread(new ThreadStart(servicestart));
-            FolderBrowserDialog arg = new FolderBrowserDialog();
-            //arg.ShowDialog();
+            
+            btnclicked.Start();
+            return true;
+            /*
             string[] args = new string[3];
             LocalDbAccess.LocalDB file = new LocalDbAccess.LocalDB();
             args =file.readfromfile();
@@ -37,29 +38,41 @@ namespace Client.Threads
                 btnclicked.Start();
                 return true;
             }
-            
+            */
         }
         public void stop()
         {
             btnclicked.Abort();
+            
         }
 
         [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
-        public static void Run(string args)
+        public static void Run()
         {
-            System.Windows.Forms.MessageBox.Show("started", "FileWatchdog Thread started");
-            //"C:\\Users\\Owner\\Desktop\\Term2_Desktop";
-            FileSystemWatcher watcher = new FileSystemWatcher();
-            watcher.Path = args;   
-            watcher.NotifyFilter =  NotifyFilters.LastWrite| NotifyFilters.FileName | NotifyFilters.DirectoryName;
-            watcher.IncludeSubdirectories = true;
-            // Add event handlers.
-            watcher.Changed += new FileSystemEventHandler(OnChanged); //change
-            //watcher.Created += new FileSystemEventHandler(OnCreated); //creation
-            //watcher.Deleted += new FileSystemEventHandler(OnDeleted); //deletion
-            //watcher.Renamed += new RenamedEventHandler(OnRenamed);    //renaming
-            // Start watching.
-            watcher.EnableRaisingEvents = true;
+            string[] args = new string[3];
+            LocalDbAccess.LocalDB file = new LocalDbAccess.LocalDB();
+            args = file.readfromfile();
+            if (args[2].Equals(""))
+            {
+                MessageBox.Show("Got problem in finding local sync folder", "Could not find local sync folder");
+                Thread.CurrentThread.Abort();
+            }
+            else
+            {
+                //System.Windows.Forms.MessageBox.Show("started", "FileWatchdog Thread started");
+                //"C:\\Users\\Owner\\Desktop\\Term2_Desktop";
+                FileSystemWatcher watcher = new FileSystemWatcher();
+                watcher.Path = args[2];
+                watcher.NotifyFilter = NotifyFilters.LastWrite | NotifyFilters.FileName | NotifyFilters.DirectoryName;
+                watcher.IncludeSubdirectories = true;
+                // Add event handlers.
+                watcher.Changed += new FileSystemEventHandler(OnChanged); //change
+                watcher.Created += new FileSystemEventHandler(OnCreated); //creation
+                watcher.Deleted += new FileSystemEventHandler(OnDeleted); //deletion
+                watcher.Renamed += new RenamedEventHandler(OnRenamed);    //renaming
+                // Start watching.
+                watcher.EnableRaisingEvents = true;
+            }
         }
 
         // Define the event handlers. 
