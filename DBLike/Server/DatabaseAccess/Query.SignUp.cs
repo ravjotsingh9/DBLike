@@ -57,7 +57,7 @@ namespace Server.DatabaseAccess
 
         // insert user info into db
         // return true if insert is succeessful
-        // make sure if user doesn't exist by using the above function
+        // make sure if user doesn't exist first by using the above function
         public bool insertNewUser(string userName, string psw, SqlConnection sqlConnection)
         {
 
