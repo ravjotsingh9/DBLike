@@ -37,20 +37,20 @@ namespace Client.Threads
 
             //call CreateMsg.createSignUpMsg(msgobj) get it in bytes form
             Message.CreateMsg msg = new Message.CreateMsg();
-            String message = msg.signInMsg(msgobj);
+            //String message = msg.(msgobj);
 
             //create a socket connection. you may need to create in Conection Manager
             sender = conn.connect(serverIP, port);
 
             //call  SocketCommunication.ReaderWriter.write(byte[] msg) to write msg on socket
             SocketCommunication.ReaderWriter rw = new SocketCommunication.ReaderWriter();
-            rw.writetoSocket(sender, message);
+           // rw.writetoSocket(sender, message);
             //call  SocketCommunication.ReaderWriter.read() to read response from server
             String response = rw.readfromSocket(sender);
 
             //call parser and process it.....
             Message.MessageParser mp = new Message.MessageParser();
-            msgobj = mp.signinParseMsg(response);
+           // msgobj = mp.signinParseMsg(response);
         }
     }
 }

@@ -31,13 +31,13 @@ namespace Client.Threads
         {
             
             //TBD
-            MessageClasses.MsgSignUp msgobj = new MessageClasses.MsgSignUp(username,password);
+            MessageClasses.MsgSignUp msgobj = new MessageClasses.MsgSignUp();
 
             // Fill out the content in msgobj
 
             //call CreateMsg.createSignUpMsg(msgobj) get it in bytes form
             Message.CreateMsg msg=new Message.CreateMsg();
-            String message = msg.signUpMsg(msgobj);
+            String message = msg.createSignUpMsg(msgobj);
 
             //create a socket connection. you may need to create in Conection Manager
             sender = conn.connect(serverIP, port);
@@ -50,7 +50,7 @@ namespace Client.Threads
 
             //call parser and process it.....
             Message.MessageParser mp = new Message.MessageParser();
-            msgobj = mp.signupParseMsg(response);
+            msgobj = mp.signUpParseMessage(response);
 
 			// This functionality should be added here
 			/*
