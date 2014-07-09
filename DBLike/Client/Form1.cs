@@ -67,6 +67,8 @@ namespace Client
 			LocalDbAccess.LocalDB file = new LocalDbAccess.LocalDB();
             String username = txtusernametb2.Text;
             String password = txtpasstb2.Text;
+            bool result=file.writetofile(username,password,txtfoldertb2.Text);
+            MessageBox.Show(result.ToString());
             file.writetofile(username,password,txtfoldertb2.Text);
             signupthread.start(username, password);
         }
