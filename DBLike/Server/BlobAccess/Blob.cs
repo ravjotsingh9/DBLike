@@ -19,6 +19,7 @@ namespace Server.BlobAccess
         public bool ifBlobExist { get; set; }
         public bool isHashSame { get; set; }
         public bool isTimestampLater { get; set; }
+        public bool isDirectory { get; set; }
 
         /// <summary>
         /// Constructor
@@ -39,9 +40,14 @@ namespace Server.BlobAccess
             container = blobClient.GetContainerReference(clientContainerName);
             container.CreateIfNotExists();
             blob = container.GetBlockBlobReference(filePathInSynFolder);
-            if (blob.Exists())
+            if (fileHashValue == "isDirectory")
+            {
+                isDirectory = true;
+            }
+            if (blob.Exists() && isDirectory==false)
             {
                 ifBlobExist = true;
+                
                 blob.FetchAttributes();
                 hashValue = blob.Metadata["hashValue"];
                 timestamp = DateTime.ParseExact(blob.Metadata["timestamp"], "MM/dd/yyyy HH:mm:ss",
@@ -57,13 +63,18 @@ namespace Server.BlobAccess
                     isTimestampLater = true;
                 }
             }
-            else
+            else if (blob.Exists() && isDirectory)
+            {
+                // do nothing or set allupload to be false, future implementaion
+            }
+            else 
             {
                 ifBlobExist = false;
             }
 
         }
 
+        //need to be modified for directroy
         public bool allUpload()
         {
             if(isTimestampLater){

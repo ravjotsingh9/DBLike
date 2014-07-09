@@ -69,8 +69,8 @@ namespace ClientUnitTest
                                reup.filePathInSynFolder, reup.fileContainerUri);
             //9 Client upload
             new Client.UploadFunctions.UploadFile().UploadFileWithContainerUri(reup.fileContainerUri, fileLocalPath, reup.filePathInSynFolder, md5r,time);
-   **/
-        }
+ 
+        }  **/
 
     }
 }

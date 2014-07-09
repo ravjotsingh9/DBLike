@@ -25,6 +25,10 @@ namespace Server.Threads
         }
         private void threadStartFun(Socket soc, string req)
         {
+            try
+            {
+
+            
             //System.Windows.Forms.MessageBox.Show("uploader started:" + req, "Server");
             //get the msg parse it
             Server.Message.MessageParser parse = new Server.Message.MessageParser();
@@ -66,7 +70,16 @@ namespace Server.Threads
             SocketCommunication.ReaderWriter rw = new SocketCommunication.ReaderWriter();
             rw.writetoSocket(soc, respMsg);
             //System.Windows.Forms.MessageBox.Show("uploader write:" + respMsg, "Server");
-            Thread.CurrentThread.Abort();
+            
+            }
+            catch(Exception e)
+            {
+                System.IO.File.WriteAllText("bug.txt", e.ToString());
+            }
+            finally
+            {
+                Thread.CurrentThread.Abort();
+            }
         }
     }
 }

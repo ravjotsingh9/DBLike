@@ -13,11 +13,28 @@ namespace Client.LocalFileSysAccess
     {
         public DateTime lastModified { get; set; }
         public string md5Value { get; set; }
+        public bool isDirectory { get; set; }
 
         public getFileAttributes(string filePath)
         {
-            getTimeStamp(filePath);
-            getFileMD5Value(filePath);
+            FileAttributes attr = File.GetAttributes(filePath);
+
+            //detect whether its a directory or file
+            if ((attr & FileAttributes.Directory) == FileAttributes.Directory)
+            {
+                isDirectory = true;
+                lastModified = System.IO.File.GetLastWriteTime(filePath);
+                md5Value = "isDirectory";
+                //System.IO.File.WriteAllText("datttt.txt", lastModified.ToString("MM/dd/yyyy HH:mm:ss"));
+            }
+            else
+            {
+                isDirectory = false;
+                getTimeStamp(filePath);
+                getFileMD5Value(filePath);
+
+            }       
+ 
         }
         
         private void getTimeStamp(string filePath){

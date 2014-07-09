@@ -27,6 +27,10 @@ namespace Client.Threads
         }
         static private void threadStartFun(string fullpathOfChnagedFile)
         {
+            try
+            {
+
+            
             //System.Windows.Forms.MessageBox.Show("Started Uploader", "Client");
             //TBD
             //send msg to server
@@ -51,8 +55,14 @@ namespace Client.Threads
             Client.Message.CreateMsg uploadM = new Client.Message.CreateMsg();
             Client.LocalFileSysAccess.getFileAttributes att = new Client.LocalFileSysAccess.getFileAttributes(fullpathOfChnagedFile);
             DateTime time = att.lastModified;
+            string msg;
             string md5r = att.md5Value;
-            string msg = uploadM.uploadMsg(userName, password, pathInSyncFolderPath, time, md5r);
+            msg = uploadM.uploadMsg(userName, password, pathInSyncFolderPath, time, md5r);
+     
+              
+            
+           
+            
 
             //send the msg using socket
             ConnectionManager.Connection conn = new ConnectionManager.Connection();
@@ -71,7 +81,15 @@ namespace Client.Threads
             //9 Client upload
             new Client.UploadFunctions.UploadFile().UploadFileWithContainerUri(reup.fileContainerUri,fullpathOfChnagedFile , reup.filePathInSynFolder, md5r, time);
             //System.Windows.Forms.MessageBox.Show("Uploaded!!!", "Client");
-            Thread.CurrentThread.Abort();
+            
+            }
+            catch(Exception e){
+                System.IO.File.WriteAllText("errors.txt", e.ToString());
+            }
+            finally
+            {
+                Thread.CurrentThread.Abort();
+            }
         }
     }
 }

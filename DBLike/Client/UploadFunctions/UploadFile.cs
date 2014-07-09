@@ -25,13 +25,25 @@ namespace Client.UploadFunctions
             try
             {
                 CloudBlobContainer container = new CloudBlobContainer(new Uri(sasUri));
-                CloudBlockBlob blob = container.GetBlockBlobReference(filePathInSyncFolder);
-                blob.UploadFromFile(localFilePath, FileMode.Open);
-                blob.Metadata["hashValue"] = fileHashVaule;
-                blob.Metadata["timestamp"] = fileTimestamp.ToString("MM/dd/yyyy HH:mm:ss");
-                blob.Metadata["filePath"] = filePathInSyncFolder;
-                blob.SetMetadata();
-                
+               
+                if (fileHashVaule == "isDirectory")
+                {
+                    CloudBlockBlob blob = container.GetBlockBlobReference(filePathInSyncFolder);
+                    blob.UploadFromFile(localFilePath, FileMode.Open);
+                    //directory.Metadata["hashValue"] = fileHashVaule;
+                    
+                    
+                }
+                else
+                {
+                    CloudBlockBlob blob = container.GetBlockBlobReference(filePathInSyncFolder);
+                    blob.UploadFromFile(localFilePath, FileMode.Open);
+                    blob.Metadata["hashValue"] = "isDirectory";
+                    blob.Metadata["timestamp"] = fileTimestamp.ToString("MM/dd/yyyy HH:mm:ss");
+                    blob.Metadata["filePath"] = filePathInSyncFolder;
+                    blob.SetMetadata();
+                }
+
             }
             catch (Exception e)
             {
