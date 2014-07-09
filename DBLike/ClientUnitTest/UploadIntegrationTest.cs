@@ -10,10 +10,10 @@ using Microsoft.WindowsAzure.Storage.Blob;
 
 namespace ClientUnitTest
 {
-    /**
+    
     [TestClass]
     public class UploadIntegrationTest
-    {
+    {/**
         [TestMethod]
         public void uploadIntegrationTest()
         {
