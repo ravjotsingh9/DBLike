@@ -62,7 +62,7 @@ namespace Server.Threads
 
         static public void listen()
         {
-            System.Windows.Forms.MessageBox.Show("Servermainthread started", "Server");
+            //System.Windows.Forms.MessageBox.Show("Servermainthread started", "Server");
             IPHostEntry ipHostInfo = Dns.Resolve(Dns.GetHostName());
             IPAddress ipAddress = ipHostInfo.AddressList[0];
             IPEndPoint localEndPoint = new IPEndPoint(ipAddress, 11000);
@@ -105,7 +105,7 @@ namespace Server.Threads
                     {
                         case "SIGNUP":
                             {
-                                System.Windows.Forms.MessageBox.Show("Switch signUp", "Server");
+                                //System.Windows.Forms.MessageBox.Show("Switch signUp", "Server");
                                 Threads.ServiceSignUpReq obj = new ServiceSignUpReq();
                                 obj.start(handler, req);
                                 break;
@@ -127,7 +127,7 @@ namespace Server.Threads
 
                         case "UPLOAD":
                             {
-                                System.Windows.Forms.MessageBox.Show("Switch Upload", "Server");
+                                //System.Windows.Forms.MessageBox.Show("Switch Upload", "Server");
                                 ServiceUploadReq obj = new ServiceUploadReq();
                                 obj.start(handler, req);
                                 //obj.stop();

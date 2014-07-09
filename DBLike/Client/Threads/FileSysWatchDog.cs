@@ -10,19 +10,17 @@ using System.Windows.Forms;
 
 namespace Client.Threads
 {
-    class FileSysWatchDog
+     static class FileSysWatchDog
     {
-        static Thread btnclicked = new Thread(() => Run());
-        public FileSysWatchDog()
-        {
+        //static Thread btnclicked = new Thread(() => Run());
+        static FileSystemWatcher watcher;
+        
+         
+        //public bool start()
+       // {
             
-        }
-
-        public bool start()
-        {
-            
-            btnclicked.Start();
-            return true;
+         //   btnclicked.Start();
+         //   return true;
             /*
             string[] args = new string[3];
             LocalDbAccess.LocalDB file = new LocalDbAccess.LocalDB();
@@ -38,11 +36,13 @@ namespace Client.Threads
                 btnclicked.Start();
                 return true;
             }
-            */
-        }
-        public void stop()
+           */
+        //}
+   
+        public static void stop()
         {
-            btnclicked.Abort();
+            watcher.EnableRaisingEvents = false;
+            //btnclicked.Abort();
             
         }
 
@@ -61,15 +61,15 @@ namespace Client.Threads
             {
                 //System.Windows.Forms.MessageBox.Show("started", "FileWatchdog Thread started");
                 //"C:\\Users\\Owner\\Desktop\\Term2_Desktop";
-                FileSystemWatcher watcher = new FileSystemWatcher();
+                watcher = new FileSystemWatcher();
                 watcher.Path = args[2];
                 watcher.NotifyFilter = NotifyFilters.LastWrite | NotifyFilters.FileName | NotifyFilters.DirectoryName;
                 watcher.IncludeSubdirectories = true;
                 // Add event handlers.
                 watcher.Changed += new FileSystemEventHandler(OnChanged); //change
                 watcher.Created += new FileSystemEventHandler(OnCreated); //creation
-                watcher.Deleted += new FileSystemEventHandler(OnDeleted); //deletion
-                watcher.Renamed += new RenamedEventHandler(OnRenamed);    //renaming
+                //watcher.Deleted += new FileSystemEventHandler(OnDeleted); //deletion
+                //watcher.Renamed += new RenamedEventHandler(OnRenamed);    //renaming
                 // Start watching.
                 watcher.EnableRaisingEvents = true;
             }
@@ -78,30 +78,43 @@ namespace Client.Threads
         // Define the event handlers. 
         private static void OnChanged(object source, FileSystemEventArgs e)
         {
-            MessageBox.Show("File: " + e.FullPath + " " + e.ChangeType);
-            Uploader upload = new Uploader();
-            upload.start(e.FullPath);
+            try
+            {
+                watcher.EnableRaisingEvents = false;
+                //MessageBox.Show("OnChangedFun : File: " + e.FullPath + " " + e.ChangeType);
+            
+                Uploader upload = new Uploader();
+                upload.start(e.FullPath);
+            }
+            finally
+            {
+                watcher.EnableRaisingEvents = true;
+            }
             
         }
+
         // Define the event handlers. 
         private static void OnCreated(object source, FileSystemEventArgs e)
         {
-            MessageBox.Show("File: " + e.FullPath + " " + e.ChangeType);
-            Uploader upload = new Uploader();
-            //upload.start(e.FullPath);
-            //upload.stop();
+            //MessageBox.Show("OnCreatedFun: File: " + e.FullPath + " " + e.ChangeType);
+            //MessageBox.Show("File: " + e.FullPath + " " + e.ChangeType);
+                Uploader upload = new Uploader();
+                upload.start(e.FullPath);
+            
         }
         // Define the event handlers. 
         private static void OnDeleted(object source, FileSystemEventArgs e)
         {
-            MessageBox.Show("File: " + e.FullPath + " " + e.ChangeType);
+            //MessageBox.Show("File: " + e.FullPath + " " + e.ChangeType);
             Uploader upload = new Uploader();
-            //upload.start(e.FullPath);
-            //upload.stop();
+            upload.start(e.FullPath);
+            
         }
         private static void OnRenamed(object source, RenamedEventArgs e)
         {
-            MessageBox.Show("File: " + e.OldFullPath + " renamed to " + e.FullPath);
+            //MessageBox.Show("File: " + e.OldFullPath + " renamed to " + e.FullPath);
+            Uploader upload = new Uploader();
+            upload.start(e.FullPath);
         }
 
 

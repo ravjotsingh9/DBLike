@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Net.Sockets;
+using System.IO;
 
 
 namespace Client.Threads
@@ -31,7 +32,7 @@ namespace Client.Threads
         {
 
             //TBD
-            System.Windows.Forms.MessageBox.Show("start", "SignUp Thread started");
+            //System.Windows.Forms.MessageBox.Show("start", "SignUp Thread started");
             MessageClasses.MsgSignUp msgobj = new MessageClasses.MsgSignUp();
             msgobj.userName = username;
             msgobj.psw = password;
@@ -46,12 +47,12 @@ namespace Client.Threads
             
             //call  SocketCommunication.ReaderWriter.write(byte[] msg) to write msg on socket
             SocketCommunication.ReaderWriter rw = new SocketCommunication.ReaderWriter();
-            System.Windows.Forms.MessageBox.Show("going to write socket:"+message, "SignUp Thread started");
+            //System.Windows.Forms.MessageBox.Show("going to write socket:"+message, "SignUp Thread started");
             rw.writetoSocket(sender, message);
             //call  SocketCommunication.ReaderWriter.read() to read response from server
             //System.Windows.Forms.MessageBox.Show("going to read socket: " , "SignUp Thread started");
             String response=rw.readfromSocket(sender);
-            System.Windows.Forms.MessageBox.Show("read:"+ response, "SignUp Thread started");
+            //System.Windows.Forms.MessageBox.Show("read:"+ response, "SignUp Thread started");
             //call parser and process it.....
             Message.MessageParser mp = new Message.MessageParser();
             msgobj = mp.signUpParseMessage(response);
@@ -77,29 +78,51 @@ namespace Client.Threads
                     }
                     else
                     {
+                        //Upload all the content
+
+                        uploadeverything(sysncpath);
+                        System.Windows.Forms.MessageBox.Show("Uploaded!!!", "Client");
+                        
                         if (!Program.ClientForm.IsHandleCreated)
                         {
                             Program.ClientForm.CreateHandle();
                         }
                         //enable service controller
                         Program.ClientForm.enableServiceController();
-                        //disable start button inside it
-
-                        ////disable login 
-
-                        //disable create Account
-
-                        //shift tosign in tab
-
+                        
+                        FileSysWatchDog.Run();
+                        /*
                         Threads.FileSysWatchDog watchdog = new FileSysWatchDog();
                         if (watchdog.start() == false)
                         {
                             //disable stop service button 
                             //enable start service button
                         }
+                         */ 
                     }
                     Thread.CurrentThread.Abort();
                 }
+            }
+        }
+        static void uploadeverything(string path)
+        {
+            string filepath = path;
+            string[] files;
+            string[] directories;
+
+            files = Directory.GetFiles(path);
+            foreach (string file in files)
+            {
+                // Process each file
+                Uploader upload = new Uploader();
+                upload.start(file);
+            }
+
+            directories = Directory.GetDirectories(path);
+            foreach (string directory in directories)
+            {
+                // Process each directory recursively
+                uploadeverything(directory);
             }
         }
     }

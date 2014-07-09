@@ -14,9 +14,9 @@ using System.Windows.Forms;
 
 namespace Client
 {
-    public partial class Form1 : Form
+     public partial class Form1 : Form
     {
-        Threads.FileSysWatchDog watchdog;
+        //public static Threads.FileSysWatchDog watchdog;
         delegate void changeStatetoSignedUp();
         public void enableServiceController()
         {
@@ -51,10 +51,11 @@ namespace Client
         {
             InitializeComponent();
             groupBox1.Enabled = false;
-            watchdog = new Threads.FileSysWatchDog();
+           // watchdog = new Threads.FileSysWatchDog();
             button2.Enabled = false;
             
         }
+
 
         private void btnBrowsetb2_Click(object sender, EventArgs e)
         {
@@ -64,17 +65,20 @@ namespace Client
         
         private void button1_Click(object sender, EventArgs e)
         {
-            
-            watchdog.start();
+            Threads.FileSysWatchDog.Run();
+            //watchdog.start();
             button1.Enabled = false;
             button2.Enabled = true;
+            enableController();
         }
         
         private void button2_Click(object sender, EventArgs e)
         {
-            watchdog.stop();
+            Threads.FileSysWatchDog.stop();
+            //watchdog.stop();
             button1.Enabled = true;
             button2.Enabled = false;
+            btnCreateAcctb2.Enabled = true;
         }
 
         private void btnCreateAcctb2_Click(object sender, EventArgs e)

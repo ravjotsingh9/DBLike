@@ -27,7 +27,7 @@ namespace Server.Threads
         private void threadStartFun(Socket soc, string req)
         {
             //parse msg received
-            System.Windows.Forms.MessageBox.Show("Signup service started:"+ req, "Server");
+            //System.Windows.Forms.MessageBox.Show("Signup service started:"+ req, "Server");
             Message.MessageParser parser = new Message.MessageParser();
             MessageClasses.MsgSignUp.req reqobj = new MessageClasses.MsgSignUp.req();
             reqobj = parser.signUpParseReq(req);
@@ -41,7 +41,7 @@ namespace Server.Threads
             if (true == q.checkIfUserExists(reqobj.userName, conn))
             {
                 con.DBClose();
-                System.Windows.Forms.MessageBox.Show("Signup service if user exists", "Server");
+                //System.Windows.Forms.MessageBox.Show("Signup service if user exists", "Server");
                 MessageClasses.MsgSignUp.resp resp = new MessageClasses.MsgSignUp.resp();
                 resp.ack = "ERRORS";
                 resp.addiMsg = "AlreadyExist";
@@ -59,7 +59,7 @@ namespace Server.Threads
                 if (true == q.insertNewUser(reqobj.userName, reqobj.psw, conn1))
                 {
                     conn1.Close();
-                    System.Windows.Forms.MessageBox.Show("Signup service insert user", "Server");
+                    //System.Windows.Forms.MessageBox.Show("Signup service insert user", "Server");
                     MessageClasses.MsgSignUp.resp resp = new MessageClasses.MsgSignUp.resp();
                     resp.ack = "OK";
                     resp.addiMsg = "Added";
@@ -72,7 +72,7 @@ namespace Server.Threads
                 else
                 {
                     conn1.Close();
-                    System.Windows.Forms.MessageBox.Show("Signup service could insert", "Server");
+                    //System.Windows.Forms.MessageBox.Show("Signup service could insert", "Server");
                     MessageClasses.MsgSignUp.resp resp = new MessageClasses.MsgSignUp.resp();
                     resp.ack = "ERRORS";
                     resp.addiMsg = "ERRORWHILEINSERTING";

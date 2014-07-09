@@ -25,7 +25,7 @@ namespace Server.Threads
         }
         private void threadStartFun(Socket soc, string req)
         {
-            System.Windows.Forms.MessageBox.Show("uploader started:" + req, "Server");
+            //System.Windows.Forms.MessageBox.Show("uploader started:" + req, "Server");
             //get the msg parse it
             Server.Message.MessageParser parse = new Server.Message.MessageParser();
             //MessageClasses.MsgUpload msgobj = new MessageClasses.MsgUpload();
@@ -65,7 +65,7 @@ namespace Server.Threads
             string respMsg = resp.uploadRespMsg(upload.filePathInSynFolder, containerSAS, null);
             SocketCommunication.ReaderWriter rw = new SocketCommunication.ReaderWriter();
             rw.writetoSocket(soc, respMsg);
-            System.Windows.Forms.MessageBox.Show("uploader write:" + respMsg, "Server");
+            //System.Windows.Forms.MessageBox.Show("uploader write:" + respMsg, "Server");
             Thread.CurrentThread.Abort();
         }
     }

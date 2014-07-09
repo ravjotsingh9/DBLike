@@ -27,7 +27,7 @@ namespace Client.Threads
         }
         static private void threadStartFun(string fullpathOfChnagedFile)
         {
-            System.Windows.Forms.MessageBox.Show("Started Uploader", "Client");
+            //System.Windows.Forms.MessageBox.Show("Started Uploader", "Client");
             //TBD
             //send msg to server
             //get the information from the localDatabase
@@ -70,7 +70,7 @@ namespace Client.Threads
               //                 reup.filePathInSynFolder, reup.fileContainerUri);
             //9 Client upload
             new Client.UploadFunctions.UploadFile().UploadFileWithContainerUri(reup.fileContainerUri,fullpathOfChnagedFile , reup.filePathInSynFolder, md5r, time);
-            System.Windows.Forms.MessageBox.Show("Uploaded!!!", "Client");
+            //System.Windows.Forms.MessageBox.Show("Uploaded!!!", "Client");
             Thread.CurrentThread.Abort();
         }
     }

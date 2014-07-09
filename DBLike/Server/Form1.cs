@@ -20,12 +20,13 @@ namespace Server
         {
             InitializeComponent();
             btnStart.Enabled = true;
-            btnStop.Enabled = false;
+            //btnStop.Enabled = false;
         }
 
         public void btnStart_Click(object sender, EventArgs e)
         {
             Server.start();
+            lblServerStatus.Text = "Running";
             btnStart.Enabled = false;
             btnStop.Enabled = true;
         }
