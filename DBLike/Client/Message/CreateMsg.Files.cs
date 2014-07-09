@@ -55,7 +55,7 @@ namespace Client.Message
 
         public string uploadMsg(string userName, string passWord, string filePathInSynFolder, DateTime fileTimeStamps, string fileHashValue)
         {
-            string msg = "<upload>:<" + userName + ">:<" + passWord + ">:<";
+            string msg = "<UPLOAD>:<" + userName + ">:<" + passWord + ">:<";
 
 
             msg +=  filePathInSynFolder + ">:<";

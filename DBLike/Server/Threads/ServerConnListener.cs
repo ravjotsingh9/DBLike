@@ -26,6 +26,7 @@ namespace Server.Threads
 
         static public void listen()
         {
+            System.Windows.Forms.MessageBox.Show("Servermainthread started", "Server");
             IPHostEntry ipHostInfo = Dns.Resolve(Dns.GetHostName());
             IPAddress ipAddress = ipHostInfo.AddressList[0];
             IPEndPoint localEndPoint = new IPEndPoint(ipAddress, 11000);

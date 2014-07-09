@@ -17,7 +17,7 @@ namespace Client.Message
             /// +------------------------------------+
             /// |<signUp>:<userName>:<password>:<EOF>|
             /// +------------------------------------+
-            str = "<signUp>:<" + obj.userName + ">:<" + obj.psw + ">:<EOF>";
+            str = "<SIGNUP>:<" + obj.userName + ">:<" + obj.psw + ">:<EOF>";
 
 
             return str;
