@@ -56,6 +56,7 @@ namespace Server.Threads
                 {
                     case "SIGNUP":
                         {
+                            System.Windows.Forms.MessageBox.Show("Switch signUp", "Server");
                             Threads.ServiceSignUpReq obj = new ServiceSignUpReq();
                             obj.start(handler, req);
                             break;

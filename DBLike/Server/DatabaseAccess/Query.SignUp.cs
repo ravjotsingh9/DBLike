@@ -46,7 +46,7 @@ namespace Server.DatabaseAccess
             }
             finally
             {
-                sqlConnection.Close();
+                //sqlConnection.Close();
 
             }
 
@@ -97,7 +97,7 @@ namespace Server.DatabaseAccess
             }
             finally
             {
-                sqlConnection.Close();
+                //sqlConnection.Close();
 
             }
 

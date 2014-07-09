@@ -76,7 +76,7 @@ namespace Client
             }
              */ 
             //file.writetofile(username,password,txtfoldertb2.Text);
-            signupthread.start(username, password);
+            signupthread.start(username, password, txtfoldertb2.Text);
         }
 
 

@@ -27,6 +27,7 @@ namespace Server.Threads
         private void threadStartFun(Socket soc, string req)
         {
             //parse msg received
+            System.Windows.Forms.MessageBox.Show("Signup service started:"+ req, "Server");
             Message.MessageParser parser = new Message.MessageParser();
             MessageClasses.MsgSignUp.req reqobj = new MessageClasses.MsgSignUp.req();
             reqobj = parser.signUpParseReq(req);
@@ -34,11 +35,13 @@ namespace Server.Threads
             //create connection with sql
             ConnectionManager.DataBaseConn con = new ConnectionManager.DataBaseConn(1);
             SqlConnection conn = con.DBConnect();
-
             //check if user already exits
             DatabaseAccess.Query q = new DatabaseAccess.Query();
+            
             if (true == q.checkIfUserExists(reqobj.userName, conn))
             {
+                con.DBClose();
+                System.Windows.Forms.MessageBox.Show("Signup service if user exists", "Server");
                 MessageClasses.MsgSignUp.resp resp = new MessageClasses.MsgSignUp.resp();
                 resp.ack = "ERRORS";
                 resp.addiMsg = "AlreadyExist";
@@ -46,13 +49,17 @@ namespace Server.Threads
                 string res=  msg.signUpResp(resp);
                 SocketCommunication.ReaderWriter rw = new SocketCommunication.ReaderWriter();
                 rw.writetoSocket(soc, res);
-                conn.Close();
+                
                 Thread.CurrentThread.Abort();
             }
             else
             {
-                if (true == q.insertNewUser(reqobj.userName, reqobj.psw, conn))
+                ConnectionManager.DataBaseConn con1 = new ConnectionManager.DataBaseConn(1);
+                SqlConnection conn1 = con.DBConnect();
+                if (true == q.insertNewUser(reqobj.userName, reqobj.psw, conn1))
                 {
+                    conn1.Close();
+                    System.Windows.Forms.MessageBox.Show("Signup service insert user", "Server");
                     MessageClasses.MsgSignUp.resp resp = new MessageClasses.MsgSignUp.resp();
                     resp.ack = "OK";
                     resp.addiMsg = "Added";
@@ -60,10 +67,12 @@ namespace Server.Threads
                     string res = msg.signUpResp(resp);
                     SocketCommunication.ReaderWriter rw = new SocketCommunication.ReaderWriter();
                     rw.writetoSocket(soc, res);
-                    conn.Close();
+                    //conn.Close();
                 }
                 else
                 {
+                    conn1.Close();
+                    System.Windows.Forms.MessageBox.Show("Signup service could insert", "Server");
                     MessageClasses.MsgSignUp.resp resp = new MessageClasses.MsgSignUp.resp();
                     resp.ack = "ERRORS";
                     resp.addiMsg = "ERRORWHILEINSERTING";
@@ -71,8 +80,9 @@ namespace Server.Threads
                     string res = msg.signUpResp(resp);
                     SocketCommunication.ReaderWriter rw = new SocketCommunication.ReaderWriter();
                     rw.writetoSocket(soc, res);
-                    conn.Close();
+                    //conn.Close();
                 }
+                //conn.Close();
                 Thread.CurrentThread.Abort();
             }
             //TBD

@@ -46,8 +46,8 @@ namespace Client.LocalDbAccess
         {
             string path = Directory.GetCurrentDirectory();
             path += @"\dblike.txt";
-            if (!File.Exists(path))
-            {
+            //if (!File.Exists(path))
+            //{
                 Console.WriteLine(username);
                 StreamWriter file = new StreamWriter(path);
                 file.WriteLine(username);
@@ -55,11 +55,11 @@ namespace Client.LocalDbAccess
                 file.WriteLine(pathofFoldertoSync);
                 file.Close();
                 return true;
-            }
-            else
-            {
-                return false;
-            }
+           // }
+            //else
+           // {
+          //      return false;
+        //    }
         }
         public string[] readfromfile()
         {
@@ -68,8 +68,8 @@ namespace Client.LocalDbAccess
             if (File.Exists(path))
             {
                 StreamReader file = new StreamReader(path);
-                if (File.ReadLines(path).Count() == 3)
-                {
+               // if (File.ReadLines(path).Count() == 3)
+               // {
                     string[] filedetails = new string[3];
                     filedetails[0] = file.ReadLine();
                     filedetails[1] = file.ReadLine();
@@ -78,9 +78,9 @@ namespace Client.LocalDbAccess
                     setPassword(filedetails[1]);
                     setPath(filedetails[2]);
                     return filedetails;
-                }
-                else
-                    return null;
+                //}
+                //else
+                  //  return null;
                 
             }
             else

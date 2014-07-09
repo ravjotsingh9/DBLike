@@ -16,9 +16,9 @@ namespace Client.Threads
         Configuration.config serverdetails = new Configuration.config();
         static ConnectionManager.Connection conn = new ConnectionManager.Connection();
         static Socket sender;
-        public void start(String username, String password)
+        public void start(String username, String password, string syncpath)
         {
-            thread = new Thread(()=>threadStartFun(serverdetails.serverAddr ,serverdetails.port, username,password));
+            thread = new Thread(()=>threadStartFun(serverdetails.serverAddr ,serverdetails.port, username,password, syncpath));
             //TBD
             thread.Start();
         }
@@ -27,12 +27,14 @@ namespace Client.Threads
             //TBD
             thread.Abort();
         }
-        static private void threadStartFun(string serverIP, int port,String username, String password )
+        static private void threadStartFun(string serverIP, int port,String username, String password,string sysncpath )
         {
+
             //TBD
             System.Windows.Forms.MessageBox.Show("start", "SignUp Thread started");
             MessageClasses.MsgSignUp msgobj = new MessageClasses.MsgSignUp();
-
+            msgobj.userName = username;
+            msgobj.psw = password;
             // Fill out the content in msgobj
 
             //call CreateMsg.createSignUpMsg(msgobj) get it in bytes form
@@ -44,12 +46,12 @@ namespace Client.Threads
             
             //call  SocketCommunication.ReaderWriter.write(byte[] msg) to write msg on socket
             SocketCommunication.ReaderWriter rw = new SocketCommunication.ReaderWriter();
-            System.Windows.Forms.MessageBox.Show("going to write socket", "SignUp Thread started");
+            System.Windows.Forms.MessageBox.Show("going to write socket:"+message, "SignUp Thread started");
             rw.writetoSocket(sender, message);
             //call  SocketCommunication.ReaderWriter.read() to read response from server
-            System.Windows.Forms.MessageBox.Show("going to read socket", "SignUp Thread started");
+            //System.Windows.Forms.MessageBox.Show("going to read socket: " , "SignUp Thread started");
             String response=rw.readfromSocket(sender);
-            System.Windows.Forms.MessageBox.Show("read", "SignUp Thread started");
+            System.Windows.Forms.MessageBox.Show("read:"+ response, "SignUp Thread started");
             //call parser and process it.....
             Message.MessageParser mp = new Message.MessageParser();
             msgobj = mp.signUpParseMessage(response);
@@ -60,23 +62,32 @@ namespace Client.Threads
             if (!msgobj.ack.Equals(""))
             {
                 Message.MessageParser msgparser = new Message.MessageParser();
-                if (msgobj.Equals("ERROR"))
+                if (msgobj.Equals("ERRORS"))
                 {
                     System.Windows.Forms.MessageBox.Show("Some error occured!Please try again.", "Error Occured");
                     Thread.CurrentThread.Abort();
                 }
                 else
                 {
-                    if (!Program.ClientForm.IsHandleCreated)
+                    LocalDbAccess.LocalDB file = new LocalDbAccess.LocalDB();
+                    if (false == file.writetofile(username, password, sysncpath))
                     {
-                        Program.ClientForm.CreateHandle();
+                        System.Windows.Forms.MessageBox.Show("Unable to access dblike file.", "Error Occured");
+
                     }
-                    Program.ClientForm.enableServiceController();
-                    Threads.FileSysWatchDog watchdog = new FileSysWatchDog();
-                    if(watchdog.start()==false)
+                    else
                     {
-                        //disable stop service button 
-                        //enable start service button
+                        if (!Program.ClientForm.IsHandleCreated)
+                        {
+                            Program.ClientForm.CreateHandle();
+                        }
+                        Program.ClientForm.enableServiceController();
+                        Threads.FileSysWatchDog watchdog = new FileSysWatchDog();
+                        if (watchdog.start() == false)
+                        {
+                            //disable stop service button 
+                            //enable start service button
+                        }
                     }
                     Thread.CurrentThread.Abort();
                 }
