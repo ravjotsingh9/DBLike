@@ -25,6 +25,7 @@ namespace Server
 
         public void btnStart_Click(object sender, EventArgs e)
         {
+            MessageBox.Show("For this Prototype, only Sign Up and Upload functionality is available.","Information");
             Server.start();
             lblServerStatus.Text = "Running";
             btnStart.Enabled = false;

@@ -81,7 +81,7 @@ namespace Client.Threads
               //                 reup.filePathInSynFolder, reup.fileContainerUri);
             //9 Client upload
             new Client.UploadFunctions.UploadFile().UploadFileWithContainerUri(reup.fileContainerUri,fullpathOfChnagedFile , reup.filePathInSynFolder, md5r, time);
-            //System.Windows.Forms.MessageBox.Show("Uploaded!!!", "Client");
+            System.Windows.Forms.MessageBox.Show("Uploaded!!!", "DBLike Client");
             
             }
             catch(Exception e){

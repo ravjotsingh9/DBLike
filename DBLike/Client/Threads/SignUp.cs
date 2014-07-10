@@ -44,7 +44,11 @@ namespace Client.Threads
 
             //create a socket connection. you may need to create in Conection Manager
             sender = conn.connect(serverIP, port);
-            
+            if(sender == null)
+            {
+                System.Windows.Forms.MessageBox.Show("Could not connect to server.Please check if Server is Running.", "DBLike Client");
+                Thread.CurrentThread.Abort();
+            }
             //call  SocketCommunication.ReaderWriter.write(byte[] msg) to write msg on socket
             SocketCommunication.ReaderWriter rw = new SocketCommunication.ReaderWriter();
             //System.Windows.Forms.MessageBox.Show("going to write socket:"+message, "SignUp Thread started");
@@ -78,6 +82,7 @@ namespace Client.Threads
                     }
                     else
                     {
+                        
                         //Upload all the content
                         bool result = file.writetofile(username, password, sysncpath);
                         if (result == false)

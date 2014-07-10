@@ -17,6 +17,7 @@ namespace Client
      public partial class Form1 : Form
     {
         //public static Threads.FileSysWatchDog watchdog;
+         public volatile bool acountcreated= false;
         delegate void changeStatetoSignedUp();
         public void enableServiceController()
         {
@@ -29,6 +30,7 @@ namespace Client
         }
         void enableController()
         {
+            acountcreated = true;
             groupBox1.Enabled = true;
 
             //disable start button inside it
@@ -83,6 +85,20 @@ namespace Client
 
         private void btnCreateAcctb2_Click(object sender, EventArgs e)
         {
+            if(acountcreated == true)
+            {
+                MessageBox.Show("Already Account Created.", "DBLike Client");
+                return;
+            }
+            if(txtfoldertb2.Text.Equals("") || txtusernametb2.Text.Equals("") || txtpasstb2.Text.Equals(""))
+            {
+                MessageBox.Show("All fields are Required.","Information Missing");
+                return;
+            }
+            else
+            {
+                MessageBox.Show("Now, DBLike service will start and will automatically upload the content of your selected folder. Creating and Modifying folder content will Upload the file to Server.", "DBLike Client Information");
+            }
             Threads.SignUp signupthread = new Threads.SignUp();
 			LocalDbAccess.LocalDB file = new LocalDbAccess.LocalDB();
             String username = txtusernametb2.Text;
@@ -108,6 +124,9 @@ namespace Client
 
         private void btnSignintb1_Click(object sender, EventArgs e)
         {
+            MessageBox.Show("We are working on this part.","Functionality Not yet Completed");
+            return;
+            
             Threads.SignIn signinthread = new Threads.SignIn();
             String username = txtUserNametb1.Text;
             String password = txtPasstb1.Text;
