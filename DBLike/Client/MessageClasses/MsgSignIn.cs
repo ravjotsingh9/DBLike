@@ -10,12 +10,8 @@ namespace Client.MessageClasses
     {
         String username;
         String password;
-
-        public MsgSignIn(String user, string pass)
-        {
-            this.username = user;
-            this.password = pass;
-        }
+        String ack;
+        String addiMsg;
 
         public string getUsername()
         {
@@ -36,5 +32,26 @@ namespace Client.MessageClasses
         {
             this.password = Pass;
         }
+
+        public string getAck()
+        {
+            return this.ack;
+        }
+
+        public void setAck(string Ack)
+        {
+            this.ack = Ack;
+        }
+
+        public string getAddiMsg()
+        {
+            return this.addiMsg;
+        }
+
+        public void setAddiMsg(string addmsg)
+        {
+            this.addiMsg = addmsg;
+        }
+
     }
 }

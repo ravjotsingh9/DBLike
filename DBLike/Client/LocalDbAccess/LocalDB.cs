@@ -69,20 +69,14 @@ namespace Client.LocalDbAccess
             if (File.Exists(path))
             {
                 StreamReader file = new StreamReader(path);
-               // if (File.ReadLines(path).Count() == 3)
-               // {
-                    string[] filedetails = new string[3];
-                    filedetails[0] = file.ReadLine();
-                    filedetails[1] = file.ReadLine();
-                    filedetails[2] = file.ReadLine();
-                    setUsername(filedetails[0]);
-                    setPassword(filedetails[1]);
-                    setPath(filedetails[2]);
-                    return filedetails;
-                //}
-                //else
-                  //  return null;
-                
+                string[] filedetails = new string[3];
+                filedetails[0] = file.ReadLine();
+                filedetails[1] = file.ReadLine();
+                filedetails[2] = file.ReadLine();
+                setUsername(filedetails[0]);
+                setPassword(filedetails[1]);
+                setPath(filedetails[2]);
+                return filedetails;
             }
             else
             {

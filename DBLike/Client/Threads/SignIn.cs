@@ -31,7 +31,7 @@ namespace Client.Threads
         {
             //TBD
             //TBD
-            MessageClasses.MsgSignIn msgobj = new MessageClasses.MsgSignIn(username, password);
+            MessageClasses.MsgSignIn msgobj = new MessageClasses.MsgSignIn();
 
             // Fill out the content in msgobj
 

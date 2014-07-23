@@ -124,13 +124,13 @@ namespace Client
 
         private void btnSignintb1_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("We are working on this part.","Functionality Not yet Completed");
-            return;
+            //MessageBox.Show("We are working on this part.","Functionality Not yet Completed");
+            //return;
             
             Threads.SignIn signinthread = new Threads.SignIn();
             String username = txtUserNametb1.Text;
             String password = txtPasstb1.Text;
-            signinthread.start(username,password);
+           // signinthread.start(username,password);
         }
 
         private void btnBrowsetb2_Click_1(object sender, EventArgs e)
