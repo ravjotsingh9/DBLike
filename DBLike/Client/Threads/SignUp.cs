@@ -59,7 +59,12 @@ namespace Client.Threads
             //System.Windows.Forms.MessageBox.Show("read:"+ response, "SignUp Thread started");
             //call parser and process it.....
             Message.MessageParser mp = new Message.MessageParser();
-            msgobj = mp.signInParseMessage(response);
+
+           
+            //msgobj = mp.signInParseMessage(response);
+
+
+            msgobj = mp.signUpParseMessage(response);
 
 			// This functionality should be added here
 			
