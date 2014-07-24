@@ -68,22 +68,49 @@ namespace Server.Threads
                     CloudBlobContainer container = blob.container;
                     string containerSAS = new Server.ConnectionManager.GenerateSAS().GetContainerSasUri(container, "RWLD");
                     Console.WriteLine("container sas uri: {0}", containerSAS);
+
                     //7 send upload msg back to client
                     Server.Message.CreateMsg resp = new Server.Message.CreateMsg();
-                    string respMsg = resp.uploadRespMsg(upload.filePathInSynFolder, containerSAS, null);
+
+
+                    string respMsg = resp.uploadRespMsg(upload.filePathInSynFolder, containerSAS, null, upload.addInfo);
+
                     SocketCommunication.ReaderWriter rw = new SocketCommunication.ReaderWriter();
+                    // write to socket
                     rw.writetoSocket(soc, respMsg);
                     //System.Windows.Forms.MessageBox.Show("uploader write:" + respMsg, "Server");
 
                 }
 
 
+
+
                 if (upload.addInfo == "delete")
                 {
+                    CloudBlobContainer container = blobClient.GetContainerReference("bran");
+                    CloudBlobDirectory dira = container.GetDirectoryReference("2");
 
+                    IEnumerable<IListBlobItem> blobs = dira.ListBlobs();
+
+
+
+                    foreach (IListBlobItem item in blobs)
+                    {
+
+                        // for items in subdirecories
+                        // parent directory doesn't need this
+                        if (item.GetType() == typeof(CloudBlockBlob))
+                        {
+                            CloudBlockBlob blob = (CloudBlockBlob)item;
+                            blob.Delete();
+                        }
+                        else if (item.GetType() == typeof(CloudPageBlob))
+                        {
+                            CloudPageBlob blob = (CloudPageBlob)item;
+                            blob.Delete();
+                        }
+                    }
                 }
-
-
             }
             catch (Exception e)
             {

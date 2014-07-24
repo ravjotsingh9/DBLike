@@ -53,6 +53,8 @@ namespace Client.Threads
             SocketCommunication.ReaderWriter rw = new SocketCommunication.ReaderWriter();
             //System.Windows.Forms.MessageBox.Show("going to write socket:"+message, "SignUp Thread started");
             rw.writetoSocket(sender, message);
+
+
             //call  SocketCommunication.ReaderWriter.read() to read response from server
             //System.Windows.Forms.MessageBox.Show("going to read socket: " , "SignUp Thread started");
             String response=rw.readfromSocket(sender);
@@ -60,10 +62,8 @@ namespace Client.Threads
             //call parser and process it.....
             Message.MessageParser mp = new Message.MessageParser();
 
-           
+  
             //msgobj = mp.signInParseMessage(response);
-
-
             msgobj = mp.signUpParseMessage(response);
 
 			// This functionality should be added here

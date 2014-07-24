@@ -53,6 +53,7 @@ namespace Server.BlobAccess
                 timestamp = DateTime.ParseExact(blob.Metadata["timestamp"], "MM/dd/yyyy HH:mm:ss",
                                                 null);;
                 filePath = blob.Metadata["filePath"];
+                
                 if (hashValue == fileHashValue)
                 {
                     isHashSame = true;

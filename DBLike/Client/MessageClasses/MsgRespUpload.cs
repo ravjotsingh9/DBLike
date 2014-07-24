@@ -23,5 +23,7 @@ namespace Client.MessageClasses
         public string fileContainerUri { get; set; }
         public string fileBlobUri { get; set; }
         public string type { get; set; }
+        public string addiInfo { get; set; }
+
     }
 }

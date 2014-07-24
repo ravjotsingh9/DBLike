@@ -69,26 +69,23 @@ namespace Client.Threads
                     additionalInfo = "change";
                 }
                 else if (eventType == "delete")
-                { 
+                {
                     additionalInfo = "delete";
                 }
                 else if (eventType == "rename")
                 {
                     additionalInfo = "rename";
                 }
-                else if (eventType == "signUpStart") {
+                else if (eventType == "signUpStart")
+                {
                     additionalInfo = "signUpStart";
                 }
 
 
 
                 //System.Windows.Forms.MessageBox.Show(md5r);
+                // create the msg
                 msg = uploadM.uploadMsg(userName, password, pathInSyncFolderPath, time, md5r, additionalInfo);
-
-
-
-
-
 
                 //send the msg using socket
                 ConnectionManager.Connection conn = new ConnectionManager.Connection();
@@ -96,6 +93,9 @@ namespace Client.Threads
 
                 SocketCommunication.ReaderWriter rw = new SocketCommunication.ReaderWriter();
                 rw.writetoSocket(soc, msg);
+
+
+
                 //receive the msg
                 string resp = rw.readfromSocket(soc);
 
@@ -104,13 +104,18 @@ namespace Client.Threads
                 Client.MessageClasses.MsgRespUpload reup = par2.uploadParseMsg(resp);
                 //Console.WriteLine("file path: {0}, container uri: {1}",
                 //                 reup.filePathInSynFolder, reup.fileContainerUri);
-                //9 Client upload
-                new Client.UploadFunctions.UploadFile().UploadFileWithContainerUri(reup.fileContainerUri, fullpathOfChnagedFile, reup.filePathInSynFolder, md5r, time);
-                System.Windows.Forms.MessageBox.Show("Uploaded!!!", "DBLike Client");
 
+
+                //9 Client upload
+                //if (reup.addiInfo == "change" || reup.addiInfo == "create" || reup.addiInfo == "signUpStart")
+                //{                    
+                    new Client.UploadFunctions.UploadFile().UploadFileWithContainerUri(reup.fileContainerUri, fullpathOfChnagedFile, reup.filePathInSynFolder, md5r, time);
+                    System.Windows.Forms.MessageBox.Show("Uploaded!", "DBLike Client");
+                //}
             }
             catch (Exception e)
             {
+                System.Windows.Forms.MessageBox.Show(e.ToString());
                 //System.IO.File.WriteAllText("errors.txt", e.ToString());
             }
             finally
