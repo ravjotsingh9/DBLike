@@ -85,7 +85,7 @@ namespace Client.Threads
                 //MessageBox.Show("OnChangedFun : File: " + e.FullPath + " " + e.ChangeType);
             
                 Uploader upload = new Uploader();
-                upload.start(e.FullPath);
+                upload.start(e.FullPath, "change");
             }
             finally
             {
@@ -101,7 +101,7 @@ namespace Client.Threads
             //MessageBox.Show("OnCreatedFun: File: " + e.FullPath + " " + e.ChangeType);
             //MessageBox.Show("File: " + e.FullPath + " " + e.ChangeType);
                 Uploader upload = new Uploader();
-                upload.start(e.FullPath);
+                upload.start(e.FullPath,"create");
             
         }
         // Define the event handlers. 
@@ -109,14 +109,14 @@ namespace Client.Threads
         {
             //MessageBox.Show("File: " + e.FullPath + " " + e.ChangeType);
             Uploader upload = new Uploader();
-            upload.start(e.FullPath);
+            upload.start(e.FullPath, "delete");
             
         }
         private static void OnRenamed(object source, RenamedEventArgs e)
         {
             //MessageBox.Show("File: " + e.OldFullPath + " renamed to " + e.FullPath);
             Uploader upload = new Uploader();
-            upload.start(e.FullPath);
+            upload.start(e.FullPath, "rename");
         }
 
 

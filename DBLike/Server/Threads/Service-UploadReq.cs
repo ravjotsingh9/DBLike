@@ -43,11 +43,14 @@ namespace Server.Threads
                 //  If file existed, check timestamp, hashvalue to see if client can upload
                 //  If allow upload, change hashvalue and timestamp in the blob storage
                 CloudBlobClient blobClient = new Server.ConnectionManager.BlobConn(1).BlobConnect();
-                Blob blob = new Blob(blobClient, upload.userName, upload.filePathInSynFolder, upload.fileHashValue, upload.fileTimeStamps);
 
 
-                if (upload.addInfo == "upload")
+                if (upload.addInfo == "create" || upload.addInfo == "change" || upload.addInfo == "signUpStart")
                 {
+
+                    Blob blob = new Blob(blobClient, upload.userName, upload.filePathInSynFolder, upload.fileHashValue, upload.fileTimeStamps);
+
+
                     /**
                      Server.DatabaseAccess.Query query = new Server.DatabaseAccess.Query();
                     if (!query.fileAlreadyExist(parse.userName, parse.filePathInSynFolder))
@@ -75,7 +78,10 @@ namespace Server.Threads
                 }
 
 
+                if (upload.addInfo == "delete")
+                {
 
+                }
 
 
             }

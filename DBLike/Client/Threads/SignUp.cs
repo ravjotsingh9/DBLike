@@ -130,7 +130,7 @@ namespace Client.Threads
             {
                 // Process each file
                 Uploader upload = new Uploader();
-                upload.start(file);
+                upload.start(file, "signUpStart");
             }
 
             directories = Directory.GetDirectories(path);
