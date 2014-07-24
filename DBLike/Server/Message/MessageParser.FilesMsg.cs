@@ -58,6 +58,10 @@ namespace Server.Message
 
             upload.filePathInSynFolder = words[3];
             upload.fileHashValue = words[4];
+            upload.addInfo = words[5];
+
+
+
             // String to DateTime
             DateTime MyDateTime = new DateTime();
 
