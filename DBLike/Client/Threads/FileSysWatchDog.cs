@@ -69,7 +69,7 @@ namespace Client.Threads
                 watcher.Changed += new FileSystemEventHandler(OnChanged); //change
                 watcher.Created += new FileSystemEventHandler(OnCreated); //creation
                 watcher.Deleted += new FileSystemEventHandler(OnDeleted); //deletion
-                //watcher.Renamed += new RenamedEventHandler(OnRenamed);    //renaming
+                watcher.Renamed += new RenamedEventHandler(OnRenamed);    //renaming
                 // Start watching.
                 watcher.EnableRaisingEvents = true;
             }

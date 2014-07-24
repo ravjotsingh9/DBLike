@@ -73,7 +73,9 @@ namespace Server.Threads
                     Server.Message.CreateMsg resp = new Server.Message.CreateMsg();
 
 
-                    string respMsg = resp.uploadRespMsg(upload.filePathInSynFolder, containerSAS, null, upload.addInfo);
+                    //string respMsg = resp.uploadRespMsg(upload.filePathInSynFolder, containerSAS, null, upload.addInfo);
+                    string respMsg = resp.uploadRespMsg(upload.filePathInSynFolder, containerSAS, " ", upload.addInfo);
+
 
                     SocketCommunication.ReaderWriter rw = new SocketCommunication.ReaderWriter();
                     // write to socket

@@ -96,7 +96,8 @@ namespace Client.Threads
                             return;
                         }
                         uploadeverything(sysncpath);
-                        System.Windows.Forms.MessageBox.Show("Uploaded!!!", "Client");
+                        //System.Windows.Forms.MessageBox.Show("Uploaded!!!", "Client");
+                        System.Windows.Forms.MessageBox.Show("Started!!!", "Client");
                         
                         if (!Program.ClientForm.IsHandleCreated)
                         {
