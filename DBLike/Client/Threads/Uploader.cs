@@ -52,12 +52,8 @@ namespace Client.Threads
                 }
                 string userName = readLocalDB.getUsername();
                 string password = readLocalDB.getPassword();
-                Client.Message.CreateMsg uploadM = new Client.Message.CreateMsg();
-                Client.LocalFileSysAccess.getFileAttributes att = new Client.LocalFileSysAccess.getFileAttributes(fullpathOfChnagedFile);
-                DateTime time = att.lastModified;
-                string msg;
-                string md5r = att.md5Value;
 
+                Client.Message.CreateMsg uploadM = new Client.Message.CreateMsg();
                 string additionalInfo = "";
 
                 if (eventType == "create" || eventType == "change" || eventType == "signUpStart")
@@ -74,6 +70,12 @@ namespace Client.Threads
                     {
                         additionalInfo = "signUpStart";
                     }
+
+                    // belong to these events because for delete event it won't get the attributes anymore
+                    Client.LocalFileSysAccess.getFileAttributes att = new Client.LocalFileSysAccess.getFileAttributes(fullpathOfChnagedFile);
+                    DateTime time = att.lastModified;
+                    string msg;
+                    string md5r = att.md5Value;
 
                     // create the msg
                     msg = uploadM.uploadMsg(userName, password, pathInSyncFolderPath, time, md5r, additionalInfo);
@@ -101,12 +103,26 @@ namespace Client.Threads
                 else if (eventType == "delete")
                 {
                     additionalInfo = "delete";
+                    string msg = " ";
+
+                    // create the msg
+                    // use " " instead of null to avoid parsing issue
+                    msg = uploadM.uploadMsg(userName, password, pathInSyncFolderPath, DateTime.MinValue, " ", additionalInfo);
+
+                    //send the msg using socket
+                    ConnectionManager.Connection conn = new ConnectionManager.Connection();
+                    Socket soc = conn.connect(conf.serverAddr, conf.port);
+
+                    SocketCommunication.ReaderWriter rw = new SocketCommunication.ReaderWriter();
+                    rw.writetoSocket(soc, msg);
+
+
                 }
                 else if (eventType == "rename")
                 {
                     additionalInfo = "rename";
                 }
-               
+
 
 
 

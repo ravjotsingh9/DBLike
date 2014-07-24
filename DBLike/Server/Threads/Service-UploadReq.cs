@@ -89,8 +89,8 @@ namespace Server.Threads
 
                 if (upload.addInfo == "delete")
                 {
-                    CloudBlobContainer container = blobClient.GetContainerReference("bran");
-                    CloudBlobDirectory dira = container.GetDirectoryReference("2");
+                    CloudBlobContainer container = blobClient.GetContainerReference("river");
+                    CloudBlobDirectory dira = container.GetDirectoryReference("ha");
 
                     IEnumerable<IListBlobItem> blobs = dira.ListBlobs();
 
