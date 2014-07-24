@@ -57,8 +57,9 @@ namespace Client.Threads
             DateTime time = att.lastModified;
             string msg;
             string md5r = att.md5Value;
+            string additionalInfo = "upload";
             //System.Windows.Forms.MessageBox.Show(md5r);
-            msg = uploadM.uploadMsg(userName, password, pathInSyncFolderPath, time, md5r);
+            msg = uploadM.uploadMsg(userName, password, pathInSyncFolderPath, time, md5r, additionalInfo);
      
               
             

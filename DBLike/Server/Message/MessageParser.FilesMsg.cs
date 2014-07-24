@@ -58,8 +58,6 @@ namespace Server.Message
 
             upload.filePathInSynFolder = words[3];
             upload.fileHashValue = words[4];
-            upload.addInfo = words[5];
-
 
 
             // String to DateTime
@@ -67,6 +65,10 @@ namespace Server.Message
 
             MyDateTime = DateTime.ParseExact(words[5], "MM/dd/yyyy HH:mm:ss",
                                                 null);
+
+
+            upload.addInfo = words[6];
+
             upload.fileTimeStamps = MyDateTime;
             string[] splitTogetFileName = upload.filePathInSynFolder.Split('\\');
             upload.fileName = splitTogetFileName[splitTogetFileName.Count() - 1];
