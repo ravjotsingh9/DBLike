@@ -30,20 +30,19 @@ namespace Client.PollFunction
                 {
                     if (item is CloudBlobDirectory)
                     {
-                       
-
                         Console.WriteLine("this is folder");
                         Console.WriteLine(item.Uri);
                     }
                     else
                     {
                         CloudBlockBlob file = (CloudBlockBlob)item;
+                        file.FetchAttributes();
                         string fileFullPath = clientSynFolderPath + @"\"+ file.Metadata["filePath"];
                         if(File.Exists(fileFullPath))
                         {
                             getFileAttributes fileAttributes = new getFileAttributes(fileFullPath);
                             DateTime blobDataTime = new DateTime();
-                            blobDataTime = DateTime.ParseExact(file.Metadata["timestamp"], "MM/dd/yyyy HH:mm:ss",
+                            blobDataTime = DateTime.ParseExact(file.Metadata["timestamp"], "MM-dd-yyyy HH:mm:ss",
                                                                 null);
                             // if need to poll
                             if (DateTime.Compare(blobDataTime, fileAttributes.lastModified) > 0)
