@@ -89,29 +89,12 @@ namespace Server.Threads
 
                 if (upload.addInfo == "delete")
                 {
-                    CloudBlobContainer container = blobClient.GetContainerReference("river");
-                    CloudBlobDirectory dira = container.GetDirectoryReference("ha");
 
-                    IEnumerable<IListBlobItem> blobs = dira.ListBlobs();
+                    // get container
+                    CloudBlobContainer container = blobClient.GetContainerReference(upload.userName);
 
-
-
-                    foreach (IListBlobItem item in blobs)
-                    {
-
-                        // for items in subdirecories
-                        // parent directory doesn't need this
-                        if (item.GetType() == typeof(CloudBlockBlob))
-                        {
-                            CloudBlockBlob blob = (CloudBlockBlob)item;
-                            blob.Delete();
-                        }
-                        else if (item.GetType() == typeof(CloudPageBlob))
-                        {
-                            CloudPageBlob blob = (CloudPageBlob)item;
-                            blob.Delete();
-                        }
-                    }
+                    UploadFunctions.DeleteFile del = new UploadFunctions.DeleteFile();
+                    del.deleteItem(container, upload.filePathInSynFolder);
                 }
             }
             catch (Exception e)
