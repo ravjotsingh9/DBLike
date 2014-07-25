@@ -15,18 +15,27 @@ namespace Client.PollFunction
     public class Poll
     {
         private string clientSynFolderPath;
+        private string sasUri;
 
-        private bool ListWithContainerUri(string sasUri)
+        public Poll(string sasUri)
+        {
+
+            this.clientSynFolderPath = localSyncFolderPath();
+            this.sasUri = sasUri;
+            scanAllFiles();
+            ListWithContainerUri();
+        }
+
+        private bool ListWithContainerUri()
         {
             try
             {
+                
                 CloudBlobContainer container = new CloudBlobContainer(new Uri(sasUri));
-                container.CreateIfNotExists();
-
                 string blobPrefix = null;
                 bool useFlatBlobListing = true;
                 var blobs = container.ListBlobs(blobPrefix, useFlatBlobListing, BlobListingDetails.None);
-                foreach (var item in blobs)
+                foreach (IListBlobItem item in blobs)
                 {
                     if (item is CloudBlobDirectory)
                     {
@@ -76,19 +85,6 @@ namespace Client.PollFunction
             return true;
         }
 
-        public Poll(string sasUri)
-        {
-            this.clientSynFolderPath = localSyncFolderPath();
-            ListWithContainerUri(sasUri);
-        }
-
-        private string localSyncFolderPath()
-        {
-            LocalDB readLocalDB = new LocalDB();
-            readLocalDB.readfromfile();
-            return readLocalDB.getPath();
-        }
-
         private void pollFile(CloudBlockBlob file, string fileFullPath)
         {
             string directoryPath = Path.GetDirectoryName(fileFullPath);
@@ -101,6 +97,58 @@ namespace Client.PollFunction
 
             file.DownloadToFile(fileFullPath, FileMode.Create);
 
+        }
+
+
+        private string localSyncFolderPath()
+        {
+            LocalDB readLocalDB = new LocalDB();
+            readLocalDB.readfromfile();
+
+            return readLocalDB.getPath();
+        }
+
+        private void scanAllFiles()
+        {
+            string[] filePaths = Directory.GetFiles(clientSynFolderPath,"*",
+                                         SearchOption.AllDirectories);
+
+            foreach(string file in filePaths){
+                CloudBlobContainer container = new CloudBlobContainer(new Uri(sasUri));
+                CloudBlockBlob blob = container.GetBlockBlobReference(getPathInsync(file));
+                if (!blob.Exists())
+                {
+                    try
+                    {
+                        System.IO.File.Delete(file);
+                        Console.WriteLine("Delete file:" +file);
+                    }
+                    catch (System.IO.IOException e)
+                    {
+                        Console.WriteLine(e.Message);
+                        return;
+                    }
+                }
+               
+            }
+        }
+
+        private string getPathInsync(string fullpathOfChnagedFile)
+        {
+            string[] pathName = clientSynFolderPath.Split('\\');
+            string[] pathName2 = fullpathOfChnagedFile.Split('\\');
+            int i = pathName2.Count();
+            string pathInSyncFolderPath = "";
+            for (int j = pathName.Count(); j < i; j++)
+            {
+                pathInSyncFolderPath += pathName2[j];
+                if ((j + 1) < i)
+                {
+                    pathInSyncFolderPath += "\\";
+                }
+            }
+
+            return pathInSyncFolderPath;
         }
 
     }

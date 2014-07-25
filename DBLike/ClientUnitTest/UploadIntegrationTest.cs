@@ -7,7 +7,8 @@ using Server.MessageClasses;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Auth;
 using Microsoft.WindowsAzure.Storage.Blob;
-
+using Server.ConnectionManager;
+using Client.PollFunction;
 namespace ClientUnitTest
 {
     
@@ -72,5 +73,26 @@ namespace ClientUnitTest
  
         }  **/
 
+            [TestMethod]
+            public void pollTest()
+            {
+                try {
+                    CloudBlobClient blobClient = new Server.ConnectionManager.BlobConn(1).BlobConnect();
+                    Blob blob = new Blob(blobClient, "west", "temp", "temp", new DateTime().Date);
+                    GenerateSAS sas = new GenerateSAS();
+                    string link = sas.GetContainerSasUri(blob.container, "RWLD");
+                    
+                    CloudBlobContainer container = new CloudBlobContainer(new Uri(link));
+                    
+                    Poll poll = new Poll(link);
+                }catch (Exception e){
+                    Console.WriteLine(e.ToString());
+                }
+        
+            }
+
+
     }
+
+
 }
