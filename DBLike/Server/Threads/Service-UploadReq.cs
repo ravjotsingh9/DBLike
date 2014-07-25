@@ -86,13 +86,13 @@ namespace Server.Threads
 
 
 
-
+                // TODO
                 if (upload.addInfo == "delete")
                 {
 
                     // get container
                     CloudBlobContainer container = blobClient.GetContainerReference(upload.userName);
-
+                                        
                     UploadFunctions.DeleteFile del = new UploadFunctions.DeleteFile();
                     del.deleteItem(container, upload.filePathInSynFolder);
                 }
