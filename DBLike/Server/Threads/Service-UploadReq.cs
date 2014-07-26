@@ -74,7 +74,7 @@ namespace Server.Threads
 
 
                     //string respMsg = resp.uploadRespMsg(upload.filePathInSynFolder, containerSAS, null, upload.addInfo);
-                    string respMsg = resp.uploadRespMsg(upload.filePathInSynFolder, containerSAS, " ", upload.addInfo);
+                    string respMsg = resp.uploadRespMsg("OK",upload.filePathInSynFolder, containerSAS, " ", upload.addInfo);
 
 
                     SocketCommunication.ReaderWriter rw = new SocketCommunication.ReaderWriter();
