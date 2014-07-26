@@ -12,14 +12,14 @@ namespace Server.Message
         /// <summary>
         /// poll response protocol
         /// +-------------------------------------------+
-        /// |OK::<POLL>:<fileContainerUri>:<fileBlobUri>|
+        /// |OK:<POLL>:<fileContainerUri>:<fileBlobUri>|
         /// +-------------------------------------------+
         /// </summary>
         /// <param name="msgPoll"></param>
         /// <returns></returns>
-        public string pollRespMsg(MsgPoll msgPoll)
+        public string pollRespMsg(string indicator, MsgPoll msgPoll)
         {
-            string msg = "<OK>:<POLL>:<" + 
+            string msg = "<" + indicator + ">:<POLL>:<" + 
                          msgPoll.fileContainerUri  + ">:<" +
                          msgPoll.fileBlobUri + ">";
             return msg;
