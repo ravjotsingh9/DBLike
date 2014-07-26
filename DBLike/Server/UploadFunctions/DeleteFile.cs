@@ -57,12 +57,14 @@ namespace Server.UploadFunctions
                     if (item.GetType() == typeof(CloudBlockBlob))
                     {
                         CloudBlockBlob blob = (CloudBlockBlob)item;
-                        blob.Delete();
+                        //blob.Delete();
+                        blob.DeleteIfExists();
+
                     }
                     else if (item.GetType() == typeof(CloudPageBlob))
                     {
                         CloudPageBlob blob = (CloudPageBlob)item;
-                        blob.Delete();
+                        blob.DeleteIfExists();
                     }
                     //else if (item.GetType() == typeof(CloudBlobDirectory))
                     //{
@@ -92,6 +94,9 @@ namespace Server.UploadFunctions
 
         public void deleteAll(CloudBlobContainer container, string pathInSyncFolder)
         {
+
+             pathInSyncFolder = pathInSyncFolder.Replace("\\", "/");
+            
             // check if it is dir
             bool isDir = false;
             CloudBlobDirectory dir = container.GetDirectoryReference(pathInSyncFolder);
@@ -110,17 +115,21 @@ namespace Server.UploadFunctions
                     // this can only get the blob type, not the dir type
                     var item = container.GetBlobReferenceFromServer(pathInSyncFolder);
 
+                    
+
                     if (item.GetType() == typeof(CloudBlockBlob))
                     {
                         CloudBlockBlob blob = (CloudBlockBlob)item;
-                        blob.Delete();
+                        blob.DeleteIfExists();
+                        //blob.Delete();
                         System.Windows.Forms.MessageBox.Show(string.Format("File: {0} Deleted!", pathInSyncFolder), "DBLike Server");
 
                     }
                     else if (item.GetType() == typeof(CloudPageBlob))
                     {
                         CloudPageBlob blob = (CloudPageBlob)item;
-                        blob.Delete();
+                        //blob.Delete();
+                        blob.DeleteIfExists();
                         System.Windows.Forms.MessageBox.Show(string.Format("File: {0} Deleted!", pathInSyncFolder), "DBLike Server");
                     }
                 }
@@ -129,13 +138,13 @@ namespace Server.UploadFunctions
                     // get the directory reference
                     CloudBlobDirectory dira = container.GetDirectoryReference(pathInSyncFolder);
                     deleteFolder(container, dira);
-                    //System.Windows.Forms.MessageBox.Show(string.Format("Deleted!\n Folder: {0}", pathInSyncFolder), "DBLike Server");
+                    System.Windows.Forms.MessageBox.Show(string.Format("Deleted!\n Folder: {0}", pathInSyncFolder), "DBLike Server");
                 }
 
             }
             catch
             {
-                throw;
+                System.Windows.Forms.MessageBox.Show(string.Format("File: {0} \n doesn't exist!", pathInSyncFolder), "DBLike Server");
             }
 
         }
