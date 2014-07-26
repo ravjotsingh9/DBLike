@@ -16,7 +16,9 @@ namespace Server.MessageClasses
         public DateTime fileTimeStamps { get; set; }
         public string fileHashValue { get; set; }
         public string fileName { get; set; }
-        
+
+        // for upload, deletion, or renaming
+        public string addInfo { get; set; }
 
     }
 }

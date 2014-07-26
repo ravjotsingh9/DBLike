@@ -14,4 +14,24 @@ namespace Client.MessageClasses
         public string fileBlobUri { get; set; }
         public string type { get; set; }
     }
+
+
+
+    //public struct changedFile
+    //{
+
+    //    public string oldFullPath;
+    //    public string newFullPath;
+    //    public string oldName;
+    //    public string newName;
+
+    //    public changedFile(string oldFullPath, string newFullPath, string oldName, string newName)
+    //    {
+    //        this.oldFullPath = oldFullPath;
+    //        this.newFullPath = newFullPath;
+    //        this.oldName = oldName;
+    //        this.newName = newName;
+    //    }
+    //}
+
 }

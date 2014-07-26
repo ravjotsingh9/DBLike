@@ -5,6 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Net.Sockets;
 using System.Threading;
+using Microsoft.WindowsAzure.Storage.Blob;
+using Server.BlobAccess;
+using Server.ConnectionManager;
 
 namespace Server.Threads
 {
@@ -23,6 +26,36 @@ namespace Server.Threads
         }
         private void threadStartFun(Socket soc, string req)
         {
+            try
+            {
+                Server.Message.MessageParser serverPollPar = new Server.Message.MessageParser();
+                Server.MessageClasses.MsgPoll msgpollServer = serverPollPar.pollParseMsg(req);
+
+                CloudBlobClient blobClient = new Server.ConnectionManager.BlobConn(1).BlobConnect();
+                Blob blob = new Blob(blobClient, msgpollServer.userName);
+                GenerateSAS sas = new GenerateSAS();
+                string link = sas.GetContainerSasUri(blob.container, "RL");
+
+                // Server send response to Client
+                Server.Message.CreateMsg pollResp = new Server.Message.CreateMsg();
+                msgpollServer.fileContainerUri = link;
+                msgpollServer.fileBlobUri = "none";
+                string respMsg = pollResp.pollRespMsg("OK", msgpollServer);
+
+                //socket
+                SocketCommunication.ReaderWriter rw = new SocketCommunication.ReaderWriter();
+                // write to socket
+                rw.writetoSocket(soc, respMsg);
+
+            }
+            catch (Exception e)
+            {
+                System.Windows.Forms.MessageBox.Show(e.ToString());
+            }
+            finally
+            {
+                Thread.CurrentThread.Abort();
+            }
 
         }
     }

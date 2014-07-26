@@ -27,6 +27,10 @@ namespace Server.ConnectionManager
             {
                 sasConstraints.Permissions = SharedAccessBlobPermissions.Write | SharedAccessBlobPermissions.List | SharedAccessBlobPermissions.Read | SharedAccessBlobPermissions.Delete;
             }
+            else if (permissionType == "RL"){
+
+                sasConstraints.Permissions =  SharedAccessBlobPermissions.List | SharedAccessBlobPermissions.Read;
+            }
             else
             {
                 sasConstraints.Permissions = SharedAccessBlobPermissions.None;

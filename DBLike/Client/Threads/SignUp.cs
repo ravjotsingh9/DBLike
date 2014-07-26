@@ -53,12 +53,17 @@ namespace Client.Threads
             SocketCommunication.ReaderWriter rw = new SocketCommunication.ReaderWriter();
             //System.Windows.Forms.MessageBox.Show("going to write socket:"+message, "SignUp Thread started");
             rw.writetoSocket(sender, message);
+
+
             //call  SocketCommunication.ReaderWriter.read() to read response from server
             //System.Windows.Forms.MessageBox.Show("going to read socket: " , "SignUp Thread started");
             String response=rw.readfromSocket(sender);
             //System.Windows.Forms.MessageBox.Show("read:"+ response, "SignUp Thread started");
             //call parser and process it.....
             Message.MessageParser mp = new Message.MessageParser();
+
+  
+            //msgobj = mp.signInParseMessage(response);
             msgobj = mp.signUpParseMessage(response);
 
 			// This functionality should be added here
@@ -91,7 +96,8 @@ namespace Client.Threads
                             return;
                         }
                         uploadeverything(sysncpath);
-                        System.Windows.Forms.MessageBox.Show("Uploaded!!!", "Client");
+                        //System.Windows.Forms.MessageBox.Show("Uploaded!!!", "Client");
+                        System.Windows.Forms.MessageBox.Show("Started!!!", "Client");
                         
                         if (!Program.ClientForm.IsHandleCreated)
                         {
@@ -125,7 +131,7 @@ namespace Client.Threads
             {
                 // Process each file
                 Uploader upload = new Uploader();
-                upload.start(file);
+                upload.start(file, "signUpStart", null);
             }
 
             directories = Directory.GetDirectories(path);

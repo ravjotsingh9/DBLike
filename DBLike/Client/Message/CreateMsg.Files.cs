@@ -53,20 +53,25 @@ namespace Client.Message
         /// <param name="fileHashValue"></param>
         /// <returns></returns>
 
-        public string uploadMsg(string userName, string passWord, string filePathInSynFolder, DateTime fileTimeStamps, string fileHashValue)
+        // add addtionalIno for deletetion and renaming
+        public string uploadMsg(string userName, string passWord, string filePathInSynFolder,
+            DateTime fileTimeStamps, string fileHashValue, string additionalInfo)
         {
             string msg = "<UPLOAD>:<" + userName + ">:<" + passWord + ">:<";
 
 
-            msg +=  filePathInSynFolder + ">:<";
-            msg +=  fileHashValue + ">:<";
-            msg +=  fileTimeStamps.ToString("MM/dd/yyyy HH:mm:ss") + ">:";
+            msg += filePathInSynFolder + ">:<";
+            msg += fileHashValue + ">:<";
 
+            msg += fileTimeStamps.ToString("MM/dd/yyyy HH:mm:ss") + ">:<";
+            msg += additionalInfo + ">:";
 
 
             msg += "<EOF>";
 
             return msg;
         }
+
+
     }
 }

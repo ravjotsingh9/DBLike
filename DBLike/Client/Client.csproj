@@ -11,6 +11,21 @@
     <AssemblyName>Client</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -69,9 +84,13 @@
     <Compile Include="MessageClasses\MsgUpload.cs" />
     <Compile Include="Message\CreateMsg.cs" />
     <Compile Include="Message\CreateMsg.Files.cs" />
+    <Compile Include="Message\CreateMsg.Poll.cs" />
+    <Compile Include="Message\CreateMsg.SignIn.cs" />
     <Compile Include="Message\CreateMsg.SignUP.cs" />
     <Compile Include="Message\MessageParser.cs" />
     <Compile Include="Message\MessageParser.FilesMsg.cs" />
+    <Compile Include="Message\MessageParser.Poll.cs" />
+    <Compile Include="Message\MessageParser.SignIn.cs" />
     <Compile Include="Message\MessageParser.SignUp.cs" />
     <Compile Include="PollFunction\Poll.cs" />
     <Compile Include="Program.cs" />
@@ -79,6 +98,7 @@
     <Compile Include="SecurityManager\ManageSecurity.cs" />
     <Compile Include="SocketCommunication\ReaderWriter.cs" />
     <Compile Include="Threads\FileSysWatchDog.cs" />
+    <Compile Include="Threads\PollFiles.cs" />
     <Compile Include="Threads\SignIn.cs" />
     <Compile Include="Threads\SignUp.cs" />
     <Compile Include="Threads\Uploader.cs" />
@@ -114,6 +134,23 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ClientImage.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

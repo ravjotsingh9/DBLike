@@ -10,40 +10,40 @@ using System.Windows.Forms;
 
 namespace Client.Threads
 {
-     static class FileSysWatchDog
+    static class FileSysWatchDog
     {
         //static Thread btnclicked = new Thread(() => Run());
         static FileSystemWatcher watcher;
-        
-         
+
+
         //public bool start()
-       // {
-            
-         //   btnclicked.Start();
-         //   return true;
-            /*
-            string[] args = new string[3];
-            LocalDbAccess.LocalDB file = new LocalDbAccess.LocalDB();
-            args =file.readfromfile();
-            if (args[2].Equals(""))
-            {
-                MessageBox.Show("Got problem in finding local sync folder", "Could not find local sync folder");
-                return false;
-            }
-            else
-            {
-                btnclicked = new Thread(() => Run(args[2]));
-                btnclicked.Start();
-                return true;
-            }
-           */
+        // {
+
+        //   btnclicked.Start();
+        //   return true;
+        /*
+        string[] args = new string[3];
+        LocalDbAccess.LocalDB file = new LocalDbAccess.LocalDB();
+        args =file.readfromfile();
+        if (args[2].Equals(""))
+        {
+            MessageBox.Show("Got problem in finding local sync folder", "Could not find local sync folder");
+            return false;
+        }
+        else
+        {
+            btnclicked = new Thread(() => Run(args[2]));
+            btnclicked.Start();
+            return true;
+        }
+       */
         //}
-   
+
         public static void stop()
         {
             watcher.EnableRaisingEvents = false;
             //btnclicked.Abort();
-            
+
         }
 
         [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
@@ -68,8 +68,8 @@ namespace Client.Threads
                 // Add event handlers.
                 watcher.Changed += new FileSystemEventHandler(OnChanged); //change
                 watcher.Created += new FileSystemEventHandler(OnCreated); //creation
-                //watcher.Deleted += new FileSystemEventHandler(OnDeleted); //deletion
-                //watcher.Renamed += new RenamedEventHandler(OnRenamed);    //renaming
+                watcher.Deleted += new FileSystemEventHandler(OnDeleted); //deletion
+                watcher.Renamed += new RenamedEventHandler(OnRenamed);    //renaming
                 // Start watching.
                 watcher.EnableRaisingEvents = true;
             }
@@ -83,15 +83,15 @@ namespace Client.Threads
             {
                 watcher.EnableRaisingEvents = false;
                 //MessageBox.Show("OnChangedFun : File: " + e.FullPath + " " + e.ChangeType);
-            
+
                 Uploader upload = new Uploader();
-                upload.start(e.FullPath);
+                upload.start(e.FullPath, "change", null);
             }
             finally
             {
                 watcher.EnableRaisingEvents = true;
             }
-            
+
         }
 
         // Define the event handlers. 
@@ -100,32 +100,35 @@ namespace Client.Threads
             //Thread.Sleep(1000);
             //MessageBox.Show("OnCreatedFun: File: " + e.FullPath + " " + e.ChangeType);
             //MessageBox.Show("File: " + e.FullPath + " " + e.ChangeType);
-                Uploader upload = new Uploader();
-                upload.start(e.FullPath);
-            
+            Uploader upload = new Uploader();
+            upload.start(e.FullPath, "create", null);
+
         }
         // Define the event handlers. 
         private static void OnDeleted(object source, FileSystemEventArgs e)
         {
             //MessageBox.Show("File: " + e.FullPath + " " + e.ChangeType);
             Uploader upload = new Uploader();
-            upload.start(e.FullPath);
-            
+            upload.start(e.FullPath, "delete", null);
+
         }
         private static void OnRenamed(object source, RenamedEventArgs e)
         {
             //MessageBox.Show("File: " + e.OldFullPath + " renamed to " + e.FullPath);
+
+            //Client.MessageClasses.changedFile renamedFile = new Client.MessageClasses.changedFile(e.OldFullPath, e.FullPath, e.OldName, e.Name);
+            string renamedStr = "<" + e.OldFullPath + ">:<" + e.FullPath + ">:<" + e.OldName + ">:<" + e.Name + ">";
+
+
             Uploader upload = new Uploader();
-            upload.start(e.FullPath);
+            upload.start(e.OldFullPath, "rename", renamedStr);
+
         }
 
 
 
 
 
-
-
-        
         /*
         private void servicestart()
         {
@@ -141,6 +144,6 @@ namespace Client.Threads
             }
             btnclicked.Abort();
         }
-         */ 
+         */
     }
 }

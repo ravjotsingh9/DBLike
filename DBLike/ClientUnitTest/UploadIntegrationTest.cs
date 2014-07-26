@@ -1,12 +1,13 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Client;
-using Server;
 using Server.BlobAccess;
+using Client.MessageClasses;
 using Server.MessageClasses;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Auth;
 using Microsoft.WindowsAzure.Storage.Blob;
+using Server.ConnectionManager;
+using Client.PollFunction;
 
 namespace ClientUnitTest
 {
@@ -72,5 +73,68 @@ namespace ClientUnitTest
  
         }  **/
 
+            //[TestMethod]
+            //public void pollTest()
+            //{
+            //    try {
+            //        CloudBlobClient blobClient = new Server.ConnectionManager.BlobConn(1).BlobConnect();
+            //        Blob blob = new Blob(blobClient, "west", "temp", "temp", new DateTime().Date);
+            //        GenerateSAS sas = new GenerateSAS();
+            //        string link = sas.GetContainerSasUri(blob.container, "RWLD");
+                    
+            //        CloudBlobContainer container = new CloudBlobContainer(new Uri(link));
+                    
+            //        Poll poll = new Poll(link);
+            //    }catch (Exception e){
+            //        Console.WriteLine(e.ToString());
+            //    }
+        
+            //}
+
+            [TestMethod]
+            public void interPollTest()
+            {
+                // 1. Client create and send poll msg to Server
+                Client.Message.CreateMsg pollM = new Client.Message.CreateMsg();
+                Client.MessageClasses.MsgPoll msgpoll = new Client.MessageClasses.MsgPoll();
+                msgpoll.userName = "west";
+                msgpoll.password = "temp";
+                string pollCtoS = pollM.pollMsg(msgpoll);
+                Console.WriteLine("msg from client to server: " + pollCtoS);
+
+                // 2. Server parse msg and create sas uri
+                Server.Message.MessageParser serverPollPar = new Server.Message.MessageParser();
+                Server.MessageClasses.MsgPoll msgpollServer = serverPollPar.pollParseMsg(pollCtoS);
+                string resp = "";
+                try
+                {
+                    CloudBlobClient blobClient = new Server.ConnectionManager.BlobConn(1).BlobConnect();
+                    Blob blob = new Blob(blobClient, msgpollServer.userName);
+                    GenerateSAS sas = new GenerateSAS();
+                    string link = sas.GetContainerSasUri(blob.container, "RL");
+                    // 3. Server send response to Client
+                    Server.Message.CreateMsg pollResp = new Server.Message.CreateMsg();
+                    msgpollServer.fileContainerUri = link;
+                    msgpollServer.fileBlobUri = "none";
+                    resp = pollResp.pollRespMsg("OK", msgpollServer);
+
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.ToString());
+                }
+
+
+                //4. Client parse and poll
+                Client.Message.MessageParser pollGetClient = new Client.Message.MessageParser();
+                msgpoll = pollGetClient.pollParseMsg(resp);
+                new Client.PollFunction.Poll(msgpoll.fileContainerUri);
+
+                
+            }
+
+
     }
+
+
 }

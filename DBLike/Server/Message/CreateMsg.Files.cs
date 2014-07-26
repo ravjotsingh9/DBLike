@@ -18,12 +18,12 @@ namespace Server.Message
         /// <param name="filecontainerUri"></param>
         /// <param name="fileBlobUri"></param>
         /// <returns></returns>
-        public string uploadRespMsg(string filePathInSynFolder, string filecontainerUri, string fileBlobUri)
+        public string uploadRespMsg(string indicator, string filePathInSynFolder, string filecontainerUri, string fileBlobUri, string addiInfo)
         {
-            string msg = "<OK>:<upload>:<" +
+            string msg = "<" + indicator + ">:<upload>:<" +
                           filePathInSynFolder + ">:<" +
                           filecontainerUri + ">:<" +
-                          fileBlobUri + ">:<EOF>";
+                          fileBlobUri + ">:<" + addiInfo + ">:<EOF>";
             return msg;
         }
     }

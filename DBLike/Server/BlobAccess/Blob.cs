@@ -20,6 +20,7 @@ namespace Server.BlobAccess
         public bool isHashSame { get; set; }
         public bool isTimestampLater { get; set; }
         public bool isDirectory { get; set; }
+        public string indicator { get; set; }
 
         /// <summary>
         /// Constructor
@@ -32,6 +33,7 @@ namespace Server.BlobAccess
             //Get a reference to a container and create container for first time use user
             container = blobClient.GetContainerReference(clientContainerName);
             container.CreateIfNotExists();
+            indicator = "OK";
         }
 
         public Blob(CloudBlobClient blobClient, string clientContainerName, string filePathInSynFolder, string fileHashValue, DateTime fileTimestamp)
@@ -40,6 +42,7 @@ namespace Server.BlobAccess
             container = blobClient.GetContainerReference(clientContainerName);
             container.CreateIfNotExists();
             blob = container.GetBlockBlobReference(filePathInSynFolder);
+            indicator = "OK";
             if (fileHashValue == "isDirectory")
             {
                 isDirectory = true;
@@ -53,6 +56,7 @@ namespace Server.BlobAccess
                 timestamp = DateTime.ParseExact(blob.Metadata["timestamp"], "MM/dd/yyyy HH:mm:ss",
                                                 null);;
                 filePath = blob.Metadata["filePath"];
+                
                 if (hashValue == fileHashValue)
                 {
                     isHashSame = true;
@@ -62,6 +66,19 @@ namespace Server.BlobAccess
                 {
                     isTimestampLater = true;
                 }
+                else
+                {
+                    indicator = "Error";
+                }
+
+                if (isHashSame && isTimestampLater)
+                {
+                    blob.Metadata["timestamp"] = fileTimestamp.ToString("MM/dd/yyyy HH:mm:ss");
+                    blob.SetMetadata();
+                    indicator = "NoNeed";
+                }
+                
+
             }
             else if (blob.Exists() && isDirectory)
             {
@@ -70,6 +87,7 @@ namespace Server.BlobAccess
             else 
             {
                 ifBlobExist = false;
+                indicator = "OK";
             }
 
         }

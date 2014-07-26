@@ -13,7 +13,7 @@ namespace Client.Message
         /// <summary>
         /// parse protocol
         /// +------------------------------------------------------------------+
-        /// |OK:<upload>:<File path>:<File Container Uri>:<File Blob Uri>:<EOF>|
+        /// |OK:<upload>:<File path>:<File Container Uri>:<File Blob Uri>:<addiInfo>:<EOF>|
         /// +------------------------------------------------------------------+
         /// </summary>
         /// <param name="words"></param>
@@ -30,6 +30,12 @@ namespace Client.Message
                 upload.filePathInSynFolder = words[2];
                 upload.fileContainerUri = words[3];
                 upload.fileBlobUri = words[4];
+                //upload.addiInfo = words[5];
+                upload.addiInfo = words[5];
+            }
+            else 
+            {
+                upload.indicator = words[0];
             }
             
 
