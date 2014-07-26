@@ -107,6 +107,7 @@ namespace Client.Threads
 
                     // create the msg
                     // use " " instead of null to avoid parsing issue
+                    // use DateTime.MinValue to avoid parsing issue
                     msg = uploadM.uploadMsg(userName, password, pathInSyncFolderPath, DateTime.MinValue, " ", additionalInfo);
 
                     //send the msg using socket

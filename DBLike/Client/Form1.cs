@@ -54,7 +54,12 @@ namespace Client
             InitializeComponent();
             groupBox1.Enabled = false;
            // watchdog = new Threads.FileSysWatchDog();
-            button2.Enabled = false;
+            button2.Enabled = false;            
+
+            // for testing convinence, set the local path
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            path += @"\DBLike_test";
+            txtfoldertb2.Text = path;
             
         }
 
@@ -103,6 +108,8 @@ namespace Client
 			LocalDbAccess.LocalDB file = new LocalDbAccess.LocalDB();
             String username = txtusernametb2.Text;
             String password = txtpasstb2.Text;
+
+
             //bool result=file.writetofile(username,password,txtfoldertb2.Text);
             /*
             if (result == false)
@@ -141,5 +148,7 @@ namespace Client
                 txtfoldertb2.Text = fbd.SelectedPath;
             }
         }
+
+
     }
 }
