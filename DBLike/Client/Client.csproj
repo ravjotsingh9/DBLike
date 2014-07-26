@@ -98,6 +98,7 @@
     <Compile Include="SecurityManager\ManageSecurity.cs" />
     <Compile Include="SocketCommunication\ReaderWriter.cs" />
     <Compile Include="Threads\FileSysWatchDog.cs" />
+    <Compile Include="Threads\PollFiles.cs" />
     <Compile Include="Threads\SignIn.cs" />
     <Compile Include="Threads\SignUp.cs" />
     <Compile Include="Threads\Uploader.cs" />

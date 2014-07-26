@@ -28,6 +28,7 @@ namespace Client.Threads
         {
             try
             {
+                // Client create poll msg 
                 LocalDB readLocalDB = new LocalDB();
                 readLocalDB.readfromfile();
 
@@ -47,6 +48,7 @@ namespace Client.Threads
                 //receive the msg
                 string resp = rw.readfromSocket(soc);
 
+                //parse msg and poll
                 Client.Message.MessageParser parseResp = new Client.Message.MessageParser();
                 msgpoll = parseResp.pollParseMsg(resp);
                 if (msgpoll.indicator == "OK")
