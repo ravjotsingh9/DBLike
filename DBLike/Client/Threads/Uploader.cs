@@ -101,7 +101,7 @@ namespace Client.Threads
 
                     //9 Client upload                  
                     new Client.UploadFunctions.UploadFile().UploadFileWithContainerUri(reup.fileContainerUri, fullpathOfChnagedFile, reup.filePathInSynFolder, md5r, time);
-                    System.Windows.Forms.MessageBox.Show(string.Format("Uploaded! [event type: {0}]", reup.addiInfo), "DBLike Client");
+                    System.Windows.Forms.MessageBox.Show(string.Format("Uploaded! \n event type: {0} \n Path: {1}", reup.addiInfo, fullpathOfChnagedFile), "DBLike Client");
 
                 }
 

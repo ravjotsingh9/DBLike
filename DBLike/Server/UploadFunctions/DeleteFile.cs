@@ -94,7 +94,7 @@ namespace Server.UploadFunctions
 
         public void deleteAll(CloudBlobContainer container, string pathInSyncFolder)
         {
-
+            // update path on server
              pathInSyncFolder = pathInSyncFolder.Replace("\\", "/");
             
             // check if it is dir
