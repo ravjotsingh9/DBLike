@@ -27,8 +27,6 @@ namespace Server.Threads
         {
             try
             {
-
-
                 //System.Windows.Forms.MessageBox.Show("uploader started:" + req, "Server");
                 //get the msg parse it
                 Server.Message.MessageParser parse = new Server.Message.MessageParser();
@@ -98,7 +96,32 @@ namespace Server.Threads
                 }
 
 
+                if (upload.addInfo.IndexOf("rename") == 0)
+                {
+                    // get container
+                    CloudBlobContainer container = blobClient.GetContainerReference(upload.userName);
 
+                    // get new path in the server
+                    string[] separators = { "|||" };
+                    string[] str = upload.addInfo.Split(separators, StringSplitOptions.RemoveEmptyEntries);
+                    string newPath = str[1];
+
+                    // create a new blob
+                    //Blob newBlob = new Blob(blobClient, upload.userName, newPath, upload.fileHashValue, upload.fileTimeStamps);
+
+                    //grab the blob
+                    ICloudBlob existBlob = container.GetBlobReferenceFromServer(upload.filePathInSynFolder);
+                    ICloudBlob newBlob = container.GetBlobReferenceFromServer(newPath);
+                    //create a new blob
+
+                    //newBlob.StartCopyFromBlob(existBlob);
+
+                    //delete the old
+                    existBlob.Delete();
+
+
+
+                }
 
 
             }

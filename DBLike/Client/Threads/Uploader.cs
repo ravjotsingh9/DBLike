@@ -7,6 +7,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Client.LocalDbAccess;
+using Client.MessageClasses;
 
 namespace Client.Threads
 {
@@ -14,10 +15,10 @@ namespace Client.Threads
     {
         static Configuration.config conf = new Configuration.config();
         static Thread thread;
-        public void start(string path, string eventType)
+        public void start(string path, string eventType, string addiInfo)
         {
             //TBD
-            thread = new Thread(() => threadStartFun(path, eventType));
+            thread = new Thread(() => threadStartFun(path, eventType, addiInfo));
             thread.Start();
         }
         public void stop()
@@ -25,7 +26,7 @@ namespace Client.Threads
             //TBD
             thread.Abort();
         }
-        static private void threadStartFun(string fullpathOfChnagedFile, string eventType)
+        static private void threadStartFun(string fullpathOfChnagedFile, string eventType, string addiInfo)
         {
             try
             {
@@ -42,7 +43,7 @@ namespace Client.Threads
                 string[] pathName = clientSyncFolderPath.Split('\\');
 
 
-                
+
 
                 string[] pathName2 = fullpathOfChnagedFile.Split('\\');
                 int i = pathName2.Count();
@@ -83,6 +84,7 @@ namespace Client.Threads
                     string md5r = att.md5Value;
 
                     // create the msg
+
                     msg = uploadM.uploadMsg(userName, password, pathInSyncFolderPath, time, md5r, additionalInfo);
 
                     //send the msg using socket
@@ -128,7 +130,53 @@ namespace Client.Threads
                 }
                 else if (eventType == "rename")
                 {
-                    additionalInfo = "rename";
+
+                    string[] separators = { "<", ">:<", ">" };
+                    string[] reNameInfo = addiInfo.Split(separators, StringSplitOptions.RemoveEmptyEntries);
+                    //List<string> temp = reNameInfo.ToList();
+                    //temp.Insert(0, "rename");
+
+                    System.Windows.Forms.MessageBox.Show(string.Format("Rename detected!\n + Old Path: {0} \n + New Path: {1}", reNameInfo[0], reNameInfo[1]), "DBLike Client");
+
+                    // get new path in server
+                    string[] pathName3 = reNameInfo[1].Split('\\');
+                    int m = pathName3.Count();
+                    string newPathInSyncFolderPath = "";
+                    for (int n = pathName.Count(); n < m; n++)
+                    {
+                        newPathInSyncFolderPath += pathName3[n];
+                        if ((n + 1) < m)
+                        {
+                            newPathInSyncFolderPath += "\\";
+                        }
+                    }
+
+                    // send event type and new path to server
+                    additionalInfo = "rename" + "|||" + newPathInSyncFolderPath;
+
+                    // only change last modified time to current time
+                    // Windows 8 won't change last modified time when only renaming
+                    Client.LocalFileSysAccess.getFileAttributes att = new Client.LocalFileSysAccess.getFileAttributes(reNameInfo[1]);
+                    DateTime renameTime = DateTime.UtcNow;
+
+                    string msg;
+                    string md5r = att.md5Value;
+
+                    // create the msg
+                    // pathInSyncFolderPath is the older path in server
+                    // renameTime is the newest time
+                    msg = uploadM.uploadMsg(userName, password, pathInSyncFolderPath, renameTime, md5r, additionalInfo);
+
+                    //send the msg using socket
+                    ConnectionManager.Connection conn = new ConnectionManager.Connection();
+                    Socket soc = conn.connect(conf.serverAddr, conf.port);
+
+                    SocketCommunication.ReaderWriter rw = new SocketCommunication.ReaderWriter();
+                    rw.writetoSocket(soc, msg);
+
+                    //receive the msg
+                    string resp = rw.readfromSocket(soc);
+
                 }
 
 

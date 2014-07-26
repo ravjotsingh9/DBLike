@@ -131,7 +131,7 @@ namespace Client.Threads
             {
                 // Process each file
                 Uploader upload = new Uploader();
-                upload.start(file, "signUpStart");
+                upload.start(file, "signUpStart", null);
             }
 
             directories = Directory.GetDirectories(path);
