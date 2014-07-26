@@ -89,21 +89,20 @@ namespace Server.Threads
                     string[] str = upload.addInfo.Split(separators, StringSplitOptions.RemoveEmptyEntries);
                     string newPath = str[1];
 
-                    // create a new blob
-                    //Blob newBlob = new Blob(blobClient, upload.userName, newPath, upload.fileHashValue, upload.fileTimeStamps);
-
                     //grab the blob
-                    ICloudBlob existBlob = container.GetBlobReferenceFromServer(upload.filePathInSynFolder);
-                    ICloudBlob newBlob = container.GetBlobReferenceFromServer(newPath);
-                    //create a new blob
+                    CloudBlockBlob existBlob = container.GetBlockBlobReference(upload.filePathInSynFolder);
+                    // create a new blob
+                    CloudBlockBlob newBlob = container.GetBlockBlobReference(newPath);
+                    //copy from the old blob
+                    newBlob.StartCopyFromBlob(existBlob);
 
-                    //newBlob.StartCopyFromBlob(existBlob);
+                    newBlob.Metadata["hashValue"] = upload.fileHashValue;
+                    newBlob.Metadata["timestamp"] = upload.fileTimeStamps.ToString("MM/dd/yyyy HH:mm:ss");
+                    newBlob.Metadata["filePath"] = newPath;
+                    newBlob.SetMetadata();
 
-                    //delete the old
+                    //delete the old blob
                     existBlob.Delete();
-
-
-
                 }
 
 
