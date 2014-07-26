@@ -99,9 +99,13 @@ namespace Client.Threads
                     Client.Message.MessageParser par2 = new Client.Message.MessageParser();
                     Client.MessageClasses.MsgRespUpload reup = par2.uploadParseMsg(resp);
 
-                    //9 Client upload                  
-                    new Client.UploadFunctions.UploadFile().UploadFileWithContainerUri(reup.fileContainerUri, fullpathOfChnagedFile, reup.filePathInSynFolder, md5r, time);
-                    System.Windows.Forms.MessageBox.Show(string.Format("Uploaded! \n event type: {0} \n Path: {1}", reup.addiInfo, fullpathOfChnagedFile), "DBLike Client");
+                    //9 Client upload
+                    if (reup.indicator == "OK")
+                    {
+                        new Client.UploadFunctions.UploadFile().UploadFileWithContainerUri(reup.fileContainerUri, fullpathOfChnagedFile, reup.filePathInSynFolder, md5r, time);
+                        System.Windows.Forms.MessageBox.Show(string.Format("Uploaded! \n event type: {0} \n Path: {1}", reup.addiInfo, fullpathOfChnagedFile), "DBLike Client");
+                    }
+                   
 
                 }
 

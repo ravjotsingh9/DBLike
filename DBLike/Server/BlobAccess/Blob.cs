@@ -20,6 +20,7 @@ namespace Server.BlobAccess
         public bool isHashSame { get; set; }
         public bool isTimestampLater { get; set; }
         public bool isDirectory { get; set; }
+        public string indicator { get; set; }
 
         /// <summary>
         /// Constructor
@@ -32,6 +33,7 @@ namespace Server.BlobAccess
             //Get a reference to a container and create container for first time use user
             container = blobClient.GetContainerReference(clientContainerName);
             container.CreateIfNotExists();
+            indicator = "OK";
         }
 
         public Blob(CloudBlobClient blobClient, string clientContainerName, string filePathInSynFolder, string fileHashValue, DateTime fileTimestamp)
@@ -63,6 +65,18 @@ namespace Server.BlobAccess
                 {
                     isTimestampLater = true;
                 }
+                else
+                {
+                    indicator = "Error";
+                }
+
+                if (isHashSame && isTimestampLater)
+                {
+                    blob.Metadata["timestamp"] = fileTimestamp.ToString("MM/dd/yyyy HH:mm:ss");
+                    indicator = "NoNeed";
+                }
+
+
             }
             else if (blob.Exists() && isDirectory)
             {
@@ -71,6 +85,7 @@ namespace Server.BlobAccess
             else 
             {
                 ifBlobExist = false;
+                indicator = "OK";
             }
 
         }
