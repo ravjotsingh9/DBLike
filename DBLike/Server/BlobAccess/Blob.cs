@@ -42,6 +42,7 @@ namespace Server.BlobAccess
             container = blobClient.GetContainerReference(clientContainerName);
             container.CreateIfNotExists();
             blob = container.GetBlockBlobReference(filePathInSynFolder);
+            indicator = "OK";
             if (fileHashValue == "isDirectory")
             {
                 isDirectory = true;
@@ -73,9 +74,10 @@ namespace Server.BlobAccess
                 if (isHashSame && isTimestampLater)
                 {
                     blob.Metadata["timestamp"] = fileTimestamp.ToString("MM/dd/yyyy HH:mm:ss");
+                    blob.SetMetadata();
                     indicator = "NoNeed";
                 }
-
+                
 
             }
             else if (blob.Exists() && isDirectory)

@@ -100,7 +100,7 @@ namespace Client.Threads
                     //8 Client parse msg
                     Client.Message.MessageParser par2 = new Client.Message.MessageParser();
                     Client.MessageClasses.MsgRespUpload reup = par2.uploadParseMsg(resp);
-
+                    System.Windows.Forms.MessageBox.Show("indicator: " + reup.indicator);
                     //9 Client upload
                     if (reup.indicator == "OK")
                     {

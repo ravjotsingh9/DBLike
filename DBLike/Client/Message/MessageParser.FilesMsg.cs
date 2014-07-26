@@ -35,7 +35,7 @@ namespace Client.Message
             }
             else 
             {
-                upload.type = words[1];
+                upload.indicator = words[0];
             }
             
 
