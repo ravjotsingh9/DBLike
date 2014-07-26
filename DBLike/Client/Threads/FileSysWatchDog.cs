@@ -10,40 +10,40 @@ using System.Windows.Forms;
 
 namespace Client.Threads
 {
-     static class FileSysWatchDog
+    static class FileSysWatchDog
     {
         //static Thread btnclicked = new Thread(() => Run());
         static FileSystemWatcher watcher;
-        
-         
+
+
         //public bool start()
-       // {
-            
-         //   btnclicked.Start();
-         //   return true;
-            /*
-            string[] args = new string[3];
-            LocalDbAccess.LocalDB file = new LocalDbAccess.LocalDB();
-            args =file.readfromfile();
-            if (args[2].Equals(""))
-            {
-                MessageBox.Show("Got problem in finding local sync folder", "Could not find local sync folder");
-                return false;
-            }
-            else
-            {
-                btnclicked = new Thread(() => Run(args[2]));
-                btnclicked.Start();
-                return true;
-            }
-           */
+        // {
+
+        //   btnclicked.Start();
+        //   return true;
+        /*
+        string[] args = new string[3];
+        LocalDbAccess.LocalDB file = new LocalDbAccess.LocalDB();
+        args =file.readfromfile();
+        if (args[2].Equals(""))
+        {
+            MessageBox.Show("Got problem in finding local sync folder", "Could not find local sync folder");
+            return false;
+        }
+        else
+        {
+            btnclicked = new Thread(() => Run(args[2]));
+            btnclicked.Start();
+            return true;
+        }
+       */
         //}
-   
+
         public static void stop()
         {
             watcher.EnableRaisingEvents = false;
             //btnclicked.Abort();
-            
+
         }
 
         [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
@@ -83,7 +83,7 @@ namespace Client.Threads
             {
                 watcher.EnableRaisingEvents = false;
                 //MessageBox.Show("OnChangedFun : File: " + e.FullPath + " " + e.ChangeType);
-            
+
                 Uploader upload = new Uploader();
                 upload.start(e.FullPath, "change");
             }
@@ -91,7 +91,7 @@ namespace Client.Threads
             {
                 watcher.EnableRaisingEvents = true;
             }
-            
+
         }
 
         // Define the event handlers. 
@@ -100,9 +100,9 @@ namespace Client.Threads
             //Thread.Sleep(1000);
             //MessageBox.Show("OnCreatedFun: File: " + e.FullPath + " " + e.ChangeType);
             //MessageBox.Show("File: " + e.FullPath + " " + e.ChangeType);
-                Uploader upload = new Uploader();
-                upload.start(e.FullPath,"create");
-            
+            Uploader upload = new Uploader();
+            upload.start(e.FullPath, "create");
+
         }
         // Define the event handlers. 
         private static void OnDeleted(object source, FileSystemEventArgs e)
@@ -110,7 +110,7 @@ namespace Client.Threads
             //MessageBox.Show("File: " + e.FullPath + " " + e.ChangeType);
             Uploader upload = new Uploader();
             upload.start(e.FullPath, "delete");
-            
+
         }
         private static void OnRenamed(object source, RenamedEventArgs e)
         {
@@ -125,7 +125,7 @@ namespace Client.Threads
 
 
 
-        
+
         /*
         private void servicestart()
         {
@@ -141,6 +141,6 @@ namespace Client.Threads
             }
             btnclicked.Abort();
         }
-         */ 
+         */
     }
 }

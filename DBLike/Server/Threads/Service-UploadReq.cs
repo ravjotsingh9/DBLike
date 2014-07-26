@@ -94,11 +94,13 @@ namespace Server.Threads
                     CloudBlobContainer container = blobClient.GetContainerReference(upload.userName);
                                         
                     UploadFunctions.DeleteFile del = new UploadFunctions.DeleteFile();
-                    del.deleteItem(container, upload.filePathInSynFolder);
+                    del.deleteAll(container, upload.filePathInSynFolder);
+                    
                 }
             }
             catch (Exception e)
             {
+                System.Windows.Forms.MessageBox.Show(e.ToString());
                 //System.IO.File.WriteAllText("bug.txt", e.ToString());
             }
             finally

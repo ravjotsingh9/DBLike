@@ -10,7 +10,7 @@ using System.IO;
 
 namespace Client.UploadFunctions
 {
-    
+
     public class UploadFile
     {
         /// <summary>
@@ -19,20 +19,20 @@ namespace Client.UploadFunctions
         /// <param name="sasUri"></param>
         /// <param name="localFilePath"></param>
         /// <param name="filePathInSyncFolder"></param>
-        public bool UploadFileWithContainerUri(string sasUri, string localFilePath, 
-            string filePathInSyncFolder,string fileHashVaule, DateTime fileTimestamp )
+        public bool UploadFileWithContainerUri(string sasUri, string localFilePath,
+            string filePathInSyncFolder, string fileHashVaule, DateTime fileTimestamp)
         {
             try
             {
                 CloudBlobContainer container = new CloudBlobContainer(new Uri(sasUri));
-               
+
                 if (fileHashVaule == "isDirectory")
                 {
                     CloudBlockBlob blob = container.GetBlockBlobReference(filePathInSyncFolder);
                     blob.UploadFromFile(localFilePath, FileMode.Open);
                     //directory.Metadata["hashValue"] = fileHashVaule;
-                    
-                    
+
+
                 }
                 else
                 {
@@ -52,6 +52,23 @@ namespace Client.UploadFunctions
             }
 
             return true;
+        }
+
+
+
+        // return true if it's a dir
+        public bool checkIfDirectory(string path)
+        {
+
+            // get the file attributes for file or directory
+            FileAttributes attr = File.GetAttributes(path);
+
+            //detect whether its a directory or file
+            if ((attr & FileAttributes.Directory) == FileAttributes.Directory)
+                return true;
+            else
+                return false;
+
         }
 
 

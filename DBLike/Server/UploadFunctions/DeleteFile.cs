@@ -45,33 +45,41 @@ namespace Server.UploadFunctions
         // delete folders
         public void deleteFolder(CloudBlobContainer container, CloudBlobDirectory tempDir)
         {
-            IEnumerable<IListBlobItem> blobs = tempDir.ListBlobs();
-
-            foreach (IListBlobItem item in blobs)
+            try
             {
+                IEnumerable<IListBlobItem> blobs = tempDir.ListBlobs();
 
-                // for items in subdirecories
-                // parent directory doesn't need this
-                if (item.GetType() == typeof(CloudBlockBlob))
+                foreach (IListBlobItem item in blobs)
                 {
-                    CloudBlockBlob blob = (CloudBlockBlob)item;
-                    blob.Delete();
+
+                    // for items in subdirecories
+                    // parent directory doesn't need this
+                    if (item.GetType() == typeof(CloudBlockBlob))
+                    {
+                        CloudBlockBlob blob = (CloudBlockBlob)item;
+                        blob.Delete();
+                    }
+                    else if (item.GetType() == typeof(CloudPageBlob))
+                    {
+                        CloudPageBlob blob = (CloudPageBlob)item;
+                        blob.Delete();
+                    }
+                    //else if (item.GetType() == typeof(CloudBlobDirectory))
+                    //{
+                    //    CloudBlobDirectory blob = (CloudBlobDirectory)item;
+                    //    blob.
+                    //}
+                    else
+                    {
+                        // delete folders recursively
+                        CloudBlobDirectory blobDir = (CloudBlobDirectory)item;
+                        deleteFolder(container, blobDir);
+                    }
                 }
-                else if (item.GetType() == typeof(CloudPageBlob))
-                {
-                    CloudPageBlob blob = (CloudPageBlob)item;
-                    blob.Delete();
-                }
-                //else if (item.GetType() == typeof(CloudBlobDirectory))
-                //{
-                //    CloudBlobDirectory blob = (CloudBlobDirectory)item;
-                //    blob.
-                //}
-                else
-                {
-                    CloudBlobDirectory blobDir = (CloudBlobDirectory)item;
-                    deleteFolder(container, blobDir);
-                }
+            }
+            catch
+            {
+                throw;
             }
 
 
@@ -79,5 +87,62 @@ namespace Server.UploadFunctions
 
 
 
+
+
+
+        public void deleteAll(CloudBlobContainer container, string pathInSyncFolder)
+        {
+            // check if it is dir
+            bool isDir = false;
+            CloudBlobDirectory dir = container.GetDirectoryReference(pathInSyncFolder);
+            List<IListBlobItem> blobs = dir.ListBlobs().ToList();
+
+            if (blobs.Count != 0)
+            {
+                isDir = true;
+            }
+
+            try
+            {
+
+                if (!isDir)
+                {
+                    // this can only get the blob type, not the dir type
+                    var item = container.GetBlobReferenceFromServer(pathInSyncFolder);
+
+                    if (item.GetType() == typeof(CloudBlockBlob))
+                    {
+                        CloudBlockBlob blob = (CloudBlockBlob)item;
+                        blob.Delete();
+                        System.Windows.Forms.MessageBox.Show(string.Format("File: {0} Deleted!", pathInSyncFolder), "DBLike Server");
+
+                    }
+                    else if (item.GetType() == typeof(CloudPageBlob))
+                    {
+                        CloudPageBlob blob = (CloudPageBlob)item;
+                        blob.Delete();
+                        System.Windows.Forms.MessageBox.Show(string.Format("File: {0} Deleted!", pathInSyncFolder), "DBLike Server");
+                    }
+                }
+                else
+                {
+                    // get the directory reference
+                    CloudBlobDirectory dira = container.GetDirectoryReference(pathInSyncFolder);
+                    deleteFolder(container, dira);
+                    //System.Windows.Forms.MessageBox.Show(string.Format("Deleted!\n Folder: {0}", pathInSyncFolder), "DBLike Server");
+                }
+
+            }
+            catch
+            {
+                throw;
+            }
+
+        }
+
     }
+
+
+
 }
+

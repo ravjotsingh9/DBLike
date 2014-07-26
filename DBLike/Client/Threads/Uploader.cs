@@ -37,8 +37,13 @@ namespace Client.Threads
                 //get the information from the localDatabase
                 LocalDB readLocalDB = new LocalDB();
                 readLocalDB.readfromfile();
+
                 string clientSyncFolderPath = readLocalDB.getPath();
                 string[] pathName = clientSyncFolderPath.Split('\\');
+
+
+                
+
                 string[] pathName2 = fullpathOfChnagedFile.Split('\\');
                 int i = pathName2.Count();
                 string pathInSyncFolderPath = "";
@@ -104,6 +109,8 @@ namespace Client.Threads
                 {
                     additionalInfo = "delete";
                     string msg = " ";
+                    System.Windows.Forms.MessageBox.Show(string.Format("Deletion detected!\n Path: {0}", pathInSyncFolderPath), "DBLike Client");
+
 
                     // create the msg
                     // use " " instead of null to avoid parsing issue
