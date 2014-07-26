@@ -33,6 +33,10 @@ namespace Client.Message
                 //upload.addiInfo = words[5];
                 upload.addiInfo = words[5];
             }
+            else 
+            {
+                upload.type = words[1];
+            }
             
 
             return upload;
