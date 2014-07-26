@@ -54,7 +54,6 @@ namespace Client.UploadFunctions
             return true;
         }
 
-
-
+        
     }
 }
