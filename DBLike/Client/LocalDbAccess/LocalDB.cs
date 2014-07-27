@@ -45,8 +45,7 @@ namespace Client.LocalDbAccess
         public bool writetofile(String username,String Password, string pathofFoldertoSync)
         {
             StreamWriter file = null;
-            string path = Directory.GetCurrentDirectory();
-            path += @"\dblike.txt";
+            string path = @"C:\dblike.txt";
             if (!File.Exists(path))
             {
                 file = new StreamWriter(path);
@@ -64,8 +63,8 @@ namespace Client.LocalDbAccess
         }
         public string[] readfromfile()
         {
-            String path = Directory.GetCurrentDirectory();
-            path += @"\dblike.txt";
+            LocalDbAccess.LocalDB fileattr = new LocalDbAccess.LocalDB();
+            string path = @"C:\dblike.txt";
             if (File.Exists(path))
             {
                 StreamReader file = new StreamReader(path);
@@ -73,15 +72,23 @@ namespace Client.LocalDbAccess
                 filedetails[0] = file.ReadLine();
                 filedetails[1] = file.ReadLine();
                 filedetails[2] = file.ReadLine();
-                setUsername(filedetails[0]);
-                setPassword(filedetails[1]);
-                setPath(filedetails[2]);
+                fileattr.setUsername(filedetails[0]);
+                fileattr.setPassword(filedetails[1]);
+                fileattr.setPath(filedetails[2]);
                 return filedetails;
             }
             else
             {
                 return null;
             }   
+        }
+
+        public bool isExists()
+        {
+            if (File.Exists(@"C:\dblike.txt"))
+                return true;
+            else
+                return false;
         }
     }
 }

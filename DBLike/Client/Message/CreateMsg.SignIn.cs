@@ -9,17 +9,16 @@ namespace Client.Message
     public partial class CreateMsg
     {
         // take an ojbect, return a string
-        //public string createSignInMsg(MessageClasses.MsgSignIn obj)
-        //{
-        //    string str = "";
+        public string createSignInMsg(MessageClasses.MsgSignIn obj)
+        {
+           string str = "";
 
-        //    /// sign up protocol
-        //    /// +------------------------------------+
-        //    /// |<SignIn>:<userName>:<password>:<EOF>|
-        //    /// +------------------------------------+
-        //    str = "<SIGNIN>:<" + obj.getUsername() + ">:<" + obj.getPassword() + ">:<EOF>";
-        //    return str;
-        //}
-
+           /// sign in protocol
+           /// +------------------------------------+
+           /// |<SignIn>:<userName>:<password>:<EOF>|
+           /// +------------------------------------+
+        str = "<SIGNIN>:<" + obj.getUsername() + ">:<" + obj.getPassword() + ">:<EOF>";
+       return str;
+       }
     }
 }
