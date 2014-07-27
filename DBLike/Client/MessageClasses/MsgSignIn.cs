@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Client.MessageClasses
 {
-    class MsgSignIn
+    public class MsgSignIn
     {
         String username;
         String password;
