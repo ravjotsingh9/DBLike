@@ -9,11 +9,11 @@ using System.Net.Sockets;
 
 namespace Client.Threads
 {
-    class PollFiles
+    public class PollFiles
     {
         static Configuration.config conf = new Configuration.config();
         static Thread thread;
-        public void start(string path, string eventType)
+        public void start()
         {
             //TBD
             thread = new Thread(() => threadStartFun());
