@@ -62,7 +62,7 @@ namespace Client.LocalDbAccess
             file.Close();
             return true;
         }
-        public string[] readfromfile()
+        public LocalDB readfromfile()
         {
             LocalDbAccess.LocalDB fileattr = new LocalDbAccess.LocalDB();
             string path = @"C:\dblike.txt";
@@ -77,7 +77,8 @@ namespace Client.LocalDbAccess
                 fileattr.setPassword(filedetails[1]);
                 fileattr.setPath(filedetails[2]);
                 file.Close();
-                return filedetails;
+                System.Windows.Forms.MessageBox.Show(fileattr.getPath());
+                return fileattr;
             }
             else
             {
