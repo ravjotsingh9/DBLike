@@ -77,6 +77,7 @@
     <Compile Include="ConnectionManager\GenerateSAS.cs" />
     <Compile Include="DatabaseAccess\Query.cs" />
     <Compile Include="DatabaseAccess\Query.Files.cs" />
+    <Compile Include="DatabaseAccess\Query.SignIn.cs" />
     <Compile Include="DatabaseAccess\Query.SignUp.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -86,15 +87,18 @@
     </Compile>
     <Compile Include="MessageClasses\MsgPoll.cs" />
     <Compile Include="MessageClasses\MsgRespUpload.cs" />
+    <Compile Include="MessageClasses\MsgSignIn.cs" />
     <Compile Include="MessageClasses\MsgSignUp.cs" />
     <Compile Include="MessageClasses\MsgUpload.cs" />
     <Compile Include="Message\CreateMsg.cs" />
     <Compile Include="Message\CreateMsg.Files.cs" />
     <Compile Include="Message\CreateMsg.Poll.cs" />
+    <Compile Include="Message\CreateMsg.SignIn.cs" />
     <Compile Include="Message\CreateMsg.SignUp.cs" />
     <Compile Include="Message\MessageParser.cs" />
     <Compile Include="Message\MessageParser.FilesMsg.cs" />
     <Compile Include="Message\MessageParser.Poll..cs" />
+    <Compile Include="Message\MessageParser.SignIn.cs" />
     <Compile Include="Message\MessageParser.SignUp.cs" />
     <Compile Include="NotificationManager\Notification.cs" />
     <Compile Include="Program.cs" />

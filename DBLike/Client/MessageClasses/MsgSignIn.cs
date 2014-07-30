@@ -25,7 +25,7 @@ namespace Client.MessageClasses
 
         public string getPassword()
         {
-            return this.username;
+            return this.password;
         }
 
         public void setPassword(string Pass)

@@ -12,6 +12,7 @@ namespace Client.LocalDbAccess
         String Username;
         String password;
         String path;
+
         public string getUsername()
         {
             return this.Username;
@@ -45,14 +46,14 @@ namespace Client.LocalDbAccess
         public bool writetofile(String username,String Password, string pathofFoldertoSync)
         {
             StreamWriter file = null;
-            string path = @"C:\dblike.txt";
+            string path = @"D:\dblike.txt";
             if (!File.Exists(path))
             {
                 file = new StreamWriter(path);
            }
            else
             {
-                File.Delete(path);
+                //File.Delete(path);
                 file = new StreamWriter(path);
             }
             file.WriteLine(username);
@@ -64,7 +65,7 @@ namespace Client.LocalDbAccess
         public string[] readfromfile()
         {
             LocalDbAccess.LocalDB fileattr = new LocalDbAccess.LocalDB();
-            string path = @"C:\dblike.txt";
+            string path = @"D:\dblike.txt";
             if (File.Exists(path))
             {
                 StreamReader file = new StreamReader(path);
@@ -75,10 +76,12 @@ namespace Client.LocalDbAccess
                 fileattr.setUsername(filedetails[0]);
                 fileattr.setPassword(filedetails[1]);
                 fileattr.setPath(filedetails[2]);
+                file.Close();
                 return filedetails;
             }
             else
             {
+                System.Windows.Forms.MessageBox.Show("-----------");
                 return null;
             }   
         }
