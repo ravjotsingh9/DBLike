@@ -13,11 +13,11 @@ namespace Server.DatabaseAccess
         public bool checkAuthentication(string username, string password, SqlConnection sqlConnection)
         {
             SqlDataReader myReader = null;
-            SqlCommand myCommand = new SqlCommand("select * from Users where UserName=@UserName and Password=@Password",sqlConnection);
+            SqlCommand myCommand = new SqlCommand("select * from Users where UserName=@UserName and Password=@Password", sqlConnection);
             myCommand.Parameters.AddWithValue("@UserName", username);
             myCommand.Parameters.AddWithValue("@Password", password);
             myReader = myCommand.ExecuteReader();
-            if (myReader.Read())
+            if(myReader.HasRows)
             {
                 return true;
             }

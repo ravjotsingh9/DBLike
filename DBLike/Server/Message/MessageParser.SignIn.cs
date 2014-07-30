@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Server.Message
 {
-    public partial class MessageParser
+   public partial class MessageParser
     {
         // receive string from client, parse it to an obj
 
@@ -29,8 +29,5 @@ namespace Server.Message
             return obj;
 
         }
-
-
-
     }
 }

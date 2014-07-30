@@ -52,9 +52,9 @@ namespace Client
         public Form1()
         {
             InitializeComponent();
-            groupBox1.Enabled = false;
+            groupBox1.Enabled = true;
            // watchdog = new Threads.FileSysWatchDog();
-            button2.Enabled = false;            
+            button2.Enabled = true;            
 
             // for testing convinence, set the local path
             string path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
@@ -137,7 +137,9 @@ namespace Client
             Threads.SignIn signinthread = new Threads.SignIn();
             String username = txtUserNametb1.Text;
             String password = txtPasstb1.Text;
-           // signinthread.start(username,password);
+            signinthread.start(username,password,this);
+            btnSignintb1.Enabled = false;
+            button1.Enabled = false;
         }
 
         private void btnBrowsetb2_Click_1(object sender, EventArgs e)

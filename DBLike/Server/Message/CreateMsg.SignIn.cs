@@ -18,11 +18,8 @@ namespace Server.Message
 
         public string signInResp(Server.MessageClasses.MsgSignIn.resp obj)
         {
-
-            // MINOR CHANGE, TO BE TESTED
             string str = "<" + obj.ack + ">:<" + obj.addiMsg + ">:<EOF>";
             return str;
         }
-
     }
 }

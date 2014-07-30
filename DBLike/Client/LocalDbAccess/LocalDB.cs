@@ -12,6 +12,7 @@ namespace Client.LocalDbAccess
         String Username;
         String password;
         String path;
+
         public string getUsername()
         {
             return this.Username;
@@ -52,7 +53,7 @@ namespace Client.LocalDbAccess
            }
            else
             {
-                File.Delete(path);
+                //File.Delete(path);
                 file = new StreamWriter(path);
             }
             file.WriteLine(username);
@@ -75,10 +76,12 @@ namespace Client.LocalDbAccess
                 fileattr.setUsername(filedetails[0]);
                 fileattr.setPassword(filedetails[1]);
                 fileattr.setPath(filedetails[2]);
+                file.Close();
                 return filedetails;
             }
             else
             {
+                System.Windows.Forms.MessageBox.Show("-----------");
                 return null;
             }   
         }

@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Diagnostics;
+using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Net.Sockets;
-using System.Drawing;
 using System.Windows.Forms;
-using System.IO;
 
 namespace Client.Threads
 {
@@ -18,10 +21,10 @@ namespace Client.Threads
         static ConnectionManager.Connection conn = new ConnectionManager.Connection();
         static Socket sender;
 
-        public void start( String username, String password)
+        public void start( String username, String password, Form frm)
         {
             //TBD
-            thread = new Thread(() => threadStartFun(serverdetails.serverAddr, serverdetails.port, username, password));
+            thread = new Thread(() => threadStartFun(serverdetails.serverAddr, serverdetails.port, username, password,frm));
             thread.Start();
          
         }
@@ -30,7 +33,7 @@ namespace Client.Threads
             //TBD
             thread.Abort();
         }
-        static private void threadStartFun(string serverIP, int port, String username, String password)
+        static private void threadStartFun(string serverIP, int port, String username, String password,Form frm)
         {
             //TBD
             //TBD
@@ -70,34 +73,26 @@ namespace Client.Threads
                 }
                 else
                 {
+                    System.Windows.Forms.MessageBox.Show(msgobj.getAck(),msgobj.getAddiMsg());
                     LocalDbAccess.LocalDB file = new LocalDbAccess.LocalDB();
-                    if(!file.isExists())
+                    string path = null;
+                    System.Windows.Forms.MessageBox.Show("Please select a path to download your folder from the server");
+                    var t = new Thread((ThreadStart)(() =>
                     {
-                        /*FolderBrowserDialog folder = new FolderBrowserDialog();
-                        if (folder.ShowDialog() == DialogResult.OK)
-                        {
-                            string path = folder.SelectedPath;
-
-                        }*/
-                        //have to create the dblike text file by asking the user to select the path
-                    }
-                    else
-                    {
-                        //compares the user name and password from the existing dblike text file
-                        file.readfromfile();
-                        string user = file.getUsername();
-                        string pass = file.getPassword();
-                        string path = null;
                         FolderBrowserDialog folder = new FolderBrowserDialog();
-                        if(user!=username && pass!=password)
+                        if(folder.ShowDialog() == DialogResult.OK)
                         {
-                            if (folder.ShowDialog() == DialogResult.OK)
-                            {
-                                path = folder.SelectedPath;
-                            }
-                            file.writetofile(user, pass, path);
+                            path = folder.SelectedPath;
                         }
-                    }
+                    }));
+                    t.IsBackground = true;
+                    t.SetApartmentState(ApartmentState.STA);
+                    t.Start();
+                    t.Join();
+                    file.writetofile(username, password, path);
+                    PollFiles poll = new PollFiles();
+                    poll.start();
+                    FileSysWatchDog.Run();
                 }
             }
         }
