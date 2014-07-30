@@ -86,6 +86,7 @@ namespace Client
             button1.Enabled = true;
             button2.Enabled = false;
             btnCreateAcctb2.Enabled = true;
+            btnSignintb1.Enabled = true;
         }
 
         private void btnCreateAcctb2_Click(object sender, EventArgs e)
