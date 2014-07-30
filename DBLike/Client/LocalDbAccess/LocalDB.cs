@@ -83,7 +83,7 @@ namespace Client.LocalDbAccess
             }
             else
             {
-                System.Windows.Forms.MessageBox.Show("-----------");
+                //System.Windows.Forms.MessageBox.Show("Localdb doesnot exist.");
                 return null;
             }   
         }

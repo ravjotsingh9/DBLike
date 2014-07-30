@@ -8,6 +8,8 @@ namespace Client
 {
     static class Program
     {
+        static public Client.Threads.PollFiles poll = new Threads.PollFiles();
+        //static public Client.Threads.FileSysWatchDog folderWatcher;
         static public Form1 ClientForm;
         /// <summary>
         /// The main entry point for the application.

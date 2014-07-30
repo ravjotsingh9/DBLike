@@ -13,6 +13,7 @@ namespace Client.Threads
     {
         static Configuration.config conf = new Configuration.config();
         static Thread thread;
+        volatile public bool pull = true;
         public void start()
         {
             //TBD
@@ -24,7 +25,33 @@ namespace Client.Threads
             //TBD
             thread.Abort();
         }
-        static private void threadStartFun()
+        private void threadStartFun()
+        {
+            try
+            {
+                //poll();
+                
+                //Thread.Sleep(60000);
+                
+                while (pull)
+                {
+                    poll();
+                    Thread.Sleep(60000);
+                }
+
+            }
+            catch (Exception e)
+            {
+                System.Windows.Forms.MessageBox.Show(e.ToString());
+                //System.IO.File.WriteAllText("errors.txt", e.ToString());
+            }
+            finally
+            {
+                Thread.CurrentThread.Abort();
+            }
+        }
+
+        private void poll()
         {
             try
             {
@@ -55,18 +82,10 @@ namespace Client.Threads
                 {
                     new Client.PollFunction.Poll(msgpoll.fileContainerUri);
                 }
-                
-
-
             }
-            catch (Exception e)
+            catch(Exception ex)
             {
-                System.Windows.Forms.MessageBox.Show(e.ToString());
-                //System.IO.File.WriteAllText("errors.txt", e.ToString());
-            }
-            finally
-            {
-                Thread.CurrentThread.Abort();
+                System.Windows.Forms.MessageBox.Show(ex.ToString());
             }
         }
     }

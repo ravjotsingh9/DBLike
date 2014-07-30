@@ -20,7 +20,7 @@ namespace Client.Threads
         Configuration.config serverdetails = new Configuration.config();
         static ConnectionManager.Connection conn = new ConnectionManager.Connection();
         static Socket sender;
-
+        //static PollFiles poll;
         public void start( String username, String password, Form frm)
         {
             //TBD
@@ -31,6 +31,7 @@ namespace Client.Threads
         public void stop()
         {
             //TBD
+            Client.Program.poll.pull = false;
             thread.Abort();
         }
         static private void threadStartFun(string serverIP, int port, String username, String password,Form frm)
@@ -76,8 +77,32 @@ namespace Client.Threads
                     System.Windows.Forms.MessageBox.Show(msgobj.getAck(),msgobj.getAddiMsg());
                     LocalDbAccess.LocalDB file = new LocalDbAccess.LocalDB();
                     file = file.readfromfile();
-                    if (username != file.getUsername() || password != file.getPassword())
+                    if (file != null)
                     {
+                        if (username != file.getUsername() || password != file.getPassword())
+                        {
+                            System.Windows.Forms.MessageBox.Show("System is already configured for a dblike user."+ 
+                                "Now onwards,only the folder selected for this user will be synchronized.");
+                            string path = null;
+                            System.Windows.Forms.MessageBox.Show("Please select a path to download your folder from the server");
+                            var t = new Thread((ThreadStart)(() =>
+                            {
+                                FolderBrowserDialog folder = new FolderBrowserDialog();
+                                if (folder.ShowDialog() == DialogResult.OK)
+                                {
+                                    path = folder.SelectedPath;
+                                }
+                            }));
+                            t.IsBackground = true;
+                            t.SetApartmentState(ApartmentState.STA);
+                            t.Start();
+                            t.Join();
+                        }
+                    }
+                    else
+                    {
+                        System.Windows.Forms.MessageBox.Show("Localdb doesnot exist.");
+                        
                         string path = null;
                         System.Windows.Forms.MessageBox.Show("Please select a path to download your folder from the server");
                         var t = new Thread((ThreadStart)(() =>
@@ -88,14 +113,23 @@ namespace Client.Threads
                                 path = folder.SelectedPath;
                             }
                         }));
+                        
                         t.IsBackground = true;
                         t.SetApartmentState(ApartmentState.STA);
                         t.Start();
                         t.Join();
+                        //write to file
+                        file = new LocalDbAccess.LocalDB();
+                        file.writetofile(username, password, path);
                     }
-                    PollFiles poll = new PollFiles();
-                    poll.start();
+                    //poll = new PollFiles();
+                    
+                    //poll.start();
                     FileSysWatchDog.Run();
+                    Client.Program.poll.start();
+                    //Thread.Sleep(5000);
+                    
+                    Thread.CurrentThread.Abort();
                 }
             }
         }

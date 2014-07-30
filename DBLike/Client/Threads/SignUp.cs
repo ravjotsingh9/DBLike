@@ -107,6 +107,7 @@ namespace Client.Threads
                         Program.ClientForm.enableServiceController();
                         
                         FileSysWatchDog.Run();
+                        Client.Program.poll.start();
                         /*
                         Threads.FileSysWatchDog watchdog = new FileSysWatchDog();
                         if (watchdog.start() == false)

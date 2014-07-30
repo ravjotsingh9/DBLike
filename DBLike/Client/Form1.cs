@@ -82,6 +82,7 @@ namespace Client
         private void button2_Click(object sender, EventArgs e)
         {
             Threads.FileSysWatchDog.stop();
+            Client.Program.poll.pull = false;
             //watchdog.stop();
             button1.Enabled = true;
             button2.Enabled = false;
