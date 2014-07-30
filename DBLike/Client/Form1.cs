@@ -138,8 +138,8 @@ namespace Client
             String username = txtUserNametb1.Text;
             String password = txtPasstb1.Text;
             signinthread.start(username,password,this);
-            //btnSignintb1.Enabled = false;
-            
+            btnSignintb1.Enabled = false;
+            button1.Enabled = false;
         }
 
         private void btnBrowsetb2_Click_1(object sender, EventArgs e)
