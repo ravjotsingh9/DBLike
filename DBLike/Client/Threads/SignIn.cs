@@ -91,6 +91,8 @@ namespace Client.Threads
                     t.Join();
                     file.writetofile(username, password, path);
                     PollFiles poll = new PollFiles();
+                    file=file.readfromfile();
+                    System.Windows.Forms.MessageBox.Show(file.getPath());
                     poll.start();
                     FileSysWatchDog.Run();
                 }

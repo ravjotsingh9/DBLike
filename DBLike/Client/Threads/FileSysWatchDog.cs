@@ -49,10 +49,11 @@ namespace Client.Threads
         [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
         public static void Run()
         {
-            string[] args = new string[3];
+            //string[] args = new string[3];
+
             LocalDbAccess.LocalDB file = new LocalDbAccess.LocalDB();
-            args = file.readfromfile();
-            if (args[2].Equals(""))
+            file = file.readfromfile();
+            if (file.getPath().Equals(""))
             {
                 MessageBox.Show("Got problem in finding local sync folder", "Could not find local sync folder");
                 Thread.CurrentThread.Abort();
@@ -62,7 +63,7 @@ namespace Client.Threads
                 //System.Windows.Forms.MessageBox.Show("started", "FileWatchdog Thread started");
                 //"C:\\Users\\Owner\\Desktop\\Term2_Desktop";
                 watcher = new FileSystemWatcher();
-                watcher.Path = args[2];
+                watcher.Path = file.getPath();
                 watcher.NotifyFilter = NotifyFilters.LastWrite | NotifyFilters.FileName | NotifyFilters.DirectoryName;
                 watcher.IncludeSubdirectories = true;
                 // Add event handlers.

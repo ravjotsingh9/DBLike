@@ -43,7 +43,7 @@ namespace Client.LocalDbAccess
             this.path = Path;
         }
 
-        public bool writetofile(String username, String Password, string pathofFoldertoSync)
+        public bool writetofile(String username,String Password, string pathofFoldertoSync)
         {
             StreamWriter file = null;
             string path = @"C:\dblikeConfig\dblike.txt";
@@ -52,8 +52,8 @@ namespace Client.LocalDbAccess
                 string dirpath = @"C:\dblikeConfig";
                 DirectoryInfo di = Directory.CreateDirectory(dirpath);
                 file = new StreamWriter(path);
-            }
-            else
+           }
+           else
             {
                 //File.Delete(path);
                 file = new StreamWriter(path);
@@ -85,7 +85,7 @@ namespace Client.LocalDbAccess
             {
                 System.Windows.Forms.MessageBox.Show("-----------");
                 return null;
-            }
+            }   
         }
 
         public bool isExists()

@@ -37,7 +37,7 @@ namespace Client.Threads
                 //send msg to server
                 //get the information from the localDatabase
                 LocalDB readLocalDB = new LocalDB();
-                readLocalDB.readfromfile();
+                readLocalDB = readLocalDB.readfromfile();
 
                 string clientSyncFolderPath = readLocalDB.getPath();
                 string[] pathName = clientSyncFolderPath.Split('\\');
