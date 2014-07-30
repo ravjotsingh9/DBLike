@@ -103,7 +103,7 @@ namespace Client.PollFunction
         private string localSyncFolderPath()
         {
             LocalDB readLocalDB = new LocalDB();
-            readLocalDB.readfromfile();
+            readLocalDB=readLocalDB.readfromfile();
 
             return readLocalDB.getPath();
         }

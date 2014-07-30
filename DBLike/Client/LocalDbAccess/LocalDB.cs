@@ -77,7 +77,6 @@ namespace Client.LocalDbAccess
                 fileattr.setPassword(filedetails[1]);
                 fileattr.setPath(filedetails[2]);
                 file.Close();
-                System.Windows.Forms.MessageBox.Show(fileattr.getPath());
                 return fileattr;
             }
             else
