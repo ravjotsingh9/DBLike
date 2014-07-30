@@ -43,15 +43,17 @@ namespace Client.LocalDbAccess
             this.path = Path;
         }
 
-        public bool writetofile(String username,String Password, string pathofFoldertoSync)
+        public bool writetofile(String username, String Password, string pathofFoldertoSync)
         {
             StreamWriter file = null;
-            string path = @"C:\dblike.txt";
+            string path = @"C:\dblikeConfig\dblike.txt";
             if (!File.Exists(path))
             {
+                string dirpath = @"C:\dblikeConfig";
+                DirectoryInfo di = Directory.CreateDirectory(dirpath);
                 file = new StreamWriter(path);
-           }
-           else
+            }
+            else
             {
                 //File.Delete(path);
                 file = new StreamWriter(path);
@@ -62,10 +64,10 @@ namespace Client.LocalDbAccess
             file.Close();
             return true;
         }
-        public string[] readfromfile()
+        public LocalDB readfromfile()
         {
             LocalDbAccess.LocalDB fileattr = new LocalDbAccess.LocalDB();
-            string path = @"C:\dblike.txt";
+            string path = @"C:\dblikeConfig\dblike.txt";
             if (File.Exists(path))
             {
                 StreamReader file = new StreamReader(path);
@@ -77,13 +79,13 @@ namespace Client.LocalDbAccess
                 fileattr.setPassword(filedetails[1]);
                 fileattr.setPath(filedetails[2]);
                 file.Close();
-                return filedetails;
+                return fileattr;
             }
             else
             {
                 System.Windows.Forms.MessageBox.Show("-----------");
                 return null;
-            }   
+            }
         }
 
         public bool isExists()
