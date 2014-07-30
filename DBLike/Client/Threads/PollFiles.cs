@@ -30,7 +30,7 @@ namespace Client.Threads
             {
                 // Client create poll msg 
                 LocalDB readLocalDB = new LocalDB();
-                readLocalDB.readfromfile();
+                readLocalDB = readLocalDB.readfromfile();
 
                 Client.MessageClasses.MsgPoll msgpoll = new Client.MessageClasses.MsgPoll();
                 Client.Message.CreateMsg pollM = new Client.Message.CreateMsg();
