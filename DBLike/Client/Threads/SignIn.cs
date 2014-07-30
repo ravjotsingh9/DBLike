@@ -75,24 +75,25 @@ namespace Client.Threads
                 {
                     System.Windows.Forms.MessageBox.Show(msgobj.getAck(),msgobj.getAddiMsg());
                     LocalDbAccess.LocalDB file = new LocalDbAccess.LocalDB();
-                    string path = null;
-                    System.Windows.Forms.MessageBox.Show("Please select a path to download your folder from the server");
-                    var t = new Thread((ThreadStart)(() =>
+                    file = file.readfromfile();
+                    if (username != file.getUsername() || password != file.getPassword())
                     {
-                        FolderBrowserDialog folder = new FolderBrowserDialog();
-                        if(folder.ShowDialog() == DialogResult.OK)
+                        string path = null;
+                        System.Windows.Forms.MessageBox.Show("Please select a path to download your folder from the server");
+                        var t = new Thread((ThreadStart)(() =>
                         {
-                            path = folder.SelectedPath;
-                        }
-                    }));
-                    t.IsBackground = true;
-                    t.SetApartmentState(ApartmentState.STA);
-                    t.Start();
-                    t.Join();
-                    file.writetofile(username, password, path);
+                            FolderBrowserDialog folder = new FolderBrowserDialog();
+                            if (folder.ShowDialog() == DialogResult.OK)
+                            {
+                                path = folder.SelectedPath;
+                            }
+                        }));
+                        t.IsBackground = true;
+                        t.SetApartmentState(ApartmentState.STA);
+                        t.Start();
+                        t.Join();
+                    }
                     PollFiles poll = new PollFiles();
-                    file=file.readfromfile();
-                    System.Windows.Forms.MessageBox.Show(file.getPath());
                     poll.start();
                     FileSysWatchDog.Run();
                 }

@@ -151,7 +151,5 @@ namespace Client
                 txtfoldertb2.Text = fbd.SelectedPath;
             }
         }
-
-
     }
 }
