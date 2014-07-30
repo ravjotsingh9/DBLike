@@ -46,7 +46,7 @@ namespace Client.LocalDbAccess
         public bool writetofile(String username,String Password, string pathofFoldertoSync)
         {
             StreamWriter file = null;
-            string path = @"D:\dblike.txt";
+            string path = @"C:\dblike.txt";
             if (!File.Exists(path))
             {
                 file = new StreamWriter(path);
@@ -65,7 +65,7 @@ namespace Client.LocalDbAccess
         public string[] readfromfile()
         {
             LocalDbAccess.LocalDB fileattr = new LocalDbAccess.LocalDB();
-            string path = @"D:\dblike.txt";
+            string path = @"C:\dblike.txt";
             if (File.Exists(path))
             {
                 StreamReader file = new StreamReader(path);
