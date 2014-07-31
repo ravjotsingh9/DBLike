@@ -108,7 +108,7 @@ namespace ClientUnitTest
                 string resp = "";
                 try
                 {
-                    CloudBlobClient blobClient = new Server.ConnectionManager.BlobConn(1).BlobConnect();
+                    CloudBlobClient blobClient = new Server.ConnectionManager.BlobConn().BlobConnect();
                     Blob blob = new Blob(blobClient, msgpollServer.userName);
                     GenerateSAS sas = new GenerateSAS();
                     string link = sas.GetContainerSasUri(blob.container, "RL");

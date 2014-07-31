@@ -31,7 +31,7 @@ namespace Server.Threads
                 Server.Message.MessageParser serverPollPar = new Server.Message.MessageParser();
                 Server.MessageClasses.MsgPoll msgpollServer = serverPollPar.pollParseMsg(req);
 
-                CloudBlobClient blobClient = new Server.ConnectionManager.BlobConn(1).BlobConnect();
+                CloudBlobClient blobClient = new Server.ConnectionManager.BlobConn().BlobConnect();
                 Blob blob = new Blob(blobClient, msgpollServer.userName);
                 GenerateSAS sas = new GenerateSAS();
                 string link = sas.GetContainerSasUri(blob.container, "RL");

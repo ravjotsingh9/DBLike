@@ -15,6 +15,7 @@ namespace Server
     public partial class Form1 : Form
     {
         static Threads.ServerConnListener Server = new Threads.ServerConnListener();
+        static Threads.Service_BlobSync blobSync = new Threads.Service_BlobSync();
         
         public Form1()
         {
@@ -30,6 +31,8 @@ namespace Server
             lblServerStatus.Text = "Running";
             btnStart.Enabled = false;
             btnStop.Enabled = true;
+            //start blob sync
+            //blobSync.start();
         }
 
         private void btnStop_Click(object sender, EventArgs e)

@@ -14,7 +14,7 @@ namespace ServerUnitTest
         [TestMethod]
         public void blobUriUnitTest()
         {
-            BlobConn blobconn = new BlobConn(1);
+            BlobConn blobconn = new BlobConn();
             CloudBlobClient blobClient = blobconn.BlobConnect();
             CloudBlobContainer container = blobClient.GetContainerReference("samples");
             GenerateSAS sas = new GenerateSAS();

@@ -35,7 +35,7 @@ namespace Server.Threads
                 //5 Server check the file info in the blob storage, if file has not existed, let the client to create the file
                 //  If file existed, check timestamp, hashvalue to see if client can upload
                 //  If allow upload, change hashvalue and timestamp in the blob storage
-                CloudBlobClient blobClient = new Server.ConnectionManager.BlobConn(1).BlobConnect();
+                CloudBlobClient blobClient = new Server.ConnectionManager.BlobConn().BlobConnect();
 
 
                 if (upload.addInfo == "create" || upload.addInfo == "change" || upload.addInfo == "signUpStart")
