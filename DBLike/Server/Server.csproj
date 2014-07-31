@@ -70,6 +70,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BlobAccess\Blob.cs" />
+    <Compile Include="BlobAccess\blobCopy.cs" />
     <Compile Include="ConnectionManager\BlobConn.cs" />
     <Compile Include="ConnectionManager\Connection.cs" />
     <Compile Include="ConnectionManager\DataBaseConn.cs" />
@@ -106,6 +107,7 @@
     <Compile Include="SecurityManager\ManageSecurity.cs" />
     <Compile Include="SocketCommunication\ReaderWriter.cs" />
     <Compile Include="Threads\ServerConnListener.cs" />
+    <Compile Include="Threads\Service-BlobSync.cs" />
     <Compile Include="Threads\Service-DownloadReq.cs" />
     <Compile Include="Threads\Service-Notification.cs" />
     <Compile Include="Threads\Service-SignInReq.cs" />
