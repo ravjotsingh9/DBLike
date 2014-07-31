@@ -18,9 +18,13 @@ namespace Client.ConnectionManager
             // Connect to a remote device.
             try 
             {
-                IPHostEntry ipHostInfo = Dns.Resolve(Dns.GetHostName());
+                //IPHostEntry ipHostInfo = Dns.Resolve(Dns.GetHostName());
+                //IPAddress ipAddress = ipHostInfo.AddressList[0];
+                //IPEndPoint remoteEP = new IPEndPoint(ipAddress,port);
+                IPHostEntry ipHostInfo = Dns.GetHostEntry("group3525.cloudapp.net");
                 IPAddress ipAddress = ipHostInfo.AddressList[0];
-                IPEndPoint remoteEP = new IPEndPoint(ipAddress,port);
+                IPEndPoint remoteEP = new IPEndPoint(ipAddress, 11000);
+
 
                 // Create a TCP/IP  socket.
                 sender = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp );

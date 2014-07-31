@@ -27,9 +27,11 @@ namespace Server.Threads
             if (ServerMainthread.IsAlive == true)
             {
                 // Establish the remote endpoint for the socket.
+
                 IPHostEntry ipHostInfo = Dns.Resolve(Dns.GetHostName());
                 IPAddress ipAddress = ipHostInfo.AddressList[0];
                 IPEndPoint remoteEP = new IPEndPoint(ipAddress, 11000);
+
 
                 // Create a TCP/IP  socket.
                 Socket snder = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
@@ -63,8 +65,13 @@ namespace Server.Threads
         static public void listen()
         {
             //System.Windows.Forms.MessageBox.Show("Servermainthread started", "Server");
-            IPHostEntry ipHostInfo = Dns.Resolve(Dns.GetHostName());
-            IPAddress ipAddress = ipHostInfo.AddressList[0];
+            
+            //IPHostEntry ipHostInfo = Dns.Resolve(Dns.GetHostName());
+            //IPAddress ipAddress = ipHostInfo.AddressList[0];
+            //IPEndPoint localEndPoint = new IPEndPoint(ipAddress, 11000);
+
+            String strHostName = Dns.GetHostName();
+            IPAddress ipAddress = Dns.GetHostEntry(strHostName).AddressList[2];
             IPEndPoint localEndPoint = new IPEndPoint(ipAddress, 11000);
 
             // Create a TCP/IP socket.
