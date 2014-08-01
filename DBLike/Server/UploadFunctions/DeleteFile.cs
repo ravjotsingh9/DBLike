@@ -130,7 +130,7 @@ namespace Server.UploadFunctions
                         CloudPageBlob blob = (CloudPageBlob)item;
                         //blob.Delete();
                         blob.DeleteIfExists();
-                        System.Windows.Forms.MessageBox.Show(string.Format("File: {0} Deleted!", pathInSyncFolder), "DBLike Server");
+                        //System.Windows.Forms.MessageBox.Show(string.Format("File: {0} Deleted!", pathInSyncFolder), "DBLike Server");
                     }
                 }
                 else
@@ -138,7 +138,7 @@ namespace Server.UploadFunctions
                     // get the directory reference
                     CloudBlobDirectory dira = container.GetDirectoryReference(pathInSyncFolder);
                     deleteFolder(container, dira);
-                    System.Windows.Forms.MessageBox.Show(string.Format("Deleted!\n Folder: {0}", pathInSyncFolder), "DBLike Server");
+                    //System.Windows.Forms.MessageBox.Show(string.Format("Deleted!\n Folder: {0}", pathInSyncFolder), "DBLike Server");
                 }
 
             }

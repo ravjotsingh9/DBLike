@@ -7,6 +7,7 @@ using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Auth;
 using Microsoft.WindowsAzure.Storage.Blob;
 using System.IO;
+using System.Windows.Forms;
 
 namespace Client.UploadFunctions
 {
@@ -46,6 +47,10 @@ namespace Client.UploadFunctions
                     blob.Metadata["timestamp"] = fileTimestamp.ToUniversalTime().ToString("MM/dd/yyyy HH:mm:ss");
                     blob.Metadata["filePath"] = filePathInSyncFolder;
                     blob.SetMetadata();
+                    //string leaseId = Guid.NewGuid().ToString();
+                    //blob.AcquireLease(TimeSpan.FromSeconds(30), leaseId);
+                    
+                    //blob.ReleaseLease(AccessCondition.GenerateLeaseCondition(leaseId));
                 }
 
             }

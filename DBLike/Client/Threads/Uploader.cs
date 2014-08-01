@@ -191,7 +191,7 @@ namespace Client.Threads
             }
             catch (Exception e)
             {
-                System.Windows.Forms.MessageBox.Show(e.ToString());
+                System.Windows.Forms.MessageBox.Show(e.ToString(),"Client");
                 //System.IO.File.WriteAllText("errors.txt", e.ToString());
             }
             finally

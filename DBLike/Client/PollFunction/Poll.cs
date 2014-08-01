@@ -10,6 +10,7 @@ using System.IO;
 using Client.LocalDbAccess;
 using Client.LocalFileSysAccess;
 using System.Windows.Forms;
+using Client.Threads;
 
 namespace Client.PollFunction
 {
@@ -22,6 +23,7 @@ namespace Client.PollFunction
         {
             //MessageBox.Show("Calling Poll constructor", "Client");
             this.clientSynFolderPath = localSyncFolderPath();
+            
             this.sasUri = sasUri;
             scanAllFiles();
             ListWithContainerUri();
@@ -64,9 +66,19 @@ namespace Client.PollFunction
                             {
                                 if (fileAttributes.md5Value != file.Metadata["hashValue"])
                                 {
+                                    //it means there some change at server
                                     pollFile(file, fileFullPath, blobDataTime);
                                 }
                                 
+                            }
+                            else if(DateTime.Compare(blobDataTime, fileAttributes.lastModified.ToUniversalTime()) < 0)
+                            {
+                                if (fileAttributes.md5Value != file.Metadata["hashValue"])
+                                {
+                                    //it means there is some change at client which has yet not uploaded
+                                    Uploader upload = new Uploader();
+                                    upload.start(fileFullPath, "change", null);
+                                }
                             }
 
                         }
@@ -129,8 +141,10 @@ namespace Client.PollFunction
                 {
                     try
                     {
-                        System.IO.File.Delete(file);
-                        Console.WriteLine("Delete file:" +file);
+                        //System.IO.File.Delete(file);
+                        //Console.WriteLine("Delete file:" +file);
+                        Uploader upload = new Uploader();
+                        upload.start(file, "create", null);
                     }
                     catch (System.IO.IOException e)
                     {
