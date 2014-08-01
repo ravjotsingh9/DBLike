@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 using System.Security.Permissions;
 using System.Text;
@@ -15,6 +16,7 @@ namespace Client.LocalFileSysAccess
         public string md5Value { get; set; }
         public bool isDirectory { get; set; }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public getFileAttributes(string filePath)
         {
             FileAttributes attr = File.GetAttributes(filePath);

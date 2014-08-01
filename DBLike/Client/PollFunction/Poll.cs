@@ -85,6 +85,7 @@ namespace Client.PollFunction
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
+                MessageBox.Show(e.Message);
                 return false;
             }
 
@@ -133,6 +134,7 @@ namespace Client.PollFunction
                     catch (System.IO.IOException e)
                     {
                         Console.WriteLine(e.Message);
+                        MessageBox.Show(e.Message);
                         return;
                     }
                 }
