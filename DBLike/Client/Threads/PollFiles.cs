@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Threading;
 using Client.LocalDbAccess;
 using System.Net.Sockets;
+using System.Windows.Forms;
 
 namespace Client.Threads
 {
@@ -53,6 +54,7 @@ namespace Client.Threads
 
         private void poll()
         {
+            //MessageBox.Show("Polling started", "Client");
             try
             {
                 // Client create poll msg 

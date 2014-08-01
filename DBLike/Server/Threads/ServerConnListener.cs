@@ -66,14 +66,15 @@ namespace Server.Threads
         {
             //System.Windows.Forms.MessageBox.Show("Servermainthread started", "Server");
             
-            //IPHostEntry ipHostInfo = Dns.Resolve(Dns.GetHostName());
-            //IPAddress ipAddress = ipHostInfo.AddressList[0];
-            //IPEndPoint localEndPoint = new IPEndPoint(ipAddress, 11000);
+            IPHostEntry ipHostInfo = Dns.Resolve(Dns.GetHostName());
+            IPAddress ipAddress = ipHostInfo.AddressList[0];
+            IPEndPoint localEndPoint = new IPEndPoint(ipAddress, 11000);
 
+            /*************** Setting to run on VM*******************************
             String strHostName = Dns.GetHostName();
             IPAddress ipAddress = Dns.GetHostEntry(strHostName).AddressList[2];
             IPEndPoint localEndPoint = new IPEndPoint(ipAddress, 11000);
-
+            *********************************************************************/
             // Create a TCP/IP socket.
             Socket listener = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
