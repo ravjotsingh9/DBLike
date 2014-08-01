@@ -102,9 +102,10 @@ namespace Client.PollFunction
                 DirectoryInfo di = Directory.CreateDirectory(directoryPath);
             }
 
-            file.DownloadToFile(fileFullPath, FileMode.Create);
-            File.SetLastWriteTime(fileFullPath, TimeZoneInfo.ConvertTimeFromUtc(timestamp, TimeZoneInfo.Local));
-
+           
+            LocalFileSysAccess.LocalFileSys save = new LocalFileSys();
+            save.downloadfile(file, fileFullPath, timestamp);
+            //updatetimestamp.settimestamp(fileFullPath, timestamp);
         }
 
 

@@ -29,7 +29,9 @@ namespace Client.UploadFunctions
                 if (fileHashVaule == "isDirectory")
                 {
                     CloudBlockBlob blob = container.GetBlockBlobReference(filePathInSyncFolder);
-                    blob.UploadFromFile(localFilePath, FileMode.Open);
+                    LocalFileSysAccess.LocalFileSys uploadfromFile = new LocalFileSysAccess.LocalFileSys();
+                    uploadfromFile.uploadfromFilesystem(blob, localFilePath);
+                    //blob.UploadFromFile(localFilePath, FileMode.Open);
                     //directory.Metadata["hashValue"] = fileHashVaule;
 
 
@@ -37,7 +39,9 @@ namespace Client.UploadFunctions
                 else
                 {
                     CloudBlockBlob blob = container.GetBlockBlobReference(filePathInSyncFolder);
-                    blob.UploadFromFile(localFilePath, FileMode.Open);
+                    LocalFileSysAccess.LocalFileSys uploadfromFile = new LocalFileSysAccess.LocalFileSys();
+                    uploadfromFile.uploadfromFilesystem(blob, localFilePath);
+                    //blob.UploadFromFile(localFilePath, FileMode.Open);
                     blob.Metadata["hashValue"] = fileHashVaule;
                     blob.Metadata["timestamp"] = fileTimestamp.ToUniversalTime().ToString("MM/dd/yyyy HH:mm:ss");
                     blob.Metadata["filePath"] = filePathInSyncFolder;
@@ -56,20 +60,7 @@ namespace Client.UploadFunctions
 
 
 
-        // return true if it's a dir
-        public bool checkIfDirectory(string path)
-        {
-
-            // get the file attributes for file or directory
-            FileAttributes attr = File.GetAttributes(path);
-
-            //detect whether its a directory or file
-            if ((attr & FileAttributes.Directory) == FileAttributes.Directory)
-                return true;
-            else
-                return false;
-
-        }
+        
 
 
 
