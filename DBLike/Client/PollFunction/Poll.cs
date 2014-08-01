@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.IO;
 using Client.LocalDbAccess;
 using Client.LocalFileSysAccess;
+using System.Windows.Forms;
 
 namespace Client.PollFunction
 {
@@ -19,7 +20,7 @@ namespace Client.PollFunction
 
         public Poll(string sasUri)
         {
-
+            //MessageBox.Show("Calling Poll constructor", "Client");
             this.clientSynFolderPath = localSyncFolderPath();
             this.sasUri = sasUri;
             scanAllFiles();

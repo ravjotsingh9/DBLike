@@ -73,12 +73,14 @@ namespace Client.Threads
                 watcher.Renamed += new RenamedEventHandler(OnRenamed);    //renaming
                 // Start watching.
                 watcher.EnableRaisingEvents = true;
+                //MessageBox.Show("Event handler Installed", "Client");
             }
         }
 
         // Define the event handlers. 
         private static void OnChanged(object source, FileSystemEventArgs e)
         {
+            //MessageBox.Show("OnChanged Event Raised", "Client");
             //Thread.Sleep(1000);
             try
             {
@@ -98,6 +100,7 @@ namespace Client.Threads
         // Define the event handlers. 
         private static void OnCreated(object source, FileSystemEventArgs e)
         {
+            //MessageBox.Show("OnCreated Event Raised", "Client");
             //Thread.Sleep(1000);
             //MessageBox.Show("OnCreatedFun: File: " + e.FullPath + " " + e.ChangeType);
             //MessageBox.Show("File: " + e.FullPath + " " + e.ChangeType);
@@ -108,6 +111,7 @@ namespace Client.Threads
         // Define the event handlers. 
         private static void OnDeleted(object source, FileSystemEventArgs e)
         {
+            //MessageBox.Show("OnDeleted Event Raised", "Client");
             //MessageBox.Show("File: " + e.FullPath + " " + e.ChangeType);
             Uploader upload = new Uploader();
             upload.start(e.FullPath, "delete", null);
@@ -115,6 +119,7 @@ namespace Client.Threads
         }
         private static void OnRenamed(object source, RenamedEventArgs e)
         {
+            //MessageBox.Show("OnRenameed Event Raised", "Client");
             //MessageBox.Show("File: " + e.OldFullPath + " renamed to " + e.FullPath);
 
             //Client.MessageClasses.changedFile renamedFile = new Client.MessageClasses.changedFile(e.OldFullPath, e.FullPath, e.OldName, e.Name);

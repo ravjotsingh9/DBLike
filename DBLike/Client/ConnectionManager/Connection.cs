@@ -19,22 +19,22 @@ namespace Client.ConnectionManager
             try
             {
 
-                #region Localhost connection 
+
+
+
+                /********settings to connect to server at VM **********************
                 
+                IPHostEntry ipHostInfo = Dns.GetHostEntry("server.lovecics525.net");
+                IPAddress ipAddress = getIpAddress.startPin(ipHostInfo);
+                IPEndPoint remoteEP = new IPEndPoint(ipAddress, 11000);
+                 **********************************************************************/
+
                 IPHostEntry ipHostInfo = Dns.Resolve(Dns.GetHostName());
                 IPAddress ipAddress = ipHostInfo.AddressList[0];
-                IPEndPoint remoteEP = new IPEndPoint(ipAddress, port);
-           
-                #endregion
+                IPEndPoint remoteEP = new IPEndPoint(ipAddress,port);
 
-                #region Remote connection
-                
-                //PingVM getIpAddress = new PingVM();
-                //IPHostEntry ipHostInfo = Dns.GetHostEntry("server.lovecics525.net");
-                //IPAddress ipAddress = getIpAddress.startPin(ipHostInfo);
-                //IPEndPoint remoteEP = new IPEndPoint(ipAddress, 11000);
-       
-                #endregion
+
+
 
                 // Create a TCP/IP  socket.
                 sender = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp );

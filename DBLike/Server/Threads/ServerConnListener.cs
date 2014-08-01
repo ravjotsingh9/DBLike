@@ -67,39 +67,34 @@ namespace Server.Threads
             //System.Windows.Forms.MessageBox.Show("Servermainthread started", "Server");
             
 
-            #region Remote connection
-            /// Iterate through IP list and find IPV4
-            
-            //bool found = false;
-            //int i = 0;
-            //IPAddress ipAddress = null;
-
-            //String strHostName = Dns.GetHostName();
-            //IPHostEntry iphostentry = Dns.GetHostEntry(strHostName);
-            //while (!found)
-            //{
-            //    if (!iphostentry.AddressList[i].IsIPv6LinkLocal)
-            //    {
-            //        ipAddress = iphostentry.AddressList[i];
-            //        found = true;
-            //    }
-            //    i++;
-            //    if (i == 10)
-            //    {
-            //        found = true;
-            //    }
-            //}
-            //IPEndPoint localEndPoint = new IPEndPoint(ipAddress, 11000);
-
-            #endregion
-
-            #region Localhost connection
-
             IPHostEntry ipHostInfo = Dns.Resolve(Dns.GetHostName());
             IPAddress ipAddress = ipHostInfo.AddressList[0];
             IPEndPoint localEndPoint = new IPEndPoint(ipAddress, 11000);
+
+            /*************** Setting to run on VM*******************************
+            // Iterate through IP list and find IPV4
             
-            #endregion
+            bool found = false;
+            int i = 0;
+            IPAddress ipAddress = null;
+
+            String strHostName = Dns.GetHostName();
+            IPHostEntry iphostentry = Dns.GetHostEntry(strHostName);
+            while (!found)
+            {
+                if (!iphostentry.AddressList[i].IsIPv6LinkLocal)
+                {
+                    ipAddress = iphostentry.AddressList[i];
+                    found = true;
+                }
+                i++;
+                if (i == 10)
+                {
+                    found = true;
+                }
+            }
+            IPEndPoint localEndPoint = new IPEndPoint(ipAddress, 11000);
+            *********************************************************************/
 
             // Create a TCP/IP socket.
             Socket listener = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
