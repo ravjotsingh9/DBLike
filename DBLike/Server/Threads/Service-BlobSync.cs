@@ -26,7 +26,7 @@ namespace Server.Threads
             //TBD
             thread.Abort();
         }
-        static private void threadStartFun()
+        private void threadStartFun()
         {
             try
             {
@@ -50,7 +50,7 @@ namespace Server.Threads
             }
         }
 
-        static private void sync()
+       private void sync()
         {
             try
             {
@@ -108,7 +108,7 @@ namespace Server.Threads
 
         }
 
-        static private bool pingFunction(string domainName)
+        private bool pingFunction(string domainName)
         {
             Socket sender = null;
             try

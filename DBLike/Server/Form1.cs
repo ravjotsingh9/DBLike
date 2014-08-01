@@ -31,6 +31,7 @@ namespace Server
             lblServerStatus.Text = "Running";
             btnStart.Enabled = false;
             btnStop.Enabled = true;
+            
             //start blob sync
             //blobSync.start();
         }

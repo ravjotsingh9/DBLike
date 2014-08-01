@@ -16,15 +16,25 @@ namespace Client.ConnectionManager
         public Socket connect(string serverIP, int port)
         {
             // Connect to a remote device.
-            try 
+            try
             {
-                //IPHostEntry ipHostInfo = Dns.Resolve(Dns.GetHostName());
-                //IPAddress ipAddress = ipHostInfo.AddressList[0];
-                //IPEndPoint remoteEP = new IPEndPoint(ipAddress,port);
-                IPHostEntry ipHostInfo = Dns.GetHostEntry("group3525.cloudapp.net");
-                IPAddress ipAddress = ipHostInfo.AddressList[0];
-                IPEndPoint remoteEP = new IPEndPoint(ipAddress, 11000);
 
+                #region Localhost connection 
+                
+                IPHostEntry ipHostInfo = Dns.Resolve(Dns.GetHostName());
+                IPAddress ipAddress = ipHostInfo.AddressList[0];
+                IPEndPoint remoteEP = new IPEndPoint(ipAddress, port);
+           
+                #endregion
+
+                #region Remote connection
+                
+                //PingVM getIpAddress = new PingVM();
+                //IPHostEntry ipHostInfo = Dns.GetHostEntry("server.lovecics525.net");
+                //IPAddress ipAddress = getIpAddress.startPin(ipHostInfo);
+                //IPEndPoint remoteEP = new IPEndPoint(ipAddress, 11000);
+       
+                #endregion
 
                 // Create a TCP/IP  socket.
                 sender = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp );
