@@ -64,8 +64,8 @@
             // tabControl1
             // 
             this.tabControl1.Appearance = System.Windows.Forms.TabAppearance.Buttons;
-            this.tabControl1.Controls.Add(this.tbsignup);
             this.tabControl1.Controls.Add(this.tbsignin);
+            this.tabControl1.Controls.Add(this.tbsignup);
             this.tabControl1.Location = new System.Drawing.Point(6, 291);
             this.tabControl1.Multiline = true;
             this.tabControl1.Name = "tabControl1";
@@ -78,7 +78,7 @@
             this.tbsignup.Controls.Add(this.groupBox3);
             this.tbsignup.Location = new System.Drawing.Point(4, 25);
             this.tbsignup.Name = "tbsignup";
-            this.tbsignup.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tbsignup.Padding = new System.Windows.Forms.Padding(3);
             this.tbsignup.Size = new System.Drawing.Size(341, 221);
             this.tbsignup.TabIndex = 1;
             this.tbsignup.Text = "Sign up";
@@ -177,7 +177,7 @@
             this.tbsignin.Controls.Add(this.groupBox1);
             this.tbsignin.Location = new System.Drawing.Point(4, 25);
             this.tbsignin.Name = "tbsignin";
-            this.tbsignin.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tbsignin.Padding = new System.Windows.Forms.Padding(3);
             this.tbsignin.Size = new System.Drawing.Size(341, 221);
             this.tbsignin.TabIndex = 0;
             this.tbsignin.Text = "Sign in";

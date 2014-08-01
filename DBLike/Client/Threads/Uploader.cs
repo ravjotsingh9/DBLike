@@ -79,7 +79,7 @@ namespace Client.Threads
 
                     // belong to these events because for delete event it won't get the attributes anymore
                     Client.LocalFileSysAccess.getFileAttributes att = new Client.LocalFileSysAccess.getFileAttributes(fullpathOfChnagedFile);
-                    DateTime time = att.lastModified;
+                    DateTime time = att.lastModified.ToUniversalTime();
                     string msg;
                     string md5r = att.md5Value;
 

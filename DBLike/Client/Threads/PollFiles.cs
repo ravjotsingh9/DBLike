@@ -37,7 +37,7 @@ namespace Client.Threads
                 while (pull)
                 {
                     poll();
-                    Thread.Sleep(60000);
+                    Thread.Sleep(20000);
                 }
 
             }
@@ -52,7 +52,7 @@ namespace Client.Threads
             }
         }
 
-        private void poll()
+        public void poll()
         {
             //MessageBox.Show("Polling started", "Client");
             try

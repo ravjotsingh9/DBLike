@@ -48,18 +48,23 @@ namespace Client.PollFunction
                         CloudBlockBlob file = (CloudBlockBlob)item;
                         file.FetchAttributes();
                         string fileFullPath = clientSynFolderPath + @"\"+ file.Metadata["filePath"];
+                        DateTime blobDataTime = new DateTime();
+                        blobDataTime = DateTime.ParseExact(file.Metadata["timestamp"], "MM-dd-yyyy HH:mm:ss",
+                                                            null);
                         if(File.Exists(fileFullPath))
                         {
                             getFileAttributes fileAttributes = new getFileAttributes(fileFullPath);
+                            /*
                             DateTime blobDataTime = new DateTime();
                             blobDataTime = DateTime.ParseExact(file.Metadata["timestamp"], "MM-dd-yyyy HH:mm:ss",
                                                                 null);
+                             */ 
                             // if need to poll
-                            if (DateTime.Compare(blobDataTime, fileAttributes.lastModified) > 0)
+                            if (DateTime.Compare(blobDataTime, fileAttributes.lastModified.ToUniversalTime()) > 0)
                             {
                                 if (fileAttributes.md5Value != file.Metadata["hashValue"])
                                 {
-                                    pollFile(file, fileFullPath);
+                                    pollFile(file, fileFullPath, blobDataTime);
                                 }
                                 
                             }
@@ -67,7 +72,7 @@ namespace Client.PollFunction
                         }
                         else
                         {
-                            pollFile(file, fileFullPath);
+                            pollFile(file, fileFullPath, blobDataTime);
                         }
 
 
@@ -86,7 +91,7 @@ namespace Client.PollFunction
             return true;
         }
 
-        private void pollFile(CloudBlockBlob file, string fileFullPath)
+        private void pollFile(CloudBlockBlob file, string fileFullPath, DateTime timestamp)
         {
             string directoryPath = Path.GetDirectoryName(fileFullPath);
             // Determine whether the directory exists.
@@ -97,6 +102,7 @@ namespace Client.PollFunction
             }
 
             file.DownloadToFile(fileFullPath, FileMode.Create);
+            File.SetLastWriteTime(fileFullPath, TimeZoneInfo.ConvertTimeFromUtc(timestamp, TimeZoneInfo.Local));
 
         }
 

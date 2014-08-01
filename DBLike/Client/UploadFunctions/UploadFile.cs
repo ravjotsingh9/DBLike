@@ -39,7 +39,7 @@ namespace Client.UploadFunctions
                     CloudBlockBlob blob = container.GetBlockBlobReference(filePathInSyncFolder);
                     blob.UploadFromFile(localFilePath, FileMode.Open);
                     blob.Metadata["hashValue"] = fileHashVaule;
-                    blob.Metadata["timestamp"] = fileTimestamp.ToString("MM/dd/yyyy HH:mm:ss");
+                    blob.Metadata["timestamp"] = fileTimestamp.ToUniversalTime().ToString("MM/dd/yyyy HH:mm:ss");
                     blob.Metadata["filePath"] = filePathInSyncFolder;
                     blob.SetMetadata();
                 }

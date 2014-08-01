@@ -126,9 +126,10 @@ namespace Client.Threads
                     
                     //poll.start();
                     //MessageBox.Show("Signing in done","Client");
-                    FileSysWatchDog.Run();
                     Client.Program.poll.start();
-                    //Thread.Sleep(5000);
+                    Thread.Sleep(10000);
+                    FileSysWatchDog.Run();
+                    
                     
                     Thread.CurrentThread.Abort();
                 }

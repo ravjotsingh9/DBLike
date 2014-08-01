@@ -65,13 +65,19 @@ namespace Server.Threads
         static public void listen()
         {
             //System.Windows.Forms.MessageBox.Show("Servermainthread started", "Server");
+
             
+            
+            //**************setting to connect to local server **********************
+            IPHostEntry ipHostInfo = Dns.Resolve(Dns.GetHostName());
+            IPAddress ipAddress = ipHostInfo.AddressList[0];
+            IPEndPoint localEndPoint = new IPEndPoint(ipAddress, 11000);
+            //***************************************************************************/
 
-            //IPHostEntry ipHostInfo = Dns.Resolve(Dns.GetHostName());
-            //IPAddress ipAddress = ipHostInfo.AddressList[0];
-            //IPEndPoint localEndPoint = new IPEndPoint(ipAddress, 11000);
 
-            //*************** Setting to run on VM*******************************
+
+
+            /*************** Setting to run on VM*******************************
             // Iterate through IP list and find IPV4
             
             bool found = false;
@@ -94,7 +100,7 @@ namespace Server.Threads
                 }
             }
             IPEndPoint localEndPoint = new IPEndPoint(ipAddress, 11000);
-            //*********************************************************************
+            *********************************************************************/
 
             // Create a TCP/IP socket.
             Socket listener = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);

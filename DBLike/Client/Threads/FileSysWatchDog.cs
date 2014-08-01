@@ -73,7 +73,7 @@ namespace Client.Threads
                 watcher.Renamed += new RenamedEventHandler(OnRenamed);    //renaming
                 // Start watching.
                 watcher.EnableRaisingEvents = true;
-                //MessageBox.Show("Event handler Installed", "Client");
+                MessageBox.Show("Event handler Installed", "Client");
             }
         }
 
@@ -86,9 +86,23 @@ namespace Client.Threads
             {
                 watcher.EnableRaisingEvents = false;
                 //MessageBox.Show("OnChangedFun : File: " + e.FullPath + " " + e.ChangeType);
-
-                Uploader upload = new Uploader();
-                upload.start(e.FullPath, "change", null);
+                if(File.Exists(e.FullPath))
+                {
+                    //File.SetLastWriteTimeUtc(e.FullPath, TimeZoneInfo.ConvertTimeToUtc(DateTime.Now, TimeZoneInfo.Local));
+                    //MessageBox.Show("TimeZoneInfo.ConvertTimeToUtc(DateTime.Now, TimeZoneInfo.Local): " + TimeZoneInfo.ConvertTimeToUtc(DateTime.Now, TimeZoneInfo.Local));
+                    
+                    //DateTime tmp = new DateTime();
+                    //tmp = DateTime.Now.ToUniversalTime();
+                    //File.SetLastWriteTime(e.FullPath, tmp);
+                    //MessageBox.Show("DateTime.Now.ToUniversalTime(): " + tmp);
+                    Uploader upload = new Uploader();
+                    upload.start(e.FullPath, "change", null);
+                }
+                else
+                {
+                    MessageBox.Show("File does not exist.");
+                }
+                
             }
             finally
             {
@@ -104,8 +118,18 @@ namespace Client.Threads
             //Thread.Sleep(1000);
             //MessageBox.Show("OnCreatedFun: File: " + e.FullPath + " " + e.ChangeType);
             //MessageBox.Show("File: " + e.FullPath + " " + e.ChangeType);
-            Uploader upload = new Uploader();
-            upload.start(e.FullPath, "create", null);
+            if (File.Exists(e.FullPath))
+            {
+                //File.SetCreationTimeUtc(e.FullPath, DateTime.UtcNow);
+                //File.SetLastWriteTimeUtc(e.FullPath, DateTime.UtcNow);
+                Uploader upload = new Uploader();
+                upload.start(e.FullPath, "create", null);
+            }
+            else
+            {
+                MessageBox.Show("File does not exist.");
+            }
+            
 
         }
         // Define the event handlers. 
