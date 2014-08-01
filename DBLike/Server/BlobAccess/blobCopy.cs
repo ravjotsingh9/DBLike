@@ -12,11 +12,6 @@ namespace Server.BlobAccess
 {
     class blobCopy
     {
-        private string srcAccountName = "portalvhdscgcgqr43r8dpq";
-        private string srcAccountKey = "q7u0mob+u/kgqTlIe4lfKa6xmo4Cm/rT6VlmBd2EwWZTy3tq2h3LeHFwQandnM7AIunrH0n65et3dKAX9LghBA==";
-        private string destAccountName = "portalvhdstj44khd5kg1p9";
-        private string destAccountKey = "fS6etqKHnyQuYMtxURvhFEtpAUasAT+iKS98+Y9fFctgAusnN+gsetygq0ZerTrCPL1Cc7Y/NS8JAIw7MzNlZA==";
-
 
         public void startCopyBlob()
         {
@@ -28,11 +23,13 @@ namespace Server.BlobAccess
                 var dstBlobClient = conn.getSpecifyClient(2);
                 if (dstBlobClient != null)
                 {
+                    delete(srcBlobClient, dstBlobClient);
                     Copy(srcBlobClient, dstBlobClient);
                 }
                 dstBlobClient = conn.getSpecifyClient(3);
                 if (dstBlobClient != null)
                 {
+                    delete(srcBlobClient, dstBlobClient);
                     Copy(srcBlobClient, dstBlobClient);
                 }
             }
@@ -41,6 +38,7 @@ namespace Server.BlobAccess
                 var dstBlobClient = conn.getSpecifyClient(3);
                 if (dstBlobClient != null)
                 {
+                    delete(srcBlobClient, dstBlobClient);
                     Copy(srcBlobClient, dstBlobClient);
                 }
 
@@ -56,8 +54,7 @@ namespace Server.BlobAccess
             {
                 if (srcCloudBlobContainer.Name != "vhds")
                 {
-                    var dstCloudBlobContainer = dstBlobClient
-                 .GetContainerReference(srcCloudBlobContainer.Name);
+                    var dstCloudBlobContainer = dstBlobClient.GetContainerReference(srcCloudBlobContainer.Name);
 
                     dstCloudBlobContainer.CreateIfNotExists();
 
@@ -85,6 +82,42 @@ namespace Server.BlobAccess
                             dstBlockBlock.StartCopyFromBlob(new Uri(srcBlockBlobSasUri));
                         }
                     }
+
+                }
+
+            }
+        }
+
+        private void delete(CloudBlobClient srcBlobClient, CloudBlobClient dstBlobClient)
+        {
+            foreach (var dstCloudBlobContainer in dstBlobClient.ListContainers())
+            {
+                if (dstCloudBlobContainer.Name != "vhds")
+                {
+                    var srcCloudBlobContainer = srcBlobClient.GetContainerReference(dstCloudBlobContainer.Name);
+                    if (!srcCloudBlobContainer.Exists())
+                    {
+                        dstCloudBlobContainer.Delete();
+                    }
+                    else
+                    {
+                        foreach (var dstBlob in dstCloudBlobContainer.ListBlobs())
+                        {
+                            if (dstBlob.GetType() == typeof(CloudBlockBlob))
+                            {
+                                var dstBlockBlob = (CloudBlockBlob)dstBlob;
+                                var srcBlockBlob = srcCloudBlobContainer.GetBlockBlobReference(dstBlockBlob.Name);
+                                if (!srcBlockBlob.Exists())
+                                {
+                                    dstBlockBlob.Delete();
+                                }
+                            }
+                        }
+
+                    }
+                    
+
+                    
 
                 }
 
