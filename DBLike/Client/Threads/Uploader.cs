@@ -16,10 +16,10 @@ namespace Client.Threads
     {
         static Configuration.config conf = new Configuration.config();
         static Thread thread;
-        public void start(string path, string eventType, string addiInfo)
+        public void start(string path, string eventType, string addiInfo, DateTime timestamp)
         {
             //TBD
-            thread = new Thread(() => threadStartFun(path, eventType, addiInfo));
+            thread = new Thread(() => threadStartFun(path, eventType, addiInfo, timestamp));
             thread.Start();
         }
         public void stop()
@@ -27,7 +27,7 @@ namespace Client.Threads
             //TBD
             thread.Abort();
         }
-        static private void threadStartFun(string fullpathOfChnagedFile, string eventType, string addiInfo)
+        static private void threadStartFun(string fullpathOfChnagedFile, string eventType, string addiInfo, DateTime timestamp)
         {
             try
             {
@@ -231,13 +231,30 @@ namespace Client.Threads
 
 
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                System.Windows.Forms.MessageBox.Show(e.ToString(),"Client");
+                if (eventType != "delete")
+                {
+                    fileBeingUsed.eventDetails e = new fileBeingUsed.eventDetails();
+                    e.eventType = eventType;
+                    e.datetime = timestamp;
+                    e.filepath = fullpathOfChnagedFile;
+                    Client.Program.filesInUse.removefromList(e);
+                    
+                }
+                System.Windows.Forms.MessageBox.Show(ex.ToString(), "Client");
                 //System.IO.File.WriteAllText("errors.txt", e.ToString());
             }
             finally
             {
+                if (eventType != "delete")
+                {
+                    fileBeingUsed.eventDetails e = new fileBeingUsed.eventDetails();
+                    e.eventType = eventType;
+                    e.datetime = timestamp;
+                    e.filepath = fullpathOfChnagedFile;
+                    Client.Program.filesInUse.removefromList(e);
+                }
                 Thread.CurrentThread.Abort();
             }
         }

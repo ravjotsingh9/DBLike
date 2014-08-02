@@ -131,8 +131,23 @@ namespace Client.Threads
             foreach (string file in files)
             {
                 // Process each file
-                Uploader upload = new Uploader();
-                upload.start(file, "signUpStart", null);
+                string eventType = "signUpStart";
+                LocalFileSysAccess.getFileAttributes timestamp = new LocalFileSysAccess.getFileAttributes(file);
+                fileBeingUsed.eventDetails eventdet = new fileBeingUsed.eventDetails();
+                eventdet.datetime = timestamp.lastModified;
+                eventdet.filepath = file;
+                eventdet.eventType = eventType;
+                if (Client.Program.filesInUse.alreadyPresent(eventdet))
+                {
+                    //return;
+                }
+                else
+                {
+                    Client.Program.filesInUse.addToList(eventdet);
+                    Uploader upload = new Uploader();
+                    upload.start(file, "signUpStart", null, timestamp.lastModified);
+                }
+                
             }
 
             directories = Directory.GetDirectories(path);

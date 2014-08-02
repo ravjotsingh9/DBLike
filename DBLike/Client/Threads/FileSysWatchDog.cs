@@ -11,15 +11,17 @@ using System.Windows.Forms;
 
 namespace Client.Threads
 {
-    static class FileSysWatchDog
+    class FileSysWatchDog
     {
-        //static Thread btnclicked = new Thread(() => Run());
+        
+        static Thread installWatcher = new Thread(() => Run());
         static FileSystemWatcher watcher;
-        static bool onchnageToggler = false;
+        
 
-        //public bool start()
-        // {
-
+        
+        public void start()
+        {
+            installWatcher.Start();
         //   btnclicked.Start();
         //   return true;
         /*
@@ -38,20 +40,17 @@ namespace Client.Threads
             return true;
         }
        */
-        //}
+        }
 
         public static void stop()
         {
             watcher.EnableRaisingEvents = false;
             //btnclicked.Abort();
-
         }
 
         [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
         public static void Run()
         {
-            //string[] args = new string[3];
-
             LocalDbAccess.LocalDB file = new LocalDbAccess.LocalDB();
             file = file.readfromfile();
             if (file.getPath().Equals(""))
@@ -69,13 +68,15 @@ namespace Client.Threads
                 watcher.IncludeSubdirectories = true;
                 // Add event handlers.
                 watcher.Changed += new FileSystemEventHandler(OnChanged); //change
-                watcher.Created += new FileSystemEventHandler(OnCreated); //creation
+                watcher.Created += new FileSystemEventHandler(OnChanged); //creation
+                //watcher.Created += new FileSystemEventHandler(OnCreated); //creation
                 watcher.Deleted += new FileSystemEventHandler(OnDeleted); //deletion
                 watcher.Renamed += new RenamedEventHandler(OnRenamed);    //renaming
                 // Start watching.
                 watcher.EnableRaisingEvents = true;
                 //MessageBox.Show("Event handler Installed", "Client");
             }
+            Thread.CurrentThread.Abort();
         }
 
         
@@ -83,6 +84,7 @@ namespace Client.Threads
         // Define the event handlers. 
         private static void OnChanged(object source, FileSystemEventArgs e)
         {
+            string eventType;
             /*
             if (onchnageToggler==true)
             {
@@ -106,15 +108,38 @@ namespace Client.Threads
                     // let it sleep to avoid multiple "change" detection
                     // b/c IO is much slower than thread!
                     // but for large files, this needs to be patched
-                    Thread.Sleep(500);
+                    //Thread.Sleep(500);
+                    if (e.ChangeType == WatcherChangeTypes.Changed)
+                    {
+                        eventType = "change";
+                    }
+                    else
+                    {
+                        eventType = "create";
+                    }
+
+                    LocalFileSysAccess.getFileAttributes timestamp = new LocalFileSysAccess.getFileAttributes(e.FullPath);
+                    fileBeingUsed.eventDetails eventdet = new fileBeingUsed.eventDetails();
+                    eventdet.datetime = timestamp.lastModified;
+                    eventdet.filepath = e.FullPath;
+                    eventdet.eventType = eventType;
+                    if(Client.Program.filesInUse.alreadyPresent(eventdet))
+                    {
+                        return;
+                    }
+                    else
+                    {
+                        Client.Program.filesInUse.addToList(eventdet);
+                    }
+
                     Uploader upload = new Uploader();
                     //if (e.ChangeType == WatcherChangeTypes.Changed)
                     //{
-                        upload.start(e.FullPath, "change", null);
+                        upload.start(e.FullPath, eventType, null, timestamp.lastModified);
                     //}
                     //else
                     //{
-                     //   upload.start(e.FullPath, "create", null);
+                      // upload.start(e.FullPath, "create", null);
                     //}
                 }
                 else
@@ -129,7 +154,7 @@ namespace Client.Threads
             }
 
         }
-
+        /*
         // Define the event handlers. 
         private static void OnCreated(object source, FileSystemEventArgs e)
         {
@@ -159,26 +184,56 @@ namespace Client.Threads
             }
             
         }
+         */ 
         // Define the event handlers. 
         private static void OnDeleted(object source, FileSystemEventArgs e)
         {
             //MessageBox.Show("OnDeleted Event Raised", "Client");
             //MessageBox.Show("File: " + e.FullPath + " " + e.ChangeType);
+            /*
+            string eventType = "delete";
+            LocalFileSysAccess.getFileAttributes timestamp = new LocalFileSysAccess.getFileAttributes(e.FullPath);
+            fileBeingUsed.eventDetails eventdet = new fileBeingUsed.eventDetails();
+            eventdet.datetime = timestamp.lastModified;
+            eventdet.filepath = e.FullPath;
+            eventdet.eventType = eventType;
+            if (Client.Program.filesInUse.alreadyPresent(eventdet))
+            {
+                return;
+            }
+            else
+            {
+                Client.Program.filesInUse.addToList(eventdet);
+            }
+             */ 
             Uploader upload = new Uploader();
-            upload.start(e.FullPath, "delete", null);
+            upload.start(e.FullPath, "delete", null,DateTime.Now);
 
         }
         private static void OnRenamed(object source, RenamedEventArgs e)
         {
             //MessageBox.Show("OnRenameed Event Raised", "Client");
             //MessageBox.Show("File: " + e.OldFullPath + " renamed to " + e.FullPath);
-
+            string eventType = "rename";
+            LocalFileSysAccess.getFileAttributes timestamp = new LocalFileSysAccess.getFileAttributes(e.FullPath);
+            fileBeingUsed.eventDetails eventdet = new fileBeingUsed.eventDetails();
+            eventdet.datetime = timestamp.lastModified;
+            eventdet.filepath = e.FullPath;
+            eventdet.eventType = eventType;
+            if (Client.Program.filesInUse.alreadyPresent(eventdet))
+            {
+                return;
+            }
+            else
+            {
+                Client.Program.filesInUse.addToList(eventdet);
+            }
             //Client.MessageClasses.changedFile renamedFile = new Client.MessageClasses.changedFile(e.OldFullPath, e.FullPath, e.OldName, e.Name);
             string renamedStr = "<" + e.OldFullPath + ">:<" + e.FullPath + ">:<" + e.OldName + ">:<" + e.Name + ">";
 
 
             Uploader upload = new Uploader();
-            upload.start(e.OldFullPath, "rename", renamedStr);
+            upload.start(e.OldFullPath, "rename", renamedStr,timestamp.lastModified);
 
         }
 

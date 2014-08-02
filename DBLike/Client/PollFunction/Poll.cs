@@ -77,8 +77,23 @@ namespace Client.PollFunction
                                 if (fileAttributes.md5Value != file.Metadata["hashValue"])
                                 {
                                     //it means there is some change at client which has yet not uploaded
-                                    Uploader upload = new Uploader();
-                                    upload.start(fileFullPath, "change", null);
+                                    string eventType = "change";
+                                    //LocalFileSysAccess.getFileAttributes timestamp = new LocalFileSysAccess.getFileAttributes(file);
+                                    fileBeingUsed.eventDetails eventdet = new fileBeingUsed.eventDetails();
+                                    eventdet.datetime = fileAttributes.lastModified;
+                                    eventdet.filepath = fileFullPath;
+                                    eventdet.eventType = eventType;
+                                    if (Client.Program.filesInUse.alreadyPresent(eventdet))
+                                    {
+                                        //return;
+                                    }
+                                    else
+                                    {
+                                        Client.Program.filesInUse.addToList(eventdet);
+                                        Uploader upload = new Uploader();
+                                        upload.start(fileFullPath, "change", null,fileAttributes.lastModified);
+                                    }
+                                    
                                 }
                             }
 
@@ -87,9 +102,6 @@ namespace Client.PollFunction
                         {
                             pollFile(file, fileFullPath, blobDataTime);
                         }
-
-
-                        
                     }
 
                 }
@@ -149,9 +161,23 @@ namespace Client.PollFunction
                         }
                         else
                         {
-
-                            Uploader upload = new Uploader();
-                            upload.start(file, "create", null);
+                            string eventType = "create";
+                            LocalFileSysAccess.getFileAttributes timestamp = new LocalFileSysAccess.getFileAttributes(file);
+                            fileBeingUsed.eventDetails eventdet = new fileBeingUsed.eventDetails();
+                            eventdet.datetime = timestamp.lastModified;
+                            eventdet.filepath = file;
+                            eventdet.eventType = eventType;
+                            if (Client.Program.filesInUse.alreadyPresent(eventdet))
+                            {
+                                //return;
+                            }
+                            else
+                            {
+                                Client.Program.filesInUse.addToList(eventdet);
+                                Uploader upload = new Uploader();
+                                upload.start(file, "create", null, timestamp.lastModified);
+                            }
+                            
                         } 
                     }
                     catch (System.IO.IOException e)
