@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Net;
 using System.Data;
+using System.Runtime.CompilerServices;
 
 namespace Client.SocketCommunication
 {
@@ -13,6 +14,7 @@ namespace Client.SocketCommunication
     {
 
         //TDB socket reader function
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public string readfromSocket(Socket soc)
         {
             byte[] tmp = new byte[1024];
@@ -21,7 +23,7 @@ namespace Client.SocketCommunication
             return str;
         }
         //TBD socket writer function
-
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void writetoSocket(Socket soc, String message)
         {
             byte[] msg = Encoding.ASCII.GetBytes(message);

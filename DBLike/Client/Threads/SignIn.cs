@@ -97,6 +97,9 @@ namespace Client.Threads
                             t.SetApartmentState(ApartmentState.STA);
                             t.Start();
                             t.Join();
+                            //write to file
+                            file = new LocalDbAccess.LocalDB();
+                            file.writetofile(username, password, path);
                         }
                     }
                     else
@@ -126,6 +129,7 @@ namespace Client.Threads
                     
                     //poll.start();
                     //MessageBox.Show("Signing in done","Client");
+                    Client.Program.poll.pull = true;
                     Client.Program.poll.start();
                     //Thread.Sleep(10000);
                     FileSysWatchDog.Run();

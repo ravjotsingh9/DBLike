@@ -25,6 +25,7 @@ namespace Client.PollFunction
             this.clientSynFolderPath = localSyncFolderPath();
             
             this.sasUri = sasUri;
+            
             scanAllFiles();
             ListWithContainerUri();
         }

@@ -37,7 +37,7 @@ namespace Client.Threads
                 while (pull)
                 {
                     poll();
-                    Thread.Sleep(20000);
+                    Thread.Sleep(10000);
                 }
 
             }

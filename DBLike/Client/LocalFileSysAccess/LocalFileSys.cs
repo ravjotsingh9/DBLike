@@ -1,4 +1,5 @@
-﻿using Microsoft.WindowsAzure.Storage.Blob;
+﻿using Microsoft.WindowsAzure.Storage;
+using Microsoft.WindowsAzure.Storage.Blob;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -14,15 +15,27 @@ namespace Client.LocalFileSysAccess
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void downloadfile(CloudBlockBlob file, string fileFullPath, DateTime timestamp)
         {
+            //string leaseId = Guid.NewGuid().ToString();
+            //file.AcquireLease(TimeSpan.FromMilliseconds(16000), leaseId);
             file.DownloadToFile(fileFullPath, FileMode.Create);
+            //file.ReleaseLease(AccessCondition.GenerateLeaseCondition(leaseId));
             File.SetLastWriteTime(fileFullPath, TimeZoneInfo.ConvertTimeFromUtc(timestamp, TimeZoneInfo.Local));
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public void uploadfromFilesystem(CloudBlockBlob blob, string localFilePath)
+        public void uploadfromFilesystem(CloudBlockBlob blob, string localFilePath, string eventType)
         {
-            blob.UploadFromFile(localFilePath, FileMode.Open);
-
+            if (eventType.Equals("create"))
+            {
+                blob.UploadFromFile(localFilePath, FileMode.Open);
+            }
+            else
+            {
+                string leaseId = Guid.NewGuid().ToString();
+                blob.AcquireLease(TimeSpan.FromMilliseconds(16000), leaseId);
+                blob.UploadFromFile(localFilePath, FileMode.Open, AccessCondition.GenerateLeaseCondition(leaseId));
+                blob.ReleaseLease(AccessCondition.GenerateLeaseCondition(leaseId));
+            }
         }
 
         // return true if it's a dir

@@ -21,7 +21,7 @@ namespace Client.UploadFunctions
         /// <param name="localFilePath"></param>
         /// <param name="filePathInSyncFolder"></param>
         public bool UploadFileWithContainerUri(string sasUri, string localFilePath,
-            string filePathInSyncFolder, string fileHashVaule, DateTime fileTimestamp)
+            string filePathInSyncFolder, string fileHashVaule, DateTime fileTimestamp, string eventType)
         {
             try
             {
@@ -31,7 +31,7 @@ namespace Client.UploadFunctions
                 {
                     CloudBlockBlob blob = container.GetBlockBlobReference(filePathInSyncFolder);
                     LocalFileSysAccess.LocalFileSys uploadfromFile = new LocalFileSysAccess.LocalFileSys();
-                    uploadfromFile.uploadfromFilesystem(blob, localFilePath);
+                    uploadfromFile.uploadfromFilesystem(blob, localFilePath, eventType);
                     //blob.UploadFromFile(localFilePath, FileMode.Open);
                     //directory.Metadata["hashValue"] = fileHashVaule;
 
@@ -41,22 +41,21 @@ namespace Client.UploadFunctions
                 {
                     CloudBlockBlob blob = container.GetBlockBlobReference(filePathInSyncFolder);
                     LocalFileSysAccess.LocalFileSys uploadfromFile = new LocalFileSysAccess.LocalFileSys();
-                    uploadfromFile.uploadfromFilesystem(blob, localFilePath);
+                    uploadfromFile.uploadfromFilesystem(blob, localFilePath, eventType);
+                                        
                     //blob.UploadFromFile(localFilePath, FileMode.Open);
                     blob.Metadata["hashValue"] = fileHashVaule;
                     blob.Metadata["timestamp"] = fileTimestamp.ToUniversalTime().ToString("MM/dd/yyyy HH:mm:ss");
                     blob.Metadata["filePath"] = filePathInSyncFolder;
                     blob.SetMetadata();
-                    //string leaseId = Guid.NewGuid().ToString();
-                    //blob.AcquireLease(TimeSpan.FromSeconds(30), leaseId);
-                    
-                    //blob.ReleaseLease(AccessCondition.GenerateLeaseCondition(leaseId));
+
                 }
 
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
+                MessageBox.Show(e.Message);
                 return false;
             }
 
