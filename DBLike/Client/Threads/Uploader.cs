@@ -8,6 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Client.LocalDbAccess;
 using Client.MessageClasses;
+using System.Windows.Forms;
 
 namespace Client.Threads
 {
@@ -106,6 +107,23 @@ namespace Client.Threads
                     {
                         new Client.UploadFunctions.UploadFile().UploadFileWithContainerUri(reup.fileContainerUri, fullpathOfChnagedFile, reup.filePathInSynFolder, md5r, time, eventType);
                         System.Windows.Forms.MessageBox.Show(string.Format("Uploaded! \n event type: {0} \n Path: {1}", reup.addiInfo, fullpathOfChnagedFile), "DBLike Client");
+                    }
+                    // handle simultaneous editing confilct
+                    if (reup.indicator == "simultaneousEditConfilct")
+                    {
+
+                        string tMsg = "simultaneous editing confilct";
+                        string cMsg = "Yes to Save current file in another name\nNo to Download the newest version file from server";
+                        DialogResult dialogResult = MessageBox.Show(cMsg, tMsg, MessageBoxButtons.YesNo);
+                        if (dialogResult == DialogResult.Yes)
+                        {
+                            //do something
+                        }
+                        else if (dialogResult == DialogResult.No)
+                        {
+                            //do something else
+                        }
+
                     }
                    
 
