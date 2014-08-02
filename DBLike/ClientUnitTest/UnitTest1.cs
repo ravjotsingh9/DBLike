@@ -9,6 +9,15 @@ using Microsoft.WindowsAzure.Storage.Blob;
 using Server.ConnectionManager;
 using Client;
 using System.Collections.Concurrent;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.IO;
+using Client.Threads;
+using Client.LocalDbAccess;
+using Client.LocalFileSysAccess;
 
 namespace ClientUnitTest
 {
@@ -38,5 +47,39 @@ namespace ClientUnitTest
 
             string str = "";
         }
+
+
+
+        //[TestMethod]
+        // before scanAllFilesAttributes() changing to void
+        //public void addToDicTest()
+        //{
+        //    Client.LocalFileSysAccess.FileListMaintain maintain = new Client.LocalFileSysAccess.FileListMaintain();
+        //    string[] filePaths = maintain.scanAllFilesAttributes();
+
+        //    foreach (string file in filePaths)
+        //    {
+        //        try
+        //        {
+        //            Client.LocalFileSysAccess.FileInfo tmp = null;
+
+        //            // get file attributes
+        //            Client.LocalFileSysAccess.getFileAttributes getFileAttr = new Client.LocalFileSysAccess.getFileAttributes(file);
+
+        //            tmp = new Client.LocalFileSysAccess.FileInfo();
+        //            tmp.time = getFileAttr.lastModified;
+        //            tmp.md5r = getFileAttr.md5Value;
+
+        //            Client.LocalFileSysAccess.FileList.fileInfoDic[file] = tmp;
+
+        //        }
+        //        catch (System.IO.IOException e)
+        //        {
+        //            Console.WriteLine(e.Message);
+        //            return;
+        //        }
+        //    }
+        //    string str = "";
+        //}
     }
 }

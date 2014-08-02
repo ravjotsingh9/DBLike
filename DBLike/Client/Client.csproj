@@ -72,6 +72,7 @@
     <Compile Include="ConnectionManager\Connection.cs" />
     <Compile Include="ConnectionManager\PingVM.cs" />
     <Compile Include="LocalFileSysAccess\FileList.cs" />
+    <Compile Include="LocalFileSysAccess\FileListMaintain.cs" />
     <Compile Include="LocalFileSysAccess\getFileAttributes.cs" />
     <Compile Include="DownloadFunctions\Download.cs" />
     <Compile Include="Form1.cs">
