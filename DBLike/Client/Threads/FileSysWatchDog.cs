@@ -102,7 +102,11 @@ namespace Client.Threads
                 //MessageBox.Show("OnChangedFun : File: " + e.FullPath + " " + e.ChangeType);
                 if(File.Exists(e.FullPath))
                 {
- 
+
+                    // let it sleep to avoid multiple "change" detection
+                    // b/c IO is much slower than thread!
+                    // but for large files, this needs to be patched
+                    Thread.Sleep(500);
                     Uploader upload = new Uploader();
                     //if (e.ChangeType == WatcherChangeTypes.Changed)
                     //{
