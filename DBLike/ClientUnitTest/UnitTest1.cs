@@ -8,6 +8,7 @@ using Microsoft.WindowsAzure.Storage.Auth;
 using Microsoft.WindowsAzure.Storage.Blob;
 using Server.ConnectionManager;
 using Client;
+using System.Collections.Concurrent;
 
 namespace ClientUnitTest
 {
@@ -26,8 +27,14 @@ namespace ClientUnitTest
             tmp2.time = DateTime.UtcNow;
             tmp2.md5r = "hashvalue";
 
-            Client.LocalFileSysAccess.FileList.fileInfoDic.Add("c:\\", tmp);
-            Client.LocalFileSysAccess.FileList.fileInfoDic.Add("c:\\test", tmp2);
+            // add for regular dictionary
+            //Client.LocalFileSysAccess.FileList.fileInfoDic.Add("c:\\", tmp);
+            //Client.LocalFileSysAccess.FileList.fileInfoDic.Add("c:\\test", tmp2);
+
+            // add for ConcurrentDictionary
+            Client.LocalFileSysAccess.FileList.fileInfoDic["c:\\"] = tmp;
+            Client.LocalFileSysAccess.FileList.fileInfoDic["c:\\test"] = tmp2;
+
 
             string str = "";
         }
