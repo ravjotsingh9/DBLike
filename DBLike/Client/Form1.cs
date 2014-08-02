@@ -15,10 +15,10 @@ using System.Text.RegularExpressions;
 
 namespace Client
 {
-     public partial class Form1 : Form
+    public partial class Form1 : Form
     {
         //public static Threads.FileSysWatchDog watchdog;
-         public volatile bool acountcreated= false;
+        public volatile bool acountcreated = false;
         delegate void changeStatetoSignedUp();
         public void enableServiceController()
         {
@@ -44,7 +44,7 @@ namespace Client
             //disable create Account
             btnCreateAcctb2.Enabled = false;
             //shift tosign in tab
-            
+
             tabControl1.SelectedIndex = 1;
 
         }
@@ -54,23 +54,23 @@ namespace Client
         {
             InitializeComponent();
             groupBox1.Enabled = true;
-           // watchdog = new Threads.FileSysWatchDog();
-            button2.Enabled = true;            
+            // watchdog = new Threads.FileSysWatchDog();
+            button2.Enabled = true;
 
             // for testing convinence, set the local path
             string path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             path += @"\DBLike_test";
             txtfoldertb2.Text = path;
-            
+
         }
 
 
         private void btnBrowsetb2_Click(object sender, EventArgs e)
         {
-            
+
         }
 
-        
+
         private void button1_Click(object sender, EventArgs e)
         {
             Threads.FileSysWatchDog.Run();
@@ -81,7 +81,7 @@ namespace Client
             button2.Enabled = true;
             enableController();
         }
-        
+
         private void button2_Click(object sender, EventArgs e)
         {
             Threads.FileSysWatchDog.stop();
@@ -95,14 +95,14 @@ namespace Client
 
         private void btnCreateAcctb2_Click(object sender, EventArgs e)
         {
-            if(acountcreated == true)
+            if (acountcreated == true)
             {
                 MessageBox.Show("Already Account Created.", "DBLike Client");
                 return;
             }
-            if(txtfoldertb2.Text.Equals("") || txtusernametb2.Text.Equals("") || txtpasstb2.Text.Equals(""))
+            if (txtfoldertb2.Text.Equals("") || txtusernametb2.Text.Equals("") || txtpasstb2.Text.Equals(""))
             {
-                MessageBox.Show("All fields are Required.","Information Missing");
+                MessageBox.Show("All fields are Required.", "Information Missing");
                 return;
             }
             else
@@ -110,26 +110,26 @@ namespace Client
                 MessageBox.Show("Now, DBLike service will start and will automatically upload the content of your selected folder. Creating and Modifying folder content will Upload the file to Server.", "DBLike Client Information");
             }
             Threads.SignUp signupthread = new Threads.SignUp();
-			LocalDbAccess.LocalDB file = new LocalDbAccess.LocalDB();
+            LocalDbAccess.LocalDB file = new LocalDbAccess.LocalDB();
             String username = txtusernametb2.Text;
             String password = txtpasstb2.Text;
             //System.Windows.Forms.MessageBox.Show(username.Length.ToString());
-            
-            bool startWithLetterNum=false;
-            bool definedLength=false;
-            bool noUpperCase=false;
-            bool notZforCoonection=false;
-            bool noSpecialChar=false;
+
+            bool startWithLetterNum = false;
+            bool definedLength = false;
+            bool noUpperCase = false;
+            bool notZforCoonection = false;
+            bool noSpecialChar = false;
             bool hasSpecificFormat = false;
             if (username != "zforconnection")
-                notZforCoonection=true;
+                notZforCoonection = true;
             if (username.Length > 3 && username.Length < 63)
                 definedLength = true;
             if (!username.Any(Char.IsUpper))
                 noUpperCase = true;
             if (Char.IsLetter(username[0]) || Char.IsNumber(username[0]))
                 startWithLetterNum = true;
-            Regex r=new Regex("^[a-zA-Z0-9-]*$");
+            Regex r = new Regex("^[a-zA-Z0-9-]*$");
             if (r.IsMatch(username))
                 noSpecialChar = true;
 
@@ -139,7 +139,7 @@ namespace Client
                 {
                     if (username[i].ToString() == "-")
                     {
-                        if (i!= 0 && i!= username.Length - 1)
+                        if (i != 0 && i != username.Length - 1)
                         {
                             if ((Char.IsLetter(username[i - 1]) || Char.IsNumber(username[i - 1]))
                                 && (Char.IsLetter(username[i + 1]) || Char.IsNumber(username[i + 1])))
@@ -152,7 +152,7 @@ namespace Client
                                 goto Validation;
                             }
                         }
-                        else if (i== username.Length - 1)
+                        else if (i == username.Length - 1)
                         {
                             if (Char.IsLetter(username[i - 1]) || Char.IsNumber(username[i - 1]))
                             {
@@ -208,7 +208,7 @@ namespace Client
                     label7.ForeColor = System.Drawing.Color.Green;
                     label7.Enabled = true;
                     signupthread.start(username, password, txtfoldertb2.Text);
-                } 
+                }
             }
         }
 
@@ -223,11 +223,11 @@ namespace Client
         {
             //MessageBox.Show("We are working on this part.","Functionality Not yet Completed");
             //return;
-            
+
             Threads.SignIn signinthread = new Threads.SignIn();
             String username = txtUserNametb1.Text;
             String password = txtPasstb1.Text;
-            signinthread.start(username,password,this);
+            signinthread.start(username, password, this);
             btnSignintb1.Enabled = false;
             button1.Enabled = false;
         }
@@ -239,6 +239,11 @@ namespace Client
             {
                 txtfoldertb2.Text = fbd.SelectedPath;
             }
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

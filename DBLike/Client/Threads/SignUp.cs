@@ -98,7 +98,13 @@ namespace Client.Threads
                         uploadeverything(sysncpath);
                         //System.Windows.Forms.MessageBox.Show("Uploaded!!!", "Client");
                         System.Windows.Forms.MessageBox.Show("Started!!!", "Client");
-                        
+
+
+                        // initialize the file list for sign up scenario
+                        Client.LocalFileSysAccess.FileListMaintain fileMaintain = new Client.LocalFileSysAccess.FileListMaintain();
+                        fileMaintain.scanAllFilesAttributes();
+
+
                         if (!Program.ClientForm.IsHandleCreated)
                         {
                             Program.ClientForm.CreateHandle();
