@@ -100,6 +100,8 @@ namespace Client.Threads
                             //write to file
                             file = new LocalDbAccess.LocalDB();
                             file.writetofile(username, password, path);
+
+
                         }
                     }
                     else
@@ -124,6 +126,10 @@ namespace Client.Threads
                         //write to file
                         file = new LocalDbAccess.LocalDB();
                         file.writetofile(username, password, path);
+
+
+
+
                     }
                     //poll = new PollFiles();
                     
@@ -132,6 +138,13 @@ namespace Client.Threads
                     Client.Program.poll.pull = true;
                     Client.Program.poll.start();
                     //Thread.Sleep(10000);
+
+
+
+                    // initialize the file list for sign in scenario
+                    Client.LocalFileSysAccess.FileListMaintain fileMaintain = new Client.LocalFileSysAccess.FileListMaintain();
+                    fileMaintain.scanAllFilesAttributes();
+
                     FileSysWatchDog.Run();
                     
                     

@@ -113,7 +113,7 @@ namespace Client.Threads
                     {
 
                         string tMsg = "simultaneous editing confilct";
-                        string cMsg = "Yes to Save current file in another name\nNo to Download the newest version file from server";
+                        string cMsg = "A newer version has been detected on the server.\nDo you want to save current version?\nYes to Save current file in another name\nNo to Download the newest version file from server";
                         DialogResult dialogResult = MessageBox.Show(cMsg, tMsg, MessageBoxButtons.YesNo);
                         if (dialogResult == DialogResult.Yes)
                         {
