@@ -117,7 +117,31 @@ namespace Client.Threads
                         DialogResult dialogResult = MessageBox.Show(cMsg, tMsg, MessageBoxButtons.YesNo);
                         if (dialogResult == DialogResult.Yes)
                         {
-                            //do something
+
+                            string sourcePath = fullpathOfChnagedFile;
+                            string targetPath = "";
+                            
+                            // add time to new name
+                            string dateString = DateTime.UtcNow.ToString("yyyyMMddHHmmss");
+                            string[] fileNameArr = sourcePath.Split('.');
+                            string newFileName = fileNameArr[0] + " ( conflict copy " + dateString + ")." + fileNameArr[1];
+                            targetPath = newFileName;
+
+                            //// To copy a folder's contents to a new location:
+                            //// Create a new target folder, if necessary.
+                            //if (!System.IO.Directory.Exists(targetPath))
+                            //{
+                            //    System.IO.Directory.CreateDirectory(targetPath);
+                            //}
+
+                            // To copy a file to another location and 
+                            // overwrite the destination file if it already exists.
+                            System.IO.File.Copy(sourcePath, targetPath, true);
+
+
+
+
+
                         }
                         else if (dialogResult == DialogResult.No)
                         {
