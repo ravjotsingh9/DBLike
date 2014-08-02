@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
 
 namespace Client
 {
@@ -112,18 +113,103 @@ namespace Client
 			LocalDbAccess.LocalDB file = new LocalDbAccess.LocalDB();
             String username = txtusernametb2.Text;
             String password = txtpasstb2.Text;
+            //System.Windows.Forms.MessageBox.Show(username.Length.ToString());
+            
+            bool startWithLetterNum=false;
+            bool definedLength=false;
+            bool noUpperCase=false;
+            bool notZforCoonection=false;
+            bool noSpecialChar=false;
+            bool hasSpecificFormat = false;
+            if (username != "zforconnection")
+                notZforCoonection=true;
+            if (username.Length > 3 && username.Length < 63)
+                definedLength = true;
+            if (!username.Any(Char.IsUpper))
+                noUpperCase = true;
+            if (Char.IsLetter(username[0]) || Char.IsNumber(username[0]))
+                startWithLetterNum = true;
+            Regex r=new Regex("^[a-zA-Z0-9-]*$");
+            if (r.IsMatch(username))
+                noSpecialChar = true;
 
-
-            //bool result=file.writetofile(username,password,txtfoldertb2.Text);
-            /*
-            if (result == false)
+            if (username.Contains("-"))
             {
-                MessageBox.Show("Unable to write on the file", "Unable to write on file");
-                return;
+                for (int i = 0; i < username.Length; i++)
+                {
+                    if (username[i].ToString() == "-")
+                    {
+                        if (i!= 0 && i!= username.Length - 1)
+                        {
+                            if ((Char.IsLetter(username[i - 1]) || Char.IsNumber(username[i - 1]))
+                                && (Char.IsLetter(username[i + 1]) || Char.IsNumber(username[i + 1])))
+                            {
+                                hasSpecificFormat = true;
+                            }
+                            else
+                            {
+                                hasSpecificFormat = false;
+                                goto Validation;
+                            }
+                        }
+                        else if (i== username.Length - 1)
+                        {
+                            if (Char.IsLetter(username[i - 1]) || Char.IsNumber(username[i - 1]))
+                            {
+                                hasSpecificFormat = true;
+                            }
+                            else
+                            {
+                                hasSpecificFormat = false;
+                                goto Validation;
+                            }
+                        }
+                    }
+                }
             }
-             */ 
-            //file.writetofile(username,password,txtfoldertb2.Text);
-            signupthread.start(username, password, txtfoldertb2.Text);
+            else
+                hasSpecificFormat = true;
+
+        Validation:
+            {
+                if (startWithLetterNum != true)
+                {
+                    label7.Text = "Username must start with a Character or a Number only";
+                    label7.Enabled = true;
+                }
+                else if (definedLength != true)
+                {
+                    label7.Text = "Username must be atleast of length 3 and atmost oflength 63";
+                    label7.Enabled = true;
+                }
+                else if (noUpperCase != true)
+                {
+                    label7.Text = "Username cannot have any uppercase characters";
+                    label7.Enabled = true;
+                }
+                else if (notZforCoonection != true)
+                {
+                    label7.Text = "Username provided is invalid, please choose another username";
+                    label7.Enabled = true;
+                }
+                else if (noSpecialChar != true)
+                {
+                    label7.Text = "Username cannot contain anyspecial characters";
+                    label7.Enabled = true;
+                }
+                else if (hasSpecificFormat != true)
+                {
+                    label7.Text = "Cannot have consecutive '-' characters";
+                    label7.Enabled = true;
+                }
+                else
+                {
+                    label7.Text = "Username Validated";
+                    label7.ForeColor = System.Drawing.Color.Green;
+                    label7.Enabled = true;
+                    signupthread.start(username, password, txtfoldertb2.Text);
+                } 
+            }
         }
 
 
