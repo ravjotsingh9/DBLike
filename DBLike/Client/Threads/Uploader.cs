@@ -8,6 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Client.LocalDbAccess;
 using Client.MessageClasses;
+using System.Windows.Forms;
 
 namespace Client.Threads
 {
@@ -106,6 +107,47 @@ namespace Client.Threads
                     {
                         new Client.UploadFunctions.UploadFile().UploadFileWithContainerUri(reup.fileContainerUri, fullpathOfChnagedFile, reup.filePathInSynFolder, md5r, time, eventType);
                         //System.Windows.Forms.MessageBox.Show(string.Format("Uploaded! \n event type: {0} \n Path: {1}", reup.addiInfo, fullpathOfChnagedFile), "DBLike Client");
+                    }
+                    // handle simultaneous editing confilct
+                    if (reup.indicator == "simultaneousEditConfilct")
+                    {
+
+                        string tMsg = "simultaneous editing confilct";
+                        string cMsg = "Yes to Save current file in another name\nNo to Download the newest version file from server";
+                        DialogResult dialogResult = MessageBox.Show(cMsg, tMsg, MessageBoxButtons.YesNo);
+                        if (dialogResult == DialogResult.Yes)
+                        {
+
+                            string sourcePath = fullpathOfChnagedFile;
+                            string targetPath = "";
+                            
+                            // add time to new name
+                            string dateString = DateTime.UtcNow.ToString("yyyyMMddHHmmss");
+                            string[] fileNameArr = sourcePath.Split('.');
+                            string newFileName = fileNameArr[0] + " ( conflict copy " + dateString + ")." + fileNameArr[1];
+                            targetPath = newFileName;
+
+                            //// To copy a folder's contents to a new location:
+                            //// Create a new target folder, if necessary.
+                            //if (!System.IO.Directory.Exists(targetPath))
+                            //{
+                            //    System.IO.Directory.CreateDirectory(targetPath);
+                            //}
+
+                            // To copy a file to another location and 
+                            // overwrite the destination file if it already exists.
+                            System.IO.File.Copy(sourcePath, targetPath, true);
+
+
+
+
+
+                        }
+                        else if (dialogResult == DialogResult.No)
+                        {
+                            //do something else
+                        }
+
                     }
                    
 
