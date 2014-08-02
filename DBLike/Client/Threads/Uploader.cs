@@ -105,7 +105,7 @@ namespace Client.Threads
                     if (reup.indicator == "OK")
                     {
                         new Client.UploadFunctions.UploadFile().UploadFileWithContainerUri(reup.fileContainerUri, fullpathOfChnagedFile, reup.filePathInSynFolder, md5r, time, eventType);
-                        System.Windows.Forms.MessageBox.Show(string.Format("Uploaded! \n event type: {0} \n Path: {1}", reup.addiInfo, fullpathOfChnagedFile), "DBLike Client");
+                        //System.Windows.Forms.MessageBox.Show(string.Format("Uploaded! \n event type: {0} \n Path: {1}", reup.addiInfo, fullpathOfChnagedFile), "DBLike Client");
                     }
                    
 
@@ -115,7 +115,7 @@ namespace Client.Threads
                 {
                     additionalInfo = "delete";
                     string msg = " ";
-                    System.Windows.Forms.MessageBox.Show(string.Format("Deletion detected!\n Path: {0}", pathInSyncFolderPath), "DBLike Client");
+                    //System.Windows.Forms.MessageBox.Show(string.Format("Deletion detected!\n Path: {0}", pathInSyncFolderPath), "DBLike Client");
 
 
                     // create the msg
@@ -140,7 +140,7 @@ namespace Client.Threads
                     //List<string> temp = reNameInfo.ToList();
                     //temp.Insert(0, "rename");
 
-                    System.Windows.Forms.MessageBox.Show(string.Format("Rename detected!\n + Old Path: {0} \n + New Path: {1}", reNameInfo[0], reNameInfo[1]), "DBLike Client");
+                    //System.Windows.Forms.MessageBox.Show(string.Format("Rename detected!\n + Old Path: {0} \n + New Path: {1}", reNameInfo[0], reNameInfo[1]), "DBLike Client");
 
                     // get new path in server
                     string[] pathName3 = reNameInfo[1].Split('\\');

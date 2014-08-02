@@ -6,6 +6,7 @@ using System.Security.Permissions;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows.Forms;
 
 namespace Client.Threads
@@ -14,7 +15,7 @@ namespace Client.Threads
     {
         //static Thread btnclicked = new Thread(() => Run());
         static FileSystemWatcher watcher;
-
+        static bool onchnageToggler = false;
 
         //public bool start()
         // {
@@ -64,7 +65,7 @@ namespace Client.Threads
                 //"C:\\Users\\Owner\\Desktop\\Term2_Desktop";
                 watcher = new FileSystemWatcher();
                 watcher.Path = file.getPath();
-                watcher.NotifyFilter = NotifyFilters.LastWrite | NotifyFilters.FileName | NotifyFilters.DirectoryName;
+                watcher.NotifyFilter = NotifyFilters.LastWrite | NotifyFilters.FileName; //| NotifyFilters.DirectoryName;
                 watcher.IncludeSubdirectories = true;
                 // Add event handlers.
                 watcher.Changed += new FileSystemEventHandler(OnChanged); //change
@@ -73,30 +74,44 @@ namespace Client.Threads
                 watcher.Renamed += new RenamedEventHandler(OnRenamed);    //renaming
                 // Start watching.
                 watcher.EnableRaisingEvents = true;
-                MessageBox.Show("Event handler Installed", "Client");
+                //MessageBox.Show("Event handler Installed", "Client");
             }
         }
+
+        
 
         // Define the event handlers. 
         private static void OnChanged(object source, FileSystemEventArgs e)
         {
+            /*
+            if (onchnageToggler==true)
+            {
+                onchnageToggler = false;
+            }
+            else
+            {
+                onchnageToggler = true;
+                return;
+            }
+            */
             //MessageBox.Show("OnChanged Event Raised", "Client");
             //Thread.Sleep(1000);
             try
             {
-                watcher.EnableRaisingEvents = false;
+                //watcher.EnableRaisingEvents = false;
                 //MessageBox.Show("OnChangedFun : File: " + e.FullPath + " " + e.ChangeType);
                 if(File.Exists(e.FullPath))
                 {
-                    //File.SetLastWriteTimeUtc(e.FullPath, TimeZoneInfo.ConvertTimeToUtc(DateTime.Now, TimeZoneInfo.Local));
-                    //MessageBox.Show("TimeZoneInfo.ConvertTimeToUtc(DateTime.Now, TimeZoneInfo.Local): " + TimeZoneInfo.ConvertTimeToUtc(DateTime.Now, TimeZoneInfo.Local));
-                    
-                    //DateTime tmp = new DateTime();
-                    //tmp = DateTime.Now.ToUniversalTime();
-                    //File.SetLastWriteTime(e.FullPath, tmp);
-                    //MessageBox.Show("DateTime.Now.ToUniversalTime(): " + tmp);
+ 
                     Uploader upload = new Uploader();
-                    upload.start(e.FullPath, "change", null);
+                    //if (e.ChangeType == WatcherChangeTypes.Changed)
+                    //{
+                        upload.start(e.FullPath, "change", null);
+                    //}
+                    //else
+                    //{
+                     //   upload.start(e.FullPath, "create", null);
+                    //}
                 }
                 else
                 {
@@ -106,7 +121,7 @@ namespace Client.Threads
             }
             finally
             {
-                watcher.EnableRaisingEvents = true;
+                //watcher.EnableRaisingEvents = true;
             }
 
         }
@@ -114,23 +129,31 @@ namespace Client.Threads
         // Define the event handlers. 
         private static void OnCreated(object source, FileSystemEventArgs e)
         {
-            //MessageBox.Show("OnCreated Event Raised", "Client");
-            //Thread.Sleep(1000);
+         
             //MessageBox.Show("OnCreatedFun: File: " + e.FullPath + " " + e.ChangeType);
             //MessageBox.Show("File: " + e.FullPath + " " + e.ChangeType);
-            if (File.Exists(e.FullPath))
+            try
             {
-                //File.SetCreationTimeUtc(e.FullPath, DateTime.UtcNow);
-                //File.SetLastWriteTimeUtc(e.FullPath, DateTime.UtcNow);
-                Uploader upload = new Uploader();
-                upload.start(e.FullPath, "create", null);
+                //watcher.EnableRaisingEvents = false;
+                if (File.Exists(e.FullPath))
+                {
+                    Uploader upload = new Uploader();
+                    upload.start(e.FullPath, "create", null);
+                }
+                else
+                {
+                    MessageBox.Show("File does not exist.");
+                }
             }
-            else
+            catch(Exception ex)
             {
-                MessageBox.Show("File does not exist.");
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                
             }
             
-
         }
         // Define the event handlers. 
         private static void OnDeleted(object source, FileSystemEventArgs e)

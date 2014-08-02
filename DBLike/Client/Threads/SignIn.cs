@@ -74,7 +74,7 @@ namespace Client.Threads
                 }
                 else
                 {
-                    System.Windows.Forms.MessageBox.Show(msgobj.getAck(),msgobj.getAddiMsg());
+                    //System.Windows.Forms.MessageBox.Show(msgobj.getAck(),msgobj.getAddiMsg());
                     LocalDbAccess.LocalDB file = new LocalDbAccess.LocalDB();
                     file = file.readfromfile();
                     if (file != null)

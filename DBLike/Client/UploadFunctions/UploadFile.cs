@@ -47,6 +47,7 @@ namespace Client.UploadFunctions
                     blob.Metadata["hashValue"] = fileHashVaule;
                     blob.Metadata["timestamp"] = fileTimestamp.ToUniversalTime().ToString("MM/dd/yyyy HH:mm:ss");
                     blob.Metadata["filePath"] = filePathInSyncFolder;
+                    //blob.Metadata["Deleted"] = "false";
                     blob.SetMetadata();
 
                 }
@@ -55,7 +56,7 @@ namespace Client.UploadFunctions
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
-                MessageBox.Show(e.Message);
+                //MessageBox.Show("-----------" + e.Message);
                 return false;
             }
 

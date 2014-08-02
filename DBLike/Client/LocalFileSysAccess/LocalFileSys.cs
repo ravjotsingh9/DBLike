@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Client.LocalFileSysAccess
@@ -31,10 +32,21 @@ namespace Client.LocalFileSysAccess
             }
             else
             {
-                string leaseId = Guid.NewGuid().ToString();
-                blob.AcquireLease(TimeSpan.FromMilliseconds(16000), leaseId);
-                blob.UploadFromFile(localFilePath, FileMode.Open, AccessCondition.GenerateLeaseCondition(leaseId));
-                blob.ReleaseLease(AccessCondition.GenerateLeaseCondition(leaseId));
+                try
+                {
+                    string leaseId = Guid.NewGuid().ToString();
+                    blob.AcquireLease(TimeSpan.FromMilliseconds(16000), leaseId);
+                    blob.UploadFromFile(localFilePath, FileMode.Open, AccessCondition.GenerateLeaseCondition(leaseId));
+                    blob.ReleaseLease(AccessCondition.GenerateLeaseCondition(leaseId));
+                }
+                catch(Exception ex)
+                {
+                    Thread.Sleep(5000);
+                    string leaseId = Guid.NewGuid().ToString();
+                    blob.AcquireLease(TimeSpan.FromMilliseconds(16000), leaseId);
+                    blob.UploadFromFile(localFilePath, FileMode.Open, AccessCondition.GenerateLeaseCondition(leaseId));
+                    blob.ReleaseLease(AccessCondition.GenerateLeaseCondition(leaseId));
+                }
             }
         }
 

@@ -73,9 +73,13 @@ namespace Server.Threads
                     // get container
                     CloudBlobContainer container = blobClient.GetContainerReference(upload.userName);
 
+                    // change value of delete in metadata to true
+                    //container.Metadata["Deleted"] = "true";
+
+                    //*** <<disabling deletion>>
                     UploadFunctions.DeleteFile del = new UploadFunctions.DeleteFile();
                     del.deleteAll(container, upload.filePathInSynFolder);
-
+                    //***/
                 }
 
 
