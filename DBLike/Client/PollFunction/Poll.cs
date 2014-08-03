@@ -52,7 +52,7 @@ namespace Client.PollFunction
                         file.FetchAttributes();
                         string fileFullPath = clientSynFolderPath + @"\"+ file.Metadata["filePath"];
                         DateTime blobDataTime = new DateTime();
-                        blobDataTime = DateTime.ParseExact(file.Metadata["timestamp"], "MM-dd-yyyy HH:mm:ss",
+                        blobDataTime = DateTime.ParseExact(file.Metadata["timestamp"], "MM/dd/yyyy HH:mm:ss",
                                                             null);
                         if(File.Exists(fileFullPath))
                         {

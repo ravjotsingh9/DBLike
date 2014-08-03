@@ -59,8 +59,11 @@ namespace Client.Threads
             //call  SocketCommunication.ReaderWriter.write(byte[] msg) to write msg on socket
             SocketCommunication.ReaderWriter rw = new SocketCommunication.ReaderWriter();
             rw.writetoSocket(sender, message);
+            
             //call  SocketCommunication.ReaderWriter.read() to read response from server
             String response = rw.readfromSocket(sender);
+     
+            
 
             //call parser and process it.....
             Message.MessageParser mp = new Message.MessageParser();

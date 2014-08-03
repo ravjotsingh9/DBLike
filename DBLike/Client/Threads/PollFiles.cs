@@ -7,6 +7,7 @@ using System.Threading;
 using Client.LocalDbAccess;
 using System.Net.Sockets;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace Client.Threads
 {
@@ -87,7 +88,7 @@ namespace Client.Threads
             }
             catch(Exception ex)
             {
-                System.Windows.Forms.MessageBox.Show(ex.ToString());
+                System.Windows.Forms.MessageBox.Show(ex.ToString());                
             }
         }
     }
