@@ -152,9 +152,35 @@ namespace Client
             txtfoldertb2.Text = path;
             */
             //Appendconsole("hi");
+
+           // Application.ApplicationExit += new EventHandler(this.OnApplicationExit);
+
+            /*******************to display tray*********************
+            // Create a simple tray menu with only one item.
+            trayMenu = new ContextMenu();
+            trayMenu.MenuItems.Add("Open", OnOpen);
+            trayMenu.MenuItems.Add("Exit", OnExit);
+
+            // Create a tray icon. In this example we use a
+            // standard system icon for simplicity, but you
+            // can of course use your own custom icon too.
+            trayIcon = new NotifyIcon();
+            trayIcon.Text = "DBLike";
+            //trayIcon.Icon = new Icon(SystemIcons.Application, 40, 40);
+            trayIcon.Icon = new Icon(@"ClientImage.ico", 40, 40);
+
+            // Add menu to tray icon and show it.
+            trayIcon.ContextMenu = trayMenu;
+            trayIcon.Visible = true;
+            ****************************************************************/
         }
-
-
+        /*******************to display tray*********************
+        public void OnOpen(object sender, EventArgs e)
+        {
+            Visible       = true; // Hide form window.
+            ShowInTaskbar = true; // Remove from taskbar.
+        }
+        ******************************************************/
         
 
         /*
@@ -347,6 +373,64 @@ namespace Client
                 txtfoldertb2.Text = fbd.SelectedPath;
             }
         }
-       
+
+
+
+
+        /*******************to display tray*****************************************
+        private NotifyIcon  trayIcon;
+        private ContextMenu trayMenu;
+ 
+        
+ 
+        protected override void OnLoad(EventArgs e)
+        {
+            //Visible       = false; // Hide form window.
+            //ShowInTaskbar = false; // Remove from taskbar.
+ 
+            base.OnLoad(e);
+        }
+ 
+        private void OnExit(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+        *******************to display tray*********************/
+        /*
+        protected override void Dispose(bool isDisposing)
+        {
+            if (isDisposing)
+            {
+                // Release the icon resource.
+                trayIcon.Dispose();
+            }
+ 
+            base.Dispose(isDisposing);
+        }
+   
+        */
+
+
+        /*
+        public void OnApplicationExit(object sender, EventArgs e)
+        {
+
+           if(checkBox1.Checked)
+           {
+               if(File.Exists(@"C:\dblikeConfig\dblike.txt"))
+               {
+                   LocalDbAccess.LocalDB localdb = new LocalDbAccess.LocalDB();
+                   localdb.readfromfile();
+                   Threads.SignIn signin = new Threads.SignIn();
+                   signin.start(localdb.getUsername(), localdb.getPassword(), this);
+                   Visible = false; // Hide form window.
+                   ShowInTaskbar = false; // Remove from taskbar.
+                   Thread.CurrentThread.Abort();
+               }
+           }
+        }
+         */ 
+
+
     }
 }
