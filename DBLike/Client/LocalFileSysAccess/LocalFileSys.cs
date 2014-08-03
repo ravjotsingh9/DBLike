@@ -23,12 +23,19 @@ namespace Client.LocalFileSysAccess
             Program.ClientForm.addtoConsole("Downloaded");
             //file.ReleaseLease(AccessCondition.GenerateLeaseCondition(leaseId));
             File.SetLastWriteTime(fileFullPath, TimeZoneInfo.ConvertTimeFromUtc(timestamp, TimeZoneInfo.Local));
+
+
+
+            // add file to file list
+            Client.LocalFileSysAccess.FileListMaintain addToFileList = new Client.LocalFileSysAccess.FileListMaintain();
+            addToFileList.addSingleFileToFileList(fileFullPath);
+
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void uploadfromFilesystem(CloudBlockBlob blob, string localFilePath, string eventType)
         {
-            
+
             if (eventType.Equals("create") || eventType.Equals("signUpStart"))
             {
                 Program.ClientForm.addtoConsole("Upload started[create || signUpStart]:" + localFilePath);
@@ -46,7 +53,7 @@ namespace Client.LocalFileSysAccess
                     blob.ReleaseLease(AccessCondition.GenerateLeaseCondition(leaseId));
                     Program.ClientForm.addtoConsole("Uploaded");
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     Program.ClientForm.addtoConsole("Upload: second attempt");
                     Thread.Sleep(5000);
