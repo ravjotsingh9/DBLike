@@ -87,8 +87,8 @@
             // 
             this.vcbtn.BackColor = System.Drawing.Color.White;
             this.vcbtn.Enabled = false;
-            this.vcbtn.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.vcbtn.Location = new System.Drawing.Point(32, 167);
+            this.vcbtn.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.vcbtn.Location = new System.Drawing.Point(282, 252);
             this.vcbtn.Name = "vcbtn";
             this.vcbtn.Size = new System.Drawing.Size(90, 24);
             this.vcbtn.TabIndex = 88;
@@ -168,12 +168,12 @@
             this.button2.BackColor = System.Drawing.Color.White;
             this.button2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.button2.FlatAppearance.BorderSize = 0;
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button2.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.button2.Location = new System.Drawing.Point(124, 125);
+            this.button2.Location = new System.Drawing.Point(193, 252);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(82, 26);
+            this.button2.Size = new System.Drawing.Size(90, 24);
             this.button2.TabIndex = 4;
             this.button2.Text = "Sign off";
             this.button2.UseVisualStyleBackColor = false;
@@ -184,12 +184,12 @@
             this.btnSignintb1.BackColor = System.Drawing.Color.White;
             this.btnSignintb1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btnSignintb1.FlatAppearance.BorderSize = 0;
-            this.btnSignintb1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnSignintb1.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnSignintb1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSignintb1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnSignintb1.Location = new System.Drawing.Point(35, 125);
+            this.btnSignintb1.Location = new System.Drawing.Point(104, 252);
             this.btnSignintb1.Name = "btnSignintb1";
-            this.btnSignintb1.Size = new System.Drawing.Size(83, 26);
+            this.btnSignintb1.Size = new System.Drawing.Size(90, 24);
             this.btnSignintb1.TabIndex = 3;
             this.btnSignintb1.Text = "Sign in";
             this.btnSignintb1.UseVisualStyleBackColor = false;
@@ -248,10 +248,10 @@
             this.btnCreateAcctb2.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnCreateAcctb2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCreateAcctb2.ForeColor = System.Drawing.Color.Black;
-            this.btnCreateAcctb2.Location = new System.Drawing.Point(39, 165);
+            this.btnCreateAcctb2.Location = new System.Drawing.Point(106, 165);
             this.btnCreateAcctb2.Name = "btnCreateAcctb2";
             this.btnCreateAcctb2.Padding = new System.Windows.Forms.Padding(41, 0, 0, 0);
-            this.btnCreateAcctb2.Size = new System.Drawing.Size(170, 26);
+            this.btnCreateAcctb2.Size = new System.Drawing.Size(90, 24);
             this.btnCreateAcctb2.TabIndex = 9;
             this.btnCreateAcctb2.Text = "Create Account";
             this.btnCreateAcctb2.UseVisualStyleBackColor = false;
@@ -336,8 +336,7 @@
             // console
             // 
             this.console.BackColor = System.Drawing.Color.Black;
-            this.console.Enabled = false;
-            this.console.ForeColor = System.Drawing.Color.White;
+            this.console.ForeColor = System.Drawing.Color.Gainsboro;
             this.console.Location = new System.Drawing.Point(0, 284);
             this.console.Multiline = true;
             this.console.Name = "console";
