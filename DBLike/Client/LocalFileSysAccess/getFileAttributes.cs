@@ -41,7 +41,9 @@ namespace Client.LocalFileSysAccess
         [MethodImpl(MethodImplOptions.Synchronized)]
         private void getTimeStamp(string filePath){
             
-            lastModified = System.IO.File.GetLastWriteTime(filePath);
+            // to UTC time
+            // otherwise it's local time
+            lastModified = System.IO.File.GetLastWriteTime(filePath).ToUniversalTime();
             
         }
 
