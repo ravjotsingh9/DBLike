@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Client.LocalDbAccess;
 using Client.MessageClasses;
 using System.Windows.Forms;
+using System.Globalization;
 
 namespace Client.Threads
 {
@@ -79,11 +80,11 @@ namespace Client.Threads
                     }
 
 
-                    //// get the initial attribute before making this change
-                    //Client.LocalFileSysAccess.FileInfo tmp = new Client.LocalFileSysAccess.FileInfo();
-                    //Client.LocalFileSysAccess.FileList.fileInfoDic.TryGetValue(fullpathOfChnagedFile, out tmp);
-                    //DateTime timeBefore = tmp.time;
-                    //string md5rBefore = tmp.md5r;
+                    // get the initial attribute before making this change
+                    Client.LocalFileSysAccess.FileInfo tmp = new Client.LocalFileSysAccess.FileInfo();
+                    Client.LocalFileSysAccess.FileList.fileInfoDic.TryGetValue(fullpathOfChnagedFile, out tmp);
+                    DateTime timeBefore = tmp.time;
+                    string md5rBefore = tmp.md5r;
 
 
                     // belong to these events because for delete event it won't get the attributes anymore
@@ -110,48 +111,78 @@ namespace Client.Threads
                     Client.Message.MessageParser par2 = new Client.Message.MessageParser();
                     Client.MessageClasses.MsgRespUpload reup = par2.uploadParseMsg(resp);
 
+
+
                     //9 Client upload
                     if (reup.indicator == "OK")
                     {
+                        // event type when there's no file conflict
+                        string tempEType = reup.addiInfo;
 
-                        //if (DateTime.Compare(timeBefore, time) < 0 && String.Compare(md5rBefore, md5r) != 0)
-                        //{
-                        //    string tMsg = "simultaneous editing confilct";
-                        //    string cMsg = "A newer version has been detected on the server.\nDo you want to save current version?\nYes to Save current file in another name\nNo to Download the newest version file from server";
-                        //    DialogResult dialogResult = MessageBox.Show(cMsg, tMsg, MessageBoxButtons.YesNo);
-                        //    if (dialogResult == DialogResult.Yes)
-                        //    {
 
-                        //        string sourcePath = fullpathOfChnagedFile;
-                        //        string targetPath = "";
+                        string[] str = null;
+                        // get current file info on server
+                        string[] separators = { "|||" };
+                        // when event type is change
+                        // otherwise directly upload, don't need to check conflict
+                        if (reup.addiInfo.Contains("|||"))
+                        {
+                            str = reup.addiInfo.Split(separators, StringSplitOptions.RemoveEmptyEntries);
+                            string currHashValueOnServer = str[0];
+                            string tempTimestampOnServer = str[1];
+                            // reassign event type
+                            tempEType = str[2];
 
-                        //        // add time to new name
-                        //        string dateString = DateTime.UtcNow.ToString("yyyyMMddHHmmss");
-                        //        string[] fileNameArr = sourcePath.Split('.');
-                        //        string newFileName = fileNameArr[0] + " ( conflict copy " + dateString + ")." + fileNameArr[1];
-                        //        targetPath = newFileName;
+                            //CultureInfo provider = new CultureInfo("en-US");
+                            //CultureInfo provider = CultureInfo.InvariantCulture;
+                            DateTime currTimestampOnServer = DateTime.ParseExact(tempTimestampOnServer, "MM/dd/yyyy HH:mm:ss", null);
 
-                        //        //// To copy a folder's contents to a new location:
-                        //        //// Create a new target folder, if necessary.
-                        //        //if (!System.IO.Directory.Exists(targetPath))
-                        //        //{
-                        //        //    System.IO.Directory.CreateDirectory(targetPath);
-                        //        //}
 
-                        //        // To copy a file to another location and 
-                        //        // overwrite the destination file if it already exists.
-                        //        System.IO.File.Copy(sourcePath, targetPath, true);
+                            // file has been changed during open time and save time
+                            // aka there's a newer version of this file uploaded by another user during this time
+                            if (DateTime.Compare(timeBefore, currTimestampOnServer) < 0 && String.Compare(md5rBefore, currHashValueOnServer) != 0)
+                            {
+                                string tMsg = "simultaneous editing confilct";
+                                string cMsg = "A newer version has been detected on the server.\nDo you want to save current version?\nYes to Save current file in another name\nNo to Download the newest version file from server";
+                                DialogResult dialogResult = MessageBox.Show(cMsg, tMsg, MessageBoxButtons.YesNo);
+                                if (dialogResult == DialogResult.Yes)
+                                {
 
-                        //    }
-                        //    else if (dialogResult == DialogResult.No)
-                        //    {
-                        //        //do something else
-                        //    }
-                        //}
+                                    string sourcePath = fullpathOfChnagedFile;
+                                    string targetPath = "";
 
+                                    // add time to new name
+                                    string dateString = DateTime.UtcNow.ToString("yyyyMMddHHmmss");
+                                    string[] fileNameArr = sourcePath.Split('.');
+                                    string newFileName = fileNameArr[0] + " ( conflict copy " + dateString + ")." + fileNameArr[1];
+                                    targetPath = newFileName;
+
+                                    //// To copy a folder's contents to a new location:
+                                    //// Create a new target folder, if necessary.
+                                    //if (!System.IO.Directory.Exists(targetPath))
+                                    //{
+                                    //    System.IO.Directory.CreateDirectory(targetPath);
+                                    //}
+
+                                    // To copy a file to another location and 
+                                    // overwrite the destination file if it already exists.
+                                    System.IO.File.Copy(sourcePath, targetPath, true);
+
+                                }
+                                else if (dialogResult == DialogResult.No)
+                                {
+                                    //do something else
+                                }
+                            }
+                        }
 
                         new Client.UploadFunctions.UploadFile().UploadFileWithContainerUri(reup.fileContainerUri, fullpathOfChnagedFile, reup.filePathInSynFolder, md5r, time, eventType);
-                        System.Windows.Forms.MessageBox.Show(string.Format("Uploaded! \n event type: {0} \n Path: {1}", reup.addiInfo, fullpathOfChnagedFile), "DBLike Client");
+                        System.Windows.Forms.MessageBox.Show(string.Format("Uploaded! \n event type: {0} \n Path: {1}", tempEType, fullpathOfChnagedFile), "DBLike Client");
+
+                        // update file list
+                        Client.LocalFileSysAccess.FileListMaintain updateFileList = new Client.LocalFileSysAccess.FileListMaintain();
+                        updateFileList.updateSingleFileToFileList(fullpathOfChnagedFile, time, md5r);
+
                     }
                     //// handle simultaneous editing confilct
                     //// currently client will handle this
