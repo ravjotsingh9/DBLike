@@ -110,6 +110,9 @@
     <Compile Include="Threads\SignUp.cs" />
     <Compile Include="Threads\Uploader.cs" />
     <Compile Include="UploadFunctions\UploadFile.cs" />
+    <Compile Include="VersionControl\blobCollection.cs" />
+    <Compile Include="VersionControl\VCmanager.cs" />
+    <Compile Include="VersionControl\VCmanager.revert.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>

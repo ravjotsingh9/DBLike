@@ -9,7 +9,7 @@ using Microsoft.WindowsAzure.Storage.Blob;
 
 namespace Client.VersionControl
 {
-    class blobCollection
+    public class blobCollection
     {
         public List<CloudBlockBlob> blobList { get; set; }
         public List<string> blobNames { get; set; }

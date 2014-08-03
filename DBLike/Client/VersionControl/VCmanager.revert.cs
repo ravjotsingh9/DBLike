@@ -78,6 +78,7 @@ namespace Client.VersionControl
             catch (Exception e)
             {
                 System.Windows.Forms.MessageBox.Show(e.ToString());
+                
             }
 
             return blobset;
