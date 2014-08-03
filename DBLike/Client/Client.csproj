@@ -116,6 +116,7 @@
     <Compile Include="Threads\SignIn.cs" />
     <Compile Include="Threads\SignUp.cs" />
     <Compile Include="Threads\Uploader.cs" />
+    <Compile Include="Threads\VCThread.cs" />
     <Compile Include="UploadFunctions\UploadFile.cs" />
     <Compile Include="VersionControl\blobCollection.cs" />
     <Compile Include="VersionControl\VCmanager.baseBlob.cs" />
