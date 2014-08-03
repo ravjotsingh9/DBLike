@@ -7,6 +7,7 @@ using System.Threading;
 using Client.LocalDbAccess;
 using System.Net.Sockets;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace Client.Threads
 {
@@ -15,8 +16,11 @@ namespace Client.Threads
         static Configuration.config conf = new Configuration.config();
         static Thread thread;
         volatile public bool pull = true;
+        
         public void start()
         {
+            
+            
             //TBD
             thread = new Thread(() => threadStartFun());
             thread.Start();
@@ -54,6 +58,7 @@ namespace Client.Threads
 
         public void poll()
         {
+            Configuration.flag.polling = true; 
             //MessageBox.Show("Polling started", "Client");
             try
             {
@@ -84,10 +89,11 @@ namespace Client.Threads
                 {
                     new Client.PollFunction.Poll(msgpoll.fileContainerUri);
                 }
+                Configuration.flag.polling = false; 
             }
             catch(Exception ex)
             {
-                System.Windows.Forms.MessageBox.Show(ex.ToString());
+                System.Windows.Forms.MessageBox.Show(ex.ToString());                
             }
         }
     }

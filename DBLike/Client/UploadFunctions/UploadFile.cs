@@ -40,6 +40,7 @@ namespace Client.UploadFunctions
                 }
                 else
                 {
+                    
                     CloudBlockBlob blob = container.GetBlockBlobReference(filePathInSyncFolder);
                     LocalFileSysAccess.LocalFileSys uploadfromFile = new LocalFileSysAccess.LocalFileSys();
                     uploadfromFile.uploadfromFilesystem(blob, localFilePath, eventType);

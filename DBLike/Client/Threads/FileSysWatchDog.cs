@@ -87,6 +87,10 @@ namespace Client.Threads
         // Define the event handlers. 
         private static void OnChanged(object source, FileSystemEventArgs e)
         {
+            if (Configuration.flag.polling == true)
+            {
+                return;
+            }
             string eventType;
             /*
             if (onchnageToggler==true)
@@ -114,11 +118,17 @@ namespace Client.Threads
                     //Thread.Sleep(500);
                     if (e.ChangeType == WatcherChangeTypes.Changed)
                     {
+                       
                         eventType = "change";
                     }
                     else
                     {
+                       
                         eventType = "create";
+                        
+                        // add file metadata to file list
+                        Client.LocalFileSysAccess.FileListMaintain fileMaintain = new Client.LocalFileSysAccess.FileListMaintain();
+                        fileMaintain.addSingleFileToFileList(e.FullPath);
                     }
 
                     LocalFileSysAccess.getFileAttributes timestamp = new LocalFileSysAccess.getFileAttributes(e.FullPath);
@@ -191,6 +201,11 @@ namespace Client.Threads
         // Define the event handlers. 
         private static void OnDeleted(object source, FileSystemEventArgs e)
         {
+            if (Configuration.flag.polling == true)
+            {
+                return;
+            }
+            
             //MessageBox.Show("OnDeleted Event Raised", "Client");
             //MessageBox.Show("File: " + e.FullPath + " " + e.ChangeType);
             /*

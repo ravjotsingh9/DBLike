@@ -31,12 +31,13 @@ namespace Server.Threads
                 //get the msg parse it
                 Server.Message.MessageParser parse = new Server.Message.MessageParser();
                 MessageClasses.MsgUpload upload = parse.uploadParseMsg(req);
-                
+
                 //5 Server check the file info in the blob storage, if file has not existed, let the client to create the file
                 //  If file existed, check timestamp, hashvalue to see if client can upload
                 //  If allow upload, change hashvalue and timestamp in the blob storage
                 CloudBlobClient blobClient = new Server.ConnectionManager.BlobConn().BlobConnect();
 
+                string currentFileInfo = "";
 
                 if (upload.addInfo == "create" || upload.addInfo == "change" || upload.addInfo == "signUpStart")
                 {
@@ -54,8 +55,28 @@ namespace Server.Threads
                     Server.Message.CreateMsg resp = new Server.Message.CreateMsg();
 
 
+                    currentFileInfo = upload.addInfo;
+
+                    // when event type is change
+                    // get current file info of the blob
+                    
+                    CloudBlockBlob currBlob = container.GetBlockBlobReference(upload.filePathInSynFolder);
+                    // when event type is change
+                    // otherwise do nothing
+                    if (currBlob.Exists())
+                    {
+                        currBlob.FetchAttributes();
+                        string currHashValue = currBlob.Metadata["hashValue"];
+                        //DateTime currTimestamp = DateTime.ParseExact(currBlob.Metadata["timestamp"], "MM/dd/yyyy HH:mm:ss",
+                        //                                null); ;
+                        //currTimestamp.ToString();
+                        string currTimestamp = currBlob.Metadata["timestamp"];
+                        currentFileInfo = currHashValue + "|||" + currTimestamp + "|||" + "change";
+                    }
+
+
                     //string respMsg = resp.uploadRespMsg(upload.filePathInSynFolder, containerSAS, null, upload.addInfo);
-                    string respMsg = resp.uploadRespMsg(blob.indicator,upload.filePathInSynFolder, containerSAS, " ", upload.addInfo);
+                    string respMsg = resp.uploadRespMsg(blob.indicator, upload.filePathInSynFolder, containerSAS, " ", currentFileInfo);
 
 
                     SocketCommunication.ReaderWriter rw = new SocketCommunication.ReaderWriter();
@@ -72,15 +93,34 @@ namespace Server.Threads
                 {
                     // get container
                     CloudBlobContainer container = blobClient.GetContainerReference(upload.userName);
+                    CloudBlockBlob delBlob = container.GetBlockBlobReference(upload.filePathInSynFolder);
 
                     // change value of delete in metadata to true
                     //container.Metadata["Deleted"] = "true";
 
-                    //*** <<disabling deletion>>
-                    UploadFunctions.DeleteFile del = new UploadFunctions.DeleteFile();
-                    del.deleteAll(container, upload.filePathInSynFolder);
-                    //***/
+
+                    if (delBlob.Exists())
+                    {
+                        // get to be deleted blob's info
+                        delBlob.FetchAttributes();
+                        string delHashValue = delBlob.Metadata["hashValue"];
+                        DateTime delTimestamp = DateTime.ParseExact(delBlob.Metadata["timestamp"], "MM/dd/yyyy HH:mm:ss", null);
+
+
+                        // only delete it when client's version is newer
+                        // otherwise client's file is stale, don't delete server's blob
+                        if (DateTime.Compare(upload.fileTimeStamps, delTimestamp) >= 0)
+                        {
+
+
+                            //*** <<disabling deletion>>
+                            UploadFunctions.DeleteFile del = new UploadFunctions.DeleteFile();
+                            del.deleteAll(container, upload.filePathInSynFolder);
+                            //***/
+                        }
+                    }
                 }
+
 
 
                 if (upload.addInfo.IndexOf("rename") == 0)

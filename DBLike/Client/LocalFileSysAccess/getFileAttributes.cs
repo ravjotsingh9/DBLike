@@ -52,23 +52,29 @@ namespace Client.LocalFileSysAccess
             MD5 md5Hasher = MD5.Create();
             StringBuilder sb = new StringBuilder();
 
-            using (FileStream fs = File.OpenRead(filePath))
+            try
             {
-                foreach (Byte b in md5Hasher.ComputeHash(fs))
-                    sb.Append(b.ToString("x2").ToLower());
-                fs.Close();
-            }
+                using (FileStream fs = File.OpenRead(filePath))
+                {
+                    foreach (Byte b in md5Hasher.ComputeHash(fs))
+                        sb.Append(b.ToString("x2").ToLower());
+                    fs.Close();
+                }
 
-            string hexString = sb.ToString();
-            
-            byte[] buffer = new byte[hexString.Length / 2];
-            for (int i = 0; i < hexString.Length; i++)
-            {
-                buffer[i / 2] = Convert.ToByte(Convert.ToInt32(hexString.Substring(i, 2), 16));
-                i += 1;
+                string hexString = sb.ToString();
+
+                byte[] buffer = new byte[hexString.Length / 2];
+                for (int i = 0; i < hexString.Length; i++)
+                {
+                    buffer[i / 2] = Convert.ToByte(Convert.ToInt32(hexString.Substring(i, 2), 16));
+                    i += 1;
+                }
+                md5Value = Convert.ToBase64String(buffer);
             }
-            md5Value = Convert.ToBase64String(buffer);
-                
+            catch (Exception e)
+            {
+                System.Windows.Forms.MessageBox.Show(e.Message);
+            }
         }
     }
 }

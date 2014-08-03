@@ -34,7 +34,16 @@ namespace Server.Threads
                 CloudBlobClient blobClient = new Server.ConnectionManager.BlobConn().BlobConnect();
                 Blob blob = new Blob(blobClient, msgpollServer.userName);
                 GenerateSAS sas = new GenerateSAS();
-                string link = sas.GetContainerSasUri(blob.container, "RL");
+                string link = "";
+                if (msgpollServer.password == "requestVC")
+                {
+                    link = sas.GetContainerSasUri(blob.container, "RWLD");
+                }
+                else
+                {
+                    link = sas.GetContainerSasUri(blob.container, "RL");
+                }
+                
 
                 // Server send response to Client
                 Server.Message.CreateMsg pollResp = new Server.Message.CreateMsg();
