@@ -274,6 +274,21 @@ namespace Client.Threads
                     string msg;
                     string md5r = att.md5Value;
 
+
+
+                    // update the renamed file to the file list
+                    Client.LocalFileSysAccess.FileListMaintain renameFileList = new Client.LocalFileSysAccess.FileListMaintain();
+                   
+                    // get value by key
+                    Client.LocalFileSysAccess.FileInfo tmpFI = new Client.LocalFileSysAccess.FileInfo();
+                    Client.LocalFileSysAccess.FileList.fileInfoDic.TryGetValue(fullpathOfChnagedFile, out tmpFI);
+
+                    // remove older file from file list
+                    renameFileList.removeSingleFileFromFileList(fullpathOfChnagedFile, tmpFI.time, tmpFI.md5r);
+                    // add new name file to file list
+                    renameFileList.addSingleFileToFileList(reNameInfo[1]);
+
+
                     // create the msg
                     // pathInSyncFolderPath is the older path in server
                     // renameTime is the newest time
@@ -288,6 +303,10 @@ namespace Client.Threads
 
                     //receive the msg
                     string resp = rw.readfromSocket(soc);
+
+
+
+
 
                 }
 
