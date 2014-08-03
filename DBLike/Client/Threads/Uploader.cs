@@ -69,6 +69,9 @@ namespace Client.Threads
                     if (eventType == "create")
                     {
                         additionalInfo = "create";
+                        // add to the file list
+                        Client.LocalFileSysAccess.FileListMaintain addToFileList = new Client.LocalFileSysAccess.FileListMaintain();
+                        addToFileList.addSingleFileToFileList(fullpathOfChnagedFile);
                     }
                     if (eventType == "change")
                     {
@@ -79,7 +82,8 @@ namespace Client.Threads
                         additionalInfo = "signUpStart";
                     }
 
-                    // get the initial attribute before making this change
+
+                    // get the initial attribute before making this "change"
                     Client.LocalFileSysAccess.FileInfo tmp = new Client.LocalFileSysAccess.FileInfo();
                     Client.LocalFileSysAccess.FileList.fileInfoDic.TryGetValue(fullpathOfChnagedFile, out tmp);
                     DateTime timeBefore = tmp.time;
@@ -181,6 +185,7 @@ namespace Client.Threads
 
                                     }
 
+                                    // if file is in dic
                                     if (Client.LocalFileSysAccess.FileList.fileInfoDic.ContainsKey(fullpathOfChnagedFile))
                                     {
                                         // after it has been deleted
@@ -190,6 +195,7 @@ namespace Client.Threads
 
                                         // TODO
                                         // download newer version from server
+
                                     }
                                 }
                             }
