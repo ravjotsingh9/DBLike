@@ -22,11 +22,13 @@ namespace Client.PollFunction
         public Poll(string sasUri)
         {
             //MessageBox.Show("Calling Poll constructor", "Client");
+            Program.ClientForm.addtoConsole("Poll Constructor Called");
             this.clientSynFolderPath = localSyncFolderPath();
             
             this.sasUri = sasUri;
             
             scanAllFiles();
+            Program.ClientForm.addtoConsole("Scanned all files");
             ListWithContainerUri();
         }
 
@@ -109,6 +111,7 @@ namespace Client.PollFunction
             }
             catch (Exception e)
             {
+                Program.ClientForm.addtoConsole("Poll Exception:" + e.Message);
                 Console.WriteLine(e.Message);
                 MessageBox.Show(e.Message);
                 return false;
@@ -127,7 +130,7 @@ namespace Client.PollFunction
                 DirectoryInfo di = Directory.CreateDirectory(directoryPath);
             }
 
-           
+            
             LocalFileSysAccess.LocalFileSys save = new LocalFileSys();
             save.downloadfile(file, fileFullPath, timestamp);
             //updatetimestamp.settimestamp(fileFullPath, timestamp);
@@ -182,6 +185,7 @@ namespace Client.PollFunction
                     }
                     catch (System.IO.IOException e)
                     {
+                        Program.ClientForm.addtoConsole("Scanning Exception:"+ e.Message);
                         Console.WriteLine(e.Message);
                         MessageBox.Show(e.Message);
                         return;

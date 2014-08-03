@@ -33,7 +33,7 @@ namespace Client.Threads
             try
             {
 
-
+                Program.ClientForm.addtoConsole("Upload thread Started");
                 //System.Windows.Forms.MessageBox.Show("Started Uploader for " + fullpathOfChnagedFile, "Client");
                 //TBD
                 //send msg to server
@@ -82,7 +82,7 @@ namespace Client.Threads
                         additionalInfo = "signUpStart";
                     }
 
-
+                    Program.ClientForm.addtoConsole("Event handling:" + eventType);
                     // get the initial attribute before making this "change"
                     Client.LocalFileSysAccess.FileInfo tmp = new Client.LocalFileSysAccess.FileInfo();
                     Client.LocalFileSysAccess.FileList.fileInfoDic.TryGetValue(fullpathOfChnagedFile, out tmp);
@@ -106,10 +106,10 @@ namespace Client.Threads
 
                     SocketCommunication.ReaderWriter rw = new SocketCommunication.ReaderWriter();
                     rw.writetoSocket(soc, msg);
-
+                    Program.ClientForm.addtoConsole("Wrote to socket" );
                     //receive the msg
                     string resp = rw.readfromSocket(soc);
-
+                    Program.ClientForm.addtoConsole("Read from socket");
                     //8 Client parse msg
                     Client.Message.MessageParser par2 = new Client.Message.MessageParser();
                     Client.MessageClasses.MsgRespUpload reup = par2.uploadParseMsg(resp);
@@ -220,6 +220,7 @@ namespace Client.Threads
 
                 else if (eventType == "delete")
                 {
+                    Program.ClientForm.addtoConsole("Event handling:" + eventType);
                     additionalInfo = "delete";
                     string msg = " ";
                     //System.Windows.Forms.MessageBox.Show(string.Format("Deletion detected!\n Path: {0}", pathInSyncFolderPath), "DBLike Client");
@@ -241,7 +242,7 @@ namespace Client.Threads
                 }
                 else if (eventType == "rename")
                 {
-
+                    Program.ClientForm.addtoConsole("Event handling:" + eventType);
                     string[] separators = { "<", ">:<", ">" };
                     string[] reNameInfo = addiInfo.Split(separators, StringSplitOptions.RemoveEmptyEntries);
                     //List<string> temp = reNameInfo.ToList();
@@ -307,6 +308,7 @@ namespace Client.Threads
                     Client.Program.filesInUse.removefromList(e);
 
                 }
+                Program.ClientForm.addtoConsole("Exception Occured:" + ex.ToString());
                 System.Windows.Forms.MessageBox.Show(ex.ToString(), "Client");
                 //System.IO.File.WriteAllText("errors.txt", e.ToString());
             }
@@ -320,6 +322,7 @@ namespace Client.Threads
                     e.filepath = fullpathOfChnagedFile;
                     Client.Program.filesInUse.removefromList(e);
                 }
+                Program.ClientForm.addtoConsole("Exiting");
                 Thread.CurrentThread.Abort();
             }
         }

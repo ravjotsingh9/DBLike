@@ -52,12 +52,14 @@ namespace Client.Threads
             }
             finally
             {
+                Program.ClientForm.addtoConsole("Exiting Poll thread.");
                 Thread.CurrentThread.Abort();
             }
         }
 
         public void poll()
         {
+            Program.ClientForm.addtoConsole("Poll initiated");
             Configuration.flag.polling = true; 
             //MessageBox.Show("Polling started", "Client");
             try
@@ -78,10 +80,10 @@ namespace Client.Threads
 
                 SocketCommunication.ReaderWriter rw = new SocketCommunication.ReaderWriter();
                 rw.writetoSocket(soc, msg);
-
+                Program.ClientForm.addtoConsole("Writing Socket");
                 //receive the msg
                 string resp = rw.readfromSocket(soc);
-
+                Program.ClientForm.addtoConsole("Reading Socket");
                 //parse msg and poll
                 Client.Message.MessageParser parseResp = new Client.Message.MessageParser();
                 msgpoll = parseResp.pollParseMsg(resp);
@@ -93,7 +95,8 @@ namespace Client.Threads
             }
             catch(Exception ex)
             {
-                System.Windows.Forms.MessageBox.Show(ex.ToString());                
+                Program.ClientForm.addtoConsole("Poll thread Exception:" + ex.Message);
+                //System.Windows.Forms.MessageBox.Show(ex.ToString());                
             }
         }
     }

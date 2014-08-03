@@ -14,13 +14,14 @@ namespace Client.Threads
     class FileSysWatchDog
     {
         
-        static Thread installWatcher = new Thread(() => Run());
+        //static Thread installWatcher = new Thread(() => Run());
         static FileSystemWatcher watcher;
         
 
         
         public void start()
         {
+            Thread installWatcher = new Thread(() => Run());
             installWatcher.Start();
         //   btnclicked.Start();
         //   return true;
@@ -87,6 +88,8 @@ namespace Client.Threads
         // Define the event handlers. 
         private static void OnChanged(object source, FileSystemEventArgs e)
         {
+            Program.ClientForm.addtoConsole("Event triggered:" + e.ChangeType);
+            Program.ClientForm.addtoConsole("Event triggered on:" + e.FullPath);
             if (Configuration.flag.polling == true)
             {
                 return;
@@ -149,6 +152,8 @@ namespace Client.Threads
                     //if (e.ChangeType == WatcherChangeTypes.Changed)
                     //{
                         upload.start(e.FullPath, eventType, null, timestamp.lastModified);
+                        Program.ClientForm.addtoConsole("Uploader thread started");
+                        
                     //}
                     //else
                     //{
@@ -201,6 +206,8 @@ namespace Client.Threads
         // Define the event handlers. 
         private static void OnDeleted(object source, FileSystemEventArgs e)
         {
+            Program.ClientForm.addtoConsole("Event triggered:" + e.ChangeType);
+            Program.ClientForm.addtoConsole("Event triggered on:" + e.FullPath);
             if (Configuration.flag.polling == true)
             {
                 return;
@@ -226,10 +233,13 @@ namespace Client.Threads
              */ 
             Uploader upload = new Uploader();
             upload.start(e.FullPath, "delete", null,DateTime.Now);
+            Program.ClientForm.addtoConsole("Uploader thread started");
 
         }
         private static void OnRenamed(object source, RenamedEventArgs e)
         {
+            Program.ClientForm.addtoConsole("Event triggered:" + e.ChangeType);
+            Program.ClientForm.addtoConsole("Event triggered on:" + e.FullPath);
             //MessageBox.Show("OnRenameed Event Raised", "Client");
             //MessageBox.Show("File: " + e.OldFullPath + " renamed to " + e.FullPath);
             string eventType = "rename";
@@ -252,7 +262,7 @@ namespace Client.Threads
 
             Uploader upload = new Uploader();
             upload.start(e.OldFullPath, "rename", renamedStr,timestamp.lastModified);
-
+            Program.ClientForm.addtoConsole("Uploader thread started");
         }
 
 

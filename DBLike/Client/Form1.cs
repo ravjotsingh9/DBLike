@@ -178,16 +178,17 @@ namespace Client
         */
         private void button2_Click(object sender, EventArgs e)
         {
-            Appendconsole("Stopping DBLike Services..");
+            Appendconsole("Stopping DBLike Services...");
             Client.Program.folderWatcher.stop();
+            Appendconsole("File Watcher Closed...");
             Client.Program.poll.pull = false;
+            Appendconsole("Shutting down Polling...");
             button2.Enabled = false;
             groupBox2.Enabled = true;
             btnCreateAcctb2.Enabled = true;
             btnSignintb1.Enabled = true;
             txtUserNametb1.Enabled = true;
             txtPasstb1.Enabled = true;
-            Appendconsole("Stopped DBLike Services.");
         }
 
         private void btnCreateAcctb2_Click(object sender, EventArgs e)

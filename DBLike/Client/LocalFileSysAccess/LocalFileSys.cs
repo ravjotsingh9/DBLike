@@ -18,7 +18,9 @@ namespace Client.LocalFileSysAccess
         {
             //string leaseId = Guid.NewGuid().ToString();
             //file.AcquireLease(TimeSpan.FromMilliseconds(16000), leaseId);
+            Program.ClientForm.addtoConsole("Download started:" + fileFullPath);
             file.DownloadToFile(fileFullPath, FileMode.Create);
+            Program.ClientForm.addtoConsole("Downloaded");
             //file.ReleaseLease(AccessCondition.GenerateLeaseCondition(leaseId));
             File.SetLastWriteTime(fileFullPath, TimeZoneInfo.ConvertTimeFromUtc(timestamp, TimeZoneInfo.Local));
         }
@@ -26,26 +28,33 @@ namespace Client.LocalFileSysAccess
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void uploadfromFilesystem(CloudBlockBlob blob, string localFilePath, string eventType)
         {
+            
             if (eventType.Equals("create") || eventType.Equals("signUpStart"))
             {
+                Program.ClientForm.addtoConsole("Upload started[create || signUpStart]:" + localFilePath);
                 blob.UploadFromFile(localFilePath, FileMode.Open);
+                Program.ClientForm.addtoConsole("Uploaded");
             }
             else
             {
                 try
                 {
+                    Program.ClientForm.addtoConsole("Upload started[change,etc]:" + localFilePath);
                     string leaseId = Guid.NewGuid().ToString();
                     blob.AcquireLease(TimeSpan.FromMilliseconds(16000), leaseId);
                     blob.UploadFromFile(localFilePath, FileMode.Open, AccessCondition.GenerateLeaseCondition(leaseId));
                     blob.ReleaseLease(AccessCondition.GenerateLeaseCondition(leaseId));
+                    Program.ClientForm.addtoConsole("Uploaded");
                 }
                 catch(Exception ex)
                 {
+                    Program.ClientForm.addtoConsole("Upload: second attempt");
                     Thread.Sleep(5000);
                     string leaseId = Guid.NewGuid().ToString();
                     blob.AcquireLease(TimeSpan.FromMilliseconds(16000), leaseId);
                     blob.UploadFromFile(localFilePath, FileMode.Open, AccessCondition.GenerateLeaseCondition(leaseId));
                     blob.ReleaseLease(AccessCondition.GenerateLeaseCondition(leaseId));
+                    Program.ClientForm.addtoConsole("Uploaded");
                 }
             }
         }
