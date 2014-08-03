@@ -79,7 +79,6 @@ namespace Client.Threads
                         additionalInfo = "signUpStart";
                     }
 
-
                     // get the initial attribute before making this change
                     Client.LocalFileSysAccess.FileInfo tmp = new Client.LocalFileSysAccess.FileInfo();
                     Client.LocalFileSysAccess.FileList.fileInfoDic.TryGetValue(fullpathOfChnagedFile, out tmp);

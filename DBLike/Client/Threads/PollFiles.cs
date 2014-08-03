@@ -20,7 +20,7 @@ namespace Client.Threads
         public void start()
         {
             
-            Configuration.flag.polling = true; 
+            
             //TBD
             thread = new Thread(() => threadStartFun());
             thread.Start();
@@ -58,6 +58,7 @@ namespace Client.Threads
 
         public void poll()
         {
+            Configuration.flag.polling = true; 
             //MessageBox.Show("Polling started", "Client");
             try
             {
