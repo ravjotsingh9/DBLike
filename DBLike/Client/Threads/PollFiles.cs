@@ -16,8 +16,11 @@ namespace Client.Threads
         static Configuration.config conf = new Configuration.config();
         static Thread thread;
         volatile public bool pull = true;
+        
         public void start()
         {
+            
+            Configuration.flag.polling = true; 
             //TBD
             thread = new Thread(() => threadStartFun());
             thread.Start();
@@ -85,6 +88,7 @@ namespace Client.Threads
                 {
                     new Client.PollFunction.Poll(msgpoll.fileContainerUri);
                 }
+                Configuration.flag.polling = false; 
             }
             catch(Exception ex)
             {

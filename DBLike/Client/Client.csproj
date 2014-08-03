@@ -69,6 +69,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration\config.cs" />
+    <Compile Include="Configuration\flag.cs" />
     <Compile Include="ConnectionManager\Connection.cs" />
     <Compile Include="ConnectionManager\PingVM.cs" />
     <Compile Include="LocalFileSysAccess\FileList.cs" />
