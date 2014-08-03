@@ -14,8 +14,39 @@ namespace Client.LocalFileSysAccess
     public class FileListMaintain
     {
 
+        // update single file to fileList
+        public void updateSingleFileToFileList(string fullFilePath, DateTime dt, string hashValue)
+        {
+            try
+            {
+                Client.LocalFileSysAccess.FileList.fileInfoDic[fullFilePath].md5r = hashValue;
+                Client.LocalFileSysAccess.FileList.fileInfoDic[fullFilePath].time = dt;
+            }
+            catch (System.IO.IOException e)
+            {
+                System.Windows.Forms.MessageBox.Show("FileListMaintain <-" + e.Message);
+            }
+        }
 
 
+
+        // add single file to file list
+        public void addSingleFileToFileList(string filePath)
+        {
+
+            Client.LocalFileSysAccess.FileInfo tmp = null;
+
+            // get file attributes
+            Client.LocalFileSysAccess.getFileAttributes getFileAttr = new Client.LocalFileSysAccess.getFileAttributes(filePath);
+
+            tmp = new Client.LocalFileSysAccess.FileInfo();
+            tmp.time = getFileAttr.lastModified;
+            tmp.md5r = getFileAttr.md5Value;
+
+            // add to fileList
+            Client.LocalFileSysAccess.FileList.fileInfoDic[filePath] = tmp;
+
+        }
 
         public void scanAllFilesAttributes()
         {
