@@ -299,7 +299,7 @@ namespace Client
                 }
                 else if (noSpecialChar != true)
                 {
-                    label7.Text = "Username cannot contain anyspecial characters";
+                    label7.Text = "Username cannot contain any special characters except '-'";
                     label7.Enabled = true;
                 }
                 else if (hasSpecificFormat != true)
