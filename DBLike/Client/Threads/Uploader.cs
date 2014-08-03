@@ -239,10 +239,22 @@ namespace Client.Threads
                     //System.Windows.Forms.MessageBox.Show(string.Format("Deletion detected!\n Path: {0}", pathInSyncFolderPath), "DBLike Client");
 
 
+                    // file list maintainence_1
+                    // delete the file from the file list
+                    // grab it first by key, then delete
+                    Client.LocalFileSysAccess.FileListMaintain reFileList = new Client.LocalFileSysAccess.FileListMaintain();
+                    // get value by key
+                    Client.LocalFileSysAccess.FileInfo tmpFInfo = new Client.LocalFileSysAccess.FileInfo();
+                    Client.LocalFileSysAccess.FileList.fileInfoDic.TryGetValue(fullpathOfChnagedFile, out tmpFInfo);
+
+
+                    
                     // create the msg
                     // use " " instead of null to avoid parsing issue
                     // use DateTime.MinValue to avoid parsing issue
-                    msg = uploadM.uploadMsg(userName, password, pathInSyncFolderPath, DateTime.MinValue, " ", additionalInfo);
+                    //msg = uploadM.uploadMsg(userName, password, pathInSyncFolderPath, DateTime.MinValue, " ", additionalInfo);
+                    msg = uploadM.uploadMsg(userName, password, pathInSyncFolderPath, tmpFInfo.time, " ", additionalInfo);
+
 
                     //send the msg using socket
                     ConnectionManager.Connection conn = new ConnectionManager.Connection();
@@ -253,12 +265,7 @@ namespace Client.Threads
 
 
 
-                    // delete the file from the file list
-                    // grab it first by key, then delete
-                    Client.LocalFileSysAccess.FileListMaintain reFileList = new Client.LocalFileSysAccess.FileListMaintain();
-                    // get value by key
-                    Client.LocalFileSysAccess.FileInfo tmpFInfo = new Client.LocalFileSysAccess.FileInfo();
-                    Client.LocalFileSysAccess.FileList.fileInfoDic.TryGetValue(fullpathOfChnagedFile, out tmpFInfo);
+                    // file list maintainence_2
                     // remove file from file list
                     reFileList.removeSingleFileFromFileList(fullpathOfChnagedFile, tmpFInfo.time, tmpFInfo.md5r);
 
