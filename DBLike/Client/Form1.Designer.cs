@@ -31,6 +31,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.txtPasstb1 = new System.Windows.Forms.TextBox();
@@ -38,6 +40,7 @@
             this.button2 = new System.Windows.Forms.Button();
             this.btnSignintb1 = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label9 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.btnCreateAcctb2 = new System.Windows.Forms.Button();
             this.btnBrowsetb2 = new System.Windows.Forms.Button();
@@ -48,9 +51,6 @@
             this.txtusernametb2 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.console = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -72,11 +72,37 @@
             this.groupBox1.Controls.Add(this.button2);
             this.groupBox1.Controls.Add(this.btnSignintb1);
             this.groupBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.groupBox1.Location = new System.Drawing.Point(8, 2);
+            this.groupBox1.Location = new System.Drawing.Point(1, -5);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(378, 283);
+            this.groupBox1.Size = new System.Drawing.Size(386, 289);
             this.groupBox1.TabIndex = 14;
             this.groupBox1.TabStop = false;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.BackColor = System.Drawing.Color.Transparent;
+            this.label8.Font = new System.Drawing.Font("Microsoft JhengHei UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.ForeColor = System.Drawing.Color.White;
+            this.label8.Location = new System.Drawing.Point(9, 24);
+            this.label8.Name = "label8";
+            this.label8.Padding = new System.Windows.Forms.Padding(3);
+            this.label8.Size = new System.Drawing.Size(79, 30);
+            this.label8.TabIndex = 87;
+            this.label8.Text = "Sign In";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.BackColor = System.Drawing.Color.Transparent;
+            this.label6.Font = new System.Drawing.Font("Lucida Handwriting", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.ForeColor = System.Drawing.Color.White;
+            this.label6.Location = new System.Drawing.Point(183, 179);
+            this.label6.Name = "label6";
+            this.label6.Padding = new System.Windows.Forms.Padding(3);
+            this.label6.Size = new System.Drawing.Size(121, 37);
+            this.label6.TabIndex = 86;
+            this.label6.Text = "DBLike";
             // 
             // label4
             // 
@@ -84,7 +110,7 @@
             this.label4.BackColor = System.Drawing.Color.Transparent;
             this.label4.Font = new System.Drawing.Font("Microsoft JhengHei UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(28, 95);
+            this.label4.Location = new System.Drawing.Point(32, 102);
             this.label4.Name = "label4";
             this.label4.Padding = new System.Windows.Forms.Padding(3);
             this.label4.Size = new System.Drawing.Size(69, 20);
@@ -97,7 +123,7 @@
             this.label5.BackColor = System.Drawing.Color.Transparent;
             this.label5.Font = new System.Drawing.Font("Microsoft JhengHei UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.Color.White;
-            this.label5.Location = new System.Drawing.Point(28, 72);
+            this.label5.Location = new System.Drawing.Point(32, 79);
             this.label5.Name = "label5";
             this.label5.Padding = new System.Windows.Forms.Padding(3);
             this.label5.Size = new System.Drawing.Size(70, 20);
@@ -106,7 +132,7 @@
             // 
             // txtPasstb1
             // 
-            this.txtPasstb1.Location = new System.Drawing.Point(99, 95);
+            this.txtPasstb1.Location = new System.Drawing.Point(103, 102);
             this.txtPasstb1.Name = "txtPasstb1";
             this.txtPasstb1.PasswordChar = '*';
             this.txtPasstb1.Size = new System.Drawing.Size(100, 20);
@@ -114,7 +140,7 @@
             // 
             // txtUserNametb1
             // 
-            this.txtUserNametb1.Location = new System.Drawing.Point(99, 72);
+            this.txtUserNametb1.Location = new System.Drawing.Point(103, 79);
             this.txtUserNametb1.Name = "txtUserNametb1";
             this.txtUserNametb1.Size = new System.Drawing.Size(100, 20);
             this.txtUserNametb1.TabIndex = 1;
@@ -128,7 +154,7 @@
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button2.Font = new System.Drawing.Font("Microsoft JhengHei UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button2.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.button2.Location = new System.Drawing.Point(117, 118);
+            this.button2.Location = new System.Drawing.Point(121, 125);
             this.button2.Name = "button2";
             this.button2.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
             this.button2.Size = new System.Drawing.Size(82, 26);
@@ -146,7 +172,7 @@
             this.btnSignintb1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnSignintb1.Font = new System.Drawing.Font("Microsoft JhengHei UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSignintb1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnSignintb1.Location = new System.Drawing.Point(31, 118);
+            this.btnSignintb1.Location = new System.Drawing.Point(35, 125);
             this.btnSignintb1.Name = "btnSignintb1";
             this.btnSignintb1.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
             this.btnSignintb1.Size = new System.Drawing.Size(83, 26);
@@ -169,11 +195,24 @@
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.txtusernametb2);
             this.groupBox2.Controls.Add(this.label1);
-            this.groupBox2.Location = new System.Drawing.Point(393, 2);
+            this.groupBox2.Location = new System.Drawing.Point(388, -5);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(242, 283);
+            this.groupBox2.Size = new System.Drawing.Size(254, 289);
             this.groupBox2.TabIndex = 15;
             this.groupBox2.TabStop = false;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.BackColor = System.Drawing.Color.Transparent;
+            this.label9.Font = new System.Drawing.Font("Microsoft JhengHei UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.ForeColor = System.Drawing.Color.White;
+            this.label9.Location = new System.Drawing.Point(6, 24);
+            this.label9.Name = "label9";
+            this.label9.Padding = new System.Windows.Forms.Padding(3);
+            this.label9.Size = new System.Drawing.Size(87, 30);
+            this.label9.TabIndex = 88;
+            this.label9.Text = "Sign Up";
             // 
             // label7
             // 
@@ -284,54 +323,15 @@
             // 
             this.console.BackColor = System.Drawing.Color.Black;
             this.console.ForeColor = System.Drawing.Color.White;
-            this.console.Location = new System.Drawing.Point(0, 292);
+            this.console.Location = new System.Drawing.Point(0, 284);
             this.console.Multiline = true;
             this.console.Name = "console";
             this.console.ReadOnly = true;
             this.console.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.console.Size = new System.Drawing.Size(642, 72);
+            this.console.Size = new System.Drawing.Size(643, 68);
             this.console.TabIndex = 16;
             this.console.Text = ">";
             this.console.UseSystemPasswordChar = true;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.BackColor = System.Drawing.Color.Transparent;
-            this.label6.Font = new System.Drawing.Font("Lucida Handwriting", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.ForeColor = System.Drawing.Color.White;
-            this.label6.Location = new System.Drawing.Point(183, 179);
-            this.label6.Name = "label6";
-            this.label6.Padding = new System.Windows.Forms.Padding(3);
-            this.label6.Size = new System.Drawing.Size(121, 37);
-            this.label6.TabIndex = 86;
-            this.label6.Text = "DBLike";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.BackColor = System.Drawing.Color.Transparent;
-            this.label8.Font = new System.Drawing.Font("Microsoft JhengHei UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.ForeColor = System.Drawing.Color.White;
-            this.label8.Location = new System.Drawing.Point(9, 24);
-            this.label8.Name = "label8";
-            this.label8.Padding = new System.Windows.Forms.Padding(3);
-            this.label8.Size = new System.Drawing.Size(79, 30);
-            this.label8.TabIndex = 87;
-            this.label8.Text = "Sign In";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.BackColor = System.Drawing.Color.Transparent;
-            this.label9.Font = new System.Drawing.Font("Microsoft JhengHei UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.ForeColor = System.Drawing.Color.White;
-            this.label9.Location = new System.Drawing.Point(6, 24);
-            this.label9.Name = "label9";
-            this.label9.Padding = new System.Windows.Forms.Padding(3);
-            this.label9.Size = new System.Drawing.Size(87, 30);
-            this.label9.TabIndex = 88;
-            this.label9.Text = "Sign Up";
             // 
             // Form1
             // 
@@ -339,7 +339,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
-            this.ClientSize = new System.Drawing.Size(643, 375);
+            this.ClientSize = new System.Drawing.Size(643, 352);
             this.Controls.Add(this.console);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
