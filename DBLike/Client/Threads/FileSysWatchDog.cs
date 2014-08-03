@@ -42,9 +42,12 @@ namespace Client.Threads
        */
         }
 
-        public static void stop()
+        public void stop()
         {
-            watcher.EnableRaisingEvents = false;
+            if (watcher.EnableRaisingEvents == true)
+            {
+                watcher.EnableRaisingEvents = false;
+            }
             //btnclicked.Abort();
         }
 

@@ -25,6 +25,7 @@ namespace Client.UploadFunctions
         {
             try
             {
+                
                 CloudBlobContainer container = new CloudBlobContainer(new Uri(sasUri));
 
                 if (fileHashVaule == "isDirectory")
@@ -56,7 +57,7 @@ namespace Client.UploadFunctions
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
-                //MessageBox.Show("-----------" + e.Message);
+                MessageBox.Show("-----------" + e.Message);
                 return false;
             }
 

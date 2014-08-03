@@ -37,7 +37,23 @@ namespace Client.Threads
         static private void threadStartFun(string serverIP, int port, String username, String password,Form frm)
         {
             //TBD
+            Program.ClientForm.addtoConsole("Starting signin thread");
             //TBD
+            if(username == "" || password == "")
+            {
+                Program.ClientForm.addtoConsole("Username:" +username);
+                Program.ClientForm.addtoConsole("Password:" + password);
+                MessageBox.Show("Username and Password field cannot be empty", "DBLike Client Sign In");
+                if (!Program.ClientForm.IsHandleCreated)
+                {
+                    Program.ClientForm.CreateHandle();
+                }
+                //enable service controller
+                Program.ClientForm.signinfail();
+                Program.ClientForm.addtoConsole("Exiting");
+                Thread.CurrentThread.Abort();
+            }
+
             MessageClasses.MsgSignIn msgobj = new MessageClasses.MsgSignIn();
 
             msgobj.setUsername(username);
@@ -54,14 +70,23 @@ namespace Client.Threads
             if (sender == null)
             {
                 System.Windows.Forms.MessageBox.Show("Could not connect to server.Please check if Server is Running.", "DBLike Client");
+                if (!Program.ClientForm.IsHandleCreated)
+                {
+                    Program.ClientForm.CreateHandle();
+                }
+                //enable service controller
+                Program.ClientForm.addtoConsole("Server not responding");
+                Program.ClientForm.signinfail();
+                Program.ClientForm.addtoConsole("Exiting");
                 Thread.CurrentThread.Abort();
             }
             //call  SocketCommunication.ReaderWriter.write(byte[] msg) to write msg on socket
             SocketCommunication.ReaderWriter rw = new SocketCommunication.ReaderWriter();
+            Program.ClientForm.addtoConsole("Writing to socket");
             rw.writetoSocket(sender, message);
             //call  SocketCommunication.ReaderWriter.read() to read response from server
             String response = rw.readfromSocket(sender);
-
+            Program.ClientForm.addtoConsole("Reading from socket");
             //call parser and process it.....
             Message.MessageParser mp = new Message.MessageParser();
             msgobj = mp.signInParseMessage(response);
@@ -69,12 +94,21 @@ namespace Client.Threads
             {
                 if(msgobj.getAck()=="ERRORS")
                 {
+                    Program.ClientForm.addtoConsole("Error:" + msgobj.getAddiMsg());
                     System.Windows.Forms.MessageBox.Show("AUTHENTICATION FAILED", "User name or Password incorrect");
+                    if (!Program.ClientForm.IsHandleCreated)
+                    {
+                        Program.ClientForm.CreateHandle();
+                    }
+                    //enable service controller
+                    Program.ClientForm.signinfail();
+                    Program.ClientForm.addtoConsole("Exiting");
                     Thread.CurrentThread.Abort();
                 }
                 else
                 {
-                    //System.Windows.Forms.MessageBox.Show(msgobj.getAck(),msgobj.getAddiMsg());
+                    //System.Windows.Forms.MessageBox.Show(msgobj.getAck(),msgobj.getAddiMsg());\
+                    //Program.ClientForm.addtoConsole("Username:" + username);
                     LocalDbAccess.LocalDB file = new LocalDbAccess.LocalDB();
                     file = file.readfromfile();
                     if (file != null)
@@ -101,7 +135,7 @@ namespace Client.Threads
                             file = new LocalDbAccess.LocalDB();
                             file.writetofile(username, password, path);
 
-
+                            Program.ClientForm.addtoConsole("Wrote to Config file");
                         }
                     }
                     else
@@ -127,16 +161,24 @@ namespace Client.Threads
                         file = new LocalDbAccess.LocalDB();
                         file.writetofile(username, password, path);
 
-
+                        Program.ClientForm.addtoConsole("Wrote to Confgi file");
 
 
                     }
                     //poll = new PollFiles();
-                    
+                    if (!Program.ClientForm.IsHandleCreated)
+                    {
+                        Program.ClientForm.CreateHandle();
+                    }
+                    //enable service controller
+                    Program.ClientForm.signinpass();
+                   
+                    Program.ClientForm.addtoConsole("Successefully Signed in");
                     //poll.start();
                     //MessageBox.Show("Signing in done","Client");
                     Client.Program.poll.pull = true;
                     Client.Program.poll.start();
+                    Program.ClientForm.addtoConsole("Polling started");
                     //Thread.Sleep(10000);
 
 
@@ -145,8 +187,9 @@ namespace Client.Threads
                     Client.LocalFileSysAccess.FileListMaintain fileMaintain = new Client.LocalFileSysAccess.FileListMaintain();
                     fileMaintain.scanAllFilesAttributes();
 
-                    FileSysWatchDog.Run();
-                    
+                    //FileSysWatchDog.Run();
+                    Program.folderWatcher.start();
+                    Program.ClientForm.addtoConsole("File-watcher Installed");
                     
                     Thread.CurrentThread.Abort();
                 }

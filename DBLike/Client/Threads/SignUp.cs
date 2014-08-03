@@ -79,6 +79,13 @@ namespace Client.Threads
                 }
                 else
                 {
+                    /*
+                    if (!Program.ClientForm.IsHandleCreated)
+                    {
+                        Program.ClientForm.CreateHandle();
+                    }
+                    Program.ClientForm.Appendconsole("Successefully Signed in");
+                     */ 
                     LocalDbAccess.LocalDB file = new LocalDbAccess.LocalDB();
                     if (false == file.writetofile(username, password, sysncpath))
                     {
@@ -97,7 +104,7 @@ namespace Client.Threads
                         }
                         uploadeverything(sysncpath);
                         //System.Windows.Forms.MessageBox.Show("Uploaded!!!", "Client");
-                        System.Windows.Forms.MessageBox.Show("Started!!!", "Client");
+                        //System.Windows.Forms.MessageBox.Show("Started!!!", "Client");
 
 
                         // initialize the file list for sign up scenario

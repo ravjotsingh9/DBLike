@@ -26,7 +26,7 @@ namespace Client.LocalFileSysAccess
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void uploadfromFilesystem(CloudBlockBlob blob, string localFilePath, string eventType)
         {
-            if (eventType.Equals("create"))
+            if (eventType.Equals("create") || eventType.Equals("signUpStart"))
             {
                 blob.UploadFromFile(localFilePath, FileMode.Open);
             }

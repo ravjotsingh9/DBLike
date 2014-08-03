@@ -33,7 +33,7 @@ namespace Client.Threads
             {
 
 
-                //System.Windows.Forms.MessageBox.Show("Started Uploader", "Client");
+                //System.Windows.Forms.MessageBox.Show("Started Uploader for " + fullpathOfChnagedFile, "Client");
                 //TBD
                 //send msg to server
                 //get the information from the localDatabase

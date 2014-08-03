@@ -8,6 +8,7 @@ namespace Client
 {
     static class Program
     {
+        
         static public Client.Threads.PollFiles poll = new Threads.PollFiles();
         static public Client.Threads.FileSysWatchDog folderWatcher = new Threads.FileSysWatchDog();
         static public Client.Threads.fileBeingUsed filesInUse = new Threads.fileBeingUsed();

@@ -20,6 +20,69 @@ namespace Client
         //public static Threads.FileSysWatchDog watchdog;
         public volatile bool acountcreated = false;
         delegate void changeStatetoSignedUp();
+        delegate void signinFailed();
+        delegate void signinpassed();
+        
+        delegate void addToConsole(string str);
+
+        public void addtoConsole(string str)
+        {
+            if (!this.IsHandleCreated)
+            {
+                this.CreateHandle();
+            }
+            addToConsole app = new addToConsole(Appendconsole);
+            this.Invoke(app,(object)str);
+        }
+
+        public void Appendconsole(string value)
+        {
+            /*
+            if (InvokeRequired)
+            {
+                this.Invoke(new Action<string>(Appendconsole), new object[] { value });
+                return;
+            }
+             */
+            //console.ScrollToCaret();
+            console.AppendText(value + "\n" + Environment.NewLine + "> ");
+            
+        }
+        public void signinpass()
+        {
+            if (!this.IsHandleCreated)
+            {
+                this.CreateHandle();
+            }
+            signinpassed spass = new signinpassed(signInpassed);
+            this.Invoke(spass);
+        }
+
+        public void signInpassed()
+        {
+            btnSignintb1.Enabled = false;
+            btnSignintb1.Text = "Sign in";
+            button2.Enabled = true;
+            groupBox2.Enabled = false;
+        }
+
+        public void signinfail()
+        {
+            if(!this.IsHandleCreated)
+            {
+                this.CreateHandle();
+            }
+            signinFailed sfail = new signinFailed(signInfailed);
+            this.Invoke(sfail);
+        }
+        public void signInfailed()
+        {
+            //pictureBox1.Visible = false;
+            btnSignintb1.Enabled = true;
+            btnSignintb1.Text = "Sign in";
+            button2.Enabled = false;
+        }
+
         public void enableServiceController()
         {
             if (!this.IsHandleCreated)
@@ -32,77 +95,96 @@ namespace Client
         void enableController()
         {
             acountcreated = true;
-            groupBox1.Enabled = true;
+            //groupBox1.Enabled = true;
 
             //disable start button inside it
-            button1.Enabled = false;
+            //button1.Enabled = false;
+            btnSignintb1.Enabled = false;
+            txtUserNametb1.Enabled = false;
+            txtPasstb1.Enabled = false;
             button2.Enabled = true;
-
-            ////disable login 
+            ////disable create account 
             groupBox2.Enabled = false;
 
             //disable create Account
             btnCreateAcctb2.Enabled = false;
             //shift tosign in tab
 
-            tabControl1.SelectedIndex = 1;
+            //tabControl1.SelectedIndex = 1;
 
         }
 
 
         public Form1()
         {
+            
             InitializeComponent();
-            groupBox1.Enabled = true;
+            Appendconsole(" Initialized");
+            //groupBox2.BackColor = Color.FromArgb(50, Color.White);
+            //groupBox1.Enabled = true;
             // watchdog = new Threads.FileSysWatchDog();
-            button2.Enabled = true;
-
+            button2.Enabled = false;
+            //pictureBox1.Visible = false;
             // for testing convinence, set the local path
+            /*
             string path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             path += @"\DBLike_test";
             txtfoldertb2.Text = path;
-
+            */
+            //Appendconsole("hi");
         }
 
 
-        private void btnBrowsetb2_Click(object sender, EventArgs e)
-        {
+        
 
-        }
-
-
+        /*
         private void button1_Click(object sender, EventArgs e)
         {
-            Threads.FileSysWatchDog.Run();
+            //Threads.FileSysWatchDog.Run();
+            if(txtUserNametb1.Text == "" || txtPasstb1.Text == "")
+            {
+                MessageBox.Show("Username and Password field cannot be empty","DBLike Client Sign In");
+                return;
+            }
+            Client.Program.folderWatcher.start();
             Client.Program.poll.pull = true;
             Client.Program.poll.start();
             //watchdog.start();
-            button1.Enabled = false;
+            //button1.Enabled = false;
+            btnSignintb1.Enabled = false;
             button2.Enabled = true;
             enableController();
         }
-
+        */
         private void button2_Click(object sender, EventArgs e)
         {
-            Threads.FileSysWatchDog.stop();
+            Appendconsole("Stopping DBLike Services..");
+            Client.Program.folderWatcher.stop();
             Client.Program.poll.pull = false;
-            //watchdog.stop();
-            button1.Enabled = true;
             button2.Enabled = false;
+            groupBox2.Enabled = true;
             btnCreateAcctb2.Enabled = true;
             btnSignintb1.Enabled = true;
+            txtUserNametb1.Enabled = true;
+            txtpasstb2.Enabled = true;
+            Appendconsole("Stopped DBLike Services.");
         }
 
         private void btnCreateAcctb2_Click(object sender, EventArgs e)
         {
+            Appendconsole("Initializing Account creation... ");
             if (acountcreated == true)
             {
                 MessageBox.Show("Already Account Created.", "DBLike Client");
+                Appendconsole("Already Account Created.");
+                Appendconsole("Exiting");
                 return;
             }
             if (txtfoldertb2.Text.Equals("") || txtusernametb2.Text.Equals("") || txtpasstb2.Text.Equals(""))
             {
                 MessageBox.Show("All fields are Required.", "Information Missing");
+                Appendconsole("All fields are Required.");
+                Appendconsole("Exiting");
                 return;
             }
             else
@@ -223,13 +305,15 @@ namespace Client
         {
             //MessageBox.Show("We are working on this part.","Functionality Not yet Completed");
             //return;
-
+            btnSignintb1.Enabled = false;
+            btnSignintb1.Text = "Signing in...";
+            //pictureBox1.Visible = true;
             Threads.SignIn signinthread = new Threads.SignIn();
             String username = txtUserNametb1.Text;
             String password = txtPasstb1.Text;
             signinthread.start(username, password, this);
-            btnSignintb1.Enabled = false;
-            button1.Enabled = false;
+            
+            //button1.Enabled = false;
         }
 
         private void btnBrowsetb2_Click_1(object sender, EventArgs e)
@@ -240,10 +324,6 @@ namespace Client
                 txtfoldertb2.Text = fbd.SelectedPath;
             }
         }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-        }
+       
     }
 }

@@ -38,13 +38,14 @@ namespace Client.LocalFileSysAccess
             }       
  
         }
-        
+        [MethodImpl(MethodImplOptions.Synchronized)]
         private void getTimeStamp(string filePath){
             
             lastModified = System.IO.File.GetLastWriteTime(filePath);
             
         }
-        
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         private void getFileMD5Value(string filePath)
         {
            
