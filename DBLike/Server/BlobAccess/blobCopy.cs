@@ -109,7 +109,7 @@ namespace Server.BlobAccess
                                 var srcBlockBlob = srcCloudBlobContainer.GetBlockBlobReference(dstBlockBlob.Name);
                                 if (!srcBlockBlob.Exists())
                                 {
-                                    dstBlockBlob.Delete();
+                                    dstBlockBlob.Delete(DeleteSnapshotsOption.IncludeSnapshots);
                                 }
                             }
                         }

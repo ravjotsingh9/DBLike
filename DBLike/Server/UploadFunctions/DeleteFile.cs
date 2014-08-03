@@ -24,14 +24,14 @@ namespace Server.UploadFunctions
                 if (item.GetType() == typeof(CloudBlockBlob))
                 {
                     CloudBlockBlob blob = (CloudBlockBlob)item;
-                    blob.Delete();
+                    blob.Delete(DeleteSnapshotsOption.IncludeSnapshots);
                     //System.Windows.Forms.MessageBox.Show(string.Format("File: {0} Deleted!", pathInSyncFolder), "DBLike Server");
 
                 }
                 else if (item.GetType() == typeof(CloudPageBlob))
                 {
                     CloudPageBlob blob = (CloudPageBlob)item;
-                    blob.Delete();
+                    blob.Delete(DeleteSnapshotsOption.IncludeSnapshots);
                     //System.Windows.Forms.MessageBox.Show(string.Format("File: {0} Deleted!", pathInSyncFolder), "DBLike Server");
                 }
             }
@@ -58,13 +58,13 @@ namespace Server.UploadFunctions
                     {
                         CloudBlockBlob blob = (CloudBlockBlob)item;
                         //blob.Delete();
-                        blob.DeleteIfExists();
+                        blob.DeleteIfExists(DeleteSnapshotsOption.IncludeSnapshots);
 
                     }
                     else if (item.GetType() == typeof(CloudPageBlob))
                     {
                         CloudPageBlob blob = (CloudPageBlob)item;
-                        blob.DeleteIfExists();
+                        blob.DeleteIfExists(DeleteSnapshotsOption.IncludeSnapshots);
                     }
                     //else if (item.GetType() == typeof(CloudBlobDirectory))
                     //{
@@ -120,7 +120,7 @@ namespace Server.UploadFunctions
                     if (item.GetType() == typeof(CloudBlockBlob))
                     {
                         CloudBlockBlob blob = (CloudBlockBlob)item;
-                        blob.DeleteIfExists();
+                        blob.DeleteIfExists(DeleteSnapshotsOption.IncludeSnapshots);
                         //blob.Delete();
                         //System.Windows.Forms.MessageBox.Show(string.Format("File: {0} Deleted!", pathInSyncFolder), "DBLike Server");
 
@@ -129,7 +129,7 @@ namespace Server.UploadFunctions
                     {
                         CloudPageBlob blob = (CloudPageBlob)item;
                         //blob.Delete();
-                        blob.DeleteIfExists();
+                        blob.DeleteIfExists(DeleteSnapshotsOption.IncludeSnapshots);
                         //System.Windows.Forms.MessageBox.Show(string.Format("File: {0} Deleted!", pathInSyncFolder), "DBLike Server");
                     }
                 }

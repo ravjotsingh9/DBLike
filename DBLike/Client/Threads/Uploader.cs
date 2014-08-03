@@ -106,7 +106,7 @@ namespace Client.Threads
 
                     SocketCommunication.ReaderWriter rw = new SocketCommunication.ReaderWriter();
                     rw.writetoSocket(soc, msg);
-                    Program.ClientForm.addtoConsole("Wrote to socket" );
+                    Program.ClientForm.addtoConsole("Wrote to socket");
                     //receive the msg
                     string resp = rw.readfromSocket(soc);
                     Program.ClientForm.addtoConsole("Read from socket");
@@ -146,8 +146,8 @@ namespace Client.Threads
                             if (DateTime.Compare(timeBefore, currTimestampOnServer) < 0 && String.Compare(md5rBefore, currHashValueOnServer) != 0)
                             {
                                 string tMsg = "simultaneous editing confilct";
-                                string cMsg = "A newer version has been detected on the server.\nDo you want to save current version?\nYes to Save current file in another name\nNo to Download the newest version file from server";
-                                DialogResult dialogResult = MessageBox.Show(cMsg, tMsg, MessageBoxButtons.YesNo);
+                                string cMsg = "\nA newer version has been detected on the server.\nDo you want to save current version?\n\nYes to Save current file in another name\nNo to Download the newest version file from server";
+                                DialogResult dialogResult = MessageBox.Show(string.Format("{0}" + cMsg, fullpathOfChnagedFile), tMsg, MessageBoxButtons.YesNo);
                                 if (dialogResult == DialogResult.Yes)
                                 {
 
@@ -170,6 +170,19 @@ namespace Client.Threads
                                     // To copy a file to another location and 
                                     // overwrite the destination file if it already exists.
                                     System.IO.File.Copy(sourcePath, targetPath, true);
+
+
+                                    // delete current copy
+                                    // try delete while it still exists
+                                    while (System.IO.File.Exists(fullpathOfChnagedFile))
+                                    {
+                                        // delete current file
+                                        // won't delete blob file on the server
+                                        // b/c it's older than that version
+                                        System.IO.File.Delete(fullpathOfChnagedFile);
+
+                                    }
+
 
                                 }
                                 else if (dialogResult == DialogResult.No)
@@ -239,6 +252,18 @@ namespace Client.Threads
                     rw.writetoSocket(soc, msg);
 
 
+
+                    // delete the file from the file list
+                    // grab it first by key, then delete
+                    Client.LocalFileSysAccess.FileListMaintain reFileList = new Client.LocalFileSysAccess.FileListMaintain();
+                    // get value by key
+                    Client.LocalFileSysAccess.FileInfo tmpFInfo = new Client.LocalFileSysAccess.FileInfo();
+                    Client.LocalFileSysAccess.FileList.fileInfoDic.TryGetValue(fullpathOfChnagedFile, out tmpFInfo);
+                    // remove file from file list
+                    reFileList.removeSingleFileFromFileList(fullpathOfChnagedFile, tmpFInfo.time, tmpFInfo.md5r);
+
+
+
                 }
                 else if (eventType == "rename")
                 {
@@ -274,6 +299,22 @@ namespace Client.Threads
                     string msg;
                     string md5r = att.md5Value;
 
+
+
+                    // update the renamed file to the file list
+                    Client.LocalFileSysAccess.FileListMaintain renameFileList = new Client.LocalFileSysAccess.FileListMaintain();
+
+                    // get value by key
+                    Client.LocalFileSysAccess.FileInfo tmpFI = new Client.LocalFileSysAccess.FileInfo();
+                    Client.LocalFileSysAccess.FileList.fileInfoDic.TryGetValue(fullpathOfChnagedFile, out tmpFI);
+
+                    // remove older file from file list
+                    renameFileList.removeSingleFileFromFileList(fullpathOfChnagedFile, tmpFI.time, tmpFI.md5r);
+                    // add new name file to file list
+                    renameFileList.addSingleFileToFileList(reNameInfo[1]);
+
+
+
                     // create the msg
                     // pathInSyncFolderPath is the older path in server
                     // renameTime is the newest time
@@ -288,6 +329,10 @@ namespace Client.Threads
 
                     //receive the msg
                     string resp = rw.readfromSocket(soc);
+
+
+
+
 
                 }
 

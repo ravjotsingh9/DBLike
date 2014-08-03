@@ -11,18 +11,11 @@ namespace Client.VersionControl
 {
     public partial class VCmanager
     {
-        private Microsoft.WindowsAzure.Storage.Blob.CloudBlobClient client;
+        
         Microsoft.WindowsAzure.Storage.Blob.CloudBlobContainer container;
-        public VCmanager()
+        public VCmanager(string sasUri)
         {
-            //CloudBlobContainer container = new CloudBlobContainer(new Uri(sasUri));
-            StorageCredentials creds = new StorageCredentials(accountName, accountKey);
-            Microsoft.WindowsAzure.Storage.CloudStorageAccount account = new Microsoft.WindowsAzure.Storage.CloudStorageAccount(creds, useHttps: true);
-
-            this.client = account.CreateCloudBlobClient();
-
-            this.container = this.client.GetContainerReference("qqremoteyes");
-            this.container.CreateIfNotExists();
+            this.container = new CloudBlobContainer(new Uri(sasUri));                  
         }
         
         

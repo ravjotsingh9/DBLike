@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Client.VersionControl;
+using Client.Threads;
+using System.Threading;
 
 namespace Client
 {
@@ -20,9 +22,23 @@ namespace Client
         public Form2()
         {
             InitializeComponent();
-            VC = new VCmanager();
-            blobscollect = VC.list();
-            listBox1.DataSource = blobscollect.blobNames;
+            Configuration.userInfo.containerURI = "null";
+            VCThread vcThread = new VCThread();
+            Thread thread = new Thread(() => vcThread.start());
+            thread.Start();
+            thread.Join();
+            if (Configuration.userInfo.containerURI != "null")
+            {
+                VC = new VCmanager(Configuration.userInfo.containerURI);
+                blobscollect = VC.list();
+                listBox1.DataSource = blobscollect.blobNames;
+            }
+            else
+            {
+                listBox1.DataSource = "Not able connect to Server";
+            }
+           
+            
         }
 
         private void button1_Click(object sender, EventArgs e)

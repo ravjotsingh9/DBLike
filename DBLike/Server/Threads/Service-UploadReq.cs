@@ -146,7 +146,7 @@ namespace Server.Threads
                     newBlob.SetMetadata();
 
                     //delete the old blob
-                    existBlob.Delete();
+                    existBlob.Delete(DeleteSnapshotsOption.IncludeSnapshots);
                 }
 
 

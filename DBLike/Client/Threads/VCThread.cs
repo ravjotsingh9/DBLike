@@ -15,9 +15,10 @@ namespace Client.Threads
         static Thread thread;
         public void start()
         {
+            threadStartFun();
             //TBD
-            thread = new Thread(() => threadStartFun());
-            thread.Start();
+            //thread = new Thread(() => threadStartFun());
+            //thread.Start();
         }
         public void stop()
         {
@@ -28,7 +29,7 @@ namespace Client.Threads
         {
             try
             {
-
+                Console.WriteLine("in Vc thread");
                 // Client create poll msg 
                 LocalDB readLocalDB = new LocalDB();
                 readLocalDB = readLocalDB.readfromfile();
@@ -41,19 +42,20 @@ namespace Client.Threads
                 //send the msg using socket
                 ConnectionManager.Connection conn = new ConnectionManager.Connection();
                 Socket soc = conn.connect(conf.serverAddr, conf.port);
-
+              
                 SocketCommunication.ReaderWriter rw = new SocketCommunication.ReaderWriter();
                 rw.writetoSocket(soc, msg);
 
                 //receive the msg
                 string resp = rw.readfromSocket(soc);
-
+                
                 //parse msg and poll
                 Client.Message.MessageParser parseResp = new Client.Message.MessageParser();
                 msgpoll = parseResp.pollParseMsg(resp);
                 if (msgpoll.indicator == "OK")
                 {
-                   // write container somewhere (msgpoll.fileContainerUri);
+                    Configuration.userInfo.containerURI = msgpoll.fileContainerUri;
+                    // write container somewhere (msgpoll.fileContainerUri);
                 }
               
 

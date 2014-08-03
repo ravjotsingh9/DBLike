@@ -59,8 +59,9 @@ namespace Client.Threads
 
         public void poll()
         {
-            Program.ClientForm.addtoConsole("Poll initiated");
             Configuration.flag.polling = true; 
+            Program.ClientForm.addtoConsole("Poll initiated");
+           
             //MessageBox.Show("Polling started", "Client");
             try
             {
