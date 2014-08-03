@@ -22,10 +22,10 @@ using Client.LocalFileSysAccess;
 namespace ClientUnitTest
 {
     [TestClass]
-    public class UnitTest1
+    public class dicTest
     {
         [TestMethod]
-        public void dicTest()
+        public void dicUnitTest()
         {
             Client.LocalFileSysAccess.FileInfo tmp = new Client.LocalFileSysAccess.FileInfo();
             tmp.time = DateTime.UtcNow;
