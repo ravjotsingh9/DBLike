@@ -171,6 +171,19 @@ namespace Client.Threads
                                     // overwrite the destination file if it already exists.
                                     System.IO.File.Copy(sourcePath, targetPath, true);
 
+
+                                    // delete current copy
+                                    // try delete while it still exists
+                                    while (System.IO.File.Exists(fullpathOfChnagedFile))
+                                    {
+                                        // delete current file
+                                        // won't delete blob file on the server
+                                        // b/c it's older than that version
+                                        System.IO.File.Delete(fullpathOfChnagedFile);
+
+                                    }
+
+
                                 }
                                 else if (dialogResult == DialogResult.No)
                                 {
