@@ -30,7 +30,7 @@ namespace Client.Threads
         }
         static private void threadStartFun(string serverIP, int port,String username, String password,string sysncpath )
         {
-
+            Program.ClientForm.addtoConsole("Sign Up initiated");
             //TBD
             //System.Windows.Forms.MessageBox.Show("start", "SignUp Thread started");
             MessageClasses.MsgSignUp msgobj = new MessageClasses.MsgSignUp();
@@ -46,18 +46,22 @@ namespace Client.Threads
             sender = conn.connect(serverIP, port);
             if(sender == null)
             {
+                Program.ClientForm.addtoConsole("Could not connect to server");
                 System.Windows.Forms.MessageBox.Show("Could not connect to server.Please check if Server is Running.", "DBLike Client");
+                Program.ClientForm.addtoConsole("Exiting");
                 Thread.CurrentThread.Abort();
             }
             //call  SocketCommunication.ReaderWriter.write(byte[] msg) to write msg on socket
             SocketCommunication.ReaderWriter rw = new SocketCommunication.ReaderWriter();
             //System.Windows.Forms.MessageBox.Show("going to write socket:"+message, "SignUp Thread started");
+            Program.ClientForm.addtoConsole("Writing to socket");
             rw.writetoSocket(sender, message);
 
 
             //call  SocketCommunication.ReaderWriter.read() to read response from server
             //System.Windows.Forms.MessageBox.Show("going to read socket: " , "SignUp Thread started");
             String response=rw.readfromSocket(sender);
+            Program.ClientForm.addtoConsole("Read from socket");
             //System.Windows.Forms.MessageBox.Show("read:"+ response, "SignUp Thread started");
             //call parser and process it.....
             Message.MessageParser mp = new Message.MessageParser();
@@ -74,7 +78,9 @@ namespace Client.Threads
                 Message.MessageParser msgparser = new Message.MessageParser();
                 if (msgobj.ack.Equals("ERRORS"))
                 {
+                    Program.ClientForm.addtoConsole("Error:" + msgobj.addiMsg);
                     System.Windows.Forms.MessageBox.Show("Some error occured!Please try again.", "Error Occured");
+                    Program.ClientForm.addtoConsole("Exiting");
                     Thread.CurrentThread.Abort();
                 }
                 else
@@ -89,8 +95,10 @@ namespace Client.Threads
                     LocalDbAccess.LocalDB file = new LocalDbAccess.LocalDB();
                     if (false == file.writetofile(username, password, sysncpath))
                     {
+                        Program.ClientForm.addtoConsole("Unable to access config file");
                         System.Windows.Forms.MessageBox.Show("Unable to access dblike file.", "Error Occured");
-
+                        Program.ClientForm.addtoConsole("Exiting");
+                        Thread.CurrentThread.Abort();
                     }
                     else
                     {
@@ -99,9 +107,13 @@ namespace Client.Threads
                         bool result = file.writetofile(username, password, sysncpath);
                         if (result == false)
                         {
+                            Program.ClientForm.addtoConsole("Unable to access config file");
                             System.Windows.Forms.MessageBox.Show("Unable to write on the file", "Unable to write on file");
-                            return;
+                            Program.ClientForm.addtoConsole("Exiting");
+                            Thread.CurrentThread.Abort();
+                            //return;
                         }
+                        Program.ClientForm.addtoConsole("Initiating content upload");
                         uploadeverything(sysncpath);
                         //System.Windows.Forms.MessageBox.Show("Uploaded!!!", "Client");
                         //System.Windows.Forms.MessageBox.Show("Started!!!", "Client");
@@ -118,9 +130,12 @@ namespace Client.Threads
                         }
                         //enable service controller
                         Program.ClientForm.enableServiceController();
+
+                        Program.folderWatcher.start();
+                        Program.ClientForm.addtoConsole("File watcher Installed");
                         
-                        FileSysWatchDog.Run();
                         Client.Program.poll.start();
+                        Program.ClientForm.addtoConsole("Poll thread started");
                         /*
                         Threads.FileSysWatchDog watchdog = new FileSysWatchDog();
                         if (watchdog.start() == false)
@@ -130,6 +145,7 @@ namespace Client.Threads
                         }
                          */ 
                     }
+                    Program.ClientForm.addtoConsole("Exiting Sign Up thread");
                     Thread.CurrentThread.Abort();
                 }
             }

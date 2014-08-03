@@ -20,6 +20,7 @@ namespace Client
         //public static Threads.FileSysWatchDog watchdog;
         public volatile bool acountcreated = false;
         delegate void changeStatetoSignedUp();
+        delegate void signupFailed();
         delegate void signinFailed();
         delegate void signinpassed();
         
@@ -83,6 +84,24 @@ namespace Client
             button2.Enabled = false;
         }
 
+
+        public void signupfail()
+        {
+            if (!this.IsHandleCreated)
+            {
+                this.CreateHandle();
+            }
+            signinFailed sfail = new signinFailed(signUpfailed);
+            this.Invoke(sfail);
+        }
+        public void signUpfailed()
+        {
+            //pictureBox1.Visible = false;
+            btnCreateAcctb2.Enabled = true;
+            btnCreateAcctb2.Text = "Create Account";
+            button2.Enabled = false;
+        }
+
         public void enableServiceController()
         {
             if (!this.IsHandleCreated)
@@ -108,6 +127,7 @@ namespace Client
 
             //disable create Account
             btnCreateAcctb2.Enabled = false;
+            btnCreateAcctb2.Text = "Create Account";
             //shift tosign in tab
 
             //tabControl1.SelectedIndex = 1;
@@ -166,13 +186,14 @@ namespace Client
             btnCreateAcctb2.Enabled = true;
             btnSignintb1.Enabled = true;
             txtUserNametb1.Enabled = true;
-            txtpasstb2.Enabled = true;
+            txtPasstb1.Enabled = true;
             Appendconsole("Stopped DBLike Services.");
         }
 
         private void btnCreateAcctb2_Click(object sender, EventArgs e)
         {
-            Appendconsole("Initializing Account creation... ");
+            Appendconsole("Initializing Account creation");
+            btnCreateAcctb2.Text = "Creating...";
             if (acountcreated == true)
             {
                 MessageBox.Show("Already Account Created.", "DBLike Client");
@@ -256,6 +277,7 @@ namespace Client
             {
                 if (startWithLetterNum != true)
                 {
+                    //addtoConsole();
                     label7.Text = "Username must start with a Character or a Number only";
                     label7.Enabled = true;
                 }
