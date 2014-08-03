@@ -65,17 +65,27 @@ namespace Client.PollFunction
                                                                 null);
                              */ 
                             // if need to poll
+                            Program.ClientForm.addtoConsole("Comparing Datetime for "+fileFullPath);
+                            Program.ClientForm.addtoConsole("blobDateTime: "+blobDataTime);
+                            Program.ClientForm.addtoConsole("lastModified: "+ fileAttributes.lastModified.ToUniversalTime() );
                             if (DateTime.Compare(blobDataTime, fileAttributes.lastModified.ToUniversalTime()) > 0)
                             {
+                                Program.ClientForm.addtoConsole("Comparing HashValue");
+                                Program.ClientForm.addtoConsole("Remote: " + file.Metadata["hashValue"]);
+                                Program.ClientForm.addtoConsole("Local: "+ fileAttributes.md5Value);
                                 if (fileAttributes.md5Value != file.Metadata["hashValue"])
                                 {
                                     //it means there some change at server
+                                    Program.ClientForm.addtoConsole("Poll function called");
                                     pollFile(file, fileFullPath, blobDataTime);
                                 }
-                                
+                                Program.ClientForm.addtoConsole("Hash Value Matched.No need to Download");
                             }
                             else if(DateTime.Compare(blobDataTime, fileAttributes.lastModified.ToUniversalTime()) < 0)
                             {
+                                Program.ClientForm.addtoConsole("Comparing HashValue");
+                                Program.ClientForm.addtoConsole("Remote: " + file.Metadata["hashValue"]);
+                                Program.ClientForm.addtoConsole("Local: " + fileAttributes.md5Value);
                                 if (fileAttributes.md5Value != file.Metadata["hashValue"])
                                 {
                                     //it means there is some change at client which has yet not uploaded
@@ -88,20 +98,25 @@ namespace Client.PollFunction
                                     if (Client.Program.filesInUse.alreadyPresent(eventdet))
                                     {
                                         //return;
+                                        Program.ClientForm.addtoConsole("Already Present in the event list");
                                     }
                                     else
                                     {
                                         Client.Program.filesInUse.addToList(eventdet);
                                         Uploader upload = new Uploader();
                                         upload.start(fileFullPath, "change", null,fileAttributes.lastModified);
+                                        Program.ClientForm.addtoConsole("Upload Thread Started for:"+ fileFullPath);
                                     }
                                     
                                 }
+                                Program.ClientForm.addtoConsole("Hash Value Matched.No need to upload");
                             }
-
+                            Program.ClientForm.addtoConsole("Timestamp Matched.");
                         }
                         else
                         {
+                            Program.ClientForm.addtoConsole("File Doesnot Exist");
+                            Program.ClientForm.addtoConsole("Poll function Called");
                             pollFile(file, fileFullPath, blobDataTime);
                         }
                     }

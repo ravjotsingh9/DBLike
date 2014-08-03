@@ -336,6 +336,7 @@
             // console
             // 
             this.console.BackColor = System.Drawing.Color.Black;
+            this.console.Enabled = false;
             this.console.ForeColor = System.Drawing.Color.White;
             this.console.Location = new System.Drawing.Point(0, 284);
             this.console.Multiline = true;
