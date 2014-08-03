@@ -116,6 +116,10 @@ namespace Client.Threads
                     else
                     {
                         eventType = "create";
+                        
+                        // add file metadata to file list
+                        Client.LocalFileSysAccess.FileListMaintain fileMaintain = new Client.LocalFileSysAccess.FileListMaintain();
+                        fileMaintain.addSingleFileToFileList(e.FullPath);
                     }
 
                     LocalFileSysAccess.getFileAttributes timestamp = new LocalFileSysAccess.getFileAttributes(e.FullPath);
