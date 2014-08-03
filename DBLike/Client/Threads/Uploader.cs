@@ -146,8 +146,8 @@ namespace Client.Threads
                             if (DateTime.Compare(timeBefore, currTimestampOnServer) < 0 && String.Compare(md5rBefore, currHashValueOnServer) != 0)
                             {
                                 string tMsg = "simultaneous editing confilct";
-                                string cMsg = "A newer version has been detected on the server.\nDo you want to save current version?\nYes to Save current file in another name\nNo to Download the newest version file from server";
-                                DialogResult dialogResult = MessageBox.Show(cMsg, tMsg, MessageBoxButtons.YesNo);
+                                string cMsg = "\nA newer version has been detected on the server.\nDo you want to save current version?\n\nYes to Save current file in another name\nNo to Download the newest version file from server";
+                                DialogResult dialogResult = MessageBox.Show(string.Format("{0}" + cMsg, fullpathOfChnagedFile), tMsg, MessageBoxButtons.YesNo);
                                 if (dialogResult == DialogResult.Yes)
                                 {
 
