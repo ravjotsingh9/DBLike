@@ -106,7 +106,7 @@ namespace Client.Threads
 
                     SocketCommunication.ReaderWriter rw = new SocketCommunication.ReaderWriter();
                     rw.writetoSocket(soc, msg);
-                    Program.ClientForm.addtoConsole("Wrote to socket" );
+                    Program.ClientForm.addtoConsole("Wrote to socket");
                     //receive the msg
                     string resp = rw.readfromSocket(soc);
                     Program.ClientForm.addtoConsole("Read from socket");
@@ -239,6 +239,18 @@ namespace Client.Threads
                     rw.writetoSocket(soc, msg);
 
 
+
+                    // delete the file from the file list
+                    // grab it first by key, then delete
+                    Client.LocalFileSysAccess.FileListMaintain reFileList = new Client.LocalFileSysAccess.FileListMaintain();
+                    // get value by key
+                    Client.LocalFileSysAccess.FileInfo tmpFInfo = new Client.LocalFileSysAccess.FileInfo();
+                    Client.LocalFileSysAccess.FileList.fileInfoDic.TryGetValue(fullpathOfChnagedFile, out tmpFInfo);
+                    // remove file from file list
+                    reFileList.removeSingleFileFromFileList(fullpathOfChnagedFile, tmpFInfo.time, tmpFInfo.md5r);
+
+
+
                 }
                 else if (eventType == "rename")
                 {
@@ -278,7 +290,7 @@ namespace Client.Threads
 
                     // update the renamed file to the file list
                     Client.LocalFileSysAccess.FileListMaintain renameFileList = new Client.LocalFileSysAccess.FileListMaintain();
-                   
+
                     // get value by key
                     Client.LocalFileSysAccess.FileInfo tmpFI = new Client.LocalFileSysAccess.FileInfo();
                     Client.LocalFileSysAccess.FileList.fileInfoDic.TryGetValue(fullpathOfChnagedFile, out tmpFI);
@@ -287,6 +299,7 @@ namespace Client.Threads
                     renameFileList.removeSingleFileFromFileList(fullpathOfChnagedFile, tmpFI.time, tmpFI.md5r);
                     // add new name file to file list
                     renameFileList.addSingleFileToFileList(reNameInfo[1]);
+
 
 
                     // create the msg
