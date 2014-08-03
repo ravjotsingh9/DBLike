@@ -129,7 +129,7 @@ namespace Client
             btnCreateAcctb2.Enabled = false;
             btnCreateAcctb2.Text = "Create Account";
             //shift tosign in tab
-
+            
             //tabControl1.SelectedIndex = 1;
 
         }
@@ -328,6 +328,7 @@ namespace Client
         {
             //MessageBox.Show("We are working on this part.","Functionality Not yet Completed");
             //return;
+            vcbtn.Enabled = true;
             btnSignintb1.Enabled = false;
             btnSignintb1.Text = "Signing in...";
             //pictureBox1.Visible = true;
@@ -346,6 +347,13 @@ namespace Client
             {
                 txtfoldertb2.Text = fbd.SelectedPath;
             }
+        }
+
+        private void vcBtn_Click(object sender, EventArgs e)
+        {
+            Appendconsole("Opening version control windows...");
+            Form2 VCForm = new Form2();
+            VCForm.ShowDialog();
         }
        
     }
