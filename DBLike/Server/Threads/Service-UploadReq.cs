@@ -93,15 +93,34 @@ namespace Server.Threads
                 {
                     // get container
                     CloudBlobContainer container = blobClient.GetContainerReference(upload.userName);
+                    CloudBlockBlob delBlob = container.GetBlockBlobReference(upload.filePathInSynFolder);
 
                     // change value of delete in metadata to true
                     //container.Metadata["Deleted"] = "true";
 
-                    //*** <<disabling deletion>>
-                    UploadFunctions.DeleteFile del = new UploadFunctions.DeleteFile();
-                    del.deleteAll(container, upload.filePathInSynFolder);
-                    //***/
+
+                    if (delBlob.Exists())
+                    {
+                        // get to be deleted blob's info
+                        delBlob.FetchAttributes();
+                        string delHashValue = delBlob.Metadata["hashValue"];
+                        DateTime delTimestamp = DateTime.ParseExact(delBlob.Metadata["timestamp"], "MM/dd/yyyy HH:mm:ss", null);
+
+
+                        // only delete it when client's version is newer
+                        // otherwise client's file is stale, don't delete server's blob
+                        if (DateTime.Compare(upload.fileTimeStamps, delTimestamp) >= 0)
+                        {
+
+
+                            //*** <<disabling deletion>>
+                            UploadFunctions.DeleteFile del = new UploadFunctions.DeleteFile();
+                            del.deleteAll(container, upload.filePathInSynFolder);
+                            //***/
+                        }
+                    }
                 }
+
 
 
                 if (upload.addInfo.IndexOf("rename") == 0)

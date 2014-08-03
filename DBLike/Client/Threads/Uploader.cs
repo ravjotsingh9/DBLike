@@ -171,7 +171,27 @@ namespace Client.Threads
                                 }
                                 else if (dialogResult == DialogResult.No)
                                 {
-                                    //do something else
+
+                                    // try delete while it still exists
+                                    while (System.IO.File.Exists(fullpathOfChnagedFile))
+                                    {
+                                        // delete current file
+                                        // won't delete blob file on the server
+                                        // b/c it's older than that version
+                                        System.IO.File.Delete(fullpathOfChnagedFile);
+
+                                    }
+
+                                    if (Client.LocalFileSysAccess.FileList.fileInfoDic.ContainsKey(fullpathOfChnagedFile))
+                                    {
+                                        // after it has been deleted
+                                        // del from the file list
+                                        Client.LocalFileSysAccess.FileListMaintain delFromFileList = new Client.LocalFileSysAccess.FileListMaintain();
+                                        delFromFileList.removeSingleFileFromFileList(fullpathOfChnagedFile, time, md5r);
+
+                                        // TODO
+                                        // download newer version from server
+                                    }
                                 }
                             }
                         }
