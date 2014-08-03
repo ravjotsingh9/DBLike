@@ -59,7 +59,7 @@ namespace Server.Threads
 
                     // when event type is change
                     // get current file info of the blob
-                    
+
                     CloudBlockBlob currBlob = container.GetBlockBlobReference(upload.filePathInSynFolder);
                     // when event type is change
                     // otherwise do nothing
@@ -109,6 +109,8 @@ namespace Server.Threads
 
                         // only delete it when client's version is newer
                         // otherwise client's file is stale, don't delete server's blob
+                        // b/c when simultaneous editing, client chooses to delete local copy
+                        // it'll delete the server copy too!
                         if (DateTime.Compare(upload.fileTimeStamps, delTimestamp) >= 0)
                         {
 
