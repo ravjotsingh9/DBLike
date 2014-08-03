@@ -11,7 +11,7 @@ namespace Client.VersionControl
 {
     public partial class VCmanager
     {
-        public void revertFromSnapshot(CloudBlobContainer container, CloudBlockBlob blobRef, CloudBlockBlob snapshot)
+        public void revertFromSnapshot(CloudBlockBlob blobRef, CloudBlockBlob snapshot)
         {
 
             try
@@ -29,9 +29,8 @@ namespace Client.VersionControl
                 }
                 else
                 {
-
                     blobRef.StartCopyFromBlob(snapshot);
-                    System.Windows.Forms.MessageBox.Show("revert success: " + snapshot.Name + " " + snapshot.SnapshotTime);
+                    System.Windows.Forms.MessageBox.Show("revert success");
                 }
             }
             catch (Exception e)
@@ -42,7 +41,7 @@ namespace Client.VersionControl
         }
 
 
-        public blobCollection listSnapshot(CloudBlobContainer container, CloudBlockBlob blobRef)
+        public blobCollection listSnapshot(CloudBlockBlob blobRef)
         {
             blobCollection blobset = new blobCollection();
             List<CloudBlockBlob> tempSnapshots = new List<CloudBlockBlob>();
@@ -62,13 +61,14 @@ namespace Client.VersionControl
                 }
                 else
                 {
+                    int j = 0;
                     foreach (IListBlobItem item in snapshots)
                     {
                         CloudBlockBlob blob = (CloudBlockBlob)item;
                         blob.FetchAttributes();
-                        Console.WriteLine("Name: {0}, Timestamp: {1}", blob.Name, blob.Metadata["timestamp"]);
+                        string name = "V" + j+" , "+blob.Metadata["timestamp"];
                         tempSnapshots.Add(blob);
-                        tempSnamshotsName.Add(blob.Name);
+                        tempSnamshotsName.Add(name);
                         blobset.snapShotList = tempSnapshots;
                         blobset.snapShotNames = tempSnamshotsName;
                     }

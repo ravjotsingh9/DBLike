@@ -72,6 +72,12 @@
     <Compile Include="Configuration\flag.cs" />
     <Compile Include="ConnectionManager\Connection.cs" />
     <Compile Include="ConnectionManager\PingVM.cs" />
+    <Compile Include="Form2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form2.Designer.cs">
+      <DependentUpon>Form2.cs</DependentUpon>
+    </Compile>
     <Compile Include="LocalFileSysAccess\FileList.cs" />
     <Compile Include="LocalFileSysAccess\FileListMaintain.cs" />
     <Compile Include="LocalFileSysAccess\getFileAttributes.cs" />
@@ -112,10 +118,14 @@
     <Compile Include="Threads\Uploader.cs" />
     <Compile Include="UploadFunctions\UploadFile.cs" />
     <Compile Include="VersionControl\blobCollection.cs" />
+    <Compile Include="VersionControl\VCmanager.baseBlob.cs" />
     <Compile Include="VersionControl\VCmanager.cs" />
     <Compile Include="VersionControl\VCmanager.revert.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form2.resx">
+      <DependentUpon>Form2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

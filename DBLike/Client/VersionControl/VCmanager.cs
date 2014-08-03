@@ -11,7 +11,22 @@ namespace Client.VersionControl
 {
     public partial class VCmanager
     {
-        public CloudBlockBlob getLatestSnapshot(CloudBlobContainer container, CloudBlockBlob file)
+        private Microsoft.WindowsAzure.Storage.Blob.CloudBlobClient client;
+        Microsoft.WindowsAzure.Storage.Blob.CloudBlobContainer container;
+        public VCmanager()
+        {
+            //CloudBlobContainer container = new CloudBlobContainer(new Uri(sasUri));
+            StorageCredentials creds = new StorageCredentials(accountName, accountKey);
+            Microsoft.WindowsAzure.Storage.CloudStorageAccount account = new Microsoft.WindowsAzure.Storage.CloudStorageAccount(creds, useHttps: true);
+
+            this.client = account.CreateCloudBlobClient();
+
+            this.container = this.client.GetContainerReference("qqremoteyes");
+            this.container.CreateIfNotExists();
+        }
+        
+        
+        public CloudBlockBlob getLatestSnapshot(CloudBlockBlob file)
         {
             CloudBlockBlob blobSnapshot = null;
 
@@ -33,7 +48,7 @@ namespace Client.VersionControl
             return blobSnapshot;
         }
 
-        public void deleteSnapshot(CloudBlobContainer container, CloudBlockBlob blobRef)
+        public void deleteSnapshot(CloudBlockBlob blobRef)
         {
             string blobPrefix = null;
             bool useFlatBlobListing = true;

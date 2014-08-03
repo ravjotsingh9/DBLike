@@ -7,6 +7,7 @@
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
+
         /// <summary>
         /// Clean up any resources being used.
         /// </summary>
@@ -38,6 +39,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.tbsignup = new System.Windows.Forms.TabPage();
@@ -53,7 +55,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.button3 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tbsignin.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -81,7 +82,7 @@
             this.tbsignin.Controls.Add(this.groupBox1);
             this.tbsignin.Location = new System.Drawing.Point(4, 25);
             this.tbsignin.Name = "tbsignin";
-            this.tbsignin.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tbsignin.Padding = new System.Windows.Forms.Padding(3);
             this.tbsignin.Size = new System.Drawing.Size(352, 232);
             this.tbsignin.TabIndex = 0;
             this.tbsignin.Text = "Sign in";
@@ -155,6 +156,17 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Service Controller";
             // 
+            // button3
+            // 
+            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button3.Location = new System.Drawing.Point(16, 74);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(135, 31);
+            this.button3.TabIndex = 13;
+            this.button3.Text = " Versions Control";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
             // button2
             // 
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
@@ -182,7 +194,7 @@
             this.tbsignup.Controls.Add(this.groupBox3);
             this.tbsignup.Location = new System.Drawing.Point(4, 25);
             this.tbsignup.Name = "tbsignup";
-            this.tbsignup.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tbsignup.Padding = new System.Windows.Forms.Padding(3);
             this.tbsignup.Size = new System.Drawing.Size(352, 232);
             this.tbsignup.TabIndex = 1;
             this.tbsignup.Text = "Sign up";
@@ -300,16 +312,6 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
-            // 
-            // button3
-            // 
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button3.Location = new System.Drawing.Point(16, 74);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(135, 31);
-            this.button3.TabIndex = 13;
-            this.button3.Text = " Versions Control";
-            this.button3.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 

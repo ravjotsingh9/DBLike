@@ -245,5 +245,12 @@ namespace Client
         {
 
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            
+            Form2 VCForm = new Form2();
+            VCForm.ShowDialog();
+        }
     }
 }
