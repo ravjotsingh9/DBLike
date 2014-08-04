@@ -65,6 +65,7 @@ namespace Client
             btnSignintb1.Text = "Sign in";
             button2.Enabled = true;
             groupBox2.Enabled = false;
+            vcbtn.Enabled = true;
         }
 
         public void signinfail()
@@ -82,6 +83,7 @@ namespace Client
             btnSignintb1.Enabled = true;
             btnSignintb1.Text = "Sign in";
             button2.Enabled = false;
+            vcbtn.Enabled = false;
         }
 
 
@@ -100,6 +102,7 @@ namespace Client
             btnCreateAcctb2.Enabled = true;
             btnCreateAcctb2.Text = "Create Account";
             button2.Enabled = false;
+            
         }
 
         public void enableServiceController()
@@ -189,6 +192,7 @@ namespace Client
             btnSignintb1.Enabled = true;
             txtUserNametb1.Enabled = true;
             txtPasstb1.Enabled = true;
+            vcbtn.Enabled = false;
         }
 
         private void btnCreateAcctb2_Click(object sender, EventArgs e)
@@ -328,7 +332,7 @@ namespace Client
         {
             //MessageBox.Show("We are working on this part.","Functionality Not yet Completed");
             //return;
-            vcbtn.Enabled = true;
+
             btnSignintb1.Enabled = false;
             btnSignintb1.Text = "Signing in...";
             //pictureBox1.Visible = true;
