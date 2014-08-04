@@ -17,10 +17,7 @@ namespace Server
     {
         static Threads.ServerConnListener Server = new Threads.ServerConnListener();
         static Threads.Service_BlobSync blobSync = new Threads.Service_BlobSync();
-<<<<<<< HEAD
         static Thread syncingThread = new Thread(() => blobSync.start());
-        
-=======
 
         delegate void addToConsole(string str);
 
@@ -48,7 +45,6 @@ namespace Server
 
         }
 
->>>>>>> origin/master
         public Form1()
         {
             InitializeComponent();
