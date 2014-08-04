@@ -32,7 +32,8 @@ namespace Client.Threads
         {
             //TBD
             Client.Program.poll.pull = false;
-            thread.Abort();
+            Program.poll.stop();
+            //thread.Abort();
         }
         static private void threadStartFun(string serverIP, int port, String username, String password,Form frm)
         {

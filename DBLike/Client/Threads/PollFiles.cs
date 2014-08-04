@@ -14,21 +14,29 @@ namespace Client.Threads
     public class PollFiles
     {
         static Configuration.config conf = new Configuration.config();
-        static Thread thread;
+        public static Thread thread;
         volatile public bool pull = true;
-        
+        private AutoResetEvent autoEvent = new AutoResetEvent(false);
+        public static AutoResetEvent stopPollingEvent { get; set; }
+
         public void start()
         {
-            
-            
-            //TBD
+            stopPollingEvent = new AutoResetEvent(false);
             thread = new Thread(() => threadStartFun());
+            //TBD
+            
             thread.Start();
         }
         public void stop()
         {
-            //TBD
-            thread.Abort();
+            if (thread.IsAlive)
+            {
+                Client.Program.poll.pull = false;
+                Threads.PollFiles.stopPollingEvent.Set();
+                //Threads.PollFiles.thread.Join();
+                
+            }
+            //thread.Abort();
         }
         private void threadStartFun()
         {
@@ -41,7 +49,8 @@ namespace Client.Threads
                 while (pull)
                 {
                     poll();
-                    Thread.Sleep(60000);
+                    //Thread.Sleep(60000);
+                    stopPollingEvent.WaitOne(60000);
                 }
                 Program.ClientForm.addtoConsole("DBLike Service stopped");
                 Program.ClientForm.ServiceStopped();

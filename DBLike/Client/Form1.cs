@@ -226,7 +226,7 @@ namespace Client
             
             trayIcon.BalloonTipTitle = "DBLike";
             trayIcon.BalloonTipText = "Application Started";
-            trayIcon.Icon = new Icon(SystemIcons.Application, 40, 40);
+            trayIcon.Icon = new Icon(@"ClientImage.ico", 40, 40);
             
             // Add menu to tray icon and show it.
             trayIcon.ContextMenu = trayMenu;
@@ -291,10 +291,19 @@ namespace Client
         
         public void  OnExit(object sender, EventArgs e)
         {
-            trayIcon.Visible = false;
-            Program.exit = true;
-            closeApp();
-            Thread.Sleep(60000);
+            if (button2.Enabled)
+            {
+                trayIcon.Visible = false;
+                Program.exit = true;
+                closeApp();
+            }
+            else
+            {
+                trayIcon.Visible = false;
+                Program.exit = true;
+                Application.Exit();
+            }
+            //Thread.Sleep(60000);
         }
         
         /*
@@ -321,12 +330,15 @@ namespace Client
             Appendconsole("Stopping DBLike Services...");
             Client.Program.folderWatcher.stop();
             Appendconsole("File Watcher Closed...");
-            Client.Program.poll.pull = false;
+            //Client.Program.poll.pull = false;
             Appendconsole("Shutting down Polling...");
+            Client.Program.poll.stop();
+            
             button2.Enabled = false;
             vcbtn.Enabled = false;
             waiting = new Thread(wait);
             waiting.Start();
+            
             //closeApp();
         }
 
@@ -335,12 +347,16 @@ namespace Client
             Appendconsole("Stopping DBLike Services...");
             Client.Program.folderWatcher.stop();
             Appendconsole("File Watcher Closed...");
-            Client.Program.poll.pull = false;
+            //Client.Program.poll.pull = false;
             Appendconsole("Shutting down Polling...");
+            Client.Program.poll.stop();
+
             button2.Enabled = false;
             vcbtn.Enabled = false;
             waiting = new Thread(exit);
             waiting.Start();
+            //Threads.PollFiles.stopPollingEvent.Set();
+            //Threads.PollFiles.thread.Join();
         }
 
         public void wait()
