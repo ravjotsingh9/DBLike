@@ -43,11 +43,15 @@ namespace Client.Threads
                     poll();
                     Thread.Sleep(60000);
                 }
-
+                Program.ClientForm.addtoConsole("DBLike Service stopped");
+                Program.ClientForm.ServiceStopped();
+                
             }
             catch (Exception e)
             {
-                System.Windows.Forms.MessageBox.Show(e.ToString());
+                Program.ClientForm.addtoConsole("Exception:" + e.Message);
+                Program.ClientForm.ServiceStopped();
+                //System.Windows.Forms.MessageBox.Show(e.ToString());
                 //System.IO.File.WriteAllText("errors.txt", e.ToString());
             }
             finally

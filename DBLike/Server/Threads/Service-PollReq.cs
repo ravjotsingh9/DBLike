@@ -28,6 +28,7 @@ namespace Server.Threads
         {
             try
             {
+                Program.ServerForm.addtoConsole("Service Poll Req Thread Started");
                 Server.Message.MessageParser serverPollPar = new Server.Message.MessageParser();
                 Server.MessageClasses.MsgPoll msgpollServer = serverPollPar.pollParseMsg(req);
 
@@ -55,14 +56,17 @@ namespace Server.Threads
                 SocketCommunication.ReaderWriter rw = new SocketCommunication.ReaderWriter();
                 // write to socket
                 rw.writetoSocket(soc, respMsg);
+                Program.ServerForm.addtoConsole("Wrote Response to socket");
 
             }
             catch (Exception e)
             {
-                System.Windows.Forms.MessageBox.Show(e.ToString());
+                Program.ServerForm.addtoConsole("Exception: [Poll Req]"+ e.Message);
+                //System.Windows.Forms.MessageBox.Show(e.ToString());
             }
             finally
             {
+                Program.ServerForm.addtoConsole("Exiting");
                 Thread.CurrentThread.Abort();
             }
 

@@ -335,7 +335,7 @@ namespace Client.Threads
                     rw.writetoSocket(soc, msg);
 
                     //receive the msg
-                    string resp = rw.readfromSocket(soc);
+                    //string resp = rw.readfromSocket(soc);
 
 
 

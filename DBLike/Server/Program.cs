@@ -9,6 +9,7 @@ namespace Server
 {
     static class Program
     {
+        static public Form1 ServerForm;
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -22,7 +23,8 @@ namespace Server
             }
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            ServerForm = new Form1();
+            Application.Run(ServerForm);
         }
     }
 }
