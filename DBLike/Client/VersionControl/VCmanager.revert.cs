@@ -11,19 +11,15 @@ namespace Client.VersionControl
 {
     public partial class VCmanager
     {
-        public void revertFromSnapshot(CloudBlockBlob blobRef, int i)
+        public void revertFromSnapshot(CloudBlockBlob blobRef, CloudBlockBlob snapshot)
         {
 
             try
             {
-                    string blobPrefix = null;
-                    bool useFlatBlobListing = true;
-
-                    var snapshots = container.ListBlobs(blobPrefix, useFlatBlobListing,
-                    BlobListingDetails.Snapshots).Where(item => ((CloudBlockBlob)item).SnapshotTime.HasValue && item.Uri.Equals(blobRef.Uri)).ToList<IListBlobItem>();
+                   
 
 
-                    CloudBlockBlob snapshot = (CloudBlockBlob)snapshots[i];
+                    
                     blobRef.StartCopyFromBlob(snapshot);
                     DateTime timestamp = DateTime.Now;
                     blobRef.FetchAttributes();

@@ -42,7 +42,7 @@ namespace Server.Threads
                 }
                 else
                 {
-                    link = sas.GetContainerSasUri(blob.container, "RL");
+                    link = sas.GetContainerSasUri(blob.container, "RWLD");
                 }
                 
 
