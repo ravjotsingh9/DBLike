@@ -118,8 +118,9 @@ namespace Client
             btnSignintb1.Enabled = false;
             btnSignintb1.Text = "Sign in";
             button2.Enabled = true;
-            groupBox2.Enabled = false;
             vcbtn.Enabled = true;
+            groupBox2.Enabled = false;
+            
         }
 
         public void signinfail()
@@ -202,6 +203,7 @@ namespace Client
             //groupBox1.Enabled = true;
             // watchdog = new Threads.FileSysWatchDog();
             button2.Enabled = false;
+            vcbtn.Enabled = false;
             //pictureBox1.Visible = false;
             // for testing convinence, set the local path
             /*
