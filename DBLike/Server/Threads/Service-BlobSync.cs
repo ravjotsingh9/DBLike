@@ -47,13 +47,12 @@ namespace Server.Threads
             try
             {
                 while (true)
-                {
-                    sync();
-
+                {                
                     if (!blobsSync)
                     {
                         break;
                     }
+                    sync();
                     stopSyncEvent.WaitOne(interval);
                                   
                 }
