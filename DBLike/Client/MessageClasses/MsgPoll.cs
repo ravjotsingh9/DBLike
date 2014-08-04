@@ -11,7 +11,7 @@ namespace Client.MessageClasses
         // Client to Server
         public string userName { get; set; }
         public string password { get; set; }
-        
+        public string nodeInfo { get; set; }
 
         //Server to Client
         public string fileContainerUri { get; set; }

@@ -19,7 +19,7 @@ namespace Client.Message
         /// <returns></returns>
         public string pollMsg(MsgPoll msgpoll)
         {
-            string msg = "<POLL>:<" + msgpoll.userName + ">:<" + msgpoll.password +": <"+Environment.UserName+">";
+            string msg = "<POLL>:<" + msgpoll.userName + ">:<" + msgpoll.password +": <"+msgpoll.nodeInfo+ ">";
 
             return msg;
         }
