@@ -36,27 +36,25 @@
             // listBox1
             // 
             this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 12;
-            this.listBox1.Location = new System.Drawing.Point(12, 106);
+            this.listBox1.Location = new System.Drawing.Point(12, 115);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(300, 328);
+            this.listBox1.Size = new System.Drawing.Size(300, 355);
             this.listBox1.TabIndex = 0;
             this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
             // listBox2
             // 
             this.listBox2.FormattingEnabled = true;
-            this.listBox2.ItemHeight = 12;
-            this.listBox2.Location = new System.Drawing.Point(395, 106);
+            this.listBox2.Location = new System.Drawing.Point(395, 115);
             this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(300, 328);
+            this.listBox2.Size = new System.Drawing.Size(300, 355);
             this.listBox2.TabIndex = 1;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(318, 225);
+            this.button1.Location = new System.Drawing.Point(318, 244);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.Size = new System.Drawing.Size(75, 25);
             this.button1.TabIndex = 2;
             this.button1.Text = "Revert";
             this.button1.UseVisualStyleBackColor = true;
@@ -64,9 +62,9 @@
             // 
             // Form2
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(707, 455);
+            this.ClientSize = new System.Drawing.Size(707, 493);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.listBox2);
             this.Controls.Add(this.listBox1);

@@ -121,12 +121,12 @@ namespace Server.Threads
                     Program.ServerForm.addtoConsole("Received Conn from "+ ((IPEndPoint)handler.RemoteEndPoint).Address.ToString());
                     if (varstop)
                     {
-                        
+                        Program.ServerForm.addtoConsole("Shutting down...");
                         //if (DialogResult.Yes == MessageBox.Show("Do you really want to shut down server? ", "Allow", MessageBoxButtons.YesNo))
                         //{
                             handler.Shutdown(SocketShutdown.Both);
                             handler.Close();
-                            Application.Exit();
+                            //Application.Exit();
                             break;
                         //}
                         //varstop = false;

@@ -17,16 +17,34 @@ namespace Client.SocketCommunication
         [MethodImpl(MethodImplOptions.Synchronized)]
         public string readfromSocket(Socket soc)
         {
-            byte[] tmp = new byte[1024];
-            soc.Receive(tmp);
-            string str = System.Text.Encoding.ASCII.GetString(tmp);
-            return str;
+            try
+            {
+                soc.ReceiveTimeout = 10000;
+                byte[] tmp = new byte[1024];
+                soc.Receive(tmp);
+                
+                string str = System.Text.Encoding.ASCII.GetString(tmp);
+                return str;
+            }
+            catch(SocketException e)
+            {
+                if (e.SocketErrorCode == SocketError.TimedOut)
+                {
+                    Program.ClientForm.addtoConsole("SocketException[Reading from Socket]: Timeout");
+                }
+                else
+                {
+                    Program.ClientForm.addtoConsole("SocketException[Reading from Socket]: " + e.Message);
+                }
+                return null;
+            }
         }
         //TBD socket writer function
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void writetoSocket(Socket soc, String message)
         {
             byte[] msg = Encoding.ASCII.GetBytes(message);
+            soc.SendTimeout = 10000;
             int bytesSent = soc.Send(msg);
         }
     }

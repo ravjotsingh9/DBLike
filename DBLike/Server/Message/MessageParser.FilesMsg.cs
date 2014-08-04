@@ -63,6 +63,7 @@ namespace Server.Message
             // String to DateTime
             DateTime MyDateTime = new DateTime();
             Program.ServerForm.addtoConsole("words[5]" + words[5]);
+            words[5].Replace("-", "/");
             MyDateTime = DateTime.ParseExact(words[5], "MM/dd/yyyy HH:mm:ss",
                                                 null);
 

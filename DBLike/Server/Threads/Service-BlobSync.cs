@@ -49,6 +49,7 @@ namespace Server.Threads
                 while (true)
                 {
                     sync();
+<<<<<<< HEAD
                     if (!blobsSync)
                     {
                         break;
@@ -56,6 +57,12 @@ namespace Server.Threads
                     stopSyncEvent.WaitOne(interval);
                    
                 }
+=======
+                    TimeSpan interval = new TimeSpan(0, 5, 0);
+                    Thread.Sleep(interval);
+                }
+                Program.ServerForm.shuttingDownComplete = true;
+>>>>>>> origin/master
 
             }
             catch (Exception e)

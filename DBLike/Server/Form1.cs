@@ -15,12 +15,33 @@ namespace Server
 {
     public partial class Form1 : Form
     {
+        public volatile bool shuttingDownComplete = false;
         static Threads.ServerConnListener Server = new Threads.ServerConnListener();
         static Threads.Service_BlobSync blobSync = new Threads.Service_BlobSync();
         static Thread syncingThread = new Thread(() => blobSync.start());
-
+        Thread waiting;
         delegate void addToConsole(string str);
+        /*
+        delegate bool Wait();
 
+        public bool initiateWait()
+        {
+            if (!this.IsHandleCreated)
+            {
+                this.CreateHandle();
+            }
+            Wait w = new Wait(Waiting);
+            return (bool)this.Invoke(w);
+        }
+        public bool Waiting()
+        {
+            if (shuttingDownComplete)
+            {
+                return false;
+            }
+            return true;
+        }
+        */
         public void addtoConsole(string str)
         {
             if (!this.IsHandleCreated)
@@ -41,7 +62,15 @@ namespace Server
             }
              */
             //console.ScrollToCaret();
-            console.AppendText(value + "\n" + Environment.NewLine + "> ");
+            //console.AppendText(value + "\n" + Environment.NewLine + "> ");
+            if (value.Equals("."))
+            {
+                console.AppendText(value + " ");
+            }
+            else
+            {
+                console.AppendText(value + "\n" + Environment.NewLine + "> ");
+            }
 
         }
 
@@ -69,18 +98,50 @@ namespace Server
 
         private void btnStop_Click(object sender, EventArgs e)
         {
+<<<<<<< HEAD
             //stop blob sync, wait sync thread to join to close the program
             Threads.Service_BlobSync.blobsSync = false;
             Threads.Service_BlobSync.stopSyncEvent.Set();
             //Wait server to complete blob storage synchronization, may take some time to close the program...
+=======
+
+            //Program.ServerForm.addtoConsole("Shutting Down...");
+            Server.stop();
+>>>>>>> origin/master
             if (syncingThread.IsAlive)
             {
-                syncingThread.Join();
+                //syncingThread.Join();
+                
+                //stop blob sync, wait sync thread to join to close the program
+                Threads.Service_BlobSync.blobsSync = false;
+                //Wait server to complete blob storage synchronization, may take some time to close the program...
+                btnStop.Enabled = false;
+                btnStop.ForeColor = Color.WhiteSmoke;
+                waiting = new Thread(wait);
+                waiting.Start();
             }
-            Server.stop();
-            btnStart.Enabled = true;
-            btnStop.Enabled = false;
+
+            else
+            {
+                btnStop.Enabled = false;
+                btnStop.ForeColor = Color.WhiteSmoke;
+                //btnStart.Enabled = true;
+            }
+            
+            //btnStart.Enabled = true;
         }
+
+        public void wait()
+        {
+            while (!shuttingDownComplete)
+            {
+                Program.ServerForm.addtoConsole(".");
+                Thread.Sleep(1000);
+            }
+            Application.Exit();
+            //Thread.CurrentThread.Abort();
+        }
+
 
         private void Form1_Load(object sender, EventArgs e)
         {

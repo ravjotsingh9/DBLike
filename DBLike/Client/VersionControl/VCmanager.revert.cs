@@ -35,12 +35,14 @@ namespace Client.VersionControl
                     blobRef.Metadata["timestamp"] = timestamp.ToUniversalTime().ToString("MM/dd/yyyy HH:mm:ss");              
                     blobRef.SetMetadata();
                     blobRef.CreateSnapshot();
-                    System.Windows.Forms.MessageBox.Show("revert success");
+                    //System.Windows.Forms.MessageBox.Show("revert success");
+                    Program.ClientForm.addtoConsole("Successfully Reverted");
                 }
             }
             catch (Exception e)
             {
-                System.Windows.Forms.MessageBox.Show(e.ToString());
+                Program.ClientForm.addtoConsole("Exception:" + e.Message);
+                //System.Windows.Forms.MessageBox.Show(e.ToString());
             }
 
         }
