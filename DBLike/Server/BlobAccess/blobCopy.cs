@@ -7,6 +7,7 @@ using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Auth;
 using Microsoft.WindowsAzure.Storage.Blob;
 using Server.ConnectionManager;
+using Server.Threads;
 
 namespace Server.BlobAccess
 {
@@ -15,7 +16,11 @@ namespace Server.BlobAccess
 
         public void startCopyBlob()
         {
-
+            if (!Service_BlobSync.blobsSync)
+            {
+                return;
+            }
+            
             BlobConn conn = new BlobConn();
             var srcBlobClient = conn.BlobConnect();
             if (conn.currentBlob == 1)
@@ -50,6 +55,11 @@ namespace Server.BlobAccess
 
         private void Copy(CloudBlobClient srcBlobClient, CloudBlobClient dstBlobClient)
         {
+            if (!Service_BlobSync.blobsSync)
+            {
+                return;
+            }
+            
             foreach (var srcCloudBlobContainer in srcBlobClient.ListContainers())
             {
                 if (srcCloudBlobContainer.Name != "vhds")

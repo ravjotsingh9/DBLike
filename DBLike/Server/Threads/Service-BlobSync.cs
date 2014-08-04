@@ -14,12 +14,22 @@ namespace Server.Threads
     class Service_BlobSync
     {
         private static bool responForSync = false;
+        private static bool m_blobsSync = false;
+        public static bool blobsSync
+        { 
+            get 
+            { 
+                return m_blobsSync;
+            }
+            set 
+            { 
+                m_blobsSync = value; 
+            }
+        }
         static Thread thread;
         public void start()
         {
-            //TBD
-            thread = new Thread(() => threadStartFun());
-            thread.Start();
+           threadStartFun();
         }
         public void stop()
         {
@@ -30,11 +40,10 @@ namespace Server.Threads
         {
             try
             {
-
-                while (true)
+                while (blobsSync)
                 {
                     sync();
-                    TimeSpan interval = new TimeSpan(0, 1, 0);
+                    TimeSpan interval = new TimeSpan(0, 5, 0);
                     Thread.Sleep(interval);
                 }
 
@@ -52,9 +61,19 @@ namespace Server.Threads
 
        private void sync()
         {
-            try
+            if (!blobsSync)
+            {
+                return;
+            } 
+           
+           try
             {
                 String strHostName = Dns.GetHostName();
+
+                //**** Need to delete if not local testing**//
+                //responForSync = true;
+                //**** Need to delete if not local testing***//
+                
                 if (strHostName == "group3525")
                 {
                     responForSync = true;
@@ -91,6 +110,10 @@ namespace Server.Threads
 
                 if (responForSync)
                 {
+                    if (!blobsSync)
+                    {
+                        return;
+                    }
                     Console.WriteLine("i am responsible ");
                     // blob sync class;
                     blobCopy blobcopy = new blobCopy();
@@ -110,6 +133,11 @@ namespace Server.Threads
 
         private bool pingFunction(string domainName)
         {
+            if (!blobsSync)
+            {
+                //System.Windows.Forms.MessageBox.Show("blobsSync");
+                return false;
+            }
             Socket sender = null;
             try
             {
