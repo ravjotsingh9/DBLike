@@ -16,18 +16,18 @@ namespace Client.VersionControl
 
             try
             {
-                   
-
-
-                    
+                                       
                     blobRef.StartCopyFromBlob(snapshot);
                     DateTime timestamp = DateTime.Now;
                     blobRef.FetchAttributes();
+                    snapshot.FetchAttributes();
+                    string time = snapshot.Metadata["timestamp"];
                     blobRef.Metadata["timestamp"] = timestamp.ToUniversalTime().ToString("MM/dd/yyyy HH:mm:ss");              
                     blobRef.SetMetadata();
                     blobRef.CreateSnapshot();
                     //System.Windows.Forms.MessageBox.Show("revert success");
-                    Program.ClientForm.addtoConsole("Successfully Reverted");
+
+                    Program.ClientForm.addtoConsole("Successfully Reverted with time: " + time);
                 
             }
             catch (Exception e)
