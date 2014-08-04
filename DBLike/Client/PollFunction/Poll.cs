@@ -176,7 +176,6 @@ namespace Client.PollFunction
                         {
                             System.IO.File.Delete(file);
                             Console.WriteLine("Delete file:" + file);
-                            System.Windows.Forms.MessageBox.Show("delete success");
                         }
                         else
                         {
