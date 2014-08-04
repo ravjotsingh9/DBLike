@@ -64,6 +64,7 @@ namespace Client
             btnSignintb1.Enabled = true;
             txtUserNametb1.Enabled = true;
             txtPasstb1.Enabled = true;
+            vcbtn.Enabled = false;
         }
 
         public void addtoConsole(string str)
@@ -113,6 +114,7 @@ namespace Client
             btnSignintb1.Text = "Sign in";
             button2.Enabled = true;
             groupBox2.Enabled = false;
+            vcbtn.Enabled = true;
         }
 
         public void signinfail()
@@ -130,6 +132,7 @@ namespace Client
             btnSignintb1.Enabled = true;
             btnSignintb1.Text = "Sign in";
             button2.Enabled = false;
+            vcbtn.Enabled = false;
         }
 
 

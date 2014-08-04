@@ -88,13 +88,15 @@ namespace Client.Threads
         // Define the event handlers. 
         private static void OnChanged(object source, FileSystemEventArgs e)
         {
-            Program.ClientForm.addtoConsole("Event triggered:" + e.ChangeType);
-            Program.ClientForm.addtoConsole("Event triggered on:" + e.FullPath);
             if (Configuration.flag.polling == true)
             {
                 return;
             }
             string eventType;
+            
+            Program.ClientForm.addtoConsole("Event triggered:" + e.ChangeType);
+            Program.ClientForm.addtoConsole("Event triggered on:" + e.FullPath);
+
             /*
             if (onchnageToggler==true)
             {
@@ -206,12 +208,14 @@ namespace Client.Threads
         // Define the event handlers. 
         private static void OnDeleted(object source, FileSystemEventArgs e)
         {
-            Program.ClientForm.addtoConsole("Event triggered:" + e.ChangeType);
-            Program.ClientForm.addtoConsole("Event triggered on:" + e.FullPath);
             if (Configuration.flag.polling == true)
             {
                 return;
             }
+            
+            Program.ClientForm.addtoConsole("Event triggered:" + e.ChangeType);
+            Program.ClientForm.addtoConsole("Event triggered on:" + e.FullPath);
+
             
             //MessageBox.Show("OnDeleted Event Raised", "Client");
             //MessageBox.Show("File: " + e.FullPath + " " + e.ChangeType);

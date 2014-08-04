@@ -30,6 +30,11 @@ namespace Client.VersionControl
                 else
                 {
                     blobRef.StartCopyFromBlob(snapshot);
+                    DateTime timestamp = DateTime.Now;
+                    blobRef.FetchAttributes();
+                    blobRef.Metadata["timestamp"] = timestamp.ToUniversalTime().ToString("MM/dd/yyyy HH:mm:ss");              
+                    blobRef.SetMetadata();
+                    blobRef.CreateSnapshot();
                     System.Windows.Forms.MessageBox.Show("revert success");
                 }
             }
@@ -71,6 +76,7 @@ namespace Client.VersionControl
                         tempSnamshotsName.Add(name);
                         blobset.snapShotList = tempSnapshots;
                         blobset.snapShotNames = tempSnamshotsName;
+                        j++;
                     }
                     //snapshots.ForEach(item => Console.WriteLine(String.Format("{0} {1} ", ((CloudBlockBlob)item).Name, ((CloudBlockBlob)item).Metadata["timestamp"])));
                 }

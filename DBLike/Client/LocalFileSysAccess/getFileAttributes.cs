@@ -19,38 +19,46 @@ namespace Client.LocalFileSysAccess
         [MethodImpl(MethodImplOptions.Synchronized)]
         public getFileAttributes(string filePath)
         {
-            FileAttributes attr = File.GetAttributes(filePath);
-
-            //detect whether its a directory or file
-            if ((attr & FileAttributes.Directory) == FileAttributes.Directory)
+            try
             {
-                isDirectory = true;
-                lastModified = System.IO.File.GetLastWriteTime(filePath);
-                md5Value = "isDirectory";
-                //System.IO.File.WriteAllText("datttt.txt", lastModified.ToString("MM/dd/yyyy HH:mm:ss"));
+                FileAttributes attr = File.GetAttributes(filePath);
+
+                //detect whether its a directory or file
+                if ((attr & FileAttributes.Directory) == FileAttributes.Directory)
+                {
+                    isDirectory = true;
+                    lastModified = System.IO.File.GetLastWriteTime(filePath);
+                    md5Value = "isDirectory";
+                    //System.IO.File.WriteAllText("datttt.txt", lastModified.ToString("MM/dd/yyyy HH:mm:ss"));
+                }
+                else
+                {
+                    isDirectory = false;
+                    getTimeStamp(filePath);
+                    getFileMD5Value(filePath);
+
+                }
             }
-            else
+            catch (Exception e)
             {
-                isDirectory = false;
-                getTimeStamp(filePath);
-                getFileMD5Value(filePath);
+                Program.ClientForm.addtoConsole("Client.LocalFileSysAccess.getFileAttributes\n" + e.Message);
+            }
 
-            }       
- 
         }
         [MethodImpl(MethodImplOptions.Synchronized)]
-        private void getTimeStamp(string filePath){
-            
+        private void getTimeStamp(string filePath)
+        {
+
             // to UTC time
             // otherwise it's local time
             lastModified = System.IO.File.GetLastWriteTime(filePath).ToUniversalTime();
-            
+
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
         private void getFileMD5Value(string filePath)
         {
-           
+
             MD5 md5Hasher = MD5.Create();
             StringBuilder sb = new StringBuilder();
 

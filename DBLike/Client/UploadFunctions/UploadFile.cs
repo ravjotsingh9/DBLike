@@ -51,6 +51,7 @@ namespace Client.UploadFunctions
                     blob.Metadata["filePath"] = filePathInSyncFolder;
                     //blob.Metadata["Deleted"] = "false";
                     blob.SetMetadata();
+                    blob.CreateSnapshot();
 
                 }
 

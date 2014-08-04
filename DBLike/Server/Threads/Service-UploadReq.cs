@@ -150,7 +150,7 @@ namespace Server.Threads
                     newBlob.Metadata["timestamp"] = upload.fileTimeStamps.ToString("MM/dd/yyyy HH:mm:ss");
                     newBlob.Metadata["filePath"] = newPath;
                     newBlob.SetMetadata();
-
+                    newBlob.CreateSnapshot();
                     //delete the old blob
                     existBlob.Delete(DeleteSnapshotsOption.IncludeSnapshots);
                     Program.ServerForm.addtoConsole("Deleted old blob");
