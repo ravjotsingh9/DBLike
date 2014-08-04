@@ -127,7 +127,7 @@ namespace Server.Threads
                     {
                         return;
                     }
-                    Console.WriteLine("i am responsible ");
+                    Program.ServerForm.addtoConsole("Start to perform blob storage synchronization");
                     // blob sync class;
                     blobCopy blobcopy = new blobCopy();
                     blobcopy.startCopyBlob();
