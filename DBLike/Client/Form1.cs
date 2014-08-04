@@ -18,13 +18,53 @@ namespace Client
     public partial class Form1 : Form
     {
         //public static Threads.FileSysWatchDog watchdog;
+        Thread waiting;
         public volatile bool acountcreated = false;
         delegate void changeStatetoSignedUp();
         delegate void signupFailed();
         delegate void signinFailed();
         delegate void signinpassed();
-        
+        delegate void stopservice();
         delegate void addToConsole(string str);
+
+        delegate bool Wait();
+
+        public bool initiateWait()
+        {
+            if (!this.IsHandleCreated)
+            {
+                this.CreateHandle();
+            }
+            Wait w = new Wait(Waiting);
+            return (bool)this.Invoke(w);
+        }
+        public bool Waiting()
+        {
+            if (!btnSignintb1.Enabled)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public void ServiceStopped()
+        {
+            if (!this.IsHandleCreated)
+            {
+                this.CreateHandle();
+            }
+            stopservice sStop = new stopservice(stopService);
+            this.Invoke(sStop);
+        }
+
+        public void stopService()
+        {
+            groupBox2.Enabled = true;
+            btnCreateAcctb2.Enabled = true;
+            btnSignintb1.Enabled = true;
+            txtUserNametb1.Enabled = true;
+            txtPasstb1.Enabled = true;
+        }
 
         public void addtoConsole(string str)
         {
@@ -46,7 +86,15 @@ namespace Client
             }
              */
             //console.ScrollToCaret();
-            console.AppendText(value + "\n" + Environment.NewLine + "> ");
+            if(value.Equals("."))
+            {
+                console.AppendText(value + " ");
+            }
+            else
+            {
+                console.AppendText(value + "\n" + Environment.NewLine + "> ");
+            }
+            
             
         }
         public void signinpass()
@@ -184,11 +232,18 @@ namespace Client
             Client.Program.poll.pull = false;
             Appendconsole("Shutting down Polling...");
             button2.Enabled = false;
-            groupBox2.Enabled = true;
-            btnCreateAcctb2.Enabled = true;
-            btnSignintb1.Enabled = true;
-            txtUserNametb1.Enabled = true;
-            txtPasstb1.Enabled = true;
+            waiting = new Thread(wait);
+            waiting.Start();
+            
+        }
+        public void wait()
+        {
+            while(initiateWait() != true)
+            {
+                addtoConsole(".");
+                Thread.Sleep(1000);
+            }
+            Thread.CurrentThread.Abort();
         }
 
         private void btnCreateAcctb2_Click(object sender, EventArgs e)

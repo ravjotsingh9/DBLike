@@ -24,6 +24,7 @@ namespace Server.Threads
         }
         private void threadStartFun(Socket soc, string req)
         {
+            Program.ServerForm.addtoConsole("Sign In thread Started");
             Message.MessageParser parser = new Message.MessageParser();
             MessageClasses.MsgSignIn.req reqobj = new MessageClasses.MsgSignIn.req();
             reqobj = parser.signInParseReq(req);
@@ -33,6 +34,7 @@ namespace Server.Threads
             UserAuth.SignInFunctions userauth = new UserAuth.SignInFunctions();
             if(userauth.userAuthentication(reqobj.userName,reqobj.psw)==true)
             {
+                Program.ServerForm.addtoConsole("User Exists");
                 MessageClasses.MsgSignIn.resp resp = new MessageClasses.MsgSignIn.resp();
                 resp.ack = "OK";
                 resp.addiMsg = "EXISTING";
@@ -40,9 +42,11 @@ namespace Server.Threads
                 string res = msg.signInResp(resp);
                 SocketCommunication.ReaderWriter rw = new SocketCommunication.ReaderWriter();
                 rw.writetoSocket(soc, res);
+                Program.ServerForm.addtoConsole("Wrote Respose to scoket");
             }
             else
             {
+                Program.ServerForm.addtoConsole("User Does Not Exist");
                 MessageClasses.MsgSignIn.resp resp = new MessageClasses.MsgSignIn.resp();
                 resp.ack = "ERRORS";
                 resp.addiMsg = "NON-EXISTING";
@@ -50,8 +54,10 @@ namespace Server.Threads
                 string res = msg.signInResp(resp);
                 SocketCommunication.ReaderWriter rw = new SocketCommunication.ReaderWriter();
                 rw.writetoSocket(soc, res);
-                Thread.CurrentThread.Abort();
+                Program.ServerForm.addtoConsole("Wrote Response to socket. Exiting");
+                
             }
+            Thread.CurrentThread.Abort();
         }
     }
 }

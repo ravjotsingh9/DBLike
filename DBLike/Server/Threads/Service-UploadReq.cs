@@ -27,6 +27,7 @@ namespace Server.Threads
         {
             try
             {
+                Program.ServerForm.addtoConsole("Service Upload thread Started");
                 //System.Windows.Forms.MessageBox.Show("uploader started:" + req, "Server");
                 //get the msg parse it
                 Server.Message.MessageParser parse = new Server.Message.MessageParser();
@@ -41,7 +42,7 @@ namespace Server.Threads
 
                 if (upload.addInfo == "create" || upload.addInfo == "change" || upload.addInfo == "signUpStart")
                 {
-
+                    Program.ServerForm.addtoConsole("Event to trigger the request:" + upload.addInfo);
                     Blob blob = new Blob(blobClient, upload.userName, upload.filePathInSynFolder, upload.fileHashValue, upload.fileTimeStamps);
 
                     //6 Server Generate sas container/blob for the client. For basic upload, this case just generate container sas
@@ -50,6 +51,7 @@ namespace Server.Threads
                     CloudBlobContainer container = blob.container;
                     string containerSAS = new Server.ConnectionManager.GenerateSAS().GetContainerSasUri(container, "RWLD");
                     Console.WriteLine("container sas uri: {0}", containerSAS);
+                    Program.ServerForm.addtoConsole("SAS uri created");
 
                     //7 send upload msg back to client
                     Server.Message.CreateMsg resp = new Server.Message.CreateMsg();
@@ -83,6 +85,7 @@ namespace Server.Threads
                     // write to socket
                     rw.writetoSocket(soc, respMsg);
                     //System.Windows.Forms.MessageBox.Show("uploader write:" + respMsg, "Server");
+                    Program.ServerForm.addtoConsole("Wrote response to scoket");
 
                 }
 
@@ -118,6 +121,7 @@ namespace Server.Threads
                             //*** <<disabling deletion>>
                             UploadFunctions.DeleteFile del = new UploadFunctions.DeleteFile();
                             del.deleteAll(container, upload.filePathInSynFolder);
+                            Program.ServerForm.addtoConsole("Deleted");
                             //***/
                         }
                     }
@@ -141,7 +145,7 @@ namespace Server.Threads
                     CloudBlockBlob newBlob = container.GetBlockBlobReference(newPath);
                     //copy from the old blob
                     newBlob.StartCopyFromBlob(existBlob);
-
+                    Program.ServerForm.addtoConsole("Created new blob");
                     newBlob.Metadata["hashValue"] = upload.fileHashValue;
                     newBlob.Metadata["timestamp"] = upload.fileTimeStamps.ToString("MM/dd/yyyy HH:mm:ss");
                     newBlob.Metadata["filePath"] = newPath;
@@ -149,17 +153,20 @@ namespace Server.Threads
 
                     //delete the old blob
                     existBlob.Delete(DeleteSnapshotsOption.IncludeSnapshots);
+                    Program.ServerForm.addtoConsole("Deleted old blob");
                 }
 
 
             }
             catch (Exception e)
             {
-                System.Windows.Forms.MessageBox.Show(e.ToString());
+                Program.ServerForm.addtoConsole("Exception [UploadReq]:"+ e.Message);
+                //System.Windows.Forms.MessageBox.Show(e.ToString());
                 //System.IO.File.WriteAllText("bug.txt", e.ToString());
             }
             finally
             {
+                Program.ServerForm.addtoConsole("Exiting");
                 Thread.CurrentThread.Abort();
             }
         }

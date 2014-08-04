@@ -22,12 +22,13 @@ namespace Server.Threads
 
         public void stop()
         {
+
         //    stopListening();
             //ServerMainthread.Abort();
             if (ServerMainthread.IsAlive == true)
             {
                 // Establish the remote endpoint for the socket.
-
+                Program.ServerForm.addtoConsole("Shutting down the server");
                 IPHostEntry ipHostInfo = Dns.Resolve(Dns.GetHostName());
                 IPAddress ipAddress = ipHostInfo.AddressList[0];
                 IPEndPoint remoteEP = new IPEndPoint(ipAddress, 11000);
@@ -44,6 +45,7 @@ namespace Server.Threads
                 }
                 catch (Exception ex)
                 {
+                    Program.ServerForm.addtoConsole("Exception:" + ex.Message);
                     System.Windows.Forms.MessageBox.Show(ex.Message);
                 }
                 snder.Shutdown(SocketShutdown.Both);
@@ -66,8 +68,8 @@ namespace Server.Threads
         {
             //System.Windows.Forms.MessageBox.Show("Servermainthread started", "Server");
 
-            
-            
+
+            Program.ServerForm.addtoConsole("Starting Server...");
             //**************setting to connect to local server **********************
             IPHostEntry ipHostInfo = Dns.Resolve(Dns.GetHostName());
             IPAddress ipAddress = ipHostInfo.AddressList[0];
@@ -111,9 +113,12 @@ namespace Server.Threads
             {
                 listener.Bind(localEndPoint);
                 listener.Listen(10);
+                Program.ServerForm.addtoConsole("Server started");
                 while(true)
                 {
+                    Program.ServerForm.addtoConsole("Listening...");
                     handler = listener.Accept();
+                    Program.ServerForm.addtoConsole("Received Conn from "+ ((IPEndPoint)handler.RemoteEndPoint).Address.ToString());
                     if (varstop)
                     {
                         
@@ -141,6 +146,7 @@ namespace Server.Threads
                         case "SIGNUP":
                             {
                                 //System.Windows.Forms.MessageBox.Show("Switch signUp", "Server");
+                                Program.ServerForm.addtoConsole("Request Type:" + reqtype);
                                 Threads.ServiceSignUpReq obj = new ServiceSignUpReq();
                                 obj.start(handler, req);
                                 break;
@@ -148,6 +154,7 @@ namespace Server.Threads
 
                         case "SIGNIN":
                             {
+                                Program.ServerForm.addtoConsole("Request Type:" + reqtype);
                                 ServiceSignInReq obj = new ServiceSignInReq();
                                 obj.start(handler, req);
                                 break;
@@ -155,6 +162,7 @@ namespace Server.Threads
 
                         case "POLL":
                             {
+                                Program.ServerForm.addtoConsole("Request Type:" + reqtype);
                                 ServicePollReq obj = new ServicePollReq();
                                 obj.start(handler, req);
                                 break;
@@ -162,6 +170,7 @@ namespace Server.Threads
 
                         case "UPLOAD":
                             {
+                                Program.ServerForm.addtoConsole("Request Type:" + reqtype);
                                 //System.Windows.Forms.MessageBox.Show("Switch Upload", "Server");
                                 ServiceUploadReq obj = new ServiceUploadReq();
                                 obj.start(handler, req);
@@ -171,6 +180,7 @@ namespace Server.Threads
 
                         case "DOWNLOAD":
                             {
+                                Program.ServerForm.addtoConsole("Request Type:" + reqtype);
                                 ServiceDownloadReq obj = new ServiceDownloadReq();
                                 obj.start(handler, req);
                                 break;
@@ -178,6 +188,7 @@ namespace Server.Threads
 
                         case "NOTIFICATION":
                             {
+                                Program.ServerForm.addtoConsole("Request Type:" + reqtype);
                                 Service_Notification obj = new Service_Notification();
                                 obj.start(handler, req);
                                 break;

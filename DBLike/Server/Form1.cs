@@ -16,12 +16,39 @@ namespace Server
     {
         static Threads.ServerConnListener Server = new Threads.ServerConnListener();
         static Threads.Service_BlobSync blobSync = new Threads.Service_BlobSync();
-        
+
+        delegate void addToConsole(string str);
+
+        public void addtoConsole(string str)
+        {
+            if (!this.IsHandleCreated)
+            {
+                this.CreateHandle();
+            }
+            addToConsole app = new addToConsole(Appendconsole);
+            this.Invoke(app, (object)str);
+        }
+
+        public void Appendconsole(string value)
+        {
+            /*
+            if (InvokeRequired)
+            {
+                this.Invoke(new Action<string>(Appendconsole), new object[] { value });
+                return;
+            }
+             */
+            //console.ScrollToCaret();
+            console.AppendText(value + "\n" + Environment.NewLine + "> ");
+
+        }
+
         public Form1()
         {
             InitializeComponent();
             btnStart.Enabled = true;
             //btnStop.Enabled = false;
+            addtoConsole(" Initialized");
         }
 
         public void btnStart_Click(object sender, EventArgs e)
@@ -30,6 +57,7 @@ namespace Server
             Server.start();
             lblServerStatus.Text = "Running";
             btnStart.Enabled = false;
+            btnStart.ForeColor = Color.WhiteSmoke;
             btnStop.Enabled = true;
             
             //start blob sync
