@@ -219,8 +219,8 @@ namespace Client.Threads
                             }
 
                             new Client.UploadFunctions.UploadFile().UploadFileWithContainerUri(reup.fileContainerUri, fullpathOfChnagedFile, reup.filePathInSynFolder, md5r, time, eventType);
-                            System.Windows.Forms.MessageBox.Show(string.Format("Uploaded! \n event type: {0} \n Path: {1}", tempEType, fullpathOfChnagedFile), "DBLike Client");
-
+                            //System.Windows.Forms.MessageBox.Show(string.Format("Uploaded! \n event type: {0} \n Path: {1}", tempEType, fullpathOfChnagedFile), "DBLike Client");
+                            Program.ClientForm.addtoConsole(string.Format("Uploaded! \n event type: {0} \n Path: {1}", tempEType, fullpathOfChnagedFile));
                             // update file list
                             Client.LocalFileSysAccess.FileListMaintain updateFileList = new Client.LocalFileSysAccess.FileListMaintain();
                             updateFileList.updateSingleFileToFileList(fullpathOfChnagedFile, time, md5r);
@@ -235,7 +235,7 @@ namespace Client.Threads
                     }
                     else
                     {
-                        Program.ClientForm.addtoConsole("Response from server is null");
+                        Program.ClientForm.addtoConsole("Error : <<Response from server is null>>");
                     }
                 }
 
@@ -369,7 +369,7 @@ namespace Client.Threads
 
                 }
                 Program.ClientForm.addtoConsole("Exception Occured:" + ex.ToString());
-                System.Windows.Forms.MessageBox.Show(ex.ToString(), "Client");
+                //System.Windows.Forms.MessageBox.Show(ex.ToString(), "Client");
                 //System.IO.File.WriteAllText("errors.txt", e.ToString());
             }
             finally

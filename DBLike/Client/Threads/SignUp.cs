@@ -46,9 +46,10 @@ namespace Client.Threads
             sender = conn.connect(serverIP, port);
             if(sender == null)
             {
-                Program.ClientForm.addtoConsole("Could not connect to server");
-                System.Windows.Forms.MessageBox.Show("Could not connect to server.Please check if Server is Running.", "DBLike Client");
+                Program.ClientForm.addtoConsole("Error : <<Could not connect to server. May be Server is not Running>>");
+                //System.Windows.Forms.MessageBox.Show("Could not connect to server.Please check if Server is Running.", "DBLike Client");
                 Program.ClientForm.addtoConsole("Exiting");
+                Program.ClientForm.signUpfailed();
                 Thread.CurrentThread.Abort();
             }
             //call  SocketCommunication.ReaderWriter.write(byte[] msg) to write msg on socket
@@ -78,9 +79,10 @@ namespace Client.Threads
                 Message.MessageParser msgparser = new Message.MessageParser();
                 if (msgobj.ack.Equals("ERRORS"))
                 {
-                    Program.ClientForm.addtoConsole("Error:" + msgobj.addiMsg);
-                    System.Windows.Forms.MessageBox.Show("Some error occured!Please try again.", "Error Occured");
+                    Program.ClientForm.addtoConsole("Error :" +"<<"+ msgobj.addiMsg +">>");
+                    //System.Windows.Forms.MessageBox.Show("Some error occured!Please try again.", "Error Occured");
                     Program.ClientForm.addtoConsole("Exiting");
+                    Program.ClientForm.signUpfailed();
                     Thread.CurrentThread.Abort();
                 }
                 else
@@ -95,9 +97,10 @@ namespace Client.Threads
                     LocalDbAccess.LocalDB file = new LocalDbAccess.LocalDB();
                     if (false == file.writetofile(username, password, sysncpath))
                     {
-                        Program.ClientForm.addtoConsole("Unable to access config file");
-                        System.Windows.Forms.MessageBox.Show("Unable to access dblike file.", "Error Occured");
+                        Program.ClientForm.addtoConsole("Error : <<Unable to access config file. Please try Sign In>>");
+                        //System.Windows.Forms.MessageBox.Show("Unable to access dblike file. Please try Sign In.", "Error Occured");
                         Program.ClientForm.addtoConsole("Exiting");
+                        Program.ClientForm.signUpfailed();
                         Thread.CurrentThread.Abort();
                     }
                     else
@@ -107,9 +110,10 @@ namespace Client.Threads
                         bool result = file.writetofile(username, password, sysncpath);
                         if (result == false)
                         {
-                            Program.ClientForm.addtoConsole("Unable to access config file");
-                            System.Windows.Forms.MessageBox.Show("Unable to write on the file", "Unable to write on file");
+                            Program.ClientForm.addtoConsole("Error : <<Unable to access config file. Please try Sign In>>");
+                            //System.Windows.Forms.MessageBox.Show("Unable to write on the file. Please try Sign In.", "Unable to write on file");
                             Program.ClientForm.addtoConsole("Exiting");
+                            Program.ClientForm.signUpfailed();
                             Thread.CurrentThread.Abort();
                             //return;
                         }
@@ -123,19 +127,20 @@ namespace Client.Threads
                         Client.LocalFileSysAccess.FileListMaintain fileMaintain = new Client.LocalFileSysAccess.FileListMaintain();
                         fileMaintain.scanAllFilesAttributes();
 
+                        Program.folderWatcher.start();
+                        Program.ClientForm.addtoConsole("File watcher Installed");
+
+                        Client.Program.poll.start();
+                        Program.ClientForm.addtoConsole("Poll thread started");
+                       
 
                         if (!Program.ClientForm.IsHandleCreated)
                         {
                             Program.ClientForm.CreateHandle();
                         }
                         //enable service controller
-                        Program.ClientForm.enableServiceController();
+                        Program.ClientForm.signUppassed();
 
-                        Program.folderWatcher.start();
-                        Program.ClientForm.addtoConsole("File watcher Installed");
-                        
-                        Client.Program.poll.start();
-                        Program.ClientForm.addtoConsole("Poll thread started");
                         /*
                         Threads.FileSysWatchDog watchdog = new FileSysWatchDog();
                         if (watchdog.start() == false)

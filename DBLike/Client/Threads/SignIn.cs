@@ -42,9 +42,9 @@ namespace Client.Threads
             //TBD
             if(username == "" || password == "")
             {
-                Program.ClientForm.addtoConsole("Username:" +username);
-                Program.ClientForm.addtoConsole("Password:" + password);
-                MessageBox.Show("Username and Password field cannot be empty", "DBLike Client Sign In");
+                Program.ClientForm.addtoConsole("Error : <<Username: \"" +username + "\" and Password: \"" +password + "\" >>" );
+                //Program.ClientForm.addtoConsole("Password:" + password);
+                //MessageBox.Show("Username and Password field cannot be empty", "DBLike Client Sign In");
                 if (!Program.ClientForm.IsHandleCreated)
                 {
                     Program.ClientForm.CreateHandle();
@@ -70,13 +70,13 @@ namespace Client.Threads
             sender = conn.connect(serverIP, port);
             if (sender == null)
             {
-                System.Windows.Forms.MessageBox.Show("Could not connect to server.Please check if Server is Running.", "DBLike Client");
+                //System.Windows.Forms.MessageBox.Show("Could not connect to server.Please check if Server is Running.", "DBLike Client");
                 if (!Program.ClientForm.IsHandleCreated)
                 {
                     Program.ClientForm.CreateHandle();
                 }
                 //enable service controller
-                Program.ClientForm.addtoConsole("Server not responding");
+                Program.ClientForm.addtoConsole("Error : <<Unable to connect to server>> ");
                 Program.ClientForm.signinfail();
                 Program.ClientForm.addtoConsole("Exiting");
                 Thread.CurrentThread.Abort();
@@ -95,7 +95,7 @@ namespace Client.Threads
             {
                 if(msgobj.getAck()=="ERRORS")
                 {
-                    Program.ClientForm.addtoConsole("Error:" + msgobj.getAddiMsg());
+                    Program.ClientForm.addtoConsole("Error : <<" + msgobj.getAddiMsg() + ">>");
                     System.Windows.Forms.MessageBox.Show("AUTHENTICATION FAILED", "User name or Password incorrect");
                     if (!Program.ClientForm.IsHandleCreated)
                     {
@@ -116,32 +116,42 @@ namespace Client.Threads
                     {
                         if (username != file.getUsername() || password != file.getPassword())
                         {
-                            System.Windows.Forms.MessageBox.Show("System is already configured for a dblike user."+ 
-                                "Now onwards,only the folder selected for this user will be synchronized.");
-                            string path = null;
-                            System.Windows.Forms.MessageBox.Show("Please select a path to download your folder from the server");
-                            var t = new Thread((ThreadStart)(() =>
-                            {
-                                FolderBrowserDialog folder = new FolderBrowserDialog();
-                                if (folder.ShowDialog() == DialogResult.OK)
-                                {
-                                    path = folder.SelectedPath;
-                                }
-                            }));
-                            t.IsBackground = true;
-                            t.SetApartmentState(ApartmentState.STA);
-                            t.Start();
-                            t.Join();
-                            //write to file
-                            file = new LocalDbAccess.LocalDB();
-                            file.writetofile(username, password, path);
 
-                            Program.ClientForm.addtoConsole("Wrote to Config file");
+                            if (DialogResult.Yes == System.Windows.Forms.MessageBox.Show("This System is already configured for a dblike user." +
+                                "Do you really want to reconfigure it for another user?", "DBLike Client", MessageBoxButtons.YesNo))
+                            {
+
+                                string path = null;
+                                System.Windows.Forms.MessageBox.Show("Please select a path to download your folder from the server");
+                                var t = new Thread((ThreadStart)(() =>
+                                {
+                                    FolderBrowserDialog folder = new FolderBrowserDialog();
+                                    if (folder.ShowDialog() == DialogResult.OK)
+                                    {
+                                        path = folder.SelectedPath;
+                                    }
+                                }));
+                                t.IsBackground = true;
+                                t.SetApartmentState(ApartmentState.STA);
+                                t.Start();
+                                t.Join();
+                                //write to file
+                                file = new LocalDbAccess.LocalDB();
+                                file.writetofile(username, password, path);
+
+                                Program.ClientForm.addtoConsole("Wrote to Config file");
+                            }
+                            else
+                            {
+                                Program.ClientForm.signinfail();
+                                Program.ClientForm.addtoConsole("Exiting");
+                                Thread.CurrentThread.Abort();
+                            }
                         }
                     }
                     else
                     {
-                        System.Windows.Forms.MessageBox.Show("Localdb doesnot exist.");
+                        //System.Windows.Forms.MessageBox.Show("Localdb doesnot exist.");
                         
                         string path = null;
                         System.Windows.Forms.MessageBox.Show("Please select a path to download your folder from the server");

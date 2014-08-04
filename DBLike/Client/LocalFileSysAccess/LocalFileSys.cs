@@ -20,7 +20,7 @@ namespace Client.LocalFileSysAccess
             //file.AcquireLease(TimeSpan.FromMilliseconds(16000), leaseId);
             Program.ClientForm.addtoConsole("Download started:" + fileFullPath);
             file.DownloadToFile(fileFullPath, FileMode.Create);
-            Program.ClientForm.addtoConsole("Downloaded");
+            Program.ClientForm.addtoConsole("Downloaded! File : " + fileFullPath);
             //file.ReleaseLease(AccessCondition.GenerateLeaseCondition(leaseId));
             File.SetLastWriteTime(fileFullPath, TimeZoneInfo.ConvertTimeFromUtc(timestamp, TimeZoneInfo.Local));
 

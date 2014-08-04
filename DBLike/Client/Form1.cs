@@ -64,12 +64,28 @@ namespace Client
 
         public void stopService()
         {
+            /*
             groupBox2.Enabled = true;
             btnCreateAcctb2.Enabled = true;
             btnSignintb1.Enabled = true;
             txtUserNametb1.Enabled = true;
             txtPasstb1.Enabled = true;
             vcbtn.Enabled = false;
+             */
+            btnCreateAcctb2.Enabled = true;
+            btnCreateAcctb2.Text = "Create Account";
+            txtUserNametb1.Enabled = true;
+            txtPasstb1.Enabled = true;
+            btnSignintb1.Enabled = true;
+            btnSignintb1.Text = "Sign In";
+            button2.Enabled = false;
+            button2.Text = "Sign Off";
+            vcbtn.Enabled = false;
+            vcbtn.Text = "Version Control";
+            txtusernametb2.Enabled = true;
+            txtpasstb2.Enabled = true;
+            txtfoldertb2.Enabled = true;
+            btnBrowsetb2.Enabled = true;
         }
 
         public void addtoConsole(string str)
@@ -115,11 +131,27 @@ namespace Client
 
         public void signInpassed()
         {
+            /*
             btnSignintb1.Enabled = false;
             btnSignintb1.Text = "Sign in";
             button2.Enabled = true;
             groupBox2.Enabled = false;
             vcbtn.Enabled = true;
+             */
+            btnCreateAcctb2.Enabled = false;
+            btnCreateAcctb2.Text = "Create Account";
+            txtUserNametb1.Enabled = false;
+            txtPasstb1.Enabled = false;
+            btnSignintb1.Enabled = false;
+            btnSignintb1.Text = "Sign In";
+            button2.Enabled = true;
+            button2.Text = "Sign Off";
+            vcbtn.Enabled = true;
+            vcbtn.Text = "Version Control";
+            txtusernametb2.Enabled = false;
+            txtpasstb2.Enabled = false;
+            txtfoldertb2.Enabled = false;
+            btnBrowsetb2.Enabled = false;
         }
 
         public void signinfail()
@@ -134,10 +166,26 @@ namespace Client
         public void signInfailed()
         {
             //pictureBox1.Visible = false;
+            /*
             btnSignintb1.Enabled = true;
             btnSignintb1.Text = "Sign in";
             button2.Enabled = false;
             vcbtn.Enabled = false;
+             */
+            btnCreateAcctb2.Enabled = true;
+            btnCreateAcctb2.Text = "Create Account";
+            txtUserNametb1.Enabled = true;
+            txtPasstb1.Enabled = true;
+            btnSignintb1.Enabled = true;
+            btnSignintb1.Text = "Sign In";
+            button2.Enabled = false;
+            button2.Text = "Sign Off";
+            vcbtn.Enabled = false;
+            vcbtn.Text = "Version Control";
+            txtusernametb2.Enabled = true;
+            txtpasstb2.Enabled = true;
+            txtfoldertb2.Enabled = true;
+            btnBrowsetb2.Enabled = true;
         }
 
 
@@ -152,14 +200,30 @@ namespace Client
         }
         public void signUpfailed()
         {
+            /*
             //pictureBox1.Visible = false;
             btnCreateAcctb2.Enabled = true;
             btnCreateAcctb2.Text = "Create Account";
             button2.Enabled = false;
             vcbtn.Enabled = false;
+            */
+            btnCreateAcctb2.Enabled = true;
+            btnCreateAcctb2.Text = "Create Account";
+            txtUserNametb1.Enabled = true;
+            txtPasstb1.Enabled = true;
+            btnSignintb1.Enabled = true;
+            btnSignintb1.Text = "Sign In";
+            button2.Enabled = false;
+            button2.Text = "Sign Off";
+            vcbtn.Enabled = false;
+            vcbtn.Text = "Version Control";
+            txtusernametb2.Enabled = true;
+            txtpasstb2.Enabled = true;
+            txtfoldertb2.Enabled = true;
+            btnBrowsetb2.Enabled = true;
         }
 
-        public void enableServiceController()
+        public void signUppassed()
         {
             if (!this.IsHandleCreated)
             {
@@ -172,24 +236,37 @@ namespace Client
         {
             acountcreated = true;
             //groupBox1.Enabled = true;
-
+            //btnCreateAcctb2.Text = "Create Account";
             //disable start button inside it
             //button1.Enabled = false;
-            btnSignintb1.Enabled = false;
-            txtUserNametb1.Enabled = false;
-            txtPasstb1.Enabled = false;
-            button2.Enabled = true;
-            vcbtn.Enabled = true;
+            //btnSignintb1.Enabled = false;
+            //txtUserNametb1.Enabled = false;
+            //txtPasstb1.Enabled = false;
+            //button2.Enabled = true;
+            //vcbtn.Enabled = true;
             ////disable create account 
-            groupBox2.Enabled = false;
+            //groupBox2.Enabled = false;
 
             //disable create Account
-            btnCreateAcctb2.Enabled = false;
-            btnCreateAcctb2.Text = "Create Account";
+            //btnCreateAcctb2.Enabled = false;
+            //btnCreateAcctb2.Text = "Create Account";
             //shift tosign in tab
             
             //tabControl1.SelectedIndex = 1;
-
+            btnCreateAcctb2.Enabled = false;
+            btnCreateAcctb2.Text = "Create Account";
+            txtUserNametb1.Enabled = false;
+            txtPasstb1.Enabled = false;
+            btnSignintb1.Enabled = false;
+            btnSignintb1.Text = "Sign In";
+            button2.Enabled = true;
+            button2.Text = "Sign Off";
+            vcbtn.Enabled = true;
+            vcbtn.Text = "Version Control";
+            txtusernametb2.Enabled = false;
+            txtpasstb2.Enabled = false;
+            txtfoldertb2.Enabled = false;
+            btnBrowsetb2.Enabled = false;
         }
 
 
@@ -327,6 +404,23 @@ namespace Client
         */
         private void button2_Click(object sender, EventArgs e)
         {
+
+            btnCreateAcctb2.Enabled = false;
+            btnCreateAcctb2.Text = "Create Account";
+            txtUserNametb1.Enabled = true;
+            txtPasstb1.Enabled = true;
+            btnSignintb1.Enabled = false;
+            btnSignintb1.Text = "Sign In";
+            button2.Enabled = false;
+            button2.Text = "Processing...";
+            vcbtn.Enabled = false;
+            vcbtn.Text = "Version Control";
+            txtusernametb2.Enabled = true;
+            txtpasstb2.Enabled = true;
+            txtfoldertb2.Enabled = true;
+            btnBrowsetb2.Enabled = true;
+
+
             Appendconsole("Stopping DBLike Services...");
             Client.Program.folderWatcher.stop();
             Appendconsole("File Watcher Closed...");
@@ -344,6 +438,22 @@ namespace Client
 
         void closeApp()
         {
+
+            btnCreateAcctb2.Enabled = false;
+            btnCreateAcctb2.Text = "Create Account";
+            txtUserNametb1.Enabled = true;
+            txtPasstb1.Enabled = true;
+            btnSignintb1.Enabled = false;
+            btnSignintb1.Text = "Sign In";
+            button2.Enabled = false;
+            button2.Text = "Processing...";
+            vcbtn.Enabled = false;
+            vcbtn.Text = "Version Control";
+            txtusernametb2.Enabled = true;
+            txtpasstb2.Enabled = true;
+            txtfoldertb2.Enabled = true;
+            btnBrowsetb2.Enabled = true;
+            
             Appendconsole("Stopping DBLike Services...");
             Client.Program.folderWatcher.stop();
             Appendconsole("File Watcher Closed...");
@@ -383,24 +493,48 @@ namespace Client
         private void btnCreateAcctb2_Click(object sender, EventArgs e)
         {
             Appendconsole("Initializing Account creation");
-            btnCreateAcctb2.Text = "Creating...";
+            btnCreateAcctb2.Enabled = false;
+            btnCreateAcctb2.Text = "Processing...";
+            txtUserNametb1.Enabled = false;
+            txtPasstb1.Enabled = false;
+            btnSignintb1.Enabled = false;
+            btnSignintb1.Text = "Sign In";
+            button2.Enabled = false;
+            button2.Text = "Sign Off";
+            vcbtn.Enabled = false;
+            vcbtn.Text = "Version Control";
+            txtusernametb2.Enabled = true;
+            txtpasstb2.Enabled = true;
+            txtfoldertb2.Enabled = true;
+            btnBrowsetb2.Enabled = false;
+            /*
             if (acountcreated == true)
             {
-                MessageBox.Show("Already Account Created.", "DBLike Client");
-                Appendconsole("Already Account Created.");
+                //MessageBox.Show("Already Account Created.", "DBLike Client");
+                Appendconsole("Error : <<Already Account Created>>");
                 Appendconsole("Exiting");
+                signUpfailed();
                 return;
             }
+             */ 
             if (txtfoldertb2.Text.Equals("") || txtusernametb2.Text.Equals("") || txtpasstb2.Text.Equals(""))
             {
-                MessageBox.Show("All fields are Required.", "Information Missing");
-                Appendconsole("All fields are Required.");
+                //MessageBox.Show("All fields are Required.", "Information Missing");
+                Appendconsole("Error : <<All fields are Required>>");
                 Appendconsole("Exiting");
+                signUpfailed();
                 return;
             }
             else
             {
-                MessageBox.Show("Now, DBLike service will start and will automatically upload the content of your selected folder. Creating and Modifying folder content will Upload the file to Server.", "DBLike Client Information");
+                //MessageBox.Show("Now, DBLike service will start and will automatically upload the content of your selected folder. Creating and Modifying folder content will Upload the file to Server.", "DBLike Client Information");
+            }
+            if(!Directory.Exists(txtfoldertb2.Text))
+            {
+                addtoConsole("Error : <<Given Folder does not exists>>");
+                addtoConsole("Exiting");
+                signUpfailed();
+                return;
             }
             Threads.SignUp signupthread = new Threads.SignUp();
             LocalDbAccess.LocalDB file = new LocalDbAccess.LocalDB();
@@ -467,42 +601,50 @@ namespace Client
             {
                 if (startWithLetterNum != true)
                 {
-                    //addtoConsole();
-                    label7.Text = "Username must start with a Character or a Number only";
-                    label7.Enabled = true;
+                    addtoConsole("Error : <<Username must start with a Character or a Number only>>");
+                    //label7.Text = "Username must start with a Character or a Number only";
+                    //label7.Enabled = true;
                 }
                 else if (definedLength != true)
                 {
-                    label7.Text = "Username must be atleast of length 3 and atmost oflength 63";
-                    label7.Enabled = true;
+                    addtoConsole("Error : <<Username must be atleast of length 3 and atmost oflength 63>>");
+                    //label7.Text = "Username must be atleast of length 3 and atmost oflength 63";
+                    //label7.Enabled = true;
                 }
                 else if (noUpperCase != true)
                 {
-                    label7.Text = "Username cannot have any uppercase characters";
-                    label7.Enabled = true;
+                    addtoConsole("Error : <<Username cannot have any uppercase characters>>");
+                    //label7.Text = "Username cannot have any uppercase characters";
+                    //label7.Enabled = true;
                 }
                 else if (notZforCoonection != true)
                 {
-                    label7.Text = "Username provided is invalid, please choose another username";
-                    label7.Enabled = true;
+                    addtoConsole("Error : <<Username provided is invalid, please choose another username>>");
+                    //label7.Text = "Username provided is invalid, please choose another username";
+                    //label7.Enabled = true;
                 }
                 else if (noSpecialChar != true)
                 {
-                    label7.Text = "Username cannot contain any special characters except '-'";
-                    label7.Enabled = true;
+                    addtoConsole("Error : <<Username cannot contain any special characters except '-'>>");
+                    //label7.Text = "Username cannot contain any special characters except '-'";
+                    //label7.Enabled = true;
                 }
                 else if (hasSpecificFormat != true)
                 {
-                    label7.Text = "Cannot have consecutive '-' characters";
-                    label7.Enabled = true;
+                    addtoConsole("Error : <<Cannot have consecutive '-' characters>>");
+                    //label7.Text = "Cannot have consecutive '-' characters";
+                    //label7.Enabled = true;
                 }
                 else
                 {
-                    label7.Text = "Username Validated";
-                    label7.ForeColor = System.Drawing.Color.Green;
-                    label7.Enabled = true;
+                    addtoConsole("Success : Username Validated");
+                    //label7.Text = "Username Validated";
+                    //label7.ForeColor = System.Drawing.Color.Green;
+                    //label7.Enabled = true;
                     signupthread.start(username, password, txtfoldertb2.Text);
                 }
+                addtoConsole("Exiting");
+                signUpfailed();
             }
         }
 
@@ -515,11 +657,27 @@ namespace Client
 
         private void btnSignintb1_Click(object sender, EventArgs e)
         {
+            btnCreateAcctb2.Enabled = false;
+            btnCreateAcctb2.Text = "Create Account";
+            txtUserNametb1.Enabled = true;
+            txtPasstb1.Enabled = true;
+            btnSignintb1.Enabled = false;
+            btnSignintb1.Text = "Processing...";
+            button2.Enabled = false;
+            button2.Text = "Sign Off";
+            vcbtn.Enabled = false;
+            vcbtn.Text = "Version Control";
+            txtusernametb2.Enabled = true;
+            txtpasstb2.Enabled = true;
+            txtfoldertb2.Enabled = true;
+            btnBrowsetb2.Enabled = true;
+
+
             //MessageBox.Show("We are working on this part.","Functionality Not yet Completed");
             //return;
             //vcbtn.Enabled = true;
             btnSignintb1.Enabled = false;
-            btnSignintb1.Text = "Signing in...";
+            //btnSignintb1.Text = "Signing in...";
             //pictureBox1.Visible = true;
             Threads.SignIn signinthread = new Threads.SignIn();
             String username = txtUserNametb1.Text;

@@ -52,7 +52,7 @@ namespace Client.Threads
                     //Thread.Sleep(60000);
                     stopPollingEvent.WaitOne(60000);
                 }
-                Program.ClientForm.addtoConsole("DBLike Service stopped");
+                Program.ClientForm.addtoConsole("DBLike Service stopped!");
                 Program.ClientForm.ServiceStopped();
                 
             }
