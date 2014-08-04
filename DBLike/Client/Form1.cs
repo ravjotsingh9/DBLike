@@ -17,6 +17,10 @@ namespace Client
 {
     public partial class Form1 : Form
     {
+        private NotifyIcon trayIcon;
+        private ContextMenu trayMenu;
+
+
         //public static Threads.FileSysWatchDog watchdog;
         Thread waiting;
         //Thread version;
@@ -204,15 +208,93 @@ namespace Client
             txtfoldertb2.Text = path;
             */
             //Appendconsole("hi");
-            Application.ApplicationExit += new EventHandler(OnAppExit);
+            //Application.ApplicationExit += new EventHandler(OnAppExit);
+
+            /***********************************tray*****************************/
+            // Create a simple tray menu with only one item.
+            trayMenu = new ContextMenu();
+            trayMenu.MenuItems.Add("Open", OnOpen);
+            trayMenu.MenuItems.Add("Exit", OnExit);
+
+            // Create a tray icon. In this example we use a
+            // standard system icon for simplicity, but you
+            // can of course use your own custom icon too.
+            trayIcon = new NotifyIcon();
+            trayIcon.Text = "DBLike";
+            
+            trayIcon.BalloonTipTitle = "DBLike";
+            trayIcon.BalloonTipText = "Application Started";
+            trayIcon.Icon = new Icon(SystemIcons.Application, 40, 40);
+            
+            // Add menu to tray icon and show it.
+            trayIcon.ContextMenu = trayMenu;
+            trayIcon.Visible = true;
+            trayIcon.ShowBalloonTip(3000);
+            /********************************************************/
         }
 
-
-        public void OnAppExit(object sender, EventArgs e)
+        public void OnOpen(object sender, EventArgs e)
         {
-            Application.Exit();
+            Visible = true; // Hide form window.
+            ShowInTaskbar = true; // Remove from taskbar.
+
         }
 
+        /*
+        public void OnFormClosed(object sender, EventArgs e)
+        {
+            if (checkBox1.Checked)
+            {
+
+            }
+            else
+            {
+                closeApp();
+                //Application.Exit();
+            }
+        }
+         */ 
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            //base.OnFormClosing(e);
+
+            if (e.CloseReason == CloseReason.WindowsShutDown) return;
+            /*
+            // Confirm user wants to close
+            switch (MessageBox.Show(this, "Are you sure you want to close?", "Closing", MessageBoxButtons.YesNo))
+            {
+                case DialogResult.No:
+                    e.Cancel = true;
+                    break;
+                default:
+                    break;
+            }
+             */ 
+            if (button2.Enabled)
+            {
+                //closeApp();
+                Visible = false; // Hide form window.
+                ShowInTaskbar = false; // Remove from taskbar.
+                Program.exit = false;
+                //base.OnLoad(e);
+                
+            }
+            else
+            {
+                trayIcon.Visible = false;
+                Program.exit = true;
+                Application.Exit();
+            }
+        }
+        
+        public void  OnExit(object sender, EventArgs e)
+        {
+            trayIcon.Visible = false;
+            Program.exit = true;
+            closeApp();
+            Thread.Sleep(60000);
+        }
+        
         /*
         private void button1_Click(object sender, EventArgs e)
         {
@@ -243,8 +325,22 @@ namespace Client
             vcbtn.Enabled = false;
             waiting = new Thread(wait);
             waiting.Start();
-            
+            //closeApp();
         }
+
+        void closeApp()
+        {
+            Appendconsole("Stopping DBLike Services...");
+            Client.Program.folderWatcher.stop();
+            Appendconsole("File Watcher Closed...");
+            Client.Program.poll.pull = false;
+            Appendconsole("Shutting down Polling...");
+            button2.Enabled = false;
+            vcbtn.Enabled = false;
+            waiting = new Thread(exit);
+            waiting.Start();
+        }
+
         public void wait()
         {
             while(initiateWait() != true)
@@ -252,6 +348,17 @@ namespace Client
                 addtoConsole(".");
                 Thread.Sleep(1000);
             }
+            Thread.CurrentThread.Abort();
+        }
+
+        public void exit()
+        {
+            while (initiateWait() != true)
+            {
+                addtoConsole(".");
+                Thread.Sleep(1000);
+            }
+            Application.Exit();
             Thread.CurrentThread.Abort();
         }
 
