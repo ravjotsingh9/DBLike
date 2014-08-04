@@ -11,24 +11,19 @@ namespace Client.VersionControl
 {
     public partial class VCmanager
     {
-        public void revertFromSnapshot(CloudBlockBlob blobRef, CloudBlockBlob snapshot)
+        public void revertFromSnapshot(CloudBlockBlob blobRef, int i)
         {
 
             try
             {
+                    string blobPrefix = null;
+                    bool useFlatBlobListing = true;
 
-                string blobPrefix = null;
-                bool useFlatBlobListing = true;
+                    var snapshots = container.ListBlobs(blobPrefix, useFlatBlobListing,
+                    BlobListingDetails.Snapshots).Where(item => ((CloudBlockBlob)item).SnapshotTime.HasValue && item.Uri.Equals(blobRef.Uri)).ToList<IListBlobItem>();
 
-                var snapshots = container.ListBlobs(blobPrefix, useFlatBlobListing,
-                BlobListingDetails.Snapshots).Where(item => ((CloudBlockBlob)item).SnapshotTime.HasValue && item.Uri.Equals(blobRef.Uri)).ToList<IListBlobItem>();
 
-                if (snapshots.Count < 1)
-                {
-                    Console.WriteLine("snapshot was not created");
-                }
-                else
-                {
+                    CloudBlockBlob snapshot = (CloudBlockBlob)snapshots[i];
                     blobRef.StartCopyFromBlob(snapshot);
                     DateTime timestamp = DateTime.Now;
                     blobRef.FetchAttributes();
@@ -37,7 +32,7 @@ namespace Client.VersionControl
                     blobRef.CreateSnapshot();
                     //System.Windows.Forms.MessageBox.Show("revert success");
                     Program.ClientForm.addtoConsole("Successfully Reverted");
-                }
+                
             }
             catch (Exception e)
             {

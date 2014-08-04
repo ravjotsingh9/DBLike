@@ -11,9 +11,6 @@ namespace Client.VersionControl
 {
     public partial class VCmanager
     {
-        private string accountName = "portalvhdscgcgqr43r8dpq";
-        private string accountKey = "q7u0mob+u/kgqTlIe4lfKa6xmo4Cm/rT6VlmBd2EwWZTy3tq2h3LeHFwQandnM7AIunrH0n65et3dKAX9LghBA==";
-
         public blobCollection list()
         {
 
