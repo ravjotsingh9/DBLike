@@ -8,6 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Security.Cryptography;
+
 
 namespace Server.DatabaseAccess
 {
@@ -68,9 +70,24 @@ namespace Server.DatabaseAccess
 
 
                 SqlCommand myCommand = new SqlCommand(sqlString, sqlConnection);
+                SHA1 sha1Pass = SHA1.Create();
+                StringBuilder sb = new StringBuilder();
+                foreach (Byte b in sha1Pass.ComputeHash(Encoding.UTF8.GetBytes(psw)))
+                {
+                    sb.Append(b.ToString("X2"));
+                }
+                string hexString = sb.ToString();
+
+                byte[] buffer = new byte[hexString.Length / 2];
+                for (int i = 0; i < hexString.Length; i++)
+                {
+                    buffer[i / 2] = Convert.ToByte(Convert.ToInt32(hexString.Substring(i, 2), 16));
+                    i += 1;
+                }
+                string Pass= Convert.ToBase64String(buffer);
 
                 myCommand.Parameters.AddWithValue("@UserName", userName);
-                myCommand.Parameters.AddWithValue("@psw", psw);
+                myCommand.Parameters.AddWithValue("@psw", Pass);
                 // insert into the db
                 myCommand.ExecuteNonQuery();
 
