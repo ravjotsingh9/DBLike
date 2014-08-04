@@ -55,8 +55,7 @@ namespace Server.Threads
                         break;
                     }
                     stopSyncEvent.WaitOne(interval);
-                   
-                
+                                  
                 }
                
                 Program.ServerForm.shuttingDownComplete = true;

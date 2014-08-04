@@ -101,7 +101,7 @@ namespace Server
 
             //stop blob sync, wait sync thread to join to close the program
             Threads.Service_BlobSync.blobsSync = false;
-            Threads.Service_BlobSync.stopSyncEvent.Set();
+            
             //Wait server to complete blob storage synchronization, may take some time to close the program...
 
 
@@ -110,8 +110,8 @@ namespace Server
 
             if (syncingThread.IsAlive)
             {
-                //syncingThread.Join();
-                
+                Threads.Service_BlobSync.stopSyncEvent.Set();
+                syncingThread.Join();               
                 //stop blob sync, wait sync thread to join to close the program
                 Threads.Service_BlobSync.blobsSync = false;
                 //Wait server to complete blob storage synchronization, may take some time to close the program...
