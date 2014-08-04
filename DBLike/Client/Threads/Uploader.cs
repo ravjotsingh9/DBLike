@@ -155,7 +155,8 @@ namespace Client.Threads
                                     string targetPath = "";
 
                                     // add time to new name
-                                    string dateString = DateTime.UtcNow.ToString("yyyyMMddHHmmss");
+                                    //string dateString = DateTime.UtcNow.ToString("yyyyMMddHHmmss");
+                                    string dateString = DateTime.UtcNow.ToString("MM/dd/yyyy HH:mm:ss");
                                     string[] fileNameArr = sourcePath.Split('.');
                                     string newFileName = fileNameArr[0] + " ( conflict copy " + dateString + ")." + fileNameArr[1];
                                     targetPath = newFileName;
