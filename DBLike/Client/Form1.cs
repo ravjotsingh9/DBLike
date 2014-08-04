@@ -279,6 +279,7 @@ namespace Client
             //groupBox1.Enabled = true;
             // watchdog = new Threads.FileSysWatchDog();
             button2.Enabled = false;
+            vcbtn.Enabled = false;
             //pictureBox1.Visible = false;
             // for testing convinence, set the local path
             /*

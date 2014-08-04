@@ -45,7 +45,7 @@ namespace Client
 
         private void button1_Click(object sender, EventArgs e)
         {
-            VC.revertFromSnapshot(blobscollect.blobList[listBox1.SelectedIndex], blobscollect.snapShotList[listBox1.SelectedIndex]);
+            VC.revertFromSnapshot(blobscollect.blobList[listBox1.SelectedIndex], blobscollect.snapShotList[listBox2.SelectedIndex]);
            // Thread.CurrentThread.Abort();
         }
 
