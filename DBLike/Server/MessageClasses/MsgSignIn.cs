@@ -13,6 +13,7 @@ namespace Server.MessageClasses
             public string type { get; set; }
             public string userName { get; set; }
             public string psw { get; set; }
+            public string nodeInfo { get; set; }
         }
 
         public class resp
