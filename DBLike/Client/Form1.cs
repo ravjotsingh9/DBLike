@@ -19,6 +19,7 @@ namespace Client
     {
         //public static Threads.FileSysWatchDog watchdog;
         Thread waiting;
+        Thread version;
         public volatile bool acountcreated = false;
         delegate void changeStatetoSignedUp();
         delegate void signupFailed();
@@ -203,10 +204,14 @@ namespace Client
             txtfoldertb2.Text = path;
             */
             //Appendconsole("hi");
+            Application.ApplicationExit += new EventHandler(OnAppExit);
         }
 
 
-        
+        public void OnAppExit(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
 
         /*
         private void button1_Click(object sender, EventArgs e)
@@ -235,6 +240,7 @@ namespace Client
             Client.Program.poll.pull = false;
             Appendconsole("Shutting down Polling...");
             button2.Enabled = false;
+            vcbtn.Enabled = false;
             waiting = new Thread(wait);
             waiting.Start();
             
@@ -386,7 +392,7 @@ namespace Client
         {
             //MessageBox.Show("We are working on this part.","Functionality Not yet Completed");
             //return;
-            vcbtn.Enabled = true;
+            //vcbtn.Enabled = true;
             btnSignintb1.Enabled = false;
             btnSignintb1.Text = "Signing in...";
             //pictureBox1.Visible = true;
@@ -410,6 +416,13 @@ namespace Client
         private void vcBtn_Click(object sender, EventArgs e)
         {
             Appendconsole("Opening version control windows...");
+            
+            version = new Thread(versionControl);
+            version.Start();
+        }
+        private void versionControl()
+        {
+            Program.ClientForm.addtoConsole("Version Control thread started");
             Form2 VCForm = new Form2();
             VCForm.ShowDialog();
         }

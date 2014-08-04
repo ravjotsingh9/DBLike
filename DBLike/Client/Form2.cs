@@ -21,11 +21,13 @@ namespace Client
         
         public Form2()
         {
+            Program.ClientForm.addtoConsole("Initializing Form 2");
             InitializeComponent();
             Configuration.userInfo.containerURI = "null";
             VCThread vcThread = new VCThread();
             Thread thread = new Thread(() => vcThread.start());
             thread.Start();
+            Program.ClientForm.addtoConsole("vcThread Started");
             thread.Join();
             if (Configuration.userInfo.containerURI != "null")
             {
