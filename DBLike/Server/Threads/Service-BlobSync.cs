@@ -26,27 +26,40 @@ namespace Server.Threads
                 m_blobsSync = value; 
             }
         }
-        static Thread thread;
+
+        private AutoResetEvent autoEvent = new AutoResetEvent(false);
+        public static AutoResetEvent stopSyncEvent{get;set;}
+        
         public void start()
         {
+           stopSyncEvent = new AutoResetEvent(false);
            threadStartFun();
+            
         }
         public void stop()
         {
             //TBD
-            thread.Abort();
+           // thread.Abort();
         }
         private void threadStartFun()
         {
+            TimeSpan interval = new TimeSpan(0, 3, 0);
             try
             {
-                while (blobsSync)
+                while (true)
                 {
                     sync();
-                    TimeSpan interval = new TimeSpan(0, 5, 0);
-                    Thread.Sleep(interval);
+
+                    if (!blobsSync)
+                    {
+                        break;
+                    }
+                    stopSyncEvent.WaitOne(interval);
+                                  
                 }
+               
                 Program.ServerForm.shuttingDownComplete = true;
+
 
             }
             catch (Exception e)
