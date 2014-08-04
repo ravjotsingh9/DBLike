@@ -98,16 +98,16 @@ namespace Server
 
         private void btnStop_Click(object sender, EventArgs e)
         {
-<<<<<<< HEAD
+
             //stop blob sync, wait sync thread to join to close the program
             Threads.Service_BlobSync.blobsSync = false;
             Threads.Service_BlobSync.stopSyncEvent.Set();
             //Wait server to complete blob storage synchronization, may take some time to close the program...
-=======
+
 
             //Program.ServerForm.addtoConsole("Shutting Down...");
             Server.stop();
->>>>>>> origin/master
+
             if (syncingThread.IsAlive)
             {
                 //syncingThread.Join();
