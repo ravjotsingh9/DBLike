@@ -112,123 +112,130 @@ namespace Client.Threads
                     Program.ClientForm.addtoConsole("Read from socket");
                     //8 Client parse msg
                     Client.Message.MessageParser par2 = new Client.Message.MessageParser();
-                    Client.MessageClasses.MsgRespUpload reup = par2.uploadParseMsg(resp);
-
-
-
-                    //9 Client upload
-                    if (reup.indicator == "OK")
+                    if (resp != null)
                     {
-                        // event type when there's no file conflict
-                        string tempEType = reup.addiInfo;
+                        Client.MessageClasses.MsgRespUpload reup = par2.uploadParseMsg(resp);
+                    
 
 
-                        string[] str = null;
-                        // get current file info on server
-                        string[] separators = { "|||" };
-                        // when event type is change
-                        // otherwise directly upload, don't need to check conflict
-                        if (reup.addiInfo.Contains("|||"))
+                        //9 Client upload
+                        if (reup.indicator == "OK")
                         {
-                            str = reup.addiInfo.Split(separators, StringSplitOptions.RemoveEmptyEntries);
-                            string currHashValueOnServer = str[0];
-                            string tempTimestampOnServer = str[1];
-                            // reassign event type
-                            tempEType = str[2];
-
-                            //CultureInfo provider = new CultureInfo("en-US");
-                            //CultureInfo provider = CultureInfo.InvariantCulture;
-                            DateTime currTimestampOnServer = DateTime.ParseExact(tempTimestampOnServer, "MM/dd/yyyy HH:mm:ss", null);
+                            // event type when there's no file conflict
+                            string tempEType = reup.addiInfo;
 
 
-                            // file has been changed during open time and save time
-                            // aka there's a newer version of this file uploaded by another user during this time
-                            if (DateTime.Compare(timeBefore, currTimestampOnServer) < 0 && String.Compare(md5rBefore, currHashValueOnServer) != 0)
+                            string[] str = null;
+                            // get current file info on server
+                            string[] separators = { "|||" };
+                            // when event type is change
+                            // otherwise directly upload, don't need to check conflict
+                            if (reup.addiInfo.Contains("|||"))
                             {
-                                string tMsg = "simultaneous editing confilct";
-                                string cMsg = "\nA newer version has been detected on the server.\nDo you want to save current version?\n\nYes to Save current file in another name\nNo to Download the newest version file from server";
-                                DialogResult dialogResult = MessageBox.Show(string.Format("{0}" + cMsg, fullpathOfChnagedFile), tMsg, MessageBoxButtons.YesNo);
-                                if (dialogResult == DialogResult.Yes)
+                                str = reup.addiInfo.Split(separators, StringSplitOptions.RemoveEmptyEntries);
+                                string currHashValueOnServer = str[0];
+                                string tempTimestampOnServer = str[1];
+                                // reassign event type
+                                tempEType = str[2];
+
+                                //CultureInfo provider = new CultureInfo("en-US");
+                                //CultureInfo provider = CultureInfo.InvariantCulture;
+                                //tempTimestampOnServer = tempTimestampOnServer.Replace("-", "/");
+                                DateTime currTimestampOnServer = DateTime.ParseExact(tempTimestampOnServer, "MM/dd/yyyy HH:mm:ss", null);
+
+
+                                // file has been changed during open time and save time
+                                // aka there's a newer version of this file uploaded by another user during this time
+                                if (DateTime.Compare(timeBefore, currTimestampOnServer) < 0 && String.Compare(md5rBefore, currHashValueOnServer) != 0)
                                 {
-
-                                    string sourcePath = fullpathOfChnagedFile;
-                                    string targetPath = "";
-
-                                    // add time to new name
-                                    string dateString = DateTime.UtcNow.ToString("yyyyMMddHHmmss");
-                                    string[] fileNameArr = sourcePath.Split('.');
-                                    string newFileName = fileNameArr[0] + " ( conflict copy " + dateString + ")." + fileNameArr[1];
-                                    targetPath = newFileName;
-
-                                    //// To copy a folder's contents to a new location:
-                                    //// Create a new target folder, if necessary.
-                                    //if (!System.IO.Directory.Exists(targetPath))
-                                    //{
-                                    //    System.IO.Directory.CreateDirectory(targetPath);
-                                    //}
-
-                                    // To copy a file to another location and 
-                                    // overwrite the destination file if it already exists.
-                                    System.IO.File.Copy(sourcePath, targetPath, true);
-
-
-                                    // delete current copy
-                                    // try delete while it still exists
-                                    while (System.IO.File.Exists(fullpathOfChnagedFile))
+                                    string tMsg = "simultaneous editing confilct";
+                                    string cMsg = "\nA newer version has been detected on the server.\nDo you want to save current version?\n\nYes to Save current file in another name\nNo to Download the newest version file from server";
+                                    DialogResult dialogResult = MessageBox.Show(string.Format("{0}" + cMsg, fullpathOfChnagedFile), tMsg, MessageBoxButtons.YesNo);
+                                    if (dialogResult == DialogResult.Yes)
                                     {
-                                        // delete current file
-                                        // won't delete blob file on the server
-                                        // b/c it's older than that version
-                                        System.IO.File.Delete(fullpathOfChnagedFile);
+
+                                        string sourcePath = fullpathOfChnagedFile;
+                                        string targetPath = "";
+
+                                        // add time to new name
+                                        string dateString = DateTime.UtcNow.ToString("yyyyMMddHHmmss");
+                                        string[] fileNameArr = sourcePath.Split('.');
+                                        string newFileName = fileNameArr[0] + " ( conflict copy " + dateString + ")." + fileNameArr[1];
+                                        targetPath = newFileName;
+
+                                        //// To copy a folder's contents to a new location:
+                                        //// Create a new target folder, if necessary.
+                                        //if (!System.IO.Directory.Exists(targetPath))
+                                        //{
+                                        //    System.IO.Directory.CreateDirectory(targetPath);
+                                        //}
+
+                                        // To copy a file to another location and 
+                                        // overwrite the destination file if it already exists.
+                                        System.IO.File.Copy(sourcePath, targetPath, true);
+
+
+                                        // delete current copy
+                                        // try delete while it still exists
+                                        while (System.IO.File.Exists(fullpathOfChnagedFile))
+                                        {
+                                            // delete current file
+                                            // won't delete blob file on the server
+                                            // b/c it's older than that version
+                                            System.IO.File.Delete(fullpathOfChnagedFile);
+
+                                        }
+
 
                                     }
-
-
-                                }
-                                else if (dialogResult == DialogResult.No)
-                                {
-
-                                    // try delete while it still exists
-                                    while (System.IO.File.Exists(fullpathOfChnagedFile))
+                                    else if (dialogResult == DialogResult.No)
                                     {
-                                        // delete current file
-                                        // won't delete blob file on the server
-                                        // b/c it's older than that version
-                                        System.IO.File.Delete(fullpathOfChnagedFile);
 
-                                    }
+                                        // try delete while it still exists
+                                        while (System.IO.File.Exists(fullpathOfChnagedFile))
+                                        {
+                                            // delete current file
+                                            // won't delete blob file on the server
+                                            // b/c it's older than that version
+                                            System.IO.File.Delete(fullpathOfChnagedFile);
 
-                                    // if file is in dic
-                                    if (Client.LocalFileSysAccess.FileList.fileInfoDic.ContainsKey(fullpathOfChnagedFile))
-                                    {
-                                        // after it has been deleted
-                                        // del from the file list
-                                        Client.LocalFileSysAccess.FileListMaintain delFromFileList = new Client.LocalFileSysAccess.FileListMaintain();
-                                        delFromFileList.removeSingleFileFromFileList(fullpathOfChnagedFile, time, md5r);
+                                        }
 
-                                        // TODO
-                                        // download newer version from server
+                                        // if file is in dic
+                                        if (Client.LocalFileSysAccess.FileList.fileInfoDic.ContainsKey(fullpathOfChnagedFile))
+                                        {
+                                            // after it has been deleted
+                                            // del from the file list
+                                            Client.LocalFileSysAccess.FileListMaintain delFromFileList = new Client.LocalFileSysAccess.FileListMaintain();
+                                            delFromFileList.removeSingleFileFromFileList(fullpathOfChnagedFile, time, md5r);
 
+                                            // TODO
+                                            // download newer version from server
+
+                                        }
                                     }
                                 }
                             }
+
+                            new Client.UploadFunctions.UploadFile().UploadFileWithContainerUri(reup.fileContainerUri, fullpathOfChnagedFile, reup.filePathInSynFolder, md5r, time, eventType);
+                            System.Windows.Forms.MessageBox.Show(string.Format("Uploaded! \n event type: {0} \n Path: {1}", tempEType, fullpathOfChnagedFile), "DBLike Client");
+
+                            // update file list
+                            Client.LocalFileSysAccess.FileListMaintain updateFileList = new Client.LocalFileSysAccess.FileListMaintain();
+                            updateFileList.updateSingleFileToFileList(fullpathOfChnagedFile, time, md5r);
+
                         }
-
-                        new Client.UploadFunctions.UploadFile().UploadFileWithContainerUri(reup.fileContainerUri, fullpathOfChnagedFile, reup.filePathInSynFolder, md5r, time, eventType);
-                        System.Windows.Forms.MessageBox.Show(string.Format("Uploaded! \n event type: {0} \n Path: {1}", tempEType, fullpathOfChnagedFile), "DBLike Client");
-
-                        // update file list
-                        Client.LocalFileSysAccess.FileListMaintain updateFileList = new Client.LocalFileSysAccess.FileListMaintain();
-                        updateFileList.updateSingleFileToFileList(fullpathOfChnagedFile, time, md5r);
+                        //// handle simultaneous editing confilct
+                        //// currently client will handle this
+                        //if (reup.indicator == "simultaneousEditConfilct")
+                        //{
+                        //}
 
                     }
-                    //// handle simultaneous editing confilct
-                    //// currently client will handle this
-                    //if (reup.indicator == "simultaneousEditConfilct")
-                    //{
-                    //}
-
-
+                    else
+                    {
+                        Program.ClientForm.addtoConsole("Response from server is null");
+                    }
                 }
 
                 else if (eventType == "delete")

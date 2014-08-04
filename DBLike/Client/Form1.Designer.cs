@@ -39,7 +39,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            //this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.vcbtn = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -91,6 +91,7 @@
             // 
             // checkBox1
             // 
+            /*
             this.checkBox1.AutoSize = true;
             this.checkBox1.Location = new System.Drawing.Point(284, 64);
             this.checkBox1.Name = "checkBox1";
@@ -98,6 +99,7 @@
             this.checkBox1.TabIndex = 89;
             this.checkBox1.Text = "checkBox1";
             this.checkBox1.UseVisualStyleBackColor = true;
+             * */
             // 
             // vcbtn
             // 

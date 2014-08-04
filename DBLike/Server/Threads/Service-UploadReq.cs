@@ -107,6 +107,7 @@ namespace Server.Threads
                         // get to be deleted blob's info
                         delBlob.FetchAttributes();
                         string delHashValue = delBlob.Metadata["hashValue"];
+                        //delHashValue =delHashValue.Replace("-", "/");
                         DateTime delTimestamp = DateTime.ParseExact(delBlob.Metadata["timestamp"], "MM/dd/yyyy HH:mm:ss", null);
 
 
