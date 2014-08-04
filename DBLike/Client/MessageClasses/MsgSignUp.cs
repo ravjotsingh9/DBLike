@@ -17,5 +17,7 @@ namespace Client.MessageClasses
 
         // additional msg from server
         public string addiMsg { get; set; }
+
+        public string nodeInfo { get; set; }
     }
 }

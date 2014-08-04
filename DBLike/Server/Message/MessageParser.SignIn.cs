@@ -25,7 +25,7 @@ namespace Server.Message
             obj.type = words[0];
             obj.userName = words[1];
             obj.psw = words[2];
-
+            obj.nodeInfo = words[3];
             return obj;
 
         }

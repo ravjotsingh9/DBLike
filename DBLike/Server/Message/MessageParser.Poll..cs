@@ -24,7 +24,7 @@ namespace Server.Message
             string[] words = msg.Split(separators, StringSplitOptions.RemoveEmptyEntries);
             msgPoll.userName = words[1];
             msgPoll.password = words[2];
-
+            msgPoll.nodeInfo=words[3]
             return msgPoll;
         }
         

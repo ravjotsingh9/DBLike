@@ -13,6 +13,8 @@ namespace Client.MessageClasses
         String ack;
         String addiMsg;
 
+        public string nodeInfo { get; set; }
+
         public string getUsername()
         {
             return this.username;

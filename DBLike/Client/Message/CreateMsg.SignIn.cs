@@ -17,7 +17,7 @@ namespace Client.Message
            /// +------------------------------------+
            /// |<SignIn>:<userName>:<password>:<EOF>|
            /// +------------------------------------+
-        str = "<SIGNIN>:<" + obj.getUsername() + ">:<" + obj.getPassword() + ">:<EOF>";
+        str = "<SIGNIN>:<" + obj.getUsername() + ">:<" + obj.getPassword() + ">:<"+obj.nodeInfo+">:<EOF>";
        return str;
        }
     }

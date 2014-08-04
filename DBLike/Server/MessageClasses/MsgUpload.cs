@@ -12,6 +12,7 @@ namespace Server.MessageClasses
         public string type { get; set; }
         public string userName { get; set; }
         public string password { get; set; }
+        public string nodeInfo { get; set; }
         public string filePathInSynFolder { get; set; }
         public DateTime fileTimeStamps { get; set; }
         public string fileHashValue { get; set; }
