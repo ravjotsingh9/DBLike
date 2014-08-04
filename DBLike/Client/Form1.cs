@@ -152,6 +152,7 @@ namespace Client
             btnCreateAcctb2.Enabled = true;
             btnCreateAcctb2.Text = "Create Account";
             button2.Enabled = false;
+            vcbtn.Enabled = false;
         }
 
         public void enableServiceController()
@@ -174,6 +175,7 @@ namespace Client
             txtUserNametb1.Enabled = false;
             txtPasstb1.Enabled = false;
             button2.Enabled = true;
+            vcbtn.Enabled = true;
             ////disable create account 
             groupBox2.Enabled = false;
 
