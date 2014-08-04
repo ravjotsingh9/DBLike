@@ -159,6 +159,7 @@
     <None Include="bin\Debug\4ibB7pRig.jpeg" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="bin\Debug\ClientImage.ico" />
     <Content Include="ClientImage.ico" />
   </ItemGroup>
   <ItemGroup>

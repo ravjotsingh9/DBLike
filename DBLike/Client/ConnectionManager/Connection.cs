@@ -22,14 +22,14 @@ namespace Client.ConnectionManager
 
 
 
-                //********settings to connect to server at VM **********************
+                /********settings to connect to server at VM **********************
                 PingVM getIpAddress = new PingVM();
                 IPHostEntry ipHostInfo = Dns.GetHostEntry("server.lovecics525.net");
                 IPAddress ipAddress = getIpAddress.startPin(ipHostInfo);
                 IPEndPoint remoteEP = new IPEndPoint(ipAddress, 11000);
                 //**********************************************************************/
 
-                /**************setting to connect to local server **********************
+                //**************setting to connect to local server **********************
                 IPHostEntry ipHostInfo = Dns.Resolve(Dns.GetHostName());
                 IPAddress ipAddress = ipHostInfo.AddressList[0];
                 IPEndPoint remoteEP = new IPEndPoint(ipAddress,port);
