@@ -19,7 +19,7 @@ namespace Client
     {
         //public static Threads.FileSysWatchDog watchdog;
         Thread waiting;
-        Thread version;
+        //Thread version;
         public volatile bool acountcreated = false;
         delegate void changeStatetoSignedUp();
         delegate void signupFailed();
@@ -416,16 +416,19 @@ namespace Client
         private void vcBtn_Click(object sender, EventArgs e)
         {
             Appendconsole("Opening version control windows...");
-            
-            version = new Thread(versionControl);
-            version.Start();
-        }
-        private void versionControl()
-        {
-            Program.ClientForm.addtoConsole("Version Control thread started");
+            vcbtn.Enabled = false;
+            //version = new Thread(versionControl);
+            //version.Start();
             Form2 VCForm = new Form2();
             VCForm.ShowDialog();
+            vcbtn.Enabled = true;
         }
-       
+        /*
+        private void versionControl()
+        {
+            //Program.ClientForm.addtoConsole("Version Control thread started");
+            
+        }
+       */
     }
 }

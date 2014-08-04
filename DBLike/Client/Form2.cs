@@ -47,7 +47,7 @@ namespace Client
         {
             
             VC.revertFromSnapshot(blobscollect.blobList[listBox1.SelectedIndex], blobscollect.snapShotList[listBox2.SelectedIndex]);
-               
+           // Thread.CurrentThread.Abort();
         }
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)

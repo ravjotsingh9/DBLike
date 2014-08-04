@@ -46,6 +46,7 @@ namespace Server.Threads
                     TimeSpan interval = new TimeSpan(0, 5, 0);
                     Thread.Sleep(interval);
                 }
+                Program.ServerForm.shuttingDownComplete = true;
 
             }
             catch (Exception e)
