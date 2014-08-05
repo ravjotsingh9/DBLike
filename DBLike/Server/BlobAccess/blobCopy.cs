@@ -99,7 +99,7 @@ namespace Server.BlobAccess
                             else
                             {
                                 dstBlockBlock.FetchAttributes();
-                                if ((dstBlockBlock.Metadata["hashValue"] != srcBlockBlock.Metadata["hashValue"]) || ((dstBlockBlock.Metadata["timestamp"] != srcBlockBlock.Metadata["timestamp"])))
+                                if ((dstBlockBlock.Metadata["hashValue"] != srcBlockBlock.Metadata["hashValue"]))
                                 {
                                     //Create a SAS URI for the blob
                                     var srcBlockBlobSasUri = string.Format("{0}{1}", srcBlockBlock.Uri, sas);
