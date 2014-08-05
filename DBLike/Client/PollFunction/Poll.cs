@@ -11,6 +11,7 @@ using Client.LocalDbAccess;
 using Client.LocalFileSysAccess;
 using System.Windows.Forms;
 using Client.Threads;
+using Client.VersionControl;
 
 namespace Client.PollFunction
 {
@@ -38,6 +39,7 @@ namespace Client.PollFunction
             {
                 
                 CloudBlobContainer container = new CloudBlobContainer(new Uri(sasUri));
+                
                 string blobPrefix = null;
                 bool useFlatBlobListing = true;
                 var blobs = container.ListBlobs(blobPrefix, useFlatBlobListing, BlobListingDetails.None);
@@ -145,9 +147,16 @@ namespace Client.PollFunction
                 DirectoryInfo di = Directory.CreateDirectory(directoryPath);
             }
 
+            /*****comment out these lines if do not want to download from snapshot
+            VCmanager vc = new VCmanager(this.sasUri);
+            LocalFileSysAccess.LocalFileSys save = new LocalFileSys();
+            save.downloadfile(vc.getLatestSnapshot(file), fileFullPath, timestamp);
+            *****comment out these lines if do not want to download from snapshot**/
+            
             
             LocalFileSysAccess.LocalFileSys save = new LocalFileSys();
             save.downloadfile(file, fileFullPath, timestamp);
+            
             //updatetimestamp.settimestamp(fileFullPath, timestamp);
         }
 
