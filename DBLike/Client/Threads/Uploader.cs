@@ -218,6 +218,11 @@ namespace Client.Threads
                                         }
                                     }
                                 }
+                                else 
+                                {
+                                    Program.ClientForm.addtoConsole(string.Format("Uploader: No need to upload\n"));
+                                    return;
+                                }
                             }
 
                             new Client.UploadFunctions.UploadFile().UploadFileWithContainerUri(reup.fileContainerUri, fullpathOfChnagedFile, reup.filePathInSynFolder, md5r, time, eventType);

@@ -74,6 +74,7 @@ namespace Server.Threads
                         //currTimestamp.ToString();
                         string currTimestamp = currBlob.Metadata["timestamp"];
                         currentFileInfo = currHashValue + "|||" + currTimestamp + "|||" + "change";
+                        blob.indicator = "OK";
                     }
 
 
