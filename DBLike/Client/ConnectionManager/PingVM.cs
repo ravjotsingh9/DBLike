@@ -15,6 +15,7 @@ namespace Client.ConnectionManager
         
         public IPAddress startPin(IPHostEntry ipHostInfo)
         {
+            Program.ClientForm.addtoConsole("Started Pinging");
             IPAddress ipAddress = null;
             for (int i = 0; i < ipHostInfo.AddressList.Length; i++)
             {
@@ -42,16 +43,21 @@ namespace Client.ConnectionManager
                 sender = new Socket(AddressFamily.InterNetwork,
                     SocketType.Stream, ProtocolType.Tcp);
                 //sender.Connect(remoteEP);
+                Program.ClientForm.addtoConsole("Request Sent...");
                 IAsyncResult result = sender.BeginConnect(remoteEP, null, null);
-                bool success = result.AsyncWaitHandle.WaitOne(10000, true);
+                bool success = result.AsyncWaitHandle.WaitOne(5000, true);
+                
                 if (success)
                 {
+                    Program.ClientForm.addtoConsole("Response received!");
                     Console.WriteLine("success");
                 }
+                Program.ClientForm.addtoConsole("Timed Out!");
                 return success;
             }
-            catch (Exception e)
+            catch (SocketException e)
             {
+                
                 Console.WriteLine(e.ToString());
                 return false;
             }

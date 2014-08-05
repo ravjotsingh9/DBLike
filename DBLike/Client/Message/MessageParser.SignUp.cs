@@ -26,6 +26,7 @@ namespace Client.Message
 
             msgSignUp.ack = words[0];
             msgSignUp.addiMsg = words[1];
+            
             return msgSignUp;
 
 
