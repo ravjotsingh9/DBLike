@@ -198,7 +198,7 @@ namespace Server.Threads
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.ToString());
+                Program.ServerForm.addtoConsole(ex.ToString());
             }
         }
         bool stopListening()

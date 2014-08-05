@@ -149,16 +149,16 @@ namespace Client.PollFunction
                 DirectoryInfo di = Directory.CreateDirectory(directoryPath);
             }
 
-            /*****comment out these lines if do not want to download from snapshot
+            //*****comment out these lines if do not want to download from snapshot
             VCmanager vc = new VCmanager(this.sasUri);
             LocalFileSysAccess.LocalFileSys save = new LocalFileSys();
             save.downloadfile(vc.getLatestSnapshot(file), fileFullPath, timestamp);
-            *****comment out these lines if do not want to download from snapshot**/
+            //*****comment out these lines if do not want to download from snapshot**
             
-            //****download from original file************************
+            /****download from original file************************
             LocalFileSysAccess.LocalFileSys save = new LocalFileSys();
             save.downloadfile(file, fileFullPath, timestamp);
-            //******************************************************//
+            /******************************************************/
             
             //updatetimestamp.settimestamp(fileFullPath, timestamp);
         }

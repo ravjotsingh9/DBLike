@@ -218,6 +218,7 @@ namespace Client.Threads
                                         }
                                     }
                                 }
+           
                             }
 
                             new Client.UploadFunctions.UploadFile().UploadFileWithContainerUri(reup.fileContainerUri, fullpathOfChnagedFile, reup.filePathInSynFolder, md5r, time, eventType);

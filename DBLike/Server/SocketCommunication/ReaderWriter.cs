@@ -17,12 +17,13 @@ namespace Server.SocketCommunication
             try
             {
                 soc.SendTimeout = 10000;
-                byte[] tmp = new byte[1024];
-                tmp = System.Text.Encoding.ASCII.GetBytes(str);
+
+                byte[] tmp = new byte[2048];
+                tmp = System.Text.Encoding.UTF8.GetBytes(str);
                 soc.Send(tmp);
                 return true;
             }
-            catch(SocketException e)
+            catch (SocketException e)
             {
                 if (e.SocketErrorCode == SocketError.TimedOut)
                 {
@@ -37,19 +38,49 @@ namespace Server.SocketCommunication
         }
 
 
-        //TBD socket writer function
+
         [MethodImpl(MethodImplOptions.Synchronized)]
         public string readfromSocket(Socket soc)
         {
             try
             {
                 soc.ReceiveTimeout = 10000;
-                byte[] tmp = new byte[1024];
-                soc.Receive(tmp);
-                string str = System.Text.Encoding.ASCII.GetString(tmp);
-                return str;
+
+                // Read the  message sent by the client.
+                // The client signals the end of the message using the
+                // "<EOF>" marker.
+                byte[] buffer = new byte[1024];
+                StringBuilder messageData = new StringBuilder();
+                int bytes = -1;
+
+                do
+                {
+
+                    // Read the client's test message.
+                    //bytes = sslStream.Read(buffer, 0, buffer.Length);
+                    bytes = soc.Receive(buffer);
+
+                    // Use Decoder class to convert from bytes to UTF8
+                    // in case a character spans two buffers.
+                    Decoder decoder = Encoding.UTF8.GetDecoder();
+                    char[] chars = new char[decoder.GetCharCount(buffer, 0, bytes)];
+                    decoder.GetChars(buffer, 0, bytes, chars, 0);
+                    messageData.Append(chars);
+
+
+                    // Check for EOF or an empty message.
+                    if (messageData.ToString().IndexOf("<EOF>") != -1)
+                    {
+                        break;
+                    }
+                } while (bytes != 0);
+
+                return messageData.ToString();
+
+
+
             }
-            catch(SocketException e)
+            catch (SocketException e)
             {
                 if (e.SocketErrorCode == SocketError.TimedOut)
                 {
