@@ -83,6 +83,7 @@ namespace Client.LocalFileSysAccess
             }
             catch (Exception e)
             {
+                Program.ClientForm.addtoConsole(e.ToString());
                 System.Windows.Forms.MessageBox.Show(e.Message);
             }
         }

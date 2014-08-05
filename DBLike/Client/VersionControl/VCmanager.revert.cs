@@ -76,6 +76,7 @@ namespace Client.VersionControl
             }
             catch (Exception e)
             {
+                Program.ClientForm.addtoConsole(e.ToString());
                 System.Windows.Forms.MessageBox.Show(e.ToString());
                 
             }

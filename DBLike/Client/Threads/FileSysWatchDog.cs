@@ -164,7 +164,8 @@ namespace Client.Threads
                 }
                 else
                 {
-                    MessageBox.Show("File does not exist.");
+
+                    Program.ClientForm.addtoConsole("File does not exist.");
                 }
                 
             }

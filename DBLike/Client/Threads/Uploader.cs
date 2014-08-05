@@ -141,7 +141,9 @@ namespace Client.Threads
                                 //CultureInfo provider = new CultureInfo("en-US");
                                 //CultureInfo provider = CultureInfo.InvariantCulture;
                                 //tempTimestampOnServer = tempTimestampOnServer.Replace("-", "/");
-                                DateTime currTimestampOnServer = DateTime.ParseExact(tempTimestampOnServer, "MM/dd/yyyy HH:mm:ss", null);
+                                Program.ClientForm.addtoConsole(tempTimestampOnServer);
+                                DateTime currTimestampOnServer = DateTime.Parse(tempTimestampOnServer);
+                                //DateTime currTimestampOnServer = DateTime.ParseExact(tempTimestampOnServer, "MM/dd/yyyy HH:mm:ss", null);
 
 
                                 // file has been changed during open time and save time

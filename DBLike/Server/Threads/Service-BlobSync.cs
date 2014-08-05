@@ -64,6 +64,7 @@ namespace Server.Threads
             catch (Exception e)
             {
                 System.Windows.Forms.MessageBox.Show(e.ToString());
+                Program.ServerForm.addtoConsole("Exception:"+ e.ToString());
                 //System.IO.File.WriteAllText("errors.txt", e.ToString());
             }
             finally

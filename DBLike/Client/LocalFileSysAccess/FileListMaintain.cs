@@ -30,6 +30,7 @@ namespace Client.LocalFileSysAccess
             }
             catch (System.IO.IOException e)
             {
+                Program.ClientForm.addtoConsole("FileListMaintain <-" + e.ToString());
                 System.Windows.Forms.MessageBox.Show("FileListMaintain <-" + e.Message);
             }
 

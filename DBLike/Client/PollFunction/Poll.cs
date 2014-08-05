@@ -11,6 +11,7 @@ using Client.LocalDbAccess;
 using Client.LocalFileSysAccess;
 using System.Windows.Forms;
 using Client.Threads;
+using System.Globalization;
 
 namespace Client.PollFunction
 {
@@ -54,8 +55,10 @@ namespace Client.PollFunction
                         file.FetchAttributes();
                         string fileFullPath = clientSynFolderPath + @"\"+ file.Metadata["filePath"];
                         DateTime blobDataTime = new DateTime();
-                        blobDataTime = DateTime.ParseExact(file.Metadata["timestamp"], "MM/dd/yyyy HH:mm:ss",
-                                                            null);
+                        Program.ClientForm.addtoConsole("file.MetaData: "+(file.Metadata["timestamp"]).ToString());
+                        //Program.ClientForm.addtoConsole("using parser:" + DateTime.Parse((file.Metadata["timestamp"]).ToString()));
+                        //blobDataTime = DateTime.ParseExact(file.Metadata["timestamp"], "MM/dd/yyyy HH:mm:ss", CultureInfo.InvariantCulture);
+                        blobDataTime = DateTime.Parse(file.Metadata["timestamp"]);
                         if(File.Exists(fileFullPath))
                         {
                             getFileAttributes fileAttributes = new getFileAttributes(fileFullPath);
@@ -126,7 +129,7 @@ namespace Client.PollFunction
             }
             catch (Exception e)
             {
-                Program.ClientForm.addtoConsole("Poll Exception:" + e.Message);
+                Program.ClientForm.addtoConsole("Poll Exception:" + e.ToString());
                 Console.WriteLine(e.Message);
                 MessageBox.Show(e.Message);
                 return false;
