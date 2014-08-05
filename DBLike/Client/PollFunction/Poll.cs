@@ -153,9 +153,10 @@ namespace Client.PollFunction
             save.downloadfile(vc.getLatestSnapshot(file), fileFullPath, timestamp);
             *****comment out these lines if do not want to download from snapshot**/
             
-            
+            //****download from original file************************
             LocalFileSysAccess.LocalFileSys save = new LocalFileSys();
             save.downloadfile(file, fileFullPath, timestamp);
+            //******************************************************//
             
             //updatetimestamp.settimestamp(fileFullPath, timestamp);
         }
