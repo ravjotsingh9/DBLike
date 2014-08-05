@@ -31,7 +31,7 @@ namespace Client.VersionControl
             int versons = snapshots.Count;
             if (versons < 1)
             {
-                Console.WriteLine("snapshot was not created");
+                return file;
             }
             else
             {

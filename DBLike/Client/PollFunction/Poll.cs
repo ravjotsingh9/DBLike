@@ -11,7 +11,7 @@ using Client.LocalDbAccess;
 using Client.LocalFileSysAccess;
 using System.Windows.Forms;
 using Client.Threads;
-using System.Globalization;
+using Client.VersionControl;
 
 namespace Client.PollFunction
 {
@@ -39,6 +39,7 @@ namespace Client.PollFunction
             {
                 
                 CloudBlobContainer container = new CloudBlobContainer(new Uri(sasUri));
+                
                 string blobPrefix = null;
                 bool useFlatBlobListing = true;
                 var blobs = container.ListBlobs(blobPrefix, useFlatBlobListing, BlobListingDetails.None);
@@ -55,10 +56,8 @@ namespace Client.PollFunction
                         file.FetchAttributes();
                         string fileFullPath = clientSynFolderPath + @"\"+ file.Metadata["filePath"];
                         DateTime blobDataTime = new DateTime();
-                        Program.ClientForm.addtoConsole("file.MetaData: "+(file.Metadata["timestamp"]).ToString());
-                        //Program.ClientForm.addtoConsole("using parser:" + DateTime.Parse((file.Metadata["timestamp"]).ToString()));
-                        //blobDataTime = DateTime.ParseExact(file.Metadata["timestamp"], "MM/dd/yyyy HH:mm:ss", CultureInfo.InvariantCulture);
-                        blobDataTime = DateTime.Parse(file.Metadata["timestamp"]);
+                        blobDataTime = DateTime.ParseExact(file.Metadata["timestamp"], "MM/dd/yyyy HH:mm:ss",
+                                                            null);
                         if(File.Exists(fileFullPath))
                         {
                             getFileAttributes fileAttributes = new getFileAttributes(fileFullPath);
@@ -129,7 +128,7 @@ namespace Client.PollFunction
             }
             catch (Exception e)
             {
-                Program.ClientForm.addtoConsole("Poll Exception:" + e.ToString());
+                Program.ClientForm.addtoConsole("Poll Exception:" + e.Message);
                 Console.WriteLine(e.Message);
                 MessageBox.Show(e.Message);
                 return false;
@@ -148,9 +147,17 @@ namespace Client.PollFunction
                 DirectoryInfo di = Directory.CreateDirectory(directoryPath);
             }
 
+            /*****comment out these lines if do not want to download from snapshot
+            VCmanager vc = new VCmanager(this.sasUri);
+            LocalFileSysAccess.LocalFileSys save = new LocalFileSys();
+            save.downloadfile(vc.getLatestSnapshot(file), fileFullPath, timestamp);
+            *****comment out these lines if do not want to download from snapshot**/
             
+            //****download from original file************************
             LocalFileSysAccess.LocalFileSys save = new LocalFileSys();
             save.downloadfile(file, fileFullPath, timestamp);
+            //******************************************************//
+            
             //updatetimestamp.settimestamp(fileFullPath, timestamp);
         }
 

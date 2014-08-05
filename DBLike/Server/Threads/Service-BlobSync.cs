@@ -85,7 +85,7 @@ namespace Server.Threads
                 String strHostName = Dns.GetHostName();
 
                 //**** Need to delete if not local testing**//
-                responForSync = true;
+                //responForSync = true;
                 //**** Need to delete if not local testing***//
                 
                 if (strHostName == "group3525")

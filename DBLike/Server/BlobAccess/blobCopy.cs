@@ -78,7 +78,10 @@ namespace Server.BlobAccess
                         SharedAccessExpiryTime = DateTime.UtcNow.AddDays(7),
                         Permissions = SharedAccessBlobPermissions.Write | SharedAccessBlobPermissions.List | SharedAccessBlobPermissions.Read | SharedAccessBlobPermissions.Delete,
                     });
-                    foreach (var srcBlob in srcCloudBlobContainer.ListBlobs())
+
+                    string blobPrefix = null;
+                    bool useFlatBlobListing = true;
+                    foreach (var srcBlob in srcCloudBlobContainer.ListBlobs(blobPrefix, useFlatBlobListing, BlobListingDetails.None))
                     {
                         if (srcBlob.GetType() == typeof(CloudBlockBlob))
                         {
