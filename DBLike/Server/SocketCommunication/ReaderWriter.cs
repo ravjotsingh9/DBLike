@@ -14,10 +14,26 @@ namespace Server.SocketCommunication
         [MethodImpl(MethodImplOptions.Synchronized)]
         public bool writetoSocket(Socket soc, string str)
         {
-            byte[] tmp = new byte[1024];
-            tmp = System.Text.Encoding.ASCII.GetBytes(str);
-            soc.Send(tmp);
-            return true;
+            try
+            {
+                soc.SendTimeout = 10000;
+                byte[] tmp = new byte[1024];
+                tmp = System.Text.Encoding.ASCII.GetBytes(str);
+                soc.Send(tmp);
+                return true;
+            }
+            catch(SocketException e)
+            {
+                if (e.SocketErrorCode == SocketError.TimedOut)
+                {
+                    Program.ServerForm.addtoConsole("SocketException[Writing to Socket]: Timeout");
+                }
+                else
+                {
+                    Program.ServerForm.addtoConsole("SocketException[Writing to Socket]: " + e.Message);
+                }
+                return false;
+            }
         }
 
 
@@ -25,11 +41,26 @@ namespace Server.SocketCommunication
         [MethodImpl(MethodImplOptions.Synchronized)]
         public string readfromSocket(Socket soc)
         {
-            byte[] tmp = new byte[1024];
-            soc.Receive(tmp);
-            string str = System.Text.Encoding.ASCII.GetString(tmp);
-            return str;
-
+            try
+            {
+                soc.ReceiveTimeout = 10000;
+                byte[] tmp = new byte[1024];
+                soc.Receive(tmp);
+                string str = System.Text.Encoding.ASCII.GetString(tmp);
+                return str;
+            }
+            catch(SocketException e)
+            {
+                if (e.SocketErrorCode == SocketError.TimedOut)
+                {
+                    Program.ServerForm.addtoConsole("SocketException[Reading from Socket]: Timeout");
+                }
+                else
+                {
+                    Program.ServerForm.addtoConsole("SocketException[Reading from Socket]: " + e.Message);
+                }
+                return null;
+            }
         }
     }
 }

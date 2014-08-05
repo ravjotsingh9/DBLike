@@ -41,11 +41,27 @@ namespace Client.SocketCommunication
         }
         //TBD socket writer function
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public void writetoSocket(Socket soc, String message)
+        public bool writetoSocket(Socket soc, String message)
         {
-            byte[] msg = Encoding.ASCII.GetBytes(message);
-            soc.SendTimeout = 10000;
-            int bytesSent = soc.Send(msg);
+            try
+            {
+                byte[] msg = Encoding.ASCII.GetBytes(message);
+                soc.SendTimeout = 10000;
+                int bytesSent = soc.Send(msg);
+                return true;
+            }
+            catch(SocketException e)
+            {
+                if (e.SocketErrorCode == SocketError.TimedOut)
+                {
+                    Program.ClientForm.addtoConsole("SocketException[Writing to Socket]: Timeout");
+                }
+                else
+                {
+                    Program.ClientForm.addtoConsole("SocketException[Writing to Socket]: " + e.Message);
+                }
+                return false;
+            }
         }
     }
 }
