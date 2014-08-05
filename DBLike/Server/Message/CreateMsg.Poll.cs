@@ -21,7 +21,7 @@ namespace Server.Message
         {
             string msg = "<" + indicator + ">:<POLL>:<" + 
                          msgPoll.fileContainerUri  + ">:<" +
-                         msgPoll.fileBlobUri + ">";
+                         msgPoll.fileBlobUri + ">" + ":<EOF>";
             return msg;
         }
     }
