@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Server.MessageClasses;
+using System.Globalization;
 
 namespace Server.Message
 {
@@ -65,9 +66,10 @@ namespace Server.Message
             
             //words[5] = words[5].Replace("-", "/");
             Program.ServerForm.addtoConsole("words[5]" + words[5]);
-            MyDateTime = DateTime.ParseExact(words[5], "MM/dd/yyyy HH:mm:ss",
-                                                null);
-
+            Program.ServerForm.addtoConsole("MyDateTime" + MyDateTime.ToString());
+            //MyDateTime = DateTime.ParseExact(words[5], "MM/dd/yyyy HH:mm:ss", null);
+            MyDateTime = DateTime.Parse(words[5]);
+            Program.ServerForm.addtoConsole("MyDateTime" + MyDateTime.ToString());
 
             upload.addInfo = words[6];
 

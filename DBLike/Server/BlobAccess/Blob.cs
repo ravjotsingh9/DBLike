@@ -53,8 +53,9 @@ namespace Server.BlobAccess
                 
                 blob.FetchAttributes();
                 hashValue = blob.Metadata["hashValue"];
-                timestamp = DateTime.ParseExact(blob.Metadata["timestamp"], "MM/dd/yyyy HH:mm:ss",
-                                                null);;
+                //timestamp = DateTime.ParseExact(blob.Metadata["timestamp"], "MM/dd/yyyy HH:mm:ss",null);;
+                timestamp = DateTime.Parse(blob.Metadata["timestamp"]);
+
                 filePath = blob.Metadata["filePath"];
                 
                 if (hashValue == fileHashValue)

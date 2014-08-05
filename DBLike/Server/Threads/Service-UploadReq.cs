@@ -108,8 +108,8 @@ namespace Server.Threads
                         delBlob.FetchAttributes();
                         string delHashValue = delBlob.Metadata["hashValue"];
                         //delHashValue =delHashValue.Replace("-", "/");
-                        DateTime delTimestamp = DateTime.ParseExact(delBlob.Metadata["timestamp"], "MM/dd/yyyy HH:mm:ss", null);
-
+                        //DateTime delTimestamp = DateTime.ParseExact(delBlob.Metadata["timestamp"], "MM/dd/yyyy HH:mm:ss", null);
+                        DateTime delTimestamp = DateTime.Parse(delBlob.Metadata["timestamp"]);
 
                         // only delete it when client's version is newer
                         // otherwise client's file is stale, don't delete server's blob
