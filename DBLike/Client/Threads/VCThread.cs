@@ -62,6 +62,7 @@ namespace Client.Threads
             }
             catch (Exception e)
             {
+                Program.ClientForm.addtoConsole(e.ToString());
                 System.Windows.Forms.MessageBox.Show(e.ToString());
                 //System.IO.File.WriteAllText("errors.txt", e.ToString());
             }

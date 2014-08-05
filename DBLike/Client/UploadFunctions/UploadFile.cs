@@ -58,6 +58,7 @@ namespace Client.UploadFunctions
             }
             catch (Exception e)
             {
+                Program.ClientForm.addtoConsole(e.ToString());
                 Console.WriteLine(e.Message);
                 MessageBox.Show("-----------" + e.Message);
                 return false;

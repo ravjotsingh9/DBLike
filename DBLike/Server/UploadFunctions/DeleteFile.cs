@@ -131,6 +131,7 @@ namespace Server.UploadFunctions
                         //blob.Delete();
                         blob.DeleteIfExists(DeleteSnapshotsOption.IncludeSnapshots);
                         //System.Windows.Forms.MessageBox.Show(string.Format("File: {0} Deleted!", pathInSyncFolder), "DBLike Server");
+                        Program.ServerForm.addtoConsole(string.Format("File: {0} Deleted!", pathInSyncFolder));
                     }
                 }
                 else
@@ -139,12 +140,14 @@ namespace Server.UploadFunctions
                     CloudBlobDirectory dira = container.GetDirectoryReference(pathInSyncFolder);
                     deleteFolder(container, dira);
                     //System.Windows.Forms.MessageBox.Show(string.Format("Deleted!\n Folder: {0}", pathInSyncFolder), "DBLike Server");
+                    Program.ServerForm.addtoConsole(string.Format("Deleted!\n Folder: {0}", pathInSyncFolder));
                 }
 
             }
             catch
             {
                 System.Windows.Forms.MessageBox.Show(string.Format("File: {0} \n doesn't exist!", pathInSyncFolder), "DBLike Server");
+                Program.ServerForm.addtoConsole(string.Format("File: {0} \n doesn't exist!", pathInSyncFolder));
             }
 
         }
