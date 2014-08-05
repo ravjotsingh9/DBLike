@@ -99,9 +99,25 @@ namespace Server.BlobAccess
                             else
                             {
                                 dstBlockBlock.FetchAttributes();
-                                if ((dstBlockBlock.Metadata["hashValue"] != srcBlockBlock.Metadata["hashValue"])|| (dstBlockBlock.Metadata["timestamp"] != srcBlockBlock.Metadata["timestamp"]))
+                                if (dstBlockBlock.Metadata.Keys.Count == 3)
                                 {
-                                  
+                                    if ((dstBlockBlock.Metadata["hashValue"] != srcBlockBlock.Metadata["hashValue"]) || (dstBlockBlock.Metadata["timestamp"] != srcBlockBlock.Metadata["timestamp"]))
+                                    {
+
+                                        //Create a SAS URI for the blob
+                                        var srcBlockBlobSasUri = string.Format("{0}{1}", srcBlockBlock.Uri, sas);
+                                        // throws exception StorageException:
+                                        // The remote server returned an error: (404) Not Found.
+                                        dstBlockBlock.StartCopyFromBlob(new Uri(srcBlockBlobSasUri));
+                                        dstBlockBlock.Metadata["hashValue"] = srcBlockBlock.Metadata["hashValue"];
+                                        dstBlockBlock.Metadata["timestamp"] = srcBlockBlock.Metadata["timestamp"];
+                                        dstBlockBlock.Metadata["filePath"] = srcBlockBlock.Metadata["filePath"];
+                                        dstBlockBlock.SetMetadata();
+                                        dstBlockBlock.CreateSnapshot();
+                                    }
+                                }
+                                else
+                                {
                                     //Create a SAS URI for the blob
                                     var srcBlockBlobSasUri = string.Format("{0}{1}", srcBlockBlock.Uri, sas);
                                     // throws exception StorageException:
