@@ -97,7 +97,7 @@
             this.vcbtn.Name = "vcbtn";
             this.vcbtn.Size = new System.Drawing.Size(90, 24);
             this.vcbtn.TabIndex = 88;
-            this.vcbtn.Text = "Versions Control";
+            this.vcbtn.Text = "Version Control";
             this.vcbtn.UseVisualStyleBackColor = false;
             this.vcbtn.Click += new System.EventHandler(this.vcBtn_Click);
             // 

@@ -7,6 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Net.Sockets;
 using System.IO;
+using System.Windows.Forms;
 
 
 namespace Client.Threads
@@ -87,6 +88,16 @@ namespace Client.Threads
                 }
                 else
                 {
+                    if (File.Exists(@"C:\dblikeConfig\dblike.txt"))
+                    {
+                        if (DialogResult.No == System.Windows.Forms.MessageBox.Show("This System is already configured for a dblike user." +
+                            "Do you want to reconfigure it for yourself?", "DBLike Client", MessageBoxButtons.YesNo))
+                        {
+                            Program.ClientForm.addtoConsole("Exiting");
+                            Program.ClientForm.signUpfailed();
+                            Thread.CurrentThread.Abort();
+                        }
+                    }
                     /*
                     if (!Program.ClientForm.IsHandleCreated)
                     {
@@ -105,6 +116,7 @@ namespace Client.Threads
                     }
                     else
                     {
+                     
                         
                         //Upload all the content
                         bool result = file.writetofile(username, password, sysncpath);
