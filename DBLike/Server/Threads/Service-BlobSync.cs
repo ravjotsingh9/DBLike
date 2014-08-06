@@ -164,7 +164,7 @@ namespace Server.Threads
                     SocketType.Stream, ProtocolType.Tcp);
                 //sender.Connect(remoteEP);
                 IAsyncResult result = sender.BeginConnect(remoteEP, null, null);
-                bool success = result.AsyncWaitHandle.WaitOne(1000, true);
+                bool success = result.AsyncWaitHandle.WaitOne(10000, true);
                 if (success)
                 {
                     Console.WriteLine("success");
