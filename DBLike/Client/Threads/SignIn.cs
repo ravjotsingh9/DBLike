@@ -110,6 +110,7 @@ namespace Client.Threads
                 {
                     //System.Windows.Forms.MessageBox.Show(msgobj.getAck(),msgobj.getAddiMsg());\
                     //Program.ClientForm.addtoConsole("Username:" + username);
+                    Program.ClientForm.ballon("Hello, "+ username +"! You have successfully signed in");
                     LocalDbAccess.LocalDB file = new LocalDbAccess.LocalDB();
                     file = file.readfromfile();
                     if (file != null)
@@ -201,7 +202,7 @@ namespace Client.Threads
                     //FileSysWatchDog.Run();
                     Program.folderWatcher.start();
                     Program.ClientForm.addtoConsole("File-watcher Installed");
-                    
+                    //Program.ClientForm.ballon("File watcher installed");
                     Thread.CurrentThread.Abort();
                 }
             }

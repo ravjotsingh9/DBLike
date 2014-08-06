@@ -184,6 +184,9 @@ namespace Client.PollFunction
                 {
                     try
                     {
+                        System.IO.File.Delete(file);
+                        Console.WriteLine("Delete file:" + file);
+                        /*
                         if (DialogResult.No == MessageBox.Show("DBLike is going to delete " + file + ". Do you want to keep it?", "DBLike Client", MessageBoxButtons.YesNo))
                         {
                             System.IO.File.Delete(file);
@@ -208,7 +211,7 @@ namespace Client.PollFunction
                                 upload.start(file, "create", null, timestamp.lastModified);
                             }
                             
-                        } 
+                        } */
                     }
                     catch (System.IO.IOException e)
                     {

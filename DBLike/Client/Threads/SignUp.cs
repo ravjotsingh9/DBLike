@@ -56,14 +56,14 @@ namespace Client.Threads
             //call  SocketCommunication.ReaderWriter.write(byte[] msg) to write msg on socket
             SocketCommunication.ReaderWriter rw = new SocketCommunication.ReaderWriter();
             //System.Windows.Forms.MessageBox.Show("going to write socket:"+message, "SignUp Thread started");
-            Program.ClientForm.addtoConsole("Writing to socket");
+            Program.ClientForm.addtoConsole("Writing to socket: " + message);
             rw.writetoSocket(sender, message);
 
 
             //call  SocketCommunication.ReaderWriter.read() to read response from server
             //System.Windows.Forms.MessageBox.Show("going to read socket: " , "SignUp Thread started");
             String response=rw.readfromSocket(sender);
-            Program.ClientForm.addtoConsole("Read from socket");
+            Program.ClientForm.addtoConsole("Read from socket :" + response);
             //System.Windows.Forms.MessageBox.Show("read:"+ response, "SignUp Thread started");
             //call parser and process it.....
             Message.MessageParser mp = new Message.MessageParser();
@@ -88,6 +88,7 @@ namespace Client.Threads
                 }
                 else
                 {
+                    Program.ClientForm.ballon("Congratulations " + username + "! Your account is successfully created");
                     if (File.Exists(@"C:\dblikeConfig\dblike.txt"))
                     {
                         if (DialogResult.No == System.Windows.Forms.MessageBox.Show("This System is already configured for a dblike user." +
@@ -116,7 +117,7 @@ namespace Client.Threads
                     }
                     else
                     {
-                     
+
                         
                         //Upload all the content
                         bool result = file.writetofile(username, password, sysncpath);
@@ -144,8 +145,8 @@ namespace Client.Threads
 
                         Client.Program.poll.start();
                         Program.ClientForm.addtoConsole("Poll thread started");
-                       
 
+                        
                         if (!Program.ClientForm.IsHandleCreated)
                         {
                             Program.ClientForm.CreateHandle();

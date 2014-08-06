@@ -21,6 +21,7 @@ namespace Client.LocalFileSysAccess
             Program.ClientForm.addtoConsole("Download started:" + fileFullPath);
             file.DownloadToFile(fileFullPath, FileMode.Create);
             Program.ClientForm.addtoConsole("Downloaded! File : " + fileFullPath);
+            Program.ClientForm.ballon("Downloaded:" + fileFullPath);
             //file.ReleaseLease(AccessCondition.GenerateLeaseCondition(leaseId));
             File.SetLastWriteTime(fileFullPath, TimeZoneInfo.ConvertTimeFromUtc(timestamp, TimeZoneInfo.Local));
 
@@ -41,6 +42,7 @@ namespace Client.LocalFileSysAccess
                 Program.ClientForm.addtoConsole("Upload started[create || signUpStart]:" + localFilePath);
                 blob.UploadFromFile(localFilePath, FileMode.Open);
                 Program.ClientForm.addtoConsole("Uploaded");
+                Program.ClientForm.ballon("Uploaded:"+ localFilePath);
             }
             else
             {
@@ -52,6 +54,7 @@ namespace Client.LocalFileSysAccess
                     blob.UploadFromFile(localFilePath, FileMode.Open, AccessCondition.GenerateLeaseCondition(leaseId));
                     blob.ReleaseLease(AccessCondition.GenerateLeaseCondition(leaseId));
                     Program.ClientForm.addtoConsole("Uploaded");
+                    Program.ClientForm.ballon("Uploaded:" + localFilePath);
                 }
                 catch (Exception ex)
                 {
@@ -62,6 +65,7 @@ namespace Client.LocalFileSysAccess
                     blob.UploadFromFile(localFilePath, FileMode.Open, AccessCondition.GenerateLeaseCondition(leaseId));
                     blob.ReleaseLease(AccessCondition.GenerateLeaseCondition(leaseId));
                     Program.ClientForm.addtoConsole("Uploaded");
+                    Program.ClientForm.ballon("Uploaded:" + localFilePath);
                 }
             }
         }

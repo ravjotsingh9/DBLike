@@ -279,7 +279,7 @@ namespace Client.Threads
                     // file list maintainence_2
                     // remove file from file list
                     reFileList.removeSingleFileFromFileList(fullpathOfChnagedFile, tmpFInfo.time, tmpFInfo.md5r);
-
+                    Program.ClientForm.ballon("Deleted:"+ fullpathOfChnagedFile);
 
 
                 }
@@ -348,7 +348,7 @@ namespace Client.Threads
                     //receive the msg
                     //string resp = rw.readfromSocket(soc);
 
-
+                    Program.ClientForm.ballon("Rename:" + fullpathOfChnagedFile);
 
 
 

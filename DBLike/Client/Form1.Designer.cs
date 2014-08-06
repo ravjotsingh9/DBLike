@@ -120,7 +120,7 @@
             this.label6.BackColor = System.Drawing.Color.Transparent;
             this.label6.Font = new System.Drawing.Font("Lucida Handwriting", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.Color.White;
-            this.label6.Location = new System.Drawing.Point(183, 179);
+            this.label6.Location = new System.Drawing.Point(190, 192);
             this.label6.Name = "label6";
             this.label6.Padding = new System.Windows.Forms.Padding(3);
             this.label6.Size = new System.Drawing.Size(121, 37);

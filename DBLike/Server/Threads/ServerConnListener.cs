@@ -139,7 +139,9 @@ namespace Server.Threads
                     System.Windows.Forms.MessageBox.Show(System.Text.Encoding.ASCII.GetString(str));
                      */ 
                     SocketCommunication.ReaderWriter rw = new SocketCommunication.ReaderWriter();
+                    
                     string req = rw.readfromSocket(handler);
+                    Program.ServerForm.addtoConsole(req);
                     string reqtype = findReqType(req);
                     switch(reqtype)
                     {
@@ -210,6 +212,7 @@ namespace Server.Threads
 
         static string findReqType(string msg)
         {
+            Program.ServerForm.addtoConsole(msg);
             string[] separators = { "<", ">:<", ">" };
             string[] words = msg.Split(separators, StringSplitOptions.RemoveEmptyEntries);
             return words[0];

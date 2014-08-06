@@ -28,6 +28,7 @@ namespace Client.VersionControl
                     //System.Windows.Forms.MessageBox.Show("revert success");
 
                     Program.ClientForm.addtoConsole("Successfully Reverted with time: " + time);
+                    Program.ClientForm.ballon("Successfully Reverted! ");
                 
             }
             catch (Exception e)

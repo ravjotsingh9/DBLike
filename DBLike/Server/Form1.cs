@@ -44,12 +44,19 @@ namespace Server
         */
         public void addtoConsole(string str)
         {
-            if (!this.IsHandleCreated)
+            try
             {
-                this.CreateHandle();
+                if (!this.IsHandleCreated)
+                {
+                    this.CreateHandle();
+                }
+                addToConsole app = new addToConsole(Appendconsole);
+                this.Invoke(app, (object)str);
             }
-            addToConsole app = new addToConsole(Appendconsole);
-            this.Invoke(app, (object)str);
+            catch(Exception e)
+            {
+                //Application.Exit();
+            }
         }
 
         public void Appendconsole(string value)

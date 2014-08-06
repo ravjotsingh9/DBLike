@@ -32,8 +32,29 @@ namespace Client
         delegate void stopservice();
         delegate void addToConsole(string str);
 
+        delegate void showballon(string msg);
+
+
         delegate bool Wait();
 
+        public void ballon(string str)
+        {
+            if (!this.IsHandleCreated)
+            {
+                this.CreateHandle();
+            }
+            showballon w = new showballon(showpop);
+            this.Invoke(w, (object)str);
+        }
+        public void showpop(string str)
+        {
+            trayIcon.BalloonTipTitle = "DBLike";
+            trayIcon.BalloonTipText = str;
+            trayIcon.ShowBalloonTip(3000);
+        }
+
+
+        
         public bool initiateWait()
         {
             if (!this.IsHandleCreated)
@@ -353,6 +374,7 @@ namespace Client
             if (button2.Enabled)
             {
                 //closeApp();
+                Program.ClientForm.ballon("DBLike Sync Service is still Running");
                 Visible = false; // Hide form window.
                 ShowInTaskbar = false; // Remove from taskbar.
                 Program.exit = false;
@@ -361,6 +383,7 @@ namespace Client
             }
             else
             {
+                Program.ClientForm.ballon("Application Shutting Down");
                 trayIcon.Visible = false;
                 Program.exit = true;
                 Application.Exit();
@@ -371,12 +394,14 @@ namespace Client
         {
             if (button2.Enabled)
             {
+                Program.ClientForm.ballon("Application Shutting Down");
                 trayIcon.Visible = false;
                 Program.exit = true;
                 closeApp();
             }
             else
             {
+                Program.ClientForm.ballon("Application Shutting Down");
                 trayIcon.Visible = false;
                 Program.exit = true;
                 Application.Exit();
