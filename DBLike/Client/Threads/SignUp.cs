@@ -50,7 +50,7 @@ namespace Client.Threads
                 Program.ClientForm.addtoConsole("Error : <<Could not connect to server. May be Server is not Running>>");
                 //System.Windows.Forms.MessageBox.Show("Could not connect to server.Please check if Server is Running.", "DBLike Client");
                 Program.ClientForm.addtoConsole("Exiting");
-                Program.ClientForm.signUpfailed();
+                Program.ClientForm.signupfail();
                 Thread.CurrentThread.Abort();
             }
             //call  SocketCommunication.ReaderWriter.write(byte[] msg) to write msg on socket
@@ -83,7 +83,7 @@ namespace Client.Threads
                     Program.ClientForm.addtoConsole("Error :" +"<<"+ msgobj.addiMsg +">>");
                     //System.Windows.Forms.MessageBox.Show("Some error occured!Please try again.", "Error Occured");
                     Program.ClientForm.addtoConsole("Exiting");
-                    Program.ClientForm.signUpfailed();
+                    Program.ClientForm.signupfail();
                     Thread.CurrentThread.Abort();
                 }
                 else
@@ -95,7 +95,7 @@ namespace Client.Threads
                             "Do you want to reconfigure it for yourself?", "DBLike Client", MessageBoxButtons.YesNo))
                         {
                             Program.ClientForm.addtoConsole("Exiting");
-                            Program.ClientForm.signUpfailed();
+                            Program.ClientForm.signupfail();
                             Thread.CurrentThread.Abort();
                         }
                     }
@@ -112,7 +112,7 @@ namespace Client.Threads
                         Program.ClientForm.addtoConsole("Error : <<Unable to access config file. Please try Sign In>>");
                         //System.Windows.Forms.MessageBox.Show("Unable to access dblike file. Please try Sign In.", "Error Occured");
                         Program.ClientForm.addtoConsole("Exiting");
-                        Program.ClientForm.signUpfailed();
+                        Program.ClientForm.signupfail();
                         Thread.CurrentThread.Abort();
                     }
                     else
@@ -126,7 +126,7 @@ namespace Client.Threads
                             Program.ClientForm.addtoConsole("Error : <<Unable to access config file. Please try Sign In>>");
                             //System.Windows.Forms.MessageBox.Show("Unable to write on the file. Please try Sign In.", "Unable to write on file");
                             Program.ClientForm.addtoConsole("Exiting");
-                            Program.ClientForm.signUpfailed();
+                            Program.ClientForm.signupfail();
                             Thread.CurrentThread.Abort();
                             //return;
                         }

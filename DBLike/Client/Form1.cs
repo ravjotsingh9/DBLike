@@ -107,6 +107,7 @@ namespace Client
             txtpasstb2.Enabled = true;
             txtfoldertb2.Enabled = true;
             btnBrowsetb2.Enabled = true;
+            pictureBox1.Visible = false;
         }
 
         public void addtoConsole(string str)
@@ -173,6 +174,7 @@ namespace Client
             txtpasstb2.Enabled = false;
             txtfoldertb2.Enabled = false;
             btnBrowsetb2.Enabled = false;
+            pictureBox1.Visible = false;
         }
 
         public void signinfail()
@@ -207,6 +209,7 @@ namespace Client
             txtpasstb2.Enabled = true;
             txtfoldertb2.Enabled = true;
             btnBrowsetb2.Enabled = true;
+            pictureBox1.Visible = false;
         }
 
 
@@ -242,6 +245,7 @@ namespace Client
             txtpasstb2.Enabled = true;
             txtfoldertb2.Enabled = true;
             btnBrowsetb2.Enabled = true;
+            pictureBox1.Visible = false;
         }
 
         public void signUppassed()
@@ -288,6 +292,7 @@ namespace Client
             txtpasstb2.Enabled = false;
             txtfoldertb2.Enabled = false;
             btnBrowsetb2.Enabled = false;
+            pictureBox1.Visible = false;
         }
 
 
@@ -296,6 +301,7 @@ namespace Client
             
             InitializeComponent();
             Appendconsole(" Initialized");
+            pictureBox1.Visible = false;
             //groupBox2.BackColor = Color.FromArgb(50, Color.White);
             //groupBox1.Enabled = true;
             // watchdog = new Threads.FileSysWatchDog();
@@ -445,7 +451,7 @@ namespace Client
             txtpasstb2.Enabled = true;
             txtfoldertb2.Enabled = true;
             btnBrowsetb2.Enabled = true;
-
+            pictureBox1.Visible = true;
 
             Appendconsole("Stopping DBLike Services...");
             Client.Program.folderWatcher.stop();
@@ -533,6 +539,7 @@ namespace Client
             txtpasstb2.Enabled = true;
             txtfoldertb2.Enabled = true;
             btnBrowsetb2.Enabled = false;
+            pictureBox1.Visible = true;
             /*
             if (acountcreated == true)
             {
@@ -548,7 +555,7 @@ namespace Client
                 //MessageBox.Show("All fields are Required.", "Information Missing");
                 Appendconsole("Error : <<All fields are Required>>");
                 Appendconsole("Exiting");
-                signUpfailed();
+                signupfail();
                 return;
             }
             else
@@ -559,7 +566,7 @@ namespace Client
             {
                 addtoConsole("Error : <<Given Folder does not exists>>");
                 addtoConsole("Exiting");
-                signUpfailed();
+                signupfail();
                 return;
             }
             Threads.SignUp signupthread = new Threads.SignUp();
@@ -669,8 +676,8 @@ namespace Client
                     //label7.Enabled = true;
                     signupthread.start(username, password, txtfoldertb2.Text);
                 }
-                addtoConsole("Exiting");
-                signUpfailed();
+                //addtoConsole("Exiting");
+                //signupfail();
             }
         }
 
@@ -697,7 +704,7 @@ namespace Client
             txtpasstb2.Enabled = true;
             txtfoldertb2.Enabled = true;
             btnBrowsetb2.Enabled = true;
-
+            pictureBox1.Visible = true;
 
             //MessageBox.Show("We are working on this part.","Functionality Not yet Completed");
             //return;

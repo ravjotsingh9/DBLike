@@ -117,6 +117,7 @@
             this.Controls.Add(this.lblServerStatus);
             this.Controls.Add(this.btnStop);
             this.Controls.Add(this.btnStart);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "Form1";
             this.Text = "DBLike Server";
