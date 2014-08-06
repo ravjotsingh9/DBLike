@@ -160,10 +160,10 @@ namespace Client.Threads
                                         string targetPath = "";
 
                                         // add time to new name
-                                        //string dateString = DateTime.UtcNow.ToString("yyyyMMddHHmmss");
-                                        string dateString = DateTime.UtcNow.ToString("MM/dd/yyyy HH:mm:ss");
+                                        string dateString = DateTime.UtcNow.ToString("yyyyMMddHHmmss");
+                                        //string dateString = DateTime.UtcNow.ToString("MM/dd/yyyy HH:mm:ss");
                                         string[] fileNameArr = sourcePath.Split('.');
-                                        string newFileName = fileNameArr[0] + " ( conflict copy " + dateString + ")." + fileNameArr[1];
+                                        string newFileName = fileNameArr[0] + " ( " + Environment.UserName + "'s conflict copy " + dateString + ")." + fileNameArr[1];
                                         targetPath = newFileName;
 
                                         //// To copy a folder's contents to a new location:
