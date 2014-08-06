@@ -46,13 +46,18 @@ namespace Client.ConnectionManager
                 Program.ClientForm.addtoConsole("Request Sent...");
                 IAsyncResult result = sender.BeginConnect(remoteEP, null, null);
                 bool success = result.AsyncWaitHandle.WaitOne(5000, true);
-                
+
                 if (success)
                 {
-                    Program.ClientForm.addtoConsole("Response received!");
-                    Console.WriteLine("success");
+                    
+                    string ss = "connect to "+ipAddress.ToString();
+                    Program.ClientForm.addtoConsole(ss);
                 }
-                Program.ClientForm.addtoConsole("Timed Out!");
+                //else
+                //{
+                //    Program.ClientForm.addtoConsole("Timed Out!");
+                //}
+                
                 return success;
             }
             catch (SocketException e)

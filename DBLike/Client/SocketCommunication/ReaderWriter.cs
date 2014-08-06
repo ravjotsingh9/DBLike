@@ -19,7 +19,7 @@ namespace Client.SocketCommunication
         {
             try
             {
-                soc.ReceiveTimeout = 10000;
+                soc.ReceiveTimeout = 22000;
                 byte[] tmp = new byte[1024];
                 soc.Receive(tmp);
 
@@ -46,7 +46,7 @@ namespace Client.SocketCommunication
             try
             {
                 byte[] msg = Encoding.ASCII.GetBytes(message);
-                soc.SendTimeout = 10000;
+                soc.SendTimeout = 22000;
                 int bytesSent = soc.Send(msg);
                 return true;
             }

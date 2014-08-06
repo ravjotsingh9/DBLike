@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Auth;
 using Microsoft.WindowsAzure.Storage.Blob;
+using Microsoft.WindowsAzure.Storage.RetryPolicies;
 
 
 namespace Server.ConnectionManager
@@ -73,10 +74,12 @@ namespace Server.ConnectionManager
         {
             try
             {
+               
 
                 StorageCredentials creds = new StorageCredentials(accountName, accountKey);
                 CloudStorageAccount account = new CloudStorageAccount(creds, useHttps: true);
                 client = account.CreateCloudBlobClient();
+                client.ServerTimeout = TimeSpan.FromSeconds(11);
                 CloudBlobContainer container = client.GetContainerReference("zforconnection");
                 container.CreateIfNotExists();
                 return true;
@@ -110,6 +113,7 @@ namespace Server.ConnectionManager
                 StorageCredentials creds = new StorageCredentials(accountName, accountKey);
                 CloudStorageAccount account = new CloudStorageAccount(creds, useHttps: true);
                 blobClient = account.CreateCloudBlobClient();
+                blobClient.ServerTimeout = TimeSpan.FromSeconds(11);
                 CloudBlobContainer container = blobClient.GetContainerReference("zforconnection");
                 container.CreateIfNotExists();
             }
