@@ -15,7 +15,12 @@ namespace Client.VersionControl
         Microsoft.WindowsAzure.Storage.Blob.CloudBlobContainer container;
         public VCmanager(string sasUri)
         {
-            this.container = new CloudBlobContainer(new Uri(sasUri));                  
+            try
+            {
+                this.container = new CloudBlobContainer(new Uri(sasUri));
+            }catch(Exception e){
+                Program.ClientForm.addtoConsole("vm manager:"+e.ToString());
+            }
         }
         
         

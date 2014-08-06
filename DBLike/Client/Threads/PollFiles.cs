@@ -104,6 +104,7 @@ namespace Client.Threads
                 if (msgpoll.indicator == "OK")
                 {
                     new Client.PollFunction.Poll(msgpoll.fileContainerUri);
+                    Configuration.userInfo.containerURI = msgpoll.fileContainerUri;
                 }
                 Configuration.flag.polling = false; 
             }

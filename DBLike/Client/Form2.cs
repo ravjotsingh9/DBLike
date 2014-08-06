@@ -21,26 +21,20 @@ namespace Client
         
         public Form2()
         {
-            Program.ClientForm.addtoConsole("Initializing Form 2");
+            Program.ClientForm.addtoConsole("Initializing Form2");
             InitializeComponent();
-            Configuration.userInfo.containerURI = "null";
+            //Configuration.userInfo.containerURI = "null";
             VCThread vcThread = new VCThread();
             Thread thread = new Thread(() => vcThread.start());
-            thread.Start();
+            //thread.Start();
             Program.ClientForm.addtoConsole("vcThread Started");
-            thread.Join();
-            if (Configuration.userInfo.containerURI != "null")
-            {
-                VC = new VCmanager(Configuration.userInfo.containerURI);
-                blobscollect = VC.list();
-                listBox1.DataSource = blobscollect.blobNames;
-            }
-            else
-            {
-                listBox1.DataSource = "Not able connect to Server";
-            }
-           
+            //thread.Join();
             
+            VC = new VCmanager(Configuration.userInfo.containerURI);
+            blobscollect = VC.list();
+            listBox1.DataSource = blobscollect.blobNames;
+         
+        
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -62,8 +56,11 @@ namespace Client
 
         private void Refreshbtn_Click(object sender, EventArgs e)
         {
-            blobscollect = VC.list();
-            listBox1.DataSource = blobscollect.blobNames;
+           
+
+            
+           blobscollect = VC.list();
+           listBox1.DataSource = blobscollect.blobNames;
         }
 
 
